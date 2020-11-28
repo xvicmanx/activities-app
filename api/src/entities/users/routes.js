@@ -40,7 +40,7 @@ const getRoutes = () => {
 
   /**
    * @typedef UserLoginPayload
-   * @property {string} username
+   * @property {string} email
    * @property {string} password
    */
 

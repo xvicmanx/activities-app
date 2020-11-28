@@ -81,7 +81,7 @@ class UsersController {
     );
 
     if (!result) {
-      invalidParamError(request, response, 'Invalid user or password');
+      invalidParamError(request, response, 'Invalid email or password');
       return;
     }
 

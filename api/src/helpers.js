@@ -27,7 +27,10 @@ export const getLoggedInUser = (req: $Request) => {
 
 export const authRequired = (cb: Function) => (req: $Request, res: $Response, next: Function) => {
   if (!res.locals.user) {
-    res.status(401).json({ message: 'It is not authorized' });
+    res.status(401).json({
+      message: 'It is not authorized',
+      code: 'NOT_AUTHORIZED',
+    });
   } else {
     cb(req, res, next);
   }
@@ -36,6 +39,7 @@ export const authRequired = (cb: Function) => (req: $Request, res: $Response, ne
 export const invalidParamError = (req: $Request, res: $Response, message: string) => {
   res.status(400).json({
     message: `Invalid parameters: ${message}`,
+    code: 'INVALID_PARAMETERS',
   });
 };
 
