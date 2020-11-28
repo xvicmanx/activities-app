@@ -26,11 +26,23 @@ const getRoutes = () => {
    * @property {integer} willAttendCount
    */
 
+  /**
+   * @typedef ActivityParticipant
+   * @property {integer} id
+   * @property {string} name
+   * @property {string} profileURL
+   */
 
   /**
    * @typedef PendingActivitiesResponse
    * @property {boolean} success
    * @property {ActivityListInfo[]} activities
+   */
+
+  /**
+   * @typedef ActivityParticipantsListResponse
+   * @property {boolean} success
+   * @property {ActivityParticipant[]} participants
    */
 
   /**
@@ -42,6 +54,17 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.get('/pending', authRequired(controller.getPendingActivities));
+
+  /**
+   * Gets the activity participants list
+   * @route GET /activities/:id/participants-list
+   * @group Activity - Activity
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {ActivityParticipantsListResponse.model} 200 - activity participants list response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.get('/:id/participants-list', authRequired(controller.getParticipantsList));
+
 
   return app;
 };

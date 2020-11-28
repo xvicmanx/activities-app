@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // @flow
 
 import type {
@@ -59,6 +60,23 @@ export class ValidationError extends Error {
   }
 }
 
+export class NotFoundError extends Error {
+  code: string;
+
+  status: number;
+
+  constructor(message: string = '') {
+    super(message);
+    this.name = 'NotFoundError';
+    this.status = 404;
+    this.code = 'NOT_FOUND';
+  }
+}
+
 export const throwValidationError = (param: string, extraMessage: string = '') => {
   throw new ValidationError(param, extraMessage);
+};
+
+export const throwNotFoundError = (message: string) => {
+  throw new ValidationError(message);
 };

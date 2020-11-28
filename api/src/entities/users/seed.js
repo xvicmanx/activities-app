@@ -18,6 +18,7 @@ export default async () => {
         name: faker.name.findName(),
         email: faker.internet.email(),
         description: faker.lorem.text(),
+        profileURL: faker.image.imageUrl(),
         password,
       }));
 
@@ -26,12 +27,14 @@ export default async () => {
         name: 'John Doe',
         email: 'johndoe@test.com',
         description: faker.lorem.text(),
+        profileURL: faker.image.imageUrl(),
         password,
       },
       {
         name: 'Mary Jane',
         email: 'maryjane@test.com',
         description: faker.lorem.text(),
+        profileURL: faker.image.imageUrl(),
         password,
       },
       ...fakeUsersData,
