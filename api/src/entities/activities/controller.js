@@ -30,6 +30,20 @@ class ActivitiesController {
       success: true,
     });
   }
+
+  getParticipantsList = async (request: $Request, response: $Response) => {
+    const { params } = request;
+
+    if (!params.id) {
+      invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      participants: await this.service.getParticipantsList(+params.id),
+      success: true,
+    });
+  }
 }
 
 export default ActivitiesController;

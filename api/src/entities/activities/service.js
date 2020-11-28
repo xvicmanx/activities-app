@@ -1,5 +1,6 @@
 // @flow
 
+import { throwNotFoundError } from '../../helpers';
 import User from '../users/model';
 import Activity from './model';
 
@@ -10,6 +11,12 @@ type ActivityListInfo = {
   date: Date,
   userWillAttend: boolean,
   willAttendCount: Number,
+};
+
+type ActivityParticipant = {
+  id: number,
+  name: string,
+  profileURL: string,
 };
 
 const willAttend = (x) => x.UserActivity.willAttend;
@@ -23,13 +30,14 @@ class ActivitiesService {
         as: 'activities',
         include: [{
           model: User,
+          as: 'participants',
           attributes: ['id'],
         }],
       }],
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throwNotFoundError('User not found');
     }
 
     return user.activities.map((activity) => ({
@@ -38,12 +46,33 @@ class ActivitiesService {
       description: activity.description,
       date: activity.date,
       userWillAttend: willAttend(activity),
-      willAttendCount: activity.users.filter(willAttend).length,
+      willAttendCount: activity.participants.filter(willAttend).length,
     }));
   }
 
+  async getParticipantsList(activityId: number): Promise<Array<ActivityParticipant>> {
+    const activity = await Activity.findOne({
+      where: { id: activityId },
+      include: this.include,
+    });
+
+    if (!activity) {
+      throwNotFoundError('Activity not found');
+    }
+
+    return activity.participants.filter(willAttend);
+  }
+
   get include() {
-    return [];
+    return [{
+      model: User,
+      as: 'participants',
+      attributes: [
+        'id',
+        'name',
+        'profileURL',
+      ],
+    }];
   }
 }
 

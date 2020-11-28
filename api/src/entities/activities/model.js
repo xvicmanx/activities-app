@@ -27,7 +27,13 @@ class Activity extends Sequelize.Model<ActivityAttributes> {
 
   static associate(models: Object) {
     // $FlowFixMe
-    this.participants = this.belongsToMany(models.User, { through: models.UserActivity });
+    this.participants = this.belongsToMany(
+      models.User,
+      {
+        through: models.UserActivity,
+        as: 'participants',
+      },
+    );
   }
 }
 

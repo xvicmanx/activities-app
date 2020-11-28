@@ -17,6 +17,12 @@ const mapPendingActivityItem = (x) => ({
   willAttendCount: x.willAttendCount,
 });
 
+const mapParticipantItem = (x) => ({
+  id: x.id,
+  name: x.name,
+  profileURL: x.profileURL,
+});
+
 describe('Activity API', () => {
   describe('Getting pending activies', () => {
     const getPendingActivities = async (user) => {
@@ -57,6 +63,57 @@ describe('Activity API', () => {
       expect(response.activities.map(mapPendingActivityItem))
         .to.eql(activities.map(mapPendingActivityItem)
           .map((x) => ({ ...x, userWillAttend: true, willAttendCount: 1 })));
+    });
+  });
+
+  describe('Getting activity participants list', () => {
+    const getActivityParticipantsList = async (id, user) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.get(getUrl(`/activities/${id}/participants-list`), headers);
+    };
+
+    let users;
+    let activity;
+    let willAttend;
+    let loggedInUser;
+
+    before(async () => {
+      loggedInUser = await createTestUser();
+      users = [
+        await createTestUser(),
+        await createTestUser(),
+        await createTestUser(),
+      ];
+
+      willAttend = [
+        true,
+        true,
+        false,
+      ];
+
+      activity = await createTestActivity();
+
+      await Promise.all(users.map((user, i) => user.addActivity(activity, { through: { willAttend: willAttend[i] } })));
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await getActivityParticipantsList(activity.id, null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.user).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('successfully returns the participants list', async () => {
+      const response = await getActivityParticipantsList(activity.id, loggedInUser);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(response.participants.map(mapParticipantItem))
+        .to.eql(users.slice(0, 2).map(mapParticipantItem));
     });
   });
 });

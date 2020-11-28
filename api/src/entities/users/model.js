@@ -6,7 +6,8 @@ export type UserAttributes = {
   id?: number;
   name: string;
   email: string;
-  description: string;
+  description?: string;
+  profileURL?: string;
   password?: string;
 };
 
@@ -21,7 +22,8 @@ class User extends Sequelize.Model<UserAttributes> {
           unique: true,
           required: true,
         },
-        description: { type: Sequelize.STRING, required: true },
+        description: { type: Sequelize.STRING },
+        profileURL: { type: Sequelize.STRING },
         password: { type: Sequelize.STRING, required: true },
       },
       {

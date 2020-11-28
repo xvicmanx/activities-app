@@ -13,6 +13,7 @@ export default async () => {
     email: faker.internet.email(),
     password,
     description: faker.lorem.text(),
+    profileURL: faker.image.imageUrl(),
   });
 
   return user.reload();
