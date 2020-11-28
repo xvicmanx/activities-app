@@ -9,7 +9,7 @@ import createTestUser from '../users/test-entity-factory';
 import createTestActivity from './test-entity-factory';
 
 
-const mapPendingActivityItem = (x) => ({
+const mapActivityItem = (x) => ({
   title: x.title,
   description: x.description,
   date: x.date.toISOString ? x.date.toISOString() : x.date.toString(),
@@ -60,8 +60,8 @@ describe('Activity API', () => {
       const response = await getPendingActivities(user);
       expect(response.success).to.be.equal(true);
       expect(response.message).to.be.equal(undefined);
-      expect(response.activities.map(mapPendingActivityItem))
-        .to.eql(activities.map(mapPendingActivityItem)
+      expect(response.activities.map(mapActivityItem))
+        .to.eql(activities.map(mapActivityItem)
           .map((x) => ({ ...x, userWillAttend: true, willAttendCount: 1 })));
     });
   });
@@ -114,6 +114,102 @@ describe('Activity API', () => {
       expect(response.message).to.be.equal(undefined);
       expect(response.participants.map(mapParticipantItem))
         .to.eql(users.slice(0, 2).map(mapParticipantItem));
+    });
+  });
+
+  describe('Joining an activity', () => {
+    let userInvitedToActivity;
+    let userNotInvitedToActivity;
+    let activity;
+
+    const join = async (id, logInUser) => {
+      let headers = {};
+
+      if (logInUser) {
+        headers = await getAuthHeaders(logInUser);
+      }
+
+      return requester.put(getUrl(`/activities/${id}/join`), {}, headers);
+    };
+
+    before(async () => {
+      userInvitedToActivity = await createTestUser();
+      userNotInvitedToActivity = await createTestUser();
+      activity = await createTestActivity();
+
+      await activity.addParticipant(userInvitedToActivity);
+    });
+
+    it('fails if the is not logged in', async () => {
+      const response = await join(activity.id, null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.activity).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the user is not invited to activity', async () => {
+      const response = await join(activity.id, userNotInvitedToActivity);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('User is not part of the activity');
+    });
+
+    it('accepts the request successfully if the user is logged in and was invited to activity', async () => {
+      const response = await join(activity.id, userInvitedToActivity);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(mapActivityItem(response.activity)).to.be.eql({
+        ...mapActivityItem(activity),
+        userWillAttend: true,
+        willAttendCount: 1,
+      });
+    });
+  });
+
+  describe('Unjoining an activity', () => {
+    let userInvitedToActivity;
+    let userNotInvitedToActivity;
+    let activity;
+
+    const unjoin = async (id, logInUser) => {
+      let headers = {};
+
+      if (logInUser) {
+        headers = await getAuthHeaders(logInUser);
+      }
+
+      return requester.put(getUrl(`/activities/${id}/unjoin`), {}, headers);
+    };
+
+    before(async () => {
+      userInvitedToActivity = await createTestUser();
+      userNotInvitedToActivity = await createTestUser();
+      activity = await createTestActivity();
+
+      await activity.addParticipant(userInvitedToActivity, { through: { willAttend: true } });
+    });
+
+    it('fails if the is not logged in', async () => {
+      const response = await unjoin(activity.id, null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.activity).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the user is not invited to activity', async () => {
+      const response = await unjoin(activity.id, userNotInvitedToActivity);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('User is not part of the activity');
+    });
+
+    it('accepts the request successfully if the user is logged in and was invited to activity', async () => {
+      const response = await unjoin(activity.id, userInvitedToActivity);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(mapActivityItem(response.activity)).to.be.eql({
+        ...mapActivityItem(activity),
+        userWillAttend: false,
+        willAttendCount: 0,
+      });
     });
   });
 });

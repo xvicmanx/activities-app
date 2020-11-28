@@ -48,7 +48,7 @@ const getRoutes = () => {
   /**
    * Gets the current user pending activities
    * @route GET /activities/pending
-   * @group Activity - Activity
+   * @group Activity - Operations about activity
    * @param {string} authorization.header.required - authorization token header
    * @returns {PendingActivitiesResponse.model} 200 - pending activities response
    * @returns {Error}  default - Unexpected error
@@ -58,13 +58,34 @@ const getRoutes = () => {
   /**
    * Gets the activity participants list
    * @route GET /activities/:id/participants-list
-   * @group Activity - Activity
+   * @group Activity - Operations about activity
    * @param {string} authorization.header.required - authorization token header
    * @returns {ActivityParticipantsListResponse.model} 200 - activity participants list response
    * @returns {Error}  default - Unexpected error
    */
   app.get('/:id/participants-list', authRequired(controller.getParticipantsList));
 
+  /**
+  * Joins an activity
+  * @route PUT /{id}/join
+  * @group Activity - Operations about activity
+  * @param {integer} id.path.required - the id of the activity
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {RequestResponse.model} 200 - accept response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/:id/join', authRequired(controller.joinActivity));
+
+  /**
+  * Joins an activity
+  * @route PUT /{id}/join
+  * @group Activity - Operations about activity
+  * @param {integer} id.path.required - the id of the activity
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {RequestResponse.model} 200 - accept response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/:id/unjoin', authRequired(controller.unjoinActivity));
 
   return app;
 };

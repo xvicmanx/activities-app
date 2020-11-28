@@ -5,7 +5,7 @@ import type {
   $Response,
 } from 'express';
 
-import { invalidParamError } from '../../helpers';
+import { handleError, invalidParamError } from '../../helpers';
 import ActivitiesService from './service';
 
 class ActivitiesController {
@@ -15,7 +15,7 @@ class ActivitiesController {
     this.service = service;
   }
 
-  getPendingActivities = async (request: $Request, response: $Response) => {
+  getPendingActivities = async (request: $Request, response: $Response) => handleError(async () => {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
@@ -29,9 +29,9 @@ class ActivitiesController {
       activities,
       success: true,
     });
-  }
+  }, response);
 
-  getParticipantsList = async (request: $Request, response: $Response) => {
+  getParticipantsList = async (request: $Request, response: $Response) => handleError(async () => {
     const { params } = request;
 
     if (!params.id) {
@@ -43,7 +43,49 @@ class ActivitiesController {
       participants: await this.service.getParticipantsList(+params.id),
       success: true,
     });
-  }
+  }, response);
+
+  joinActivity = async (request: $Request, response: $Response) => handleError(async () => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      invalidParamError(request, response, 'The user is missing');
+      return;
+    }
+
+    const { params } = request;
+
+    if (!params.id) {
+      invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      activity: await this.service.joinActivity(+params.id, +loggedInUser.id),
+      success: true,
+    });
+  }, response);
+
+  unjoinActivity = async (request: $Request, response: $Response) => handleError(async () => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      invalidParamError(request, response, 'The user is missing');
+      return;
+    }
+
+    const { params } = request;
+
+    if (!params.id) {
+      invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      activity: await this.service.unjoinActivity(+params.id, +loggedInUser.id),
+      success: true,
+    });
+  }, response);
 }
 
 export default ActivitiesController;

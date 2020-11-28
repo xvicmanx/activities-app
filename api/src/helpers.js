@@ -80,3 +80,14 @@ export const throwValidationError = (param: string, extraMessage: string = '') =
 export const throwNotFoundError = (message: string) => {
   throw new ValidationError(message);
 };
+
+
+export const handleError = async (fn: Function, response: $Response) => {
+  try {
+    await fn();
+  } catch (err) {
+    response.status(err.status || 500).json({
+      message: err.status ? err.message : 'UnexpectedError',
+    });
+  }
+};
