@@ -34,7 +34,7 @@ const getRoutes = () => {
 
   /**
    * Gets the current user communities
-   * @route GET /list-for-user
+   * @route GET /communities/list-for-user
    * @group Community - Community
    * @param {string} authorization.header.required - authorization token header
    * @returns {PendingCommunitiesResponse.model} 200 - user communities response

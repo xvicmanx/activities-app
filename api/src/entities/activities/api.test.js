@@ -9,10 +9,12 @@ import createTestUser from '../users/test-entity-factory';
 import createTestActivity from './test-entity-factory';
 
 
-const mapItem = (x) => ({
+const mapPendingActivityItem = (x) => ({
   title: x.title,
   description: x.description,
   date: x.date.toISOString ? x.date.toISOString() : x.date.toString(),
+  userWillAttend: x.userWillAttend,
+  willAttendCount: x.willAttendCount,
 });
 
 describe('Activity API', () => {
@@ -38,7 +40,7 @@ describe('Activity API', () => {
       ];
       user = await createTestUser();
 
-      await Promise.all(activities.map((activity) => user.addActivity(activity)));
+      await Promise.all(activities.map((activity) => user.addActivity(activity, { through: { willAttend: true } })));
     });
 
     it('fails if the user is not logged in', async () => {
@@ -52,7 +54,9 @@ describe('Activity API', () => {
       const response = await getPendingActivities(user);
       expect(response.success).to.be.equal(true);
       expect(response.message).to.be.equal(undefined);
-      expect(response.activities.map(mapItem)).to.eql(activities.map(mapItem));
+      expect(response.activities.map(mapPendingActivityItem))
+        .to.eql(activities.map(mapPendingActivityItem)
+          .map((x) => ({ ...x, userWillAttend: true, willAttendCount: 1 })));
     });
   });
 });
