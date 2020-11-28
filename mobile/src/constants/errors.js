@@ -5,5 +5,6 @@ export const ERRORS = {
     less6: 'La contraseña debe tener al menos 6 caracteres',
   },
 
-  email: 'Email invalido',
+  email: 'Email o contraseña invalido',
+  emailFormat: 'Email invalido',
 };

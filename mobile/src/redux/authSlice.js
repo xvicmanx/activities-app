@@ -31,7 +31,7 @@ export const checkUserInfo = () => async (dispatch) => {
   try {
     const res = await AuthServices.checkUserInfo();
 
-    if (res.message === 'It is not authorized') {
+    if (res.code === 'NOT_AUTHORIZED') {
       dispatch(setUser(null));
       return;
     }

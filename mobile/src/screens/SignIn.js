@@ -28,6 +28,7 @@ const SignIn = () => {
     if (passwordError) {
       setPasswordError(null);
     }
+
     if (error) {
       dispatch(setError(null));
     }
@@ -37,12 +38,12 @@ const SignIn = () => {
     const validEmailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     if (!email.match(validEmailRegExp)) {
-      setEmailError(ERRORS.email);
+      setEmailError(ERRORS.emailFormat);
       return;
     }
 
     if (password.length < 6) {
-      setPasswordError(ERRORS.password.incorrect);
+      setPasswordError(ERRORS.password.less6);
       return;
     }
 
