@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Avatar } from '../components';
-import { useRoute } from '@react-navigation/native';
+import { Avatar, Loader } from '../components';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOtherUserInfo } from '../redux/otherUserSlice';
 
 const OtherUserInfo = () => {
+  const dispatch = useDispatch();
+  const { isLoading, data } = useSelector((state) => state.otherUser);
+  const user = useSelector((state) => state.auth.user);
   const { params } = useRoute();
+  const { setOptions } = useNavigation();
+
+  useEffect(() => {
+    setOptions({ title: params.name });
+  });
+
+  useEffect(() => {
+    dispatch(fetchOtherUserInfo(params.id, user.token));
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView style={styles.container}>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
-        <Avatar size={75} />
-        <Text style={styles.name}>{user.name}</Text>
+        <Avatar size={75} img={data.profileURL} />
+        <Text style={styles.name}>{data.name}</Text>
       </View>
 
-      <Text style={styles.description}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.{'\n\n'}Lorem Ipsum has been the industry's standard dummy text
-        ever since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
-      </Text>
+      <Text style={styles.description}>{data.description}</Text>
 
       <View style={{ height: 100 }} />
     </ScrollView>

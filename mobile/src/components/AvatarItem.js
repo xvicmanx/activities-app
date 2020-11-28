@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Avatar from './Avatar';
 
-const AvatarItem = ({ name, onPress }) => {
+const AvatarItem = ({ name, onPress, img }) => {
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback onPress={onPress}>
         <View style={styles.content}>
-          <Avatar style={{ marginRight: 5 }} size={45} />
+          <Avatar img={img} style={{ marginRight: 5 }} size={45} />
           <Text>{name}</Text>
         </View>
       </TouchableNativeFeedback>

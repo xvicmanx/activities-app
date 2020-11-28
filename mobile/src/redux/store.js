@@ -3,6 +3,7 @@ import signinSlice from './signinSlice';
 import authSlice from './authSlice';
 import activitiesSlice from './activitiesSlice';
 import communitiesSlice from './communitiesSlice';
+import otherUserSlice from './otherUserSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authSlice,
     communities: communitiesSlice,
     activities: activitiesSlice,
+    otherUser: otherUserSlice,
   },
 });
 

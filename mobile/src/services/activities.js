@@ -4,4 +4,11 @@ const getActivities = async (token) => {
   return await requester({ path: '/activities/pending', token });
 };
 
-export default { getActivities };
+const getParticipants = async (activityId, token) => {
+  return await requester({
+    path: `/activities/${activityId}/participants-list`,
+    token,
+  });
+};
+
+export default { getActivities, getParticipants };

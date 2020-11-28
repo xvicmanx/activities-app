@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { AvatarItem, Loader } from '../components';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchParticipants } from '../redux/activitiesSlice';
 
@@ -12,9 +12,10 @@ const ParticipantesList = () => {
   );
   const user = useSelector((state) => state.auth.user);
   const { navigate } = useNavigation();
+  const { params } = useRoute();
 
   useEffect(() => {
-    dispatch(fetchParticipants());
+    dispatch(fetchParticipants(params.activityId, user.token));
   }, []);
 
   if (isLoading) {
@@ -23,11 +24,13 @@ const ParticipantesList = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {list.map(() => {
+      {list.map(({ id, name, profileURL }) => {
         return (
           <AvatarItem
-            name="Wally Trejo"
-            onPress={() => navigate('OtherUserInfoScreen', {})}
+            key={id}
+            name={name}
+            img={profileURL}
+            onPress={() => navigate('OtherUserInfoScreen', { id, name })}
           />
         );
       })}

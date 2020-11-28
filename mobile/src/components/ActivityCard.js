@@ -12,7 +12,7 @@ const ActivityCard = ({ item }) => {
   const cancel = () => {};
 
   const seeWhoGoes = () => {
-    navigate('ParticipantesListScreen');
+    navigate('ParticipantesListScreen', { activityId: item.id });
   };
 
   return (

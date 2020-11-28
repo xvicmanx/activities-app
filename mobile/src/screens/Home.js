@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { NoActivity, ActivityCard, Loader } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchActivities } from '../redux/activitiesSlice';
@@ -25,7 +19,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({ title: `Actividades (${activities.length})` });
-  }, []);
+  }, [activities]);
 
   useEffect(() => {
     dispatch(fetchActivities(user.token));

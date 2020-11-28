@@ -16,10 +16,14 @@ const activitiesSlice = createSlice({
       state.activities = action.payload;
       state.isLoading = false;
     },
+    setParticipants: (state, action) => {
+      state.participants.list = action.payload;
+      state.participants.isLoading = false;
+    },
   },
 });
 
-export const { setActivities } = activitiesSlice.actions;
+export const { setActivities, setParticipants } = activitiesSlice.actions;
 
 export const fetchActivities = (token) => async (dispatch) => {
   try {
@@ -33,12 +37,12 @@ export const fetchActivities = (token) => async (dispatch) => {
   }
 };
 
-export const fetchParticipants = (token) => async (dispatch) => {
+export const fetchParticipants = (activityId, token) => async (dispatch) => {
   try {
-    //const res = await ActivitiesServices.getActivities(token);
+    const res = await ActivitiesServices.getParticipants(activityId, token);
 
     if (res.success) {
-      // dispatch(setActivities(res.activities));
+      dispatch(setParticipants(res.participants));
     }
   } catch (error) {
     console.log(error);
