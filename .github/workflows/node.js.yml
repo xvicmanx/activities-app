@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd api && npm install
-    - run: cd api && npm lint
+    - run: cd api && npm run lint
     - run: cd api && npm test
