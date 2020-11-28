@@ -90,5 +90,6 @@ export const errorHandler = (fn: Function) => async (req: $Request, res: $Respon
     res.status(err.status || 500).json({
       message: err.status ? err.message : 'UnexpectedError',
     });
+    return null;
   }
 };
