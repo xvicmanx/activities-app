@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    [
+      "module:react-native-dotenv",
+      {
+        "allowUndefined": false
+      }
+    ]
+  ]
+}

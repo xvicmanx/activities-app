@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Avatar from './Avatar';
 
-const AvatarItem = ({ name }) => {
+const AvatarItem = ({ name, onPress }) => {
   return (
     <View style={styles.container}>
-      <TouchableNativeFeedback onPress={() => console.warn('OK')}>
+      <TouchableNativeFeedback onPress={onPress}>
         <View style={styles.content}>
           <Avatar style={{ marginRight: 5 }} size={45} />
           <Text>{name}</Text>
@@ -18,7 +18,7 @@ const AvatarItem = ({ name }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   content: {
     flexDirection: 'row',

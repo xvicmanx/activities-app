@@ -34,8 +34,6 @@ export const loginUser = (email, password) => async (dispatch) => {
   try {
     const res = await AuthService.loginUser(email, password);
 
-    console.log(res);
-
     if (res.code === 'INVALID_PARAMETERS') {
       dispatch(setError(ERRORS.email));
       return;
