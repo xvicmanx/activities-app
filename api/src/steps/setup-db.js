@@ -22,7 +22,16 @@ const modelFiles = requireAll({
 });
 
 const defineModels = (sequelize) => {
-  const models = {};
+  const UserActivity = sequelize.define(
+    'UserActivity',
+    {
+      willAttend: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+    },
+  );
+  const models = { UserActivity };
 
   Object.keys(modelFiles).forEach((key) => {
     const Klass = modelFiles[key]['model.js'].default;

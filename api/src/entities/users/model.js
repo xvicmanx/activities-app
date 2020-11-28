@@ -32,7 +32,10 @@ class User extends Sequelize.Model<UserAttributes> {
     );
   }
 
-  static associate() {}
+  static associate(models: Object) {
+    // $FlowFixMe
+    this.activities = this.belongsToMany(models.Activity, { through: models.UserActivity });
+  }
 }
 
 export default User;

@@ -1,6 +1,0 @@
---sort
---require mocha-snapshots
---require @babel/register
---file ./src/steps/setup-tests.js
---timeout 120000
---slow 200ms
