@@ -34,7 +34,10 @@ class UsersController {
       return;
     }
 
-    response.json({ user: getSafeUser(user), success: true });
+    response.json({
+      user: getSafeUser(user),
+      success: true,
+    });
   }
 
   current = async (request: $Request, response: $Response) => {
