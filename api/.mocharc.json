@@ -1,0 +1,8 @@
+
+{
+  "diff": true,
+  "slow": 1500,
+  "timeout": 120000,
+  "file": ["./src/steps/setup-tests.js"],
+  "require": ["mocha-snapshots", "@babel/register"]
+  }
