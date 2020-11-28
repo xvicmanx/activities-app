@@ -28,8 +28,7 @@ class Community extends Sequelize.Model<CommunityAttributes> {
   }
 
   static associate(models: Object) {
-    // $FlowFixMe
-    this.members = this.belongsToMany(models.User, { through: models.UserCommunity });
+    this.members = this.belongsToMany(models.User, { through: models.UserCommunity, as: 'members' });
   }
 }
 
