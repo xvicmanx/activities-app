@@ -43,7 +43,7 @@ const SignIn = () => {
     }
 
     if (password.length < 6) {
-      setPasswordError(ERRORS.password.less6);
+      setPasswordError(ERRORS.password.lessThanSixCharacters);
       return;
     }
 
