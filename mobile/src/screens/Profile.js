@@ -2,13 +2,24 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Avatar, Button, Input } from '../components';
+import { ERRORS } from '../constants/errors';
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
+
+  const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const repeatPasswordRef = useRef();
+  const [passwordError, setPasswordError] = useState(null);
 
+  const repeatPasswordRef = useRef();
+  const newPasswordRef = useRef();
+
+  const [isEditing, setIsEdting] = useState(false);
+
+  const onCurrentPasswordChange = (value) => {
+    setCurrentPassword(value);
+  };
   const onPasswordChange = (value) => {
     setPassword(value);
   };
@@ -17,61 +28,87 @@ const Profile = () => {
   };
 
   const editDescription = () => {};
-  const changePassword = () => {};
+
+  const editPassword = () => {
+    setIsEdting(true);
+  };
+
+  const changePassword = () => {
+    //
+  };
+
   const closeSession = () => {};
 
   return (
     <ScrollView style={styles.container}>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
-        <Avatar size={75} />
+        <Avatar size={75} img={user.profileURL} />
         <Text style={styles.name}>{user.name}</Text>
       </View>
 
-      <Text style={styles.description}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.{'\n\n'}Lorem Ipsum has been the industry's standard dummy text
-        ever since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
-      </Text>
+      <Text style={styles.description}>{user.description}</Text>
 
-      <Button onPress={editDescription} small>
-        Editar Descripcion
-      </Button>
+      <View style={styles.bottonsContainer}>
+        <Button onPress={editDescription} small>
+          Editar Descripcion
+        </Button>
+
+        <Button onPress={editPassword} small>
+          Cambiar Contraseña
+        </Button>
+      </View>
 
       <View style={styles.lineBreak} />
 
-      <View style={{ marginBottom: 50 }}>
-        <Text style={styles.label}>Cambiar Contraseña</Text>
+      {isEditing && (
+        <View style={{ marginBottom: 50 }}>
+          <Text style={styles.label}>Cambiar Contraseña</Text>
 
-        <Input
-          value={password}
-          onChange={onPasswordChange}
-          placeholder="Escribre la nueva contraseña..."
-          secureTextEntry
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            repeatPasswordRef.current.focus();
-          }}
-          blurOnSubmit={false}
-        />
+          <Input
+            value={currentPassword}
+            onChange={onCurrentPasswordChange}
+            placeholder="Escribre la contraseña actual..."
+            secureTextEntry
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              newPasswordRef.current.focus();
+            }}
+            blurOnSubmit={false}
+          />
 
-        <View style={styles.lineBreak} />
+          <View style={styles.lineBreak} />
 
-        <Input
-          value={repeatPassword}
-          onChange={onRepeatPasswordChange}
-          placeholder="Repite la contraseña..."
-          secureTextEntry
-          ref={repeatPasswordRef}
-          error={false}
-        />
+          <Input
+            value={password}
+            onChange={onPasswordChange}
+            placeholder="Escribre la nueva contraseña..."
+            secureTextEntry
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              repeatPasswordRef.current.focus();
+            }}
+            blurOnSubmit={false}
+            ref={newPasswordRef}
+          />
 
-        <View style={styles.lineBreak} />
+          <View style={styles.lineBreak} />
 
-        <Button onPress={changePassword} small>
-          Cambiar
-        </Button>
-      </View>
+          <Input
+            value={repeatPassword}
+            onChange={onRepeatPasswordChange}
+            placeholder="Repite la nueva contraseña..."
+            secureTextEntry
+            ref={repeatPasswordRef}
+            error={passwordError}
+          />
+
+          <View style={styles.lineBreak} />
+
+          <Button onPress={changePassword} small>
+            Cambiar
+          </Button>
+        </View>
+      )}
 
       <Button onPress={closeSession} danger>
         Cerrar Sesion
@@ -94,7 +131,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 20,
-    marginBottom: 20,
+    marginBottom: 40,
   },
   lineBreak: {
     height: 15,
@@ -102,6 +139,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  bottonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginBottom: 10,
   },
 });

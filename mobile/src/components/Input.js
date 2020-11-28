@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 10,
-    fontSize: 16,
+    fontSize: 14,
   },
   errorText: {
     marginTop: 6,

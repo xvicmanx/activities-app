@@ -40,8 +40,8 @@ export const fetchActivities = (token) => async (dispatch) => {
 export const fetchParticipants = (activityId, token) => async (dispatch) => {
   try {
     const res = await ActivitiesServices.getParticipants(activityId, token);
-
     if (res.success) {
+      // dispatch(setActivities(res.activities));
       dispatch(setParticipants(res.participants));
     }
   } catch (error) {
