@@ -10,7 +10,7 @@ const Community = () => {
   const isLoading = useSelector((state) => state.communities.communityLoader);
   const community = useSelector((state) => state.communities.communityDetails);
   const currentUser = useSelector((state) => state.auth.user);
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate } = useNavigation();
   const { params } = useRoute();
 
   useEffect(() => {
@@ -34,7 +34,17 @@ const Community = () => {
           return (
             <View>
               <Text style={styles.label}>Coordinadores:</Text>
-              <AvatarItem key={member.id} name={member.name} />
+              <AvatarItem
+                img={member.profileURL}
+                key={member.id}
+                name={member.name}
+                onPress={() =>
+                  navigate('OtherUserInfoScreen', {
+                    id: member.id,
+                    name: member.name,
+                  })
+                }
+              />
             </View>
           );
         }
@@ -44,7 +54,19 @@ const Community = () => {
 
       {community.members.map((member) => {
         if (!member.coordinates) {
-          return <AvatarItem key={member.id} name={member.name} />;
+          return (
+            <AvatarItem
+              img={member.profileURL}
+              key={member.id}
+              name={member.name}
+              onPress={() =>
+                navigate('OtherUserInfoScreen', {
+                  id: member.id,
+                  name: member.name,
+                })
+              }
+            />
+          );
         }
       })}
 

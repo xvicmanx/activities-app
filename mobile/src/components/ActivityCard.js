@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { unjoinActivity, joinActivity } from '../redux/activitiesSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ActivityCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.user);
   const { navigate } = useNavigation();
 
-  const signup = () => {};
+  const signup = () => {
+    dispatch(joinActivity(item.id, currentUser.token));
+  };
 
-  const cancel = () => {};
+  const cancel = () => {
+    dispatch(unjoinActivity(item.id, currentUser.token));
+  };
 
   const seeWhoGoes = () => {
     navigate('ParticipantesListScreen', { activityId: item.id });
   };
+
+  const button = item.userWillAttend ? (
+    <Button danger onPress={cancel}>
+      Cancelar
+    </Button>
+  ) : (
+    <Button onPress={signup}>Anotarse</Button>
+  );
 
   return (
     <View style={styles.container}>
@@ -31,13 +47,7 @@ const ActivityCard = ({ item }) => {
         Ver quienes van ({item.willAttendCount})
       </Text>
 
-      {item.userWillAttend ? (
-        <Button danger onPress={cancel}>
-          Cancelar
-        </Button>
-      ) : (
-        <Button onPress={signup}>Anotarse</Button>
-      )}
+      {button}
     </View>
   );
 };
