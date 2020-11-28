@@ -15,7 +15,7 @@ const EXPIRATION = Math.floor(Date.now() / 1000) + (24 * 60 * 60);
 
 export const getUserTokenInfo = (user: User) => {
   const {
-    username,
+    email,
     id,
   } = user.get({ plain: true });
 
@@ -23,7 +23,7 @@ export const getUserTokenInfo = (user: User) => {
     token: jwt.sign(
       {
         id,
-        username,
+        email,
       },
       SECRET,
       { expiresIn: EXPIRATION },
@@ -58,15 +58,15 @@ class UsersService {
   async findByToken(token: string): Promise<?User> {
     const {
       id,
-      username,
+      email,
     } = jwt.verify(token, SECRET);
-    return User.findOne({ where: { id, username } });
+    return User.findOne({ where: { id, email } });
   }
 
-  async login(username: string, password: string): Promise<Object> {
+  async login(email: string, password: string): Promise<Object> {
     const user = await User.findOne({
       where: {
-        username,
+        email,
         password: sha1(password),
       },
       include: this.include,

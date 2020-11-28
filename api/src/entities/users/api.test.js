@@ -23,8 +23,8 @@ const mapItem = (x) => ({
 
 describe('User API', () => {
   describe('Login', () => {
-    const login = async (username, password) => {
-      const payload = { username, password };
+    const login = async (email, password) => {
+      const payload = { email, password };
       return requester.post(getUrl('/users/login'), payload);
     };
 
@@ -36,27 +36,27 @@ describe('User API', () => {
     before(async () => {
       user = await User.create({
         name: 'test user',
-        email: 'email@test.com',
+        email,
         description: 'Hello world',
         password: sha1(password),
       });
     });
 
-    it('fails if the username is wrong', async () => {
-      const response = await login('another-username@test.com', password);
+    it('fails if the email is wrong', async () => {
+      const response = await login('anotheruser@test.com', password);
       expect(response.success).to.be.equal(undefined);
       expect(response.user).to.be.equal(undefined);
-      expect(response.message).to.be.equal('Invalid parameters: Invalid user or password');
+      expect(response.message).to.be.equal('Invalid parameters: Invalid email or password');
     });
 
     it('fails if the password is wrong', async () => {
       const response = await login(email, 'another-pass');
       expect(response.success).to.be.equal(undefined);
       expect(response.user).to.be.equal(undefined);
-      expect(response.message).to.be.equal('Invalid parameters: Invalid user or password');
+      expect(response.message).to.be.equal('Invalid parameters: Invalid email or password');
     });
 
-    it('logins successfully if provided the correct username and password', async () => {
+    it('logins successfully if provided the correct email and password', async () => {
       const response = await login(email, password);
       expect(response.success).to.be.equal(true);
       expect(response.message).to.be.equal(undefined);
