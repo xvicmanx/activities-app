@@ -17,24 +17,25 @@ const getRoutes = () => {
   const controller = new ActivitiesController(service);
 
   /**
-   * @typedef Activity
+   * @typedef ActivityListInfo
    * @property {integer} id
    * @property {string} title.required
    * @property {string} description
    * @property {string} date.required
-   * @property {string} createdAt
-   * @property {string} updatedAt
+   * @property {boolean} userWillAttend
+   * @property {integer} willAttendCount
    */
+
 
   /**
    * @typedef PendingActivitiesResponse
    * @property {boolean} success
-   * @property {Activity[]} activities
+   * @property {ActivityListInfo[]} activities
    */
 
   /**
    * Gets the current user pending activities
-   * @route GET /pending
+   * @route GET /activities/pending
    * @group Activity - Activity
    * @param {string} authorization.header.required - authorization token header
    * @returns {PendingActivitiesResponse.model} 200 - pending activities response
