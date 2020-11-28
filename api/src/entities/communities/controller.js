@@ -6,28 +6,30 @@ import type {
 } from 'express';
 import _ from 'lodash';
 
-import { invalidParamError } from '../../helpers';
+import Controller from '../../common/controller';
 import CommunitiesService from './service';
 
-class CommunitiesController {
+class CommunitiesController extends Controller {
   service: CommunitiesService;
 
   constructor(service: CommunitiesService) {
+    super();
+
     this.service = service;
   }
 
-  findById = async (request: $Request, response: $Response) => {
+  findById = this.errorHandler(async (request: $Request, response: $Response) => {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
-      invalidParamError(request, response, 'The user is not logged in');
+      this.invalidParamError(request, response, 'The user is not logged in');
       return;
     }
 
     const { params } = request;
 
     if (!params.id) {
-      invalidParamError(request, response, 'The "id" param is missing');
+      this.invalidParamError(request, response, 'The "id" param is missing');
       return;
     }
 
@@ -61,13 +63,13 @@ class CommunitiesController {
       },
       success: true,
     });
-  }
+  });
 
-  getUserCommunities = async (request: $Request, response: $Response) => {
+  getUserCommunities = this.errorHandler(async (request: $Request, response: $Response) => {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
-      invalidParamError(request, response, 'The user is missing');
+      this.invalidParamError(request, response, 'The user is missing');
       return;
     }
 
@@ -77,7 +79,7 @@ class CommunitiesController {
       communities,
       success: true,
     });
-  }
+  });
 }
 
 export default CommunitiesController;

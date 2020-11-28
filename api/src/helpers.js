@@ -82,12 +82,14 @@ export const throwNotFoundError = (message: string) => {
 };
 
 
-export const handleError = async (fn: Function, response: $Response) => {
+export const errorHandler = (fn: Function) => async (req: $Request, res: $Response) => {
   try {
-    await fn();
+    const result = await fn(req, res);
+    return result;
   } catch (err) {
-    response.status(err.status || 500).json({
+    res.status(err.status || 500).json({
       message: err.status ? err.message : 'UnexpectedError',
     });
+    return null;
   }
 };

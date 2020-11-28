@@ -5,22 +5,25 @@ import type {
   $Response,
 } from 'express';
 
-import { asObject, invalidParamError } from '../../helpers';
+import Controller from '../../common/controller';
+import { asObject } from '../../helpers';
 import { getSafeUser } from './helpers';
 import UsersService from './service';
 
-class UsersController {
+class UsersController extends Controller {
   service: UsersService;
 
   constructor(service: UsersService) {
+    super();
+
     this.service = service;
   }
 
-  findById = async (request: $Request, response: $Response) => {
+  findById = this.errorHandler(async (request: $Request, response: $Response) => {
     const { params } = request;
 
     if (!params.id) {
-      invalidParamError(request, response, 'The "id" param is missing');
+      this.invalidParamError(request, response, 'The "id" param is missing');
       return;
     }
 
@@ -38,43 +41,43 @@ class UsersController {
       user: getSafeUser(user),
       success: true,
     });
-  }
+  });
 
-  current = async (request: $Request, response: $Response) => {
+  current = this.errorHandler(async (request: $Request, response: $Response) => {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
-      invalidParamError(request, response, 'The user is missing');
+      this.invalidParamError(request, response, 'The user is missing');
       return;
     }
 
     const result = await this.service.current(loggedInUser.id);
 
     response.json({ ...result, success: true });
-  }
+  });
 
-  login = async (request: $Request, response: $Response) => {
+  login = this.errorHandler(async (request: $Request, response: $Response) => {
     const body = asObject(request.body);
 
     const { email, password } = body;
 
     if (!email) {
-      invalidParamError(request, response, 'The "email" param is missing');
+      this.invalidParamError(request, response, 'The "email" param is missing');
       return;
     }
 
     if (!password) {
-      invalidParamError(request, response, 'The "password" param is missing');
+      this.invalidParamError(request, response, 'The "password" param is missing');
       return;
     }
 
     if (typeof email !== 'string') {
-      invalidParamError(request, response, 'The "email" must be a string');
+      this.invalidParamError(request, response, 'The "email" must be a string');
       return;
     }
 
     if (typeof password !== 'string') {
-      invalidParamError(request, response, 'The "password" must be a string');
+      this.invalidParamError(request, response, 'The "password" must be a string');
       return;
     }
 
@@ -84,12 +87,12 @@ class UsersController {
     );
 
     if (!result) {
-      invalidParamError(request, response, 'Invalid email or password');
+      this.invalidParamError(request, response, 'Invalid email or password');
       return;
     }
 
     response.json({ ...result, success: true });
-  }
+  });
 }
 
 export default UsersController;
