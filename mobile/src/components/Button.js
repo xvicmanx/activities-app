@@ -14,7 +14,11 @@ const Button = ({ danger, small, onPress, loading, children }) => {
     danger && styles.danger,
   ];
 
-  const textStyles = [styles.text, danger && styles.textDanger];
+  const textStyles = [
+    styles.text,
+    danger && styles.textDanger,
+    small && styles.smallText,
+  ];
 
   return (
     <TouchableNativeFeedback onPress={onPress}>
@@ -39,6 +43,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  smallText: {
+    fontSize: 14,
   },
   textDanger: {
     color: '#fff',
