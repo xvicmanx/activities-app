@@ -37,21 +37,12 @@ export const fetchActivities = (token) => async (dispatch) => {
   }
 };
 
-<<<<<<< HEAD
 export const fetchParticipants = (activityId, token) => async (dispatch) => {
   try {
     const res = await ActivitiesServices.getParticipants(activityId, token);
-
-    if (res.success) {
-      dispatch(setParticipants(res.participants));
-=======
-export const fetchParticipants = (token) => async (dispatch) => {
-  try {
-    //const res = await ActivitiesServices.getActivities(token);
-
     if (res.success) {
       // dispatch(setActivities(res.activities));
->>>>>>> 98de2a0 (save)
+      dispatch(setParticipants(res.participants));
     }
   } catch (error) {
     console.log(error);
