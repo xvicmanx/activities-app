@@ -7,7 +7,7 @@ export type UserAttributes = {
   name: string;
   email: string;
   description: string;
-  password: string;
+  password?: string;
 };
 
 
@@ -33,8 +33,8 @@ class User extends Sequelize.Model<UserAttributes> {
   }
 
   static associate(models: Object) {
-    // $FlowFixMe
     this.activities = this.belongsToMany(models.Activity, { through: models.UserActivity });
+    this.communities = this.belongsToMany(models.Community, { through: models.UserCommunity });
   }
 }
 

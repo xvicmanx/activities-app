@@ -1,8 +1,9 @@
 // @flow
 
+import User from '../entities/users/model';
 import { getUserTokenInfo } from '../entities/users/service';
 
-export const getAuthHeaders = async (user) => {
+export const getAuthHeaders = async (user: User) => {
   const { token } = await getUserTokenInfo(user);
   return { authorization: `Bearer ${token}` };
 };

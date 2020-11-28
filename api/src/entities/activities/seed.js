@@ -19,7 +19,7 @@ export default async () => {
 
     await Activity.bulkCreate(data);
 
-    let users = await User.findAll();
+    const users = await User.findAll();
     const activites = await Activity.findAll();
 
     const promises = [];
@@ -31,7 +31,5 @@ export default async () => {
     });
 
     await Promise.all(promises);
-
-    users = await User.findAll({ include: { all: true } });
   }
 };
