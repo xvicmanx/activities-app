@@ -1,6 +1,6 @@
 // @flow
 
-import { throwNotFoundError } from '../../helpers';
+import { throwNotFoundError, throwValidationError } from '../../helpers';
 import User from '../users/model';
 import Activity from './model';
 
@@ -61,6 +61,52 @@ class ActivitiesService {
     }
 
     return activity.participants.filter(willAttend);
+  }
+
+  async joinActivity(activityId: number, userId: number): Promise<?ActivityListInfo> {
+    return this.changeAttendingStatus(
+      activityId,
+      userId,
+      true,
+    );
+  }
+
+  async unjoinActivity(activityId: number, userId: number): Promise<?ActivityListInfo> {
+    return this.changeAttendingStatus(
+      activityId,
+      userId,
+      false,
+    );
+  }
+
+  async changeAttendingStatus(activityId: number, userId: number, willAttendActivity: boolean): Promise<?ActivityListInfo> {
+    const activity = await Activity.findOne({
+      where: { id: activityId },
+      include: this.include,
+    });
+
+    if (!activity) {
+      throwNotFoundError('Activity not found');
+    }
+
+    const participant = activity.participants.find((p) => p.id === userId);
+
+    if (!participant) {
+      throwValidationError('user', 'User is not part of the activity');
+    }
+
+    participant.UserActivity.willAttend = willAttendActivity;
+    await participant.UserActivity.save();
+    await participant.UserActivity.reload();
+
+    return {
+      id: activity.id,
+      title: activity.title,
+      description: activity.description,
+      date: activity.date,
+      userWillAttend: participant.UserActivity.willAttend,
+      willAttendCount: activity.participants.filter(willAttend).length,
+    };
   }
 
   get include() {
