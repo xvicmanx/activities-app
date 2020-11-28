@@ -20,6 +20,7 @@ const getRoutes = () => {
    * @typedef User
    * @property {integer} id
    * @property {string} name.required
+   * @property {string} profileURL
    * @property {string} description
    * @property {string} email.required
    * @property {string} createdAt
