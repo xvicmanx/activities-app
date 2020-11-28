@@ -4,4 +4,6 @@ import Home from './Home';
 import Profile from './Profile';
 import Community from './Community';
 
-export { SignIn, Splash, Home, Profile, Community };
+import CommunitiesList from './CommunitiesList';
+
+export { SignIn, Splash, Home, Profile, Community, CommunitiesList };

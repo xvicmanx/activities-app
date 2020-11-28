@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { AvatarItem } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCommunityInfoById } from '../redux/communitiesSlice';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Community = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.communities.communityLoader);
+  const community = useSelector((state) => state.communities.communityDetails);
+  const currentUser = useSelector((state) => state.auth.user);
+  const { setOptions } = useNavigation();
+  const { params } = useRoute();
+
+  useEffect(() => {
+    dispatch(fetchCommunityInfoById(params.id, currentUser.token));
+  }, []);
+
+  useEffect(() => {
+    setOptions({ title: params.name });
+  });
+
+  if (isLoading) {
+    return <Text>Cargando...</Text>;
+  }
+
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.communityName}>FDS 23</Text>
+      <Text style={styles.communitySlogan}>{community.slogan}</Text>
 
-      <Text style={{ fontWeight: 'bold', marginBottom: 20, fontSize: 16 }}>
-        Coordinadores:
-      </Text>
+      {community.members.map((member) => {
+        if (member.coordinates) {
+          return (
+            <View>
+              <Text style={styles.label}>Coordinadores:</Text>
+              <AvatarItem key={member.id} name={member.name} />
+            </View>
+          );
+        }
+      })}
 
-      <AvatarItem name="Wally Trejo" />
-      <AvatarItem name="Noelia Torrez" />
+      <Text style={styles.label}>Miembros:</Text>
 
-      <Text style={{ fontWeight: 'bold', marginBottom: 20, fontSize: 16 }}>
-        Miembros:
-      </Text>
-
-      <AvatarItem name="Wally Trejo" />
-      <AvatarItem name="Noelia Torrez" />
-      <AvatarItem name="Wally Trejo" />
-      <AvatarItem name="Noelia Torrez" />
-      <AvatarItem name="Wally Trejo" />
-      <AvatarItem name="Noelia Torrez" />
-      <AvatarItem name="Wally Trejo" />
-      <AvatarItem name="Noelia Torrez" />
+      {community.members.map((member) => {
+        if (!member.coordinates) {
+          return <AvatarItem key={member.id} name={member.name} />;
+        }
+      })}
 
       <View style={{ height: 100 }} />
     </ScrollView>
@@ -43,6 +64,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+  },
+  communitySlogan: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    fontWeight: 'bold',
+    marginBottom: 20,
+    fontSize: 16,
   },
 });
 
