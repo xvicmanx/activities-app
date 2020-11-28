@@ -35,8 +35,20 @@ class User extends Sequelize.Model<UserAttributes> {
   }
 
   static associate(models: Object) {
-    this.activities = this.belongsToMany(models.Activity, { through: models.UserActivity });
-    this.communities = this.belongsToMany(models.Community, { through: models.UserCommunity });
+    this.activities = this.belongsToMany(
+      models.Activity,
+      {
+        through: models.UserActivity,
+        as: 'activities',
+      },
+    );
+    this.communities = this.belongsToMany(
+      models.Community,
+      {
+        through: models.UserCommunity,
+        as: 'communities',
+      },
+    );
   }
 }
 

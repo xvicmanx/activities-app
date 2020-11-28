@@ -17,11 +17,19 @@ const getRoutes = () => {
   const controller = new CommunitiesController(service);
 
   /**
+   * @typedef CommunityMember
+   * @property {integer} id
+   * @property {string} name
+   * @property {string} profileURL
+   * @property {boolean} coordinates
+   */
+
+  /**
    * @typedef Community
    * @property {integer} id
    * @property {string} name.required
    * @property {string} slogan
-   * @property {User[]} members
+   * @property {CommunityMember[]} members
    * @property {string} createdAt
    * @property {string} updatedAt
    */
@@ -33,6 +41,12 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef FindCommunityByIdResponse
+   * @property {boolean} success
+   * @property {Community} community
+   */
+
+  /**
    * Gets the current user communities
    * @route GET /communities/list-for-user
    * @group Community - Community
@@ -41,6 +55,17 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.get('/list-for-user', authRequired(controller.getUserCommunities));
+
+  /**
+   * Find community by id
+   * @route GET /communities/find/{id}
+   * @group Community - Operations about community
+   * @param {string} id.path.required - user id
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {FindCommunityByIdResponse.model} 200 - found community response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.get('/find/:id', authRequired(controller.findById));
 
   return app;
 };
