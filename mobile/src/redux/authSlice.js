@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Auth } from '../services/auth';
 import { loginUserAction } from './signinSlice';
+import AuthServices from '../services/auth';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -29,13 +29,14 @@ export const { setUser, setLoading } = authSlice.actions;
 
 export const checkUserInfo = () => async (dispatch) => {
   try {
-    const { status, data } = await Auth.isUserLogged();
+    const res = await AuthServices.checkUserInfo();
 
-    if (status) {
-      dispatch(setUser(data));
-    } else {
-      dispatch(setLoading(false));
+    if (res.message === 'It is not authorized') {
+      dispatch(setUser(null));
+      return;
     }
+
+    //
   } catch (error) {
     console.log(error);
   }
