@@ -31,7 +31,21 @@ const defineModels = (sequelize) => {
       },
     },
   );
-  const models = { UserActivity };
+
+  const UserCommunity = sequelize.define(
+    'UserCommunity',
+    {
+      coordinates: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+    },
+  );
+
+  const models = {
+    UserActivity,
+    UserCommunity,
+  };
 
   Object.keys(modelFiles).forEach((key) => {
     const Klass = modelFiles[key]['model.js'].default;
