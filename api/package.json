@@ -1,0 +1,70 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "engines": {
+    "node": "12.x"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/babel-node ./src/index.js",
+    "lint": "./node_modules/.bin/eslint ./src --fix",
+    "check:types": "flow",
+    "test": "NODE_ENV=TEST mocha './src/**/*.test.js' --opts ./mocha.opts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "babel-eslint": "^10.1.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "elasticlunr": "^0.9.5",
+    "enzyme": "^3.11.0",
+    "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.17",
+    "faker": "^4.1.0",
+    "faye": "^1.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "lunr-languages": "^1.4.0",
+    "mocha": "^7.1.0",
+    "mocha-snapshots": "^4.2.0",
+    "natural": "^0.6.3",
+    "node-fetch": "^2.6.1",
+    "require-all": "^3.0.0",
+    "sequelize": "^5.21.5",
+    "sha1": "^1.1.1",
+    "sqlite3": "^4.1.1",
+    "string": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-flow": "^7.9.0",
+    "chai": "^4.2.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-flowtype": "^4.6.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-mocha": "^6.3.0",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-simple-import-sort": "^5.0.1",
+    "flow-bin": "^0.119.1",
+    "prettier-eslint": "^9.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xvicmanx/activities-app.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ]
+}
