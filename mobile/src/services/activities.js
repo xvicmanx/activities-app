@@ -11,4 +11,20 @@ const getParticipants = async (activityId, token) => {
   });
 };
 
-export default { getActivities, getParticipants };
+const joinActivity = async (activityId, token) => {
+  return await requester({
+    path: `/activities/${activityId}/join`,
+    method: 'PUT',
+    token,
+  });
+};
+
+const unjoinActivity = async (activityId, token) => {
+  return await requester({
+    path: `/activities/${activityId}/unjoin`,
+    method: 'PUT',
+    token,
+  });
+};
+
+export default { getActivities, getParticipants, unjoinActivity, joinActivity };
