@@ -6,11 +6,16 @@ import sha1 from 'sha1';
 import { getSafeUser } from './helpers';
 import User from './model';
 
-// TODO: change to use an env var
-const SECRET = 'test-secret';
+const {
+  JWT_SECRET,
+  JWT_TOKEN_SECONDS_TO_EXPIRE,
+} = process.env;
 
-// Expires in 1 day
-const EXPIRATION = Math.floor(Date.now() / 1000) + (24 * 60 * 60);
+const secret = JWT_SECRET || 'test-secret';
+// Expires in 1 day by default
+const expireSeconds = JWT_TOKEN_SECONDS_TO_EXPIRE || 24 * 60 * 60;
+
+const getExpirationTime = () => Math.floor(Date.now() / 1000) + expireSeconds
 
 export const getUserTokenInfo = (user: User) => {
   const {
@@ -18,16 +23,18 @@ export const getUserTokenInfo = (user: User) => {
     id,
   } = user.get({ plain: true });
 
+  const expiresIn = getExpirationTime();
+
   return {
     token: jwt.sign(
       {
         id,
         email,
       },
-      SECRET,
-      { expiresIn: EXPIRATION },
+      secret,
+      { expiresIn },
     ),
-    exp: EXPIRATION,
+    exp: expiresIn,
     user: getSafeUser(user),
   };
 };
@@ -57,7 +64,7 @@ class UsersService {
     const {
       id,
       email,
-    } = jwt.verify(token, SECRET);
+    } = jwt.verify(token, secret);
     return User.findOne({ where: { id, email } });
   }
 
