@@ -9,9 +9,8 @@ const {
   DATABASE_USER,
   DATABASE_PASSWORD,
   DATABASE_HOST,
-  DATABASE_PROTOCOL,
   DATABASE_PORT,
-  DATABASE_DRIVER,
+  DATABASE_DIALECT,
   NODE_ENV,
 } = process.env;
 
@@ -60,30 +59,29 @@ const defineModels = (sequelize) => {
 };
 
 
-
 const getConfig = () => {
   const dir = `${__dirname}/../../data`;
-  let opts;
+  let opts = {
+    dialect: DATABASE_DIALECT || 'sqlite',
+    logging: false,
+  };
 
-  if (DATABASE_DRIVER !== 'mysql') {
+  if (opts.dialect === 'sqlite') {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
 
     const dbName = NODE_ENV === 'TEST' ? 'test-db' : 'db';
-
     opts = {
-      dialect: 'sqlite',
+      ...opts,
       storage: `${dir}/${dbName}.sqlite`,
-      logging: false,
     };
   } else {
     opts = {
+      ...opts,
       host: DATABASE_HOST,
-      dialect: DATABASE_PROTOCOL,
       port: +DATABASE_PORT,
       query: { pool: true },
-      logging: false,
     };
   }
 

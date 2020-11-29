@@ -9,7 +9,7 @@ API for the Activies App
 ```
   npm start
 ```
-It will start a server at port `4500` by the default.
+It will start a server at port `4500` by default.
 
 ## API documentation
 The API documentation consists of a Swagger spec that can be found at [API docs](http://localhost:4500/api-docs)
@@ -41,15 +41,32 @@ It will return a JSON like:
 ## Running tests
 
 ```sh
-npm install
 npm test
 ```
 
 ## Running lints
 
 ```sh
-npm install
 npm run lint
+```
+
+## Running types check
+
+```sh
+npm run check:types
+```
+
+## Environment variables
+
+```
+PORT: Port the api server will be listening to.
+NODE_ENV: Node's environment (test, delevopment, production, etc).
+DATABASE_NAME: Name of the database
+DATABASE_USER: User of the database
+DATABASE_PASSWORD: Password of user of the database
+DATABASE_HOST:  Database host
+DATABASE_DIALECT: Database dialect (mysql, sqlite, etc)
+DATABASE_PORT: Database port
 ```
 
 ## Dependencies
