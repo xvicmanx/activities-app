@@ -5,6 +5,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { unjoinActivity, joinActivity } from '../redux/activitiesSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { format, getDay } from 'date-fns';
+
+const days = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miercoles',
+  'Jueves',
+  'Viernes',
+  'Sabado',
+];
 
 const ActivityCard = ({ item }) => {
   const dispatch = useDispatch();
@@ -20,7 +31,7 @@ const ActivityCard = ({ item }) => {
   };
 
   const seeWhoGoes = () => {
-    navigate('ParticipantesListScreen', { activityId: item.id });
+    navigate('ParticipantsListScreen', { activityId: item.id });
   };
 
   const button = item.userWillAttend ? (
@@ -34,7 +45,13 @@ const ActivityCard = ({ item }) => {
   return (
     <View style={styles.container}>
       <Text>{item.title}</Text>
-      <Text>{item.date}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ marginRight: 5 }}>
+          {days[getDay(new Date(item.date))]}
+        </Text>
+        <Text>{format(new Date(item.date), 'dd/MM/yyyy')}</Text>
+      </View>
+
       {item.userWillAttend && (
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ marginRight: 5 }}>Estas anotado</Text>

@@ -13,7 +13,7 @@ const HomeStack = () => {
         component={Home}
       />
       <Stack.Screen
-        name="ParticipantesListScreen"
+        name="ParticipantsListScreen"
         options={{ title: 'Participantes' }}
         component={ParticipantesList}
       />
