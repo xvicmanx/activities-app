@@ -1,5 +1,19 @@
 # API
 API for the Activies App
+
+## Table of Contents
+
+* [Setup](#setup)
+* [Start](#start)
+* [API documentation](#api-documentation)
+* [Demo](#demo)
+* [Running tests](#running-tests)
+* [Running lint](#running-lint)
+* [Running types check](#running-types-check)
+* [Environment variables](#environment-variables)
+* [Dependencies](#dependencies)
+* [Dev dependencies](#dev-dependencies)
+
 ## Setup
 ```
   npm install
@@ -44,7 +58,7 @@ It will return a JSON like:
 npm test
 ```
 
-## Running lints
+## Running lint
 
 ```sh
 npm run lint
