@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERRORS } from '../constants/errors';
 import { loginUser, setError } from '../redux/signinSlice';
 import { Input, Button } from '../components';
+import { Text } from 'react-native-elements';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,10 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesion</Text>
+      <Text style={styles.title} h3>
+        Iniciar Sesion
+      </Text>
+      {/* <Text style={styles.title}>Iniciar Sesion</Text> */}
 
       <Input
         error={emailError}
@@ -65,6 +69,7 @@ const SignIn = () => {
           passwordRef.current.focus();
         }}
         blurOnSubmit={false}
+        iconName="mail-outline"
       />
 
       <View style={styles.lineBreak} />
@@ -77,6 +82,7 @@ const SignIn = () => {
         disable={isLoading}
         placeholder="Contraseña..."
         ref={passwordRef}
+        iconName="lock-closed-outline"
       />
 
       <View style={styles.lineBreak} />
@@ -95,7 +101,6 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   title: {
-    fontSize: 30,
     textAlign: 'center',
     marginBottom: 20,
   },

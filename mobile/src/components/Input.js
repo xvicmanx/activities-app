@@ -1,38 +1,20 @@
 import React, { forwardRef } from 'react';
-import { Text, StyleSheet, TextInput } from 'react-native';
+import { Input as InputRNE } from 'react-native-elements';
 
-const Input = forwardRef(({ error, onChange, disable, ...rest }, ref) => {
+const Input = forwardRef((props, ref) => {
+  const { iconName, error, onChange, disable, ...rest } = props;
+
   return (
-    <>
-      <TextInput
-        editable={!disable}
-        style={styles.input}
-        onChangeText={onChange}
-        {...rest}
-        ref={ref}
-      />
-      {error && <Text style={styles.errorText}>{error}</Text>}
-    </>
+    <InputRNE
+      leftIcon={{ type: 'ionicon', name: iconName }}
+      errorStyle={{ color: 'red' }}
+      errorMessage={error}
+      onChangeText={onChange}
+      editable={!disable}
+      ref={ref}
+      {...rest}
+    />
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  input: {
-    height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 10,
-    fontSize: 14,
-  },
-  errorText: {
-    marginTop: 6,
-    color: 'red',
-  },
 });
 
 export default Input;
