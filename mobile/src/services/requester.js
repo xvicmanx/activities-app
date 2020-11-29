@@ -1,6 +1,6 @@
 export const requester = async ({ token, path, method, payload }) => {
   //TODO: READ FROM ENV
-  const HOST = 'http://10.0.0.30:4500';
+  const HOST = 'http://192.168.1.3:4500';
 
   let headers = {
     'Content-Type': 'application/json',
