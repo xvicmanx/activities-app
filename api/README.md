@@ -61,6 +61,8 @@ npm run check:types
 ```
 PORT: Port the api server will be listening to.
 NODE_ENV: Node's environment (test, delevopment, production, etc).
+JWT_SECRET: JWT sign secret
+JWT_TOKEN_SECONDS_TO_EXPIRE: JWT token seconds to expire. Defaults to 86400 (1 day).
 DATABASE_NAME: Name of the database
 DATABASE_USER: User of the database
 DATABASE_PASSWORD: Password of user of the database
