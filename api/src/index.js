@@ -1,4 +1,3 @@
-
 // @flow
 
 import setupServer from './steps/setup-server';

@@ -1,4 +1,3 @@
-
 // @flow
 
 import bodyParser from 'body-parser';
@@ -18,11 +17,10 @@ import setupDB from './setup-db';
 import setupRoutes from './setup-routes';
 import setupSwaggerDocumentation from './setup-swagger';
 
-
 const setupServer = async (port: number) => {
   const app: $Application<$Request, $Response> = express();
 
-  const db = await setupDB();
+  await setupDB();
 
   await seedDB();
   await setupSwaggerDocumentation(app, port);
@@ -37,31 +35,6 @@ const setupServer = async (port: number) => {
   const bayeux = new faye.NodeAdapter({
     mount: '/faye',
     timeout: 50,
-  });
-
-  // Trigger events
-  db.addHook('afterCreate', (data) => {
-    // eslint-disable-next-line no-underscore-dangle
-    const modelName = data._modelOptions ? data._modelOptions.name.singular : null;
-    if (modelName === 'event' && data.dataValues.notify) {
-      const {
-        userId,
-        title,
-        description,
-      } = data.dataValues;
-      bayeux.getClient().publish(
-        `/event-channel-${userId}`,
-        { title, description },
-      );
-    }
-
-    if (modelName === 'Activity') {
-      const { workRequestId } = data.dataValues;
-      bayeux.getClient().publish(
-        '/conversation-channel',
-        { id: workRequestId },
-      );
-    }
   });
 
   app.use(async (req: $Request, res: $Response, next: Function) => {

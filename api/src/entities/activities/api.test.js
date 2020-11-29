@@ -8,7 +8,6 @@ import requester from '../../test/requester';
 import createTestUser from '../users/test-entity-factory';
 import createTestActivity from './test-entity-factory';
 
-
 const mapActivityItem = (x) => ({
   title: x.title,
   description: x.description,

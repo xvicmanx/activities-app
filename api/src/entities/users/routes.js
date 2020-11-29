@@ -27,7 +27,6 @@ const getRoutes = () => {
    * @property {string} updatedAt
    */
 
-
   /**
    * @typedef FindUserByIdResponse
    * @property {boolean} success

@@ -8,7 +8,6 @@ import requester from '../../test/requester';
 import createTestUser from '../users/test-entity-factory';
 import createTestCommunity from './test-entity-factory';
 
-
 const mapItem = (x, shouldMapMembers = false) => {
   let members = [];
 

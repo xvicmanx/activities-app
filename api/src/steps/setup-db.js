@@ -47,7 +47,7 @@ const defineModels = (sequelize) => {
     UserCommunity,
   };
 
-  Object.keys(modelFiles).forEach((key) => {
+  Object.keys(modelFiles || {}).forEach((key) => {
     const Klass = modelFiles[key]['model.js'].default;
     const name = `${Klass.name.substring(0, 1).toUpperCase()}${Klass.name.substring(1)}`;
     models[name] = Klass.setup(sequelize);
@@ -59,14 +59,12 @@ const defineModels = (sequelize) => {
     .forEach((model) => model.associate(models));
 };
 
-const dir = `${__dirname}/../../data`;
+
 
 const getConfig = () => {
-  const user = DATABASE_USER || 'admin';
-  const password = DATABASE_PASSWORD || '1234';
-  const database = DATABASE_NAME || 'db';
-
+  const dir = `${__dirname}/../../data`;
   let opts;
+
   if (DATABASE_DRIVER !== 'mysql') {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
@@ -88,6 +86,10 @@ const getConfig = () => {
       logging: false,
     };
   }
+
+  const user = DATABASE_USER || 'admin';
+  const password = DATABASE_PASSWORD || '1234';
+  const database = DATABASE_NAME || 'db';
 
   return [database, user, password, opts];
 };

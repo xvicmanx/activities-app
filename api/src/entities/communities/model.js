@@ -4,7 +4,6 @@ import Sequelize from 'sequelize';
 
 import type { UserAttributes } from '../users/model';
 
-
 export type CommunityAttributes = {
   id?: number;
   name: string;
