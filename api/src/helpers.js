@@ -81,14 +81,13 @@ export const throwNotFoundError = (message: string) => {
   throw new ValidationError(message);
 };
 
-
 export const errorHandler = (fn: Function) => async (req: $Request, res: $Response) => {
   try {
     const result = await fn(req, res);
     return result;
   } catch (err) {
     res.status(err.status || 500).json({
-      message: err.status ? err.message : 'UnexpectedError',
+      message: err.status ? err.message : 'Unexpected error',
     });
     return null;
   }

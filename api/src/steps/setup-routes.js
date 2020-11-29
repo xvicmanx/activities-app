@@ -14,7 +14,7 @@ const routes = requireAll({
 });
 
 export default (app: $Application<$Request, $Response>) => {
-  Object.keys(routes).forEach((key) => {
+  Object.keys(routes || {}).forEach((key) => {
     app.use(`/${key}`, routes[key]['routes.js'].default());
   });
 };

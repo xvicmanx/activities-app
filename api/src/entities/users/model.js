@@ -11,7 +11,6 @@ export type UserAttributes = {
   password?: string;
 };
 
-
 class User extends Sequelize.Model<UserAttributes> {
   static setup(sequelize: Sequelize) {
     return super.init(

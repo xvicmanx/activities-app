@@ -9,7 +9,6 @@ import requester from '../../test/requester';
 import User from './model';
 import { getUserTokenInfo } from './service';
 
-
 const getAuthHeaders = async (user) => {
   const { token } = await getUserTokenInfo(user);
   return { authorization: `Bearer ${token}` };

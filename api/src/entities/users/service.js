@@ -12,7 +12,6 @@ const SECRET = 'test-secret';
 // Expires in 1 day
 const EXPIRATION = Math.floor(Date.now() / 1000) + (24 * 60 * 60);
 
-
 export const getUserTokenInfo = (user: User) => {
   const {
     email,
@@ -32,7 +31,6 @@ export const getUserTokenInfo = (user: User) => {
     user: getSafeUser(user),
   };
 };
-
 
 class UsersService {
   async findById(id: number): Promise<?User> {
@@ -78,7 +76,6 @@ class UsersService {
 
     return getUserTokenInfo(user);
   }
-
 
   async userForEmailExists(email: string): Promise<boolean> {
     const existingUser = await User.findOne({ where: { email } });

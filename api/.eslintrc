@@ -18,6 +18,7 @@
     "import/order": "off",
     "class-methods-use-this": "off",
     "simple-import-sort/sort": "error",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.js", "src/steps/setup-tests.js"] }],
     "max-len": "off"
   }
 }
