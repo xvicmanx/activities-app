@@ -16,13 +16,5 @@ jobs:
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./api/src
+          recurse: true
           output_dir: ./api/out
-          config_file: conf.json
-          template: minami
-          front_page: README.md
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./api/out
