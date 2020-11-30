@@ -1,64 +1,34 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableNativeFeedback,
-  ActivityIndicator,
-} from 'react-native';
+import { View } from 'react-native';
+import { Button as ButtonRNE } from 'react-native-elements';
+import { COLORS } from '../constants/colors';
 
-const Button = ({ danger, small, onPress, loading, children }) => {
-  const containerStyles = [
-    styles.touchable,
-    small && styles.small,
-    danger && styles.danger,
-  ];
+const Button = ({ icon, danger, small, children, loading, ...rest }) => {
+  const smallStyles = small && {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 20,
+    height: 35,
+  };
 
-  const textStyles = [
-    styles.text,
-    danger && styles.textDanger,
-    small && styles.smallText,
-  ];
+  const dangerStyles = danger && {
+    backgroundColor: '#e74c3c',
+  };
 
   return (
-    <TouchableNativeFeedback onPress={onPress}>
-      <View style={containerStyles}>
-        {loading ? (
-          <ActivityIndicator size="small" color="#000" />
-        ) : (
-          <Text style={textStyles}>{children}</Text>
-        )}
-      </View>
-    </TouchableNativeFeedback>
+    <ButtonRNE
+      title={children}
+      loading={loading}
+      buttonStyle={{
+        backgroundColor: COLORS.primary,
+        height: 50,
+        ...smallStyles,
+        ...dangerStyles,
+      }}
+      icon={icon && <View style={{ marginLeft: 10 }}>{icon}</View>}
+      iconRight
+      {...rest}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  touchable: {
-    backgroundColor: '#ccc',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  text: {
-    fontSize: 16,
-    color: '#000',
-  },
-  smallText: {
-    fontSize: 14,
-  },
-  textDanger: {
-    color: '#fff',
-  },
-  small: {
-    alignSelf: 'flex-start',
-    height: 35,
-    paddingHorizontal: 15,
-  },
-  danger: {
-    backgroundColor: '#c0392b',
-  },
-});
 
 export default Button;

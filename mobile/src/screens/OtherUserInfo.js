@@ -4,6 +4,7 @@ import { Avatar, Loader } from '../components';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOtherUserInfo } from '../redux/otherUserSlice';
+import { COLORS } from '../constants';
 
 const OtherUserInfo = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,7 @@ const OtherUserInfo = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
-        <Avatar size={75} img={data.profileURL} />
-        <Text style={styles.name}>{data.name}</Text>
+        <Avatar img={data.profileURL} />
       </View>
 
       <Text style={styles.description}>{data.description}</Text>
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     marginBottom: 20,
+    color: COLORS.text,
   },
 });
 

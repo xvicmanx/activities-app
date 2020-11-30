@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack';
 import CommunityStack from './CommunityStack';
+import { COLORS } from '../constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,12 +25,19 @@ const TabBar = () => {
             iconName = focused ? 'ios-people' : 'ios-people-outline';
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={27} color={color} />;
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: COLORS.primary,
         inactiveTintColor: 'gray',
+        labelStyle: {
+          fontSize: 13,
+        },
+        style: {
+          height: 50,
+          paddingBottom: 2,
+        },
       }}
     >
       <Tab.Screen
@@ -44,7 +52,7 @@ const TabBar = () => {
       />
       <Tab.Screen
         name="Community"
-        options={{ title: 'Comunidad' }}
+        options={{ title: 'Comunidades' }}
         component={CommunityStack}
       />
     </Tab.Navigator>

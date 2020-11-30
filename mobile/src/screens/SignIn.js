@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERRORS } from '../constants/errors';
+import { COLORS, ERRORS } from '../constants';
 import { loginUser, setError } from '../redux/signinSlice';
 import { Input, Button } from '../components';
 import { Text } from 'react-native-elements';
@@ -56,7 +56,6 @@ const SignIn = () => {
       <Text style={styles.title} h3>
         Iniciar Sesion
       </Text>
-      {/* <Text style={styles.title}>Iniciar Sesion</Text> */}
 
       <Input
         error={emailError}
@@ -103,6 +102,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 20,
+    color: COLORS.text,
   },
   lineBreak: {
     height: 15,

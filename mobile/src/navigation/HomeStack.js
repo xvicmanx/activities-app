@@ -17,7 +17,11 @@ const HomeStack = () => {
         options={{ title: 'Participantes' }}
         component={ParticipantesList}
       />
-      <Stack.Screen name="OtherUserInfoScreen" component={OtherUserInfo} />
+      <Stack.Screen
+        options={{ title: '' }}
+        name="OtherUserInfoScreen"
+        component={OtherUserInfo}
+      />
     </Stack.Navigator>
   );
 };
