@@ -134,6 +134,22 @@ class UsersController extends Controller {
 
     response.json({ success });
   });
+
+  updateInformation = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.invalidParamError(request, response, 'The user is not signed in');
+      return;
+    }
+
+    response.json({
+      success: await this.service.updateInformation(
+        loggedInUser.id,
+        asObject(request.body),
+      ),
+    });
+  });
 }
 
 export default UsersController;
