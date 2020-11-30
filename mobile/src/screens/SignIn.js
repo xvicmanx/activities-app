@@ -9,9 +9,9 @@ import { Text } from 'react-native-elements';
 const SignIn = () => {
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector((state) => state.signin);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('maryjane@test.com');
   const [emailError, setEmailError] = useState(null);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('123456');
   const [passwordError, setPasswordError] = useState(null);
   const passwordRef = useRef();
 

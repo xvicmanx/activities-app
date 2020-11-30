@@ -1,21 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Avatar, Button, Input } from '../components';
 import { Icon } from 'react-native-elements';
 import { COLORS } from '../constants';
+import { logOut } from '../redux/commonActions';
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-
   const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
-
   const repeatPasswordRef = useRef();
   const newPasswordRef = useRef();
-
   const [isEditing, setIsEdting] = useState(false);
 
   const onCurrentPasswordChange = (value) => {
@@ -41,7 +40,7 @@ const Profile = () => {
   };
 
   const closeSession = () => {
-    //TODO
+    dispatch(logOut());
   };
 
   return (
