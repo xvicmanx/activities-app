@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import AuthService from '../services/auth';
-import { ERRORS } from '../constants/errors';
+import { ERRORS } from '../constants';
+import { logOut } from './commonActions';
+
+const INITIAL_STATE = {
+  isLoading: false,
+  error: null,
+};
 
 const signinSlice = createSlice({
   name: 'signin',
-  initialState: {
-    isLoading: false,
-    error: null,
-  },
+  initialState: INITIAL_STATE,
   reducers: {
     loginUserStarted: (state, action) => {
       state.isLoading = true;
@@ -18,6 +21,11 @@ const signinSlice = createSlice({
     },
     loginUserAction: (state, action) => {
       state.isLoading = false;
+    },
+  },
+  extraReducers: {
+    [logOut]: (state, action) => {
+      return { ...INITIAL_STATE };
     },
   },
 });

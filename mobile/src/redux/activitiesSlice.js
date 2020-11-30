@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import ActivitiesServices from '../services/activities';
+import { logOut } from './commonActions';
+
+const INITIAL_STATE = {
+  isLoading: true,
+  activities: [],
+  participants: {
+    isLoading: true,
+    list: [],
+  },
+};
 
 const activitiesSlice = createSlice({
   name: 'activities',
-  initialState: {
-    isLoading: true,
-    activities: [],
-    participants: {
-      isLoading: true,
-      list: [],
-    },
-  },
+  initialState: INITIAL_STATE,
   reducers: {
     setActivities: (state, action) => {
       state.activities = action.payload;
@@ -27,6 +30,11 @@ const activitiesSlice = createSlice({
 
       activity.userWillAttend = action.payload.userWillAttend;
       activity.willAttendCount = action.payload.willAttendCount;
+    },
+  },
+  extraReducers: {
+    [logOut]: (state, action) => {
+      return { ...INITIAL_STATE };
     },
   },
 });

@@ -6,7 +6,7 @@ import { unjoinActivity, joinActivity } from '../redux/activitiesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, getDay } from 'date-fns';
 import { Card, Icon } from 'react-native-elements';
-import { DAYS } from '../constants';
+import { DAYS, COLORS } from '../constants';
 
 const ActivityCard = ({ item }) => {
   const dispatch = useDispatch();
@@ -43,16 +43,12 @@ const ActivityCard = ({ item }) => {
 
   return (
     <Card containerStyle={styles.container}>
-      <Card.Title style={{ textAlign: 'left', fontSize: 18 }}>
-        {item.title}
-      </Card.Title>
+      <Card.Title style={styles.title}>{item.title}</Card.Title>
       <Card.Divider />
 
       <View style={styles.dateContainer}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
+        <View style={styles.spaceBetween}>
+          <View style={styles.spaceBetween}>
             <Text style={styles.dateText}>
               {DAYS[getDay(new Date(item.date))]}
             </Text>
@@ -73,28 +69,20 @@ const ActivityCard = ({ item }) => {
         </View>
 
         <TouchableNativeFeedback onPress={seeWhoGoes}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text
-              style={{ color: COLORS.primary, fontSize: 17, marginRight: 10 }}
-            >
-              Van
-            </Text>
+          <View style={styles.whoGoesContainer}>
+            <Text style={styles.whoGoesText}>Van</Text>
             <Icon
               type="font-awesome-5"
               name="users"
               size={15}
               color={COLORS.primary}
             />
-            <Text style={{ marginLeft: 5, color: COLORS.text }}>
-              ({item.willAttendCount})
-            </Text>
+            <Text style={styles.whoGoesCounter}>({item.willAttendCount})</Text>
           </View>
         </TouchableNativeFeedback>
       </View>
 
-      <Text style={{ marginBottom: 40, color: COLORS.text }}>
-        {item.description}
-      </Text>
+      <Text style={styles.descriptionContainer}>{item.description}</Text>
 
       <View style={styles.footer}>{button}</View>
     </Card>
@@ -107,15 +95,40 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
     marginTop: 0,
   },
+  title: {
+    textAlign: 'left',
+    fontSize: 18,
+  },
   dateContainer: {
     flexDirection: 'row',
     marginBottom: 10,
+    justifyContent: 'space-between',
+  },
+  spaceBetween: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   dateText: {
     marginRight: 5,
     color: '#43484d',
     fontWeight: 'bold',
+  },
+  whoGoesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  whoGoesText: {
+    color: COLORS.primary,
+    fontSize: 17,
+    marginRight: 10,
+  },
+  whoGoesCounter: {
+    marginLeft: 5,
+    color: COLORS.text,
+  },
+  descriptionContainer: {
+    marginBottom: 40,
+    color: COLORS.text,
   },
   footer: {
     flexDirection: 'row',

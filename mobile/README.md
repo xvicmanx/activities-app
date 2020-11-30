@@ -31,7 +31,7 @@ To start the application run
 To run in android run
 
 ```
-  npm run a
+  npm run android
 ```
 
 ## Running in iOS

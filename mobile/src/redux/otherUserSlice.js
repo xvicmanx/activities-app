@@ -1,16 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import UserServices from '../services/user';
+import { logOut } from './commonActions';
+
+const INITIAL_STATE = {
+  isLoading: true,
+  data: null,
+};
 
 const otherUserSlice = createSlice({
   name: 'otherUser',
-  initialState: {
-    isLoading: true,
-    data: null,
-  },
+  initialState: INITIAL_STATE,
   reducers: {
     setOtherUserData: (state, action) => {
       state.data = action.payload;
       state.isLoading = false;
+    },
+  },
+  extraReducers: {
+    [logOut]: (state, action) => {
+      return { ...INITIAL_STATE };
     },
   },
 });

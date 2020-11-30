@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
           data={activities}
           renderItem={renderItem}
           keyExtractor={(item) => String(item.id)}
-          ListFooterComponent={<View style={{ height: 100 }} />}
+          ListFooterComponent={<View style={styles.ListFooterComponent} />}
         />
       )}
     </View>
@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  ListFooterComponent: {
+    height: 100,
   },
 });
 

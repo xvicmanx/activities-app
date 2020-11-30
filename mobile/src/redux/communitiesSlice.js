@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { loginUserAction } from './signinSlice';
+import { logOut } from './commonActions';
 import CommunitiesServices from '../services/communities';
+
+const INITIAL_STATE = {
+  isLoading: true,
+  communityLoader: true,
+  list: [],
+  communityDetails: null,
+};
 
 const communitiesSlice = createSlice({
   name: 'communities',
-  initialState: {
-    isLoading: true,
-    communityLoader: true,
-    list: [],
-    communityDetails: null,
-  },
+  initialState: INITIAL_STATE,
   reducers: {
     setList: (state, action) => {
       state.list = action.payload;
@@ -18,6 +20,11 @@ const communitiesSlice = createSlice({
     setCommunity: (state, action) => {
       state.communityDetails = action.payload;
       state.communityLoader = false;
+    },
+  },
+  extraReducers: {
+    [logOut]: (state, action) => {
+      return { ...INITIAL_STATE };
     },
   },
 });

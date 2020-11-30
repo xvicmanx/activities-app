@@ -95,7 +95,7 @@ const Community = ({ route, navigation }) => {
         </>
       )}
 
-      <View style={{ height: 100 }} />
+      <View style={styles.scrollBottomHeight} />
     </ScrollView>
   );
 };
@@ -105,12 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 15,
-  },
-  communityName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
   },
   communitySlogan: {
     fontSize: 18,
@@ -123,6 +117,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 16,
     color: COLORS.dark,
+  },
+  scrollBottomHeight: {
+    height: 100,
   },
 });
 
