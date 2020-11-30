@@ -8,6 +8,7 @@ import { getUrl } from '../../test/helpers';
 import requester from '../../test/requester';
 import User from './model';
 import { getUserTokenInfo } from './service';
+import createTestUser from './test-entity-factory';
 
 const getAuthHeaders = async (user) => {
   const { token } = await getUserTokenInfo(user);
@@ -96,6 +97,100 @@ describe('User API', () => {
       const response = await findById(userId, loggedInUser);
       expect(response.success).to.be.equal(true);
       expect(mapItem(response.user)).to.eql(mapItem(expectedUser));
+    });
+  });
+
+  describe('Change Password', () => {
+    const changePassword = async (previousPassword, password, confirmPassword, user = null) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      const payload = {
+        previousPassword,
+        password,
+        confirmPassword,
+      };
+
+      return requester.put(getUrl('/users/change-password'), payload, headers);
+    };
+
+    let user;
+
+    before(async () => {
+      user = await createTestUser();
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await changePassword(
+        '123456',
+        'new-pass!',
+        'new-pass!',
+        null,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the previousPassword is missing', async () => {
+      const response = await changePassword(
+        '',
+        'new-pass!',
+        'new-pass!',
+        user,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('Invalid parameters: The "previousPassword" param is missing');
+    });
+
+    it('fails if the password is missing', async () => {
+      const response = await changePassword(
+        '123456',
+        '',
+        'new-pass!',
+        user,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('Invalid parameters: The "password" param is missing');
+    });
+
+    it('fails if the confirmPassword is missing', async () => {
+      const response = await changePassword(
+        '123456',
+        'new-pass!',
+        '',
+        user,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('Invalid parameters: The "confirmPassword" param is missing');
+    });
+
+    it('fails if the password and confirmPassword do not match', async () => {
+      const response = await changePassword(
+        '123456',
+        'new-pass!',
+        'another-new-pass!',
+        user,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('Invalid parameters: The confirm and new password do not match');
+    });
+
+    it('changes the password successfully', async () => {
+      const response = await changePassword(
+        '123456',
+        'new-pass!',
+        'new-pass!',
+        user,
+      );
+      expect(response.success).to.be.equal(true);
     });
   });
 });

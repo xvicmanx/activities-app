@@ -48,6 +48,18 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef ChangePasswordPayload
+   * @property {string} previousPassword
+   * @property {string} password
+   * @property {string} confirmPassword
+   */
+
+  /**
+   * @typedef ChangePasswordResponse
+   * @property {boolean} success
+   */
+
+  /**
    * Get current user
    * @route GET /users/current
    * @group User - Operations about user
@@ -77,6 +89,16 @@ const getRoutes = () => {
   * @returns {Error}  default - Unexpected error
   */
   app.post('/login', controller.login);
+
+  /**
+  * Changes the password of the signed in user
+  * @route POST /users/change-password
+  * @group User - Operations about user
+  * @param {UserLoginPayload.model} body.body.required - the change password payload
+  * @returns {ChangePasswordResponse.model} 200 - change password response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/change-password', authRequired(controller.changePassword));
 
   return app;
 };
