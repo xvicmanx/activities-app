@@ -45,7 +45,7 @@ const Profile = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={{ alignItems: 'center', marginBottom: 20 }}>
+      <View style={styles.avatarContainer}>
         <Avatar size={75} img={user.profileURL} />
         <Text style={styles.name}>{user.name}</Text>
       </View>
@@ -66,7 +66,7 @@ const Profile = ({ navigation }) => {
       <View style={styles.lineBreak} />
 
       {isEditing && (
-        <View style={{ marginBottom: 50 }}>
+        <View style={styles.inputsContainer}>
           <Text style={styles.label}>Cambiar Contraseña</Text>
 
           <Input
@@ -119,7 +119,7 @@ const Profile = ({ navigation }) => {
         Cerrar Sesion
       </Button>
 
-      <View style={{ height: 100 }} />
+      <View style={styles.scrollBottomHeight} />
     </ScrollView>
   );
 };
@@ -129,6 +129,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 15,
+  },
+  avatarContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  inputsContainer: {
+    marginBottom: 50,
   },
   name: {
     fontSize: 18,
@@ -151,10 +158,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.dark,
   },
-  bottonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
+  scrollBottomHeight: {
+    height: 100,
   },
 });
 

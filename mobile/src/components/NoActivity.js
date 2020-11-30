@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const NoActivity = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 17 }}>No hay actividades por el momento</Text>
+      <Text style={styles.text}>No hay actividades por el momento</Text>
     </View>
   );
 };
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+  },
+  text: {
+    fontSize: 17,
   },
 });
 

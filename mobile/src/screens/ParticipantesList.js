@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { Loader, Avatar } from '../components';
-import { useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchParticipants } from '../redux/activitiesSlice';
 import { ListItem } from 'react-native-elements';
 
-const ParticipantesList = ({ navigation }) => {
+const ParticipantesList = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { list, isLoading } = useSelector(
     (state) => state.activities.participants
   );
   const user = useSelector((state) => state.auth.user);
-
-  const { params } = useRoute();
+  const { activityId } = route.params;
 
   useEffect(() => {
-    dispatch(fetchParticipants(params.activityId, user.token));
+    dispatch(fetchParticipants(activityId, user.token));
   }, []);
 
   if (isLoading) {
@@ -28,12 +26,12 @@ const ParticipantesList = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <ListItem
       bottomDivider
-      onPress={() =>
+      onPress={() => {
         navigation.navigate('OtherUserInfoScreen', {
           id: item.id,
           name: item.name,
-        })
-      }
+        });
+      }}
     >
       <Avatar img={item.profileURL} />
       <ListItem.Content>
@@ -45,12 +43,18 @@ const ParticipantesList = ({ navigation }) => {
 
   return (
     <FlatList
-      style={{ backgroundColor: '#fff' }}
+      style={styles.flatlist}
       keyExtractor={keyExtractor}
       data={list}
       renderItem={renderItem}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  flatlist: {
+    backgroundColor: '#fff',
+  },
+});
 
 export default ParticipantesList;

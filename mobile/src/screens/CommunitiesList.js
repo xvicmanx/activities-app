@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunityInfo } from '../redux/communitiesSlice';
 import { Loader } from '../components';
@@ -41,10 +41,16 @@ const CommunitiesList = ({ navigation }) => {
       data={list}
       renderItem={renderItem}
       keyExtractor={(item) => String(item.id)}
-      ListFooterComponent={<View style={{ height: 100 }} />}
+      ListFooterComponent={<View style={styles.ListFooterComponent} />}
       style={{ backgroundColor: '#fff' }}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  ListFooterComponent: {
+    height: 100,
+  },
+});
 
 export default CommunitiesList;
