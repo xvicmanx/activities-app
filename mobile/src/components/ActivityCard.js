@@ -6,17 +6,7 @@ import { unjoinActivity, joinActivity } from '../redux/activitiesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, getDay } from 'date-fns';
 import { Card, Icon } from 'react-native-elements';
-import { COLORS } from '../constants/colors';
-
-const days = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-  'Sabado',
-];
+import { DAYS } from '../constants';
 
 const ActivityCard = ({ item }) => {
   const dispatch = useDispatch();
@@ -64,7 +54,7 @@ const ActivityCard = ({ item }) => {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={styles.dateText}>
-              {days[getDay(new Date(item.date))]}
+              {DAYS[getDay(new Date(item.date))]}
             </Text>
 
             <Text style={styles.dateText}>
