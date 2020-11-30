@@ -93,6 +93,47 @@ class UsersController extends Controller {
 
     response.json({ ...result, success: true });
   });
+
+  changePassword = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.invalidParamError(request, response, 'The user is not signed in');
+      return;
+    }
+
+    const body = asObject(request.body);
+
+    const { previousPassword, password, confirmPassword } = body;
+
+    if (!previousPassword) {
+      this.invalidParamError(request, response, 'The "previousPassword" param is missing');
+      return;
+    }
+
+    if (!password) {
+      this.invalidParamError(request, response, 'The "password" param is missing');
+      return;
+    }
+
+    if (!confirmPassword) {
+      this.invalidParamError(request, response, 'The "confirmPassword" param is missing');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      this.invalidParamError(request, response, 'The confirm and new password do not match');
+      return;
+    }
+
+    const success = await this.service.changePassword(
+      loggedInUser.id,
+      previousPassword,
+      password,
+    );
+
+    response.json({ success });
+  });
 }
 
 export default UsersController;

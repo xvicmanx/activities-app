@@ -15,7 +15,7 @@ const secret = JWT_SECRET || 'test-secret';
 // Expires in 1 day by default
 const expireSeconds = JWT_TOKEN_SECONDS_TO_EXPIRE || 24 * 60 * 60;
 
-const getExpirationTime = () => Math.floor(Date.now() / 1000) + expireSeconds
+const getExpirationTime = () => Math.floor(Date.now() / 1000) + expireSeconds;
 
 export const getUserTokenInfo = (user: User) => {
   const {
@@ -82,6 +82,29 @@ class UsersService {
     }
 
     return getUserTokenInfo(user);
+  }
+
+  async changePassword(
+    id: number,
+    previousPassword: string,
+    newPassword: string,
+  ): Promise<boolean> {
+    const user = await User.findOne({
+      where: {
+        id,
+        password: sha1(previousPassword),
+      },
+      include: this.include,
+    });
+
+    if (!user) {
+      return false;
+    }
+
+    user.password = sha1(newPassword);
+    await user.save();
+
+    return true;
   }
 
   async userForEmailExists(email: string): Promise<boolean> {
