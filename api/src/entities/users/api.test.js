@@ -193,4 +193,44 @@ describe('User API', () => {
       expect(response.success).to.be.equal(true);
     });
   });
+
+  describe('Update Information', () => {
+    const updateInformation = async (data, user = null) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.put(getUrl('/users/update-information'), data, headers);
+    };
+
+    let user;
+    let data;
+
+    before(async () => {
+      user = await createTestUser();
+      data = {
+        description: 'Test description',
+      };
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await updateInformation(
+        data,
+        null,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('updates the information successfully', async () => {
+      const response = await updateInformation(
+        data,
+        user,
+      );
+      expect(response.success).to.be.equal(true);
+    });
+  });
 });

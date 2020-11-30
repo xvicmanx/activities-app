@@ -60,6 +60,16 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef UpdateInformationPayload
+   * @property {string} description
+   */
+
+  /**
+   * @typedef UpdateInformationResponse
+   * @property {boolean} success
+   */
+
+  /**
    * Get current user
    * @route GET /users/current
    * @group User - Operations about user
@@ -99,6 +109,16 @@ const getRoutes = () => {
   * @returns {Error}  default - Unexpected error
   */
   app.put('/change-password', authRequired(controller.changePassword));
+
+  /**
+  * Updates information of the signed in user
+  * @route POST /users/update-information
+  * @group User - Operations about user
+  * @param {UpdateInformationPayload.model} body.body.required - the update information payload
+  * @returns {UpdateInformationResponse.model} 200 - update information response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/update-information', authRequired(controller.updateInformation));
 
   return app;
 };

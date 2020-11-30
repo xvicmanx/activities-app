@@ -1,6 +1,7 @@
 // @flow
 
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 import sha1 from 'sha1';
 
 import { getSafeUser } from './helpers';
@@ -103,6 +104,22 @@ class UsersService {
 
     user.password = sha1(newPassword);
     await user.save();
+
+    return true;
+  }
+
+  async updateInformation(id: number, data: Object): Promise<boolean> {
+    const user = await User.findOne({
+      where: { id },
+      include: this.include,
+    });
+
+    if (!user) {
+      return false;
+    }
+
+    const fields = ['description'];
+    await user.update(_.pick(data, fields));
 
     return true;
   }
