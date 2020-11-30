@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Avatar, Button, Input } from '../components';
-import { ERRORS } from '../constants/errors';
+import { Icon } from 'react-native-elements';
+import { COLORS } from '../constants';
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
@@ -27,17 +28,21 @@ const Profile = () => {
     setRepeatPassword(value);
   };
 
-  const editDescription = () => {};
+  const editDescription = () => {
+    //TODO
+  };
 
   const editPassword = () => {
     setIsEdting(true);
   };
 
   const changePassword = () => {
-    //
+    //TODO
   };
 
-  const closeSession = () => {};
+  const closeSession = () => {
+    //TODO
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -48,15 +53,16 @@ const Profile = () => {
 
       <Text style={styles.description}>{user.description}</Text>
 
-      <View style={styles.bottonsContainer}>
-        <Button onPress={editDescription} small>
-          Editar Descripcion
-        </Button>
-
-        <Button onPress={editPassword} small>
-          Cambiar Contraseña
-        </Button>
-      </View>
+      <Button
+        icon={
+          <Icon type="simple-line-icon" name="pencil" size={15} color="white" />
+        }
+        onPress={editDescription}
+      >
+        Editar Descripcion
+      </Button>
+      <View style={styles.lineBreak} />
+      <Button onPress={editPassword}>Cambiar Contraseña</Button>
 
       <View style={styles.lineBreak} />
 
@@ -128,10 +134,13 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     marginTop: 5,
+    fontWeight: 'bold',
+    color: COLORS.dark,
   },
   description: {
     fontSize: 20,
     marginBottom: 40,
+    color: COLORS.text,
   },
   lineBreak: {
     height: 15,
@@ -141,6 +150,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: COLORS.dark,
   },
   bottonsContainer: {
     flexDirection: 'row',

@@ -1,74 +1,99 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { AvatarItem } from '../components';
+import { Avatar, Loader } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunityInfoById } from '../redux/communitiesSlice';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { COLORS } from '../constants';
+import { ListItem } from 'react-native-elements';
 
-const Community = () => {
+const Community = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.communities.communityLoader);
   const community = useSelector((state) => state.communities.communityDetails);
   const currentUser = useSelector((state) => state.auth.user);
-  const { setOptions, navigate } = useNavigation();
-  const { params } = useRoute();
+  const { id, name } = route.params;
 
   useEffect(() => {
-    dispatch(fetchCommunityInfoById(params.id, currentUser.token));
+    dispatch(fetchCommunityInfoById(id, currentUser.token));
   }, []);
 
   useEffect(() => {
-    setOptions({ title: params.name });
+    navigation.setOptions({ title: name });
   });
 
   if (isLoading) {
-    return <Text>Cargando...</Text>;
+    return <Loader />;
   }
+
+  const coordinates = community.members?.filter((member) => {
+    return member.coordinates;
+  });
+
+  const members = community.members?.filter((member) => {
+    return !member.coordinates;
+  });
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.communitySlogan}>{community.slogan}</Text>
 
-      {community.members.map((member) => {
-        if (member.coordinates) {
-          return (
-            <View>
-              <Text style={styles.label}>Coordinadores:</Text>
-              <AvatarItem
-                img={member.profileURL}
-                key={member.id}
-                name={member.name}
-                onPress={() =>
-                  navigate('OtherUserInfoScreen', {
-                    id: member.id,
-                    name: member.name,
-                  })
-                }
-              />
-            </View>
-          );
-        }
-      })}
+      {coordinates.length > 0 && (
+        <>
+          <Text style={styles.label}>Coordinadores:</Text>
 
-      <Text style={styles.label}>Miembros:</Text>
+          {coordinates.map((member) => {
+            if (member.coordinates) {
+              return (
+                <ListItem
+                  key={member.id}
+                  bottomDivider
+                  onPress={() =>
+                    navigation.navigate('OtherUserInfoScreen', {
+                      id: member.id,
+                      name: member.name,
+                    })
+                  }
+                >
+                  <Avatar img={member.profileURL} />
+                  <ListItem.Content>
+                    <ListItem.Title>{member.name}</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.Chevron />
+                </ListItem>
+              );
+            }
+          })}
+        </>
+      )}
 
-      {community.members.map((member) => {
-        if (!member.coordinates) {
-          return (
-            <AvatarItem
-              img={member.profileURL}
-              key={member.id}
-              name={member.name}
-              onPress={() =>
-                navigate('OtherUserInfoScreen', {
-                  id: member.id,
-                  name: member.name,
-                })
-              }
-            />
-          );
-        }
-      })}
+      {members.length > 0 && (
+        <>
+          <Text style={styles.label}>Miembros:</Text>
+
+          {members.map((member) => {
+            if (!member.coordinates) {
+              return (
+                <ListItem
+                  key={member.id}
+                  bottomDivider
+                  onPress={() =>
+                    navigation.navigate('OtherUserInfoScreen', {
+                      id: member.id,
+                      name: member.name,
+                    })
+                  }
+                >
+                  <Avatar img={member.profileURL} />
+                  <ListItem.Content>
+                    <ListItem.Title>{member.name}</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.Chevron />
+                </ListItem>
+              );
+            }
+          })}
+        </>
+      )}
 
       <View style={{ height: 100 }} />
     </ScrollView>
@@ -91,11 +116,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     marginBottom: 20,
+    color: COLORS.text,
   },
   label: {
     fontWeight: 'bold',
     marginBottom: 20,
     fontSize: 16,
+    color: COLORS.dark,
   },
 });
 

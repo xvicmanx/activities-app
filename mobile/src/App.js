@@ -4,6 +4,7 @@ import { Splash, SignIn } from './screens';
 import { checkUserInfo } from './redux/authSlice';
 import { TabBar } from './navigation';
 import { StatusBar } from 'react-native';
+import { COLORS } from './constants/colors';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const App = () => {
 
   return (
     <>
-      <StatusBar backgroundColor="tomato" />
+      <StatusBar backgroundColor={COLORS.primary} />
       {!user ? <SignIn /> : <TabBar />}
     </>
   );

@@ -1,6 +1,7 @@
+import { LOCAL_HOST } from '@env';
+
 export const requester = async ({ token, path, method, payload }) => {
-  //TODO: READ FROM ENV
-  const HOST = 'http://10.0.0.30:4500';
+  const HOST = LOCAL_HOST;
 
   let headers = {
     'Content-Type': 'application/json',

@@ -9,14 +9,6 @@ const Home = ({ navigation }) => {
   const { isLoading, activities } = useSelector((state) => state.activities);
   const user = useSelector((state) => state.auth.user);
 
-  const renderItem = ({ item }) => {
-    return <ActivityCard item={item} />;
-  };
-
-  const ItemSeparatorComponent = () => {
-    return <View style={{ height: 1 }} />;
-  };
-
   useEffect(() => {
     navigation.setOptions({ title: `Actividades (${activities.length})` });
   }, [activities]);
@@ -29,6 +21,10 @@ const Home = ({ navigation }) => {
     return <Loader />;
   }
 
+  const renderItem = ({ item }) => {
+    return <ActivityCard item={item} />;
+  };
+
   return (
     <View style={styles.container}>
       {activities.length === 0 ? (
@@ -40,7 +36,7 @@ const Home = ({ navigation }) => {
           data={activities}
           renderItem={renderItem}
           keyExtractor={(item) => String(item.id)}
-          ItemSeparatorComponent={ItemSeparatorComponent}
+          ListFooterComponent={<View style={{ height: 100 }} />}
         />
       )}
     </View>

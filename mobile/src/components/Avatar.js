@@ -1,15 +1,18 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { View } from 'react-native';
+import { Avatar as AvatarRNE, Text } from 'react-native-elements';
+import { COLORS } from '../constants';
 
-const Avatar = ({ style, size, img }) => {
+const Avatar = ({ size, img, name }) => {
   return (
-    <Image
-      style={[
-        { width: size, height: size, borderRadius: size / 2 },
-        { ...style },
-      ]}
-      source={{ uri: img } || require('../assets/images/avatar.png')}
-    />
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <AvatarRNE rounded source={{ uri: img }} size={size}></AvatarRNE>
+      {name && (
+        <Text style={{ marginLeft: 10, fontSize: 16, color: COLORS.dark }}>
+          {name}
+        </Text>
+      )}
+    </View>
   );
 };
 
