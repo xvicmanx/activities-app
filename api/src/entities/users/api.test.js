@@ -1,6 +1,7 @@
 // User API tests
 
 import { expect } from 'chai';
+import fs from 'fs';
 import { before, describe, it } from 'mocha';
 import sha1 from 'sha1';
 
@@ -231,6 +232,55 @@ describe('User API', () => {
         user,
       );
       expect(response.success).to.be.equal(true);
+    });
+  });
+
+  describe('Update Profile Picture', () => {
+    const updateProfilePicture = async (buffer, fileName, user = null) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.uploadFile(
+        getUrl('/users/update-profile-picture'),
+        buffer,
+        fileName,
+        headers,
+      );
+    };
+
+    let user;
+    let imageBuffer;
+
+    before(async () => {
+      user = await createTestUser();
+      imageBuffer = fs.readFileSync(`${__dirname}/test-image.jpg`);
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await updateProfilePicture(
+        imageBuffer,
+        'test.jpg',
+        null,
+      );
+
+      expect(response.success).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('updates the information successfully', async () => {
+      const response = await updateProfilePicture(
+        imageBuffer,
+        'test.jpg',
+        user,
+      );
+
+      await user.reload();
+
+      expect(response.success).to.be.equal(true);
+      expect(response.profileURL).to.be.equal(user.profileURL);
     });
   });
 });

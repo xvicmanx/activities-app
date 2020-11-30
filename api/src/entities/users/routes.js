@@ -6,6 +6,7 @@ import type {
   $Response,
 } from 'express';
 import express from 'express';
+import multer from 'multer';
 
 import { authRequired } from '../../helpers';
 import UsersController from './controller';
@@ -70,6 +71,12 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef UpdateProfilePictureResponse
+   * @property {boolean} success
+   * @property {string} profileURL
+   */
+
+  /**
    * Get current user
    * @route GET /users/current
    * @group User - Operations about user
@@ -119,6 +126,20 @@ const getRoutes = () => {
   * @returns {Error}  default - Unexpected error
   */
   app.put('/update-information', authRequired(controller.updateInformation));
+
+  /**
+  * Updates the profile picture of the signed in user
+  * @route POST /users/update-profile-picture
+  * @group User - Operations about user
+  * @param {Object} body.body.required - image data
+  * @returns {UpdateProfilePictureResponse.model} 200 - update picture response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put(
+    '/update-profile-picture',
+    multer().single('file'),
+    authRequired(controller.updateProfilePicture),
+  );
 
   return app;
 };
