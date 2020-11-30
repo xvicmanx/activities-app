@@ -53,7 +53,9 @@ const ActivityCard = ({ item }) => {
 
   return (
     <Card containerStyle={styles.container}>
-      <Card.Title style={{ textAlign: 'left' }}>{item.title}</Card.Title>
+      <Card.Title style={{ textAlign: 'left', fontSize: 18 }}>
+        {item.title}
+      </Card.Title>
       <Card.Divider />
 
       <View style={styles.dateContainer}>
@@ -81,12 +83,7 @@ const ActivityCard = ({ item }) => {
         </View>
 
         <TouchableNativeFeedback onPress={seeWhoGoes}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text
               style={{ color: COLORS.primary, fontSize: 17, marginRight: 10 }}
             >

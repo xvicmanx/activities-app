@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
-import { Loader } from '../components';
+import { Loader, Avatar } from '../components';
 import { useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchParticipants } from '../redux/activitiesSlice';
-import { ListItem, Avatar } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 const ParticipantesList = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ParticipantesList = ({ navigation }) => {
         })
       }
     >
-      <Avatar rounded source={{ uri: item.profileURL }} />
+      <Avatar img={item.profileURL} />
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
       </ListItem.Content>

@@ -11,7 +11,7 @@ const Button = ({ icon, danger, small, children, loading, ...rest }) => {
   };
 
   const dangerStyles = danger && {
-    backgroundColor: '#e74c3c',
+    backgroundColor: COLORS.danger,
   };
 
   return (

@@ -5,6 +5,7 @@ import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack';
 import CommunityStack from './CommunityStack';
 import { COLORS } from '../constants';
+import { Icon } from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,9 @@ const TabBar = () => {
             iconName = focused ? 'ios-people' : 'ios-people-outline';
           }
 
-          return <Ionicons name={iconName} size={27} color={color} />;
+          return (
+            <Icon type="ionicon" name={iconName} size={27} color={color} />
+          );
         },
       })}
       tabBarOptions={{
@@ -37,6 +40,7 @@ const TabBar = () => {
         style: {
           height: 50,
           paddingBottom: 2,
+          paddingTop: 3,
         },
       }}
     >

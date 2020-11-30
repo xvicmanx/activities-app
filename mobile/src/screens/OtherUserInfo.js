@@ -28,7 +28,7 @@ const OtherUserInfo = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
-        <Avatar img={data.profileURL} />
+        <Avatar img={data.profileURL} size="large" />
       </View>
 
       <Text style={styles.description}>{data.description}</Text>

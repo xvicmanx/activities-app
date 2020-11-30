@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "a": "npx react-native run-android",
+    "android": "npx react-native run-android",
     "ios": "react-native run-ios",
     "start": "npx react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "l": "npx react-native link"
+    "link": "npx react-native link"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",

@@ -1,12 +1,18 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home, ParticipantesList, OtherUserInfo } from '../screens';
-
+import { COLORS } from '../constants';
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: COLORS.primary },
+        headerTintColor: '#fff',
+      }}
+    >
       <Stack.Screen
         name="HomeScreen"
         options={{ title: 'Actividades (0)' }}

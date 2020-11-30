@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { COLORS } from '../constants';
 
 const Splash = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Splash</Text>
-      <ActivityIndicator size="large" color="#000" />
+      <ActivityIndicator size="large" color={COLORS.primary} />
     </View>
   );
 };

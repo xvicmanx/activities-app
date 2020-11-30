@@ -8,11 +8,11 @@ const Input = forwardRef((props, ref) => {
   return (
     <InputRNE
       leftIcon={{ type: 'ionicon', name: iconName, color: COLORS.primary }}
-      errorStyle={{ color: 'red' }}
+      errorStyle={{ color: COLORS.danger }}
       errorMessage={error}
       onChangeText={onChange}
       editable={!disable}
-      inputStyle={{ color: COLORS.primary, fontWeight: 'bold' }}
+      inputStyle={{ color: COLORS.primary, fontSize: 15 }}
       ref={ref}
       {...rest}
     />
