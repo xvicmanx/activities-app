@@ -6,7 +6,7 @@ import { unjoinActivity, joinActivity } from '../redux/activitiesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, getDay } from 'date-fns';
 import { Card, Icon } from 'react-native-elements';
-import { DAYS } from '../constants';
+import { DAYS, COLORS } from '../constants';
 
 const ActivityCard = ({ item }) => {
   const dispatch = useDispatch();
