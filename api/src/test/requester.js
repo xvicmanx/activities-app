@@ -2,6 +2,8 @@
 
 import fetch from 'node-fetch';
 
+const FormData = require('form-data');
+
 const fetchJSON = (endpoint: string, data: Object) => fetch(
   endpoint,
   data,
@@ -52,6 +54,32 @@ const Requester = {
       },
     );
     return result;
+  },
+  uploadFile: (
+    endpoint: string,
+    buffer: Buffer,
+    fileName: string,
+    headers: Object = {},
+  ) => {
+    const formData = new FormData();
+
+    formData.append(
+      'file',
+      buffer,
+      {
+        name: 'file',
+        filename: fileName,
+      },
+    );
+
+    return fetchJSON(
+      endpoint,
+      {
+        method: 'PUT',
+        headers,
+        body: formData,
+      },
+    );
   },
 };
 

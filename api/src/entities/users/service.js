@@ -124,6 +124,21 @@ class UsersService {
     return true;
   }
 
+  async updateProfilePictureURL(id: number, profileURL: Object): Promise<boolean> {
+    const user = await User.findOne({
+      where: { id },
+      include: this.include,
+    });
+
+    if (!user) {
+      return false;
+    }
+
+    await user.update({ profileURL });
+
+    return true;
+  }
+
   async userForEmailExists(email: string): Promise<boolean> {
     const existingUser = await User.findOne({ where: { email } });
     return !!existingUser;

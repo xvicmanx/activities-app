@@ -58,7 +58,6 @@ const defineModels = (sequelize) => {
     .forEach((model) => model.associate(models));
 };
 
-
 const getConfig = () => {
   const dir = `${__dirname}/../../data`;
   let opts = {

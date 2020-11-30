@@ -4,8 +4,10 @@ import type {
   $Request,
   $Response,
 } from 'express';
+import generateHash from 'random-hash';
 
 import Controller from '../../common/controller';
+import ImageUploader from '../../common/image-uploader';
 import { asObject } from '../../helpers';
 import { getSafeUser } from './helpers';
 import UsersService from './service';
@@ -148,6 +150,39 @@ class UsersController extends Controller {
         loggedInUser.id,
         asObject(request.body),
       ),
+    });
+  });
+
+  updateProfilePicture = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.invalidParamError(request, response, 'The user is not signed in');
+      return;
+    }
+
+    // $FlowFixMe
+    if (!request.file) {
+      this.invalidParamError(request, response, 'Profile image not sent');
+      return;
+    }
+
+    const hash = generateHash({ length: 16 });
+    // $FlowFixMe
+    const fileExt = request.file.originalname.split('.').pop();
+
+    const profileURL = await ImageUploader.upload(
+      // $FlowFixMe
+      request.file.buffer,
+      `${loggedInUser.id}-${hash}.${fileExt}`,
+    );
+
+    response.json({
+      success: await this.service.updateProfilePictureURL(
+        loggedInUser.id,
+        profileURL,
+      ),
+      profileURL,
     });
   });
 }
