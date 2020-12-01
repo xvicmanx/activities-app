@@ -5,7 +5,9 @@ An application for communities to create activities and get together.
 
 ## Table of Contents
 
+* [Features](#features)
 * [Screenshots](#screenshots)
+* [Contributors](#contributors)
 
 
 ## Features
