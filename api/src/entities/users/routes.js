@@ -109,9 +109,9 @@ const getRoutes = () => {
 
   /**
   * Changes the password of the signed in user
-  * @route POST /users/change-password
+  * @route PUT /users/change-password
   * @group User - Operations about user
-  * @param {UserLoginPayload.model} body.body.required - the change password payload
+  * @param {ChangePasswordPayload.model} body.body.required - the change password payload
   * @returns {ChangePasswordResponse.model} 200 - change password response
   * @returns {Error}  default - Unexpected error
   */
@@ -119,7 +119,7 @@ const getRoutes = () => {
 
   /**
   * Updates information of the signed in user
-  * @route POST /users/update-information
+  * @route PUT /users/update-information
   * @group User - Operations about user
   * @param {UpdateInformationPayload.model} body.body.required - the update information payload
   * @returns {UpdateInformationResponse.model} 200 - update information response
@@ -129,7 +129,7 @@ const getRoutes = () => {
 
   /**
   * Updates the profile picture of the signed in user
-  * @route POST /users/update-profile-picture
+  * @route PUT /users/update-profile-picture
   * @group User - Operations about user
   * @param {Object} body.body.required - image data
   * @returns {UpdateProfilePictureResponse.model} 200 - update picture response
