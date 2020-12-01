@@ -33,3 +33,9 @@ An application for communities to create activities and get together.
 
   <img src="screenshots/change-password.jpeg" width="30%" title="Change password">
 </p>
+
+## Contributors
+
+
+|<img src="https://avatars0.githubusercontent.com/u/7307503?s=100&v=4"> <br/>[Victor Trejo](https://github.com/xvicmanx) | <img src="https://avatars1.githubusercontent.com/u/61056785?s=100&v=4"> <br/>[Dayri Garcia](https://github.com/dayrimax91) |
+|-------------|-------------|
