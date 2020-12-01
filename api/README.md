@@ -6,6 +6,7 @@ API for the Activies App
 * [Setup](#setup)
 * [Start](#start)
 * [API documentation](#api-documentation)
+* [Code documentation](#code-documentation)
 * [Demo](#demo)
 * [Running tests](#running-tests)
 * [Running lint](#running-lint)
@@ -26,7 +27,10 @@ API for the Activies App
 It will start a server at port `4500` by default.
 
 ## API documentation
-The API documentation consists of a Swagger spec that can be found at [API docs](http://localhost:4500/api-docs)
+The API documentation consists of a Swagger spec that can be found at [API docs](http://localhost:4500/api-docs) after running `npm start`.
+
+## Code documentation
+The code documentation can be found at [Code docs](API.md)
 
 ## Demo
 
