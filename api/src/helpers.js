@@ -1,6 +1,10 @@
 /* eslint-disable max-classes-per-file */
 // @flow
 
+/**
+ * @module helpers
+ */
+
 import type {
   $Request,
   $Response,
@@ -15,6 +19,12 @@ const extractTokenFromRequest = (req: $Request) => _.get(
   '',
 ).replace('Bearer ', '');
 
+/**
+ * Gets the logged in user using the JWT token
+ * @name getLoggedInUser
+ * @param {$Response} res - Express response
+ * @return {User} logged in user
+ */
 export const getLoggedInUser = (req: $Request) => {
   const service = new UsersService();
   const token = extractTokenFromRequest(req);
@@ -26,6 +36,12 @@ export const getLoggedInUser = (req: $Request) => {
   return service.findByToken(token);
 };
 
+/**
+ * Wrapper to make a request auth dependant.
+ * If the user is not signed in it will throw 401 error
+ * @name authRequired
+ * @param {Function} cb - function to wrap
+ */
 export const authRequired = (cb: Function) => (req: $Request, res: $Response, next: Function) => {
   if (!res.locals.user) {
     res.status(401).json({
@@ -37,6 +53,13 @@ export const authRequired = (cb: Function) => (req: $Request, res: $Response, ne
   }
 };
 
+/**
+ * Throw a invalid param error with a 400 status
+ * @name invalidParamError
+ * @param {$Request} req - Express request
+ * @param {$Response} res - Express response
+ * @param {string} message - message of the error
+ */
 export const invalidParamError = (req: $Request, res: $Response, message: string) => {
   res.status(400).json({
     message: `Invalid parameters: ${message}`,
@@ -44,9 +67,19 @@ export const invalidParamError = (req: $Request, res: $Response, message: string
   });
 };
 
+/**
+ * Transforms a target to object in case of not being
+ * @name asObject
+ * @param {mixed} target - target item
+ * @return {Object} result
+ */
 export const asObject = (target: mixed): Object => ((target !== null && typeof target === 'object')
   ? target : {});
 
+/**
+ * Errors related to Validation
+ * @name ValidationError
+ */
 export class ValidationError extends Error {
   code: string;
 
@@ -60,6 +93,10 @@ export class ValidationError extends Error {
   }
 }
 
+/**
+ * Errors related to not found objects
+ * @name NotFoundError
+ */
 export class NotFoundError extends Error {
   code: string;
 
@@ -73,14 +110,30 @@ export class NotFoundError extends Error {
   }
 }
 
+/**
+ * Throws a validation error
+ * @name throwValidationError
+ * @param {string} param - param name
+ * @param {string} extraMessage - additional message
+ */
 export const throwValidationError = (param: string, extraMessage: string = '') => {
   throw new ValidationError(param, extraMessage);
 };
 
+/**
+ * Throws a validation error
+ * @name throwNotFoundError
+ * @param {string} message - error message
+ */
 export const throwNotFoundError = (message: string) => {
-  throw new ValidationError(message);
+  throw new NotFoundError(message);
 };
 
+/**
+ * Handles error returning the correct status
+ * @name errorHandler
+ * @param {Function} fn - Funtion to handle errors
+ */
 export const errorHandler = (fn: Function) => async (req: $Request, res: $Response) => {
   try {
     const result = await fn(req, res);

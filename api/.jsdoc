@@ -1,0 +1,23 @@
+{  
+  "plugins": ["node_modules/jsdoc-babel"],
+  "babel": {
+    "presets": [
+      "@babel/preset-flow",
+      ["@babel/preset-env", {
+        "targets": {
+          "node": true
+        }
+      }]
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ],
+      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}
