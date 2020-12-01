@@ -1,4 +1,4 @@
-export const DAYS = [
+const DAYS = [
   'Domingo',
   'Lunes',
   'Martes',
@@ -7,3 +7,5 @@ export const DAYS = [
   'Viernes',
   'Sabado',
 ];
+
+export { DAYS };
