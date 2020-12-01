@@ -1,26 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  StyleSheet,
+  ActivityIndicator,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 import { COLORS } from './constants';
 
 const SplashScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Splash</Text>
-      <ActivityIndicator size="large" color={COLORS.primary} />
-    </View>
+    <>
+      <StatusBar backgroundColor={COLORS.primary} />
+      <ImageBackground
+        source={require('./assets/images/splash.jpeg')}
+        style={styles.image}
+      >
+        <ActivityIndicator size="large" color="#fff" style={styles.loader} />
+      </ImageBackground>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  title: {
-    fontSize: 25,
-    marginBottom: 15,
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  loader: {
+    marginTop: 150,
   },
 });
 

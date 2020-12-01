@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 import { COLORS } from './constants';
 import ActivitiesStack from './entities/activities/ActivitiesStack';
-// import ProfileStack from './ProfileStack';
+import ProfileStack from './entities/user/ProfileStack';
 // import CommunityStack from './CommunityStack';
 
 const Tab = createBottomTabNavigator();
@@ -48,11 +48,12 @@ const TabBarNavigation = () => {
         options={{ title: 'Actividades' }}
         component={ActivitiesStack}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Profile"
         options={{ title: 'Perfil' }}
         component={ProfileStack}
       />
+      {/* 
       <Tab.Screen
         name="Community"
         options={{ title: 'Comunidades' }}
