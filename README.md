@@ -36,6 +36,11 @@ An application for communities to create activities and get together.
   <img src="screenshots/change-password.jpeg" width="30%" title="Change password">
 </p>
 
+## Setup
+To setup the project follow the instructions:
+- [API Setup](api/README.md)
+- [Mobile App Setup](mobile/README.md)
+
 ## Contributors
 
 
