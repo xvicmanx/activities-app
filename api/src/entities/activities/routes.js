@@ -78,7 +78,7 @@ const getRoutes = () => {
 
   /**
   * Joins an activity
-  * @route PUT /activities/{id}/join
+  * @route PUT /activities/{id}/unjoin
   * @group Activity - Operations about activity
   * @param {integer} id.path.required - the id of the activity
   * @param {string} authorization.header.required - authorization token header

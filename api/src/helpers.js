@@ -113,6 +113,7 @@ export class NotFoundError extends Error {
 /**
  * Throws a validation error
  * @name throwValidationError
+ * @throws {ValidationError}
  * @param {string} param - param name
  * @param {string} extraMessage - additional message
  */
@@ -123,6 +124,7 @@ export const throwValidationError = (param: string, extraMessage: string = '') =
 /**
  * Throws a validation error
  * @name throwNotFoundError
+ * @throws {NotFoundError}
  * @param {string} message - error message
  */
 export const throwNotFoundError = (message: string) => {

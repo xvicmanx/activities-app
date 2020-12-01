@@ -11,7 +11,7 @@
     "lint": "./node_modules/.bin/eslint ./src --fix",
     "check:types": "flow",
     "test": "NODE_ENV=TEST mocha './src/**/*.test.js' --config=.mocharc.json --sort",
-    "docs": "jsdoc2md --configure .jsdoc src/*.js > API.md"
+    "docs": "jsdoc2md --configure .jsdoc --files src/*.js src/**/*.js > API.md"
   },
   "author": "",
   "license": "ISC",
