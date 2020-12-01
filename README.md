@@ -7,6 +7,8 @@ An application for communities to create activities and get together.
 
 * [Features](#features)
 * [Screenshots](#screenshots)
+* [Setup](#setup)
+* [Contributing](#contributing)
 * [Contributors](#contributors)
 
 
@@ -40,6 +42,14 @@ An application for communities to create activities and get together.
 To setup the project follow the instructions:
 - [API Setup](api/README.md)
 - [Mobile App Setup](mobile/README.md)
+
+## Contributing
+- Fork the repository
+- Create a feature branch (git checkout -b new-feature)
+- Commit the changes (git commit -m 'Add some feature')
+- Push the branch (git push origin new-feature)
+- Create a new Pull Request
+- Get some reviews
 
 ## Contributors
 
