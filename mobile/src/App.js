@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Splash, SignIn } from './screens';
-import { checkUserInfo } from './redux/authSlice';
-import { TabBar } from './navigation';
 import { StatusBar } from 'react-native';
-import { COLORS } from './constants/colors';
+import SplashScreen from './SplashScreen';
+import { SignInScreen } from './entities/auth/screens';
+import { checkUserInfo } from './entities/auth/actions';
+import TabBarNavigation from './TabBarNavigation';
+import { COLORS } from './constants';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isLoading, user } = useSelector((state) => state.auth);
+  const currentUser = useSelector((s) => s.auth.currentUser);
 
   useEffect(() => {
     dispatch(checkUserInfo());
   }, []);
 
-  if (isLoading) {
-    return <Splash />;
+  if (currentUser.isLoading) {
+    return <SplashScreen />;
   }
 
   return (
     <>
       <StatusBar backgroundColor={COLORS.primary} />
-      {!user ? <SignIn /> : <TabBar />}
+      {!currentUser.data ? <SignInScreen /> : <TabBarNavigation />}
     </>
   );
 };

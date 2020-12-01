@@ -1,4 +1,4 @@
-export const ERRORS = {
+const ERRORS = {
   password: {
     incorrect: 'Contraseña Incorrecta',
     dontMatch: 'Las contraseñas no coinciden',
@@ -8,3 +8,5 @@ export const ERRORS = {
   email: 'Email o contraseña invalido',
   emailFormat: 'Email invalido',
 };
+
+export default ERRORS;
