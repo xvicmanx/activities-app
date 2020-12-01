@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchCommunities } from '../actions';
 import { Loader, ListItem } from '../../../common/components';
-import { fetchParticipants } from '../actions';
 
-const ParticipantsScreen = ({ route, navigation }) => {
+const CommunitiesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const participants = useSelector((s) => s.activities.participants);
+  const communities = useSelector((s) => s.communities.communities);
   const currentUser = useSelector((s) => s.auth.currentUser);
-  const { activityId } = route.params;
 
   useEffect(() => {
-    dispatch(fetchParticipants(activityId, currentUser.data.token));
+    dispatch(fetchCommunities(currentUser.data.token));
   }, []);
 
-  if (participants.isLoading) {
+  if (communities.isLoading) {
     return <Loader />;
   }
 
@@ -23,7 +22,7 @@ const ParticipantsScreen = ({ route, navigation }) => {
       <ListItem
         item={item}
         onPress={() => {
-          navigation.navigate('SpecificUserScreen', {
+          navigation.navigate('CommunityScreen', {
             id: item.id,
             name: item.name,
           });
@@ -34,18 +33,22 @@ const ParticipantsScreen = ({ route, navigation }) => {
 
   return (
     <FlatList
-      style={styles.flatlist}
-      keyExtractor={({ id }) => String(id)}
-      data={participants.list}
+      data={communities.list}
       renderItem={renderItem}
+      keyExtractor={({ id }) => String(id)}
+      ListFooterComponent={<View style={styles.ListFooterComponent} />}
+      style={styles.flatlist}
     />
   );
 };
 
 const styles = StyleSheet.create({
+  ListFooterComponent: {
+    height: 100,
+  },
   flatlist: {
     backgroundColor: '#fff',
   },
 });
 
-export default ParticipantsScreen;
+export default CommunitiesScreen;

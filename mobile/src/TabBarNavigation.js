@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { COLORS } from './constants';
 import ActivitiesStack from './entities/activities/ActivitiesStack';
 import ProfileStack from './entities/user/ProfileStack';
-// import CommunityStack from './CommunityStack';
+import CommunityStack from './entities/communities/CommunityStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +17,11 @@ const TabBarNavigation = () => {
 
           if (route.name === 'ActivitiesStack') {
             iconName = focused ? 'ios-apps' : 'ios-apps-outline';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === 'ProfileStack') {
             iconName = focused
               ? 'ios-person-circle'
               : 'ios-person-circle-outline';
-          } else if (route.name === 'Community') {
+          } else if (route.name === 'CommunityStack') {
             iconName = focused ? 'ios-people' : 'ios-people-outline';
           }
 
@@ -49,16 +49,15 @@ const TabBarNavigation = () => {
         component={ActivitiesStack}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileStack"
         options={{ title: 'Perfil' }}
         component={ProfileStack}
       />
-      {/* 
       <Tab.Screen
-        name="Community"
+        name="CommunityStack"
         options={{ title: 'Comunidades' }}
         component={CommunityStack}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };

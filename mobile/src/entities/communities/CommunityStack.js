@@ -1,7 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Community, CommunitiesList, OtherUserInfo } from '../screens';
-import { COLORS } from '../constants';
+import { CommunitiesScreen, CommunityScreen } from './screens';
+import { SpecificUserScreen } from '../auth/screens';
+import { COLORS } from '../../constants';
+
 const Stack = createStackNavigator();
 
 const CommunityStack = () => {
@@ -14,16 +16,17 @@ const CommunityStack = () => {
       }}
     >
       <Stack.Screen
-        name="CommunitiesListScreen"
+        name="CommunitiesScreen"
         options={{ title: 'Lista de Comunidades' }}
-        component={CommunitiesList}
+        component={CommunitiesScreen}
       />
       <Stack.Screen
         name="CommunityScreen"
-        options={{ title: 'Comunidad' }}
-        component={Community}
+        options={{ title: 'Comunidades' }}
+        component={CommunityScreen}
       />
-      <Stack.Screen name="OtherUserInfoScreen" component={OtherUserInfo} />
+
+      <Stack.Screen name="SpecificUserScreen" component={SpecificUserScreen} />
     </Stack.Navigator>
   );
 };

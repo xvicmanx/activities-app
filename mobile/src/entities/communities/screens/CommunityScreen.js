@@ -1,41 +1,39 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Avatar, Loader } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCommunityInfoById } from '../redux/communitiesSlice';
-import { COLORS } from '../constants';
-import { ListItem } from 'react-native-elements';
+import { Loader, ListItem } from '../../../common/components';
+import { COLORS } from '../../../constants';
+import { fetchCommunityById } from '../actions';
 
-const Community = ({ route, navigation }) => {
+const CommunityScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.communities.communityLoader);
-  const community = useSelector((state) => state.communities.communityDetails);
-  const currentUser = useSelector((state) => state.auth.user);
+  const community = useSelector((s) => s.communities.community);
+  const currentUser = useSelector((s) => s.auth.currentUser);
   const { id, name } = route.params;
 
   useEffect(() => {
-    dispatch(fetchCommunityInfoById(id, currentUser.token));
+    dispatch(fetchCommunityById(id, currentUser.data.token));
   }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: name });
   });
 
-  if (isLoading) {
+  if (community.isLoading) {
     return <Loader />;
   }
 
-  const coordinates = community.members?.filter((member) => {
+  const coordinates = community.data.members?.filter((member) => {
     return member.coordinates;
   });
 
-  const members = community.members?.filter((member) => {
+  const members = community.data.members?.filter((member) => {
     return !member.coordinates;
   });
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.communitySlogan}>{community.slogan}</Text>
+      <Text style={styles.communitySlogan}>{community.data.slogan}</Text>
 
       {coordinates.length > 0 && (
         <>
@@ -45,21 +43,16 @@ const Community = ({ route, navigation }) => {
             if (member.coordinates) {
               return (
                 <ListItem
-                  key={member.id}
                   bottomDivider
-                  onPress={() =>
-                    navigation.navigate('OtherUserInfoScreen', {
+                  key={member.id}
+                  item={member}
+                  onPress={() => {
+                    navigation.navigate('SpecificUserScreen', {
                       id: member.id,
                       name: member.name,
-                    })
-                  }
-                >
-                  <Avatar img={member.profileURL} />
-                  <ListItem.Content>
-                    <ListItem.Title>{member.name}</ListItem.Title>
-                  </ListItem.Content>
-                  <ListItem.Chevron />
-                </ListItem>
+                    });
+                  }}
+                />
               );
             }
           })}
@@ -74,21 +67,16 @@ const Community = ({ route, navigation }) => {
             if (!member.coordinates) {
               return (
                 <ListItem
-                  key={member.id}
                   bottomDivider
-                  onPress={() =>
-                    navigation.navigate('OtherUserInfoScreen', {
+                  key={member.id}
+                  item={member}
+                  onPress={() => {
+                    navigation.navigate('SpecificUserScreen', {
                       id: member.id,
                       name: member.name,
-                    })
-                  }
-                >
-                  <Avatar img={member.profileURL} />
-                  <ListItem.Content>
-                    <ListItem.Title>{member.name}</ListItem.Title>
-                  </ListItem.Content>
-                  <ListItem.Chevron />
-                </ListItem>
+                    });
+                  }}
+                />
               );
             }
           })}
@@ -123,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Community;
+export default CommunityScreen;

@@ -1,5 +1,5 @@
 import React, { useRef, useReducer } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text } from 'react-native-elements';
 import { COLORS, ERRORS, RegExpValidation } from '../../../constants';
@@ -52,6 +52,12 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require('../../../assets/images/logo.png')}
+        resizeMode="contain"
+      />
+
       <Text style={styles.title} h3>
         Iniciar Sesion
       </Text>
@@ -98,9 +104,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 15,
   },
+  logo: {
+    width: 130,
+    height: 130,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 20,
+  },
   title: {
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 25,
     color: COLORS.dark,
   },
   lineBreak: {

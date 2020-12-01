@@ -35,7 +35,6 @@ const ProfileScreen = () => {
   };
 
   const changePassword = () => {
-    console.warn('OK');
     //TODO
   };
 
