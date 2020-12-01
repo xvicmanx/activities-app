@@ -14,7 +14,19 @@ const {
   PORT,
 } = process.env;
 
+/**
+ * Helper class to upload pictures
+ * @class PictureUploader
+ */
+
 class PictureUploader {
+  /**
+   * Uploads image
+   * @method PictureUploader#upload
+   * @param {Buffer} data - image data buffer
+   * @param {string} name - name of the image
+   * @return {string} url of the uploaded image
+   */
   static upload = async (data: Buffer, name: string) => {
     const dir = `${__dirname}/../../public/images`;
     await ensureDir(dir);

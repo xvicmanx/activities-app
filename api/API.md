@@ -1,3 +1,20 @@
+## Modules
+
+<dl>
+<dt><a href="#module_helpers">helpers</a></dt>
+<dd></dd>
+</dl>
+
+## Classes
+
+<dl>
+<dt><a href="#Controller">Controller</a></dt>
+<dd><p>All the controllers extend from this class</p>
+</dd>
+<dt><a href="#PictureUploader">PictureUploader</a></dt>
+<dd></dd>
+</dl>
+
 <a name="module_helpers"></a>
 
 ## helpers
@@ -80,6 +97,10 @@ Errors related to not found objects
 Throws a validation error
 
 **Kind**: inner property of [<code>helpers</code>](#module_helpers)  
+**Throws**:
+
+- <code>ValidationError</code> 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -92,6 +113,10 @@ Throws a validation error
 Throws a validation error
 
 **Kind**: inner property of [<code>helpers</code>](#module_helpers)  
+**Throws**:
+
+- <code>NotFoundError</code> 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -107,4 +132,19 @@ Handles error returning the correct status
 | Param | Type | Description |
 | --- | --- | --- |
 | fn | <code>function</code> | Funtion to handle errors |
+
+<a name="Controller"></a>
+
+## Controller
+All the controllers extend from this class
+
+**Kind**: global class  
+<a name="PictureUploader"></a>
+
+## PictureUploader
+**Kind**: global class  
+<a name="new_PictureUploader_new"></a>
+
+### new PictureUploader()
+Helper class to upload pictures
 
