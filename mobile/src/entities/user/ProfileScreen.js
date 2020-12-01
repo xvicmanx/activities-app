@@ -11,6 +11,7 @@ import {
   EDIT_PASSWORD,
 } from './ProfileScreenReducer';
 import authSlice from '../auth/authSlice';
+import { updatePassword } from './actions';
 
 const ProfileScreen = () => {
   const reduxDispatch = useDispatch();
@@ -35,7 +36,7 @@ const ProfileScreen = () => {
   };
 
   const changePassword = () => {
-    //TODO
+    reduxDispatch(updatePassword(currentUser.data));
   };
 
   const closeSession = () => {

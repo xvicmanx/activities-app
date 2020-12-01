@@ -2,8 +2,8 @@ export const HANDLE_CHANGE = 'HANDLE_CHANGE';
 export const SET_ERRORS = 'SET_ERRORS';
 
 export const initialState = {
-  email: '',
-  password: '',
+  email: 'maryjane@test.com',
+  password: '123456',
   errors: {
     email: null,
     password: null,
