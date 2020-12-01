@@ -8,6 +8,12 @@ An application for communities to create activities and get together.
 * [Screenshots](#screenshots)
 
 
+## Features
+
+* Users can be part of communities
+* Users can create activities, invite others, being invited and accept / reject those invitations.
+* Users can update their profiles.
+
 ## Screenshots
 
 
