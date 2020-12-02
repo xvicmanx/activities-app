@@ -68,6 +68,20 @@ export const invalidParamError = (req: $Request, res: $Response, message: string
 };
 
 /**
+ * Throw an unauthorized access error with a 400 status
+ * @name authorizationError
+ * @param {$Request} req - Express request
+ * @param {$Response} res - Express response
+ * @param {string} message - message of the error
+ */
+export const authorizationError = (req: $Request, res: $Response, message: string) => {
+  res.status(401).json({
+    message,
+    code: 'UNAUTHORIZED',
+  });
+};
+
+/**
  * Transforms a target to object in case of not being
  * @name asObject
  * @param {mixed} target - target item

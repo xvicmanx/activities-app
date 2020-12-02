@@ -50,6 +50,10 @@ class ActivitiesService {
     }));
   }
 
+  async getActivities(): Promise<Array<Activity>> {
+    return Activity.findAll();
+  }
+
   async getParticipantsList(activityId: number): Promise<Array<ActivityParticipant>> {
     const activity = await Activity.findOne({
       where: { id: activityId },

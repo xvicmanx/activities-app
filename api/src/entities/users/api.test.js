@@ -23,6 +23,49 @@ const mapItem = (x) => ({
 });
 
 describe('User API', () => {
+  describe('Getting users list', () => {
+    const getUsersList = async (user) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.get(getUrl('/users/list'), headers);
+    };
+
+    let adminUser;
+    let normalUser;
+
+    before(async () => {
+      adminUser = await createTestUser({ admin: true });
+      normalUser = await createTestUser();
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await getUsersList(null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.users).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the user is not admin', async () => {
+      const response = await getUsersList(normalUser);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.users).to.be.equal(undefined);
+      expect(response.message).to.be.equal('The user is not authorized');
+    });
+
+    it('successfully returns the list of users', async () => {
+      const users = await User.findAll();
+      const response = await getUsersList(adminUser);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(response.users.map(mapItem))
+        .to.eql(users.map(mapItem));
+    });
+  });
+
   describe('Login', () => {
     const login = async (email, password) => {
       const payload = { email, password };

@@ -28,6 +28,7 @@ export default async () => {
         email: 'johndoe@test.com',
         description: faker.lorem.text(),
         profileURL: faker.image.imageUrl(),
+        admin: true,
         password,
       },
       {
@@ -35,6 +36,7 @@ export default async () => {
         email: 'maryjane@test.com',
         description: faker.lorem.text(),
         profileURL: faker.image.imageUrl(),
+        admin: true,
         password,
       },
       ...fakeUsersData,

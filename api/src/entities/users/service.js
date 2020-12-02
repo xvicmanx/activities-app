@@ -5,6 +5,7 @@ import _ from 'lodash';
 import sha1 from 'sha1';
 
 import { getSafeUser } from './helpers';
+import type { UserAttributes } from './model';
 import User from './model';
 
 const {
@@ -41,6 +42,12 @@ export const getUserTokenInfo = (user: User) => {
 };
 
 class UsersService {
+  async getUsers(): Promise<Array<UserAttributes>> {
+    const users = await User.findAll();
+
+    return users.map(getSafeUser);
+  }
+
   async findById(id: number): Promise<?User> {
     return User.findOne({
       where: { id },

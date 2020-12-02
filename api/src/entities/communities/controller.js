@@ -18,6 +18,27 @@ class CommunitiesController extends Controller {
     this.service = service;
   }
 
+  getCommunities = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.invalidParamError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    const communities = await this.service.getCommunities();
+
+    response.json({
+      communities,
+      success: true,
+    });
+  });
+
   findById = this.errorHandler(async (request: $Request, response: $Response) => {
     const loggedInUser: Object | null = response.locals.user || null;
 

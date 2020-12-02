@@ -5,6 +5,10 @@ import User from '../users/model';
 import Community from './model';
 
 class CommunitiesService {
+  async getCommunities(): Promise<Array<Community>> {
+    return Community.findAll();
+  }
+
   async findById(id: number): Promise<?Community> {
     const community = await Community.findOne({
       where: { id },

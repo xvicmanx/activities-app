@@ -6,6 +6,7 @@ import { before, describe, it } from 'mocha';
 import { getAuthHeaders, getUrl } from '../../test/helpers';
 import requester from '../../test/requester';
 import createTestUser from '../users/test-entity-factory';
+import Activity from './model';
 import createTestActivity from './test-entity-factory';
 
 const mapActivityItem = (x) => ({
@@ -23,7 +24,51 @@ const mapParticipantItem = (x) => ({
 });
 
 describe('Activity API', () => {
-  describe('Getting pending activies', () => {
+  describe('Getting activities list', () => {
+    const getActivitiesList = async (user) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.get(getUrl('/activities/list'), headers);
+    };
+
+    let activities;
+    let adminUser;
+    let normalUser;
+
+    before(async () => {
+      activities = await Activity.findAll();
+      adminUser = await createTestUser({ admin: true });
+      normalUser = await createTestUser();
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await getActivitiesList(null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.activities).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the user is not admin', async () => {
+      const response = await getActivitiesList(normalUser);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.activities).to.be.equal(undefined);
+      expect(response.message).to.be.equal('The user is not authorized');
+    });
+
+    it('successfully returns the list of activities', async () => {
+      const response = await getActivitiesList(adminUser);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(response.activities.map(mapActivityItem))
+        .to.eql(activities.map(mapActivityItem));
+    });
+  });
+
+  describe('Getting pending activities', () => {
     const getPendingActivities = async (user) => {
       let headers = {};
 

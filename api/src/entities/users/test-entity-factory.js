@@ -5,7 +5,7 @@ import User from './model';
 const faker = require('faker');
 
 // Test User Factory
-export default async () => {
+export default async (updateData = {}) => {
   const password = sha1('123456');
 
   const user = await User.create({
@@ -14,6 +14,7 @@ export default async () => {
     password,
     description: faker.lorem.text(),
     profileURL: faker.image.imageUrl(),
+    ...updateData,
   });
 
   return user.reload();
