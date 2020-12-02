@@ -17,6 +17,16 @@ const getRoutes = () => {
   const controller = new ActivitiesController(service);
 
   /**
+   * @typedef Activity
+   * @property {integer} id
+   * @property {string} title.required
+   * @property {string} description
+   * @property {string} date.required
+   * @property {string} createdAt
+   * @property {string} updatedAt
+   */
+
+  /**
    * @typedef ActivityListInfo
    * @property {integer} id
    * @property {string} title.required
@@ -37,6 +47,12 @@ const getRoutes = () => {
    * @typedef PendingActivitiesResponse
    * @property {boolean} success
    * @property {ActivityListInfo[]} activities
+   */
+
+  /**
+   * @typedef ActivitiesListResponse
+   * @property {boolean} success
+   * @property {Activity[]} activities
    */
 
   /**
@@ -86,6 +102,16 @@ const getRoutes = () => {
   * @returns {Error}  default - Unexpected error
   */
   app.put('/:id/unjoin', authRequired(controller.unjoinActivity));
+
+  /**
+   * Gets the list of activities
+   * @route GET /activities/list
+   * @group Activity - Operations about activity
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {ActivitiesListResponse.model} 200 - list of activities response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.get('/list', authRequired(controller.getActivities));
 
   return app;
 };

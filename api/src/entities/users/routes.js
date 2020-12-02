@@ -77,6 +77,12 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef UsersResponse
+   * @property {boolean} success
+   * @property {User[]} users
+   */
+
+  /**
    * Get current user
    * @route GET /users/current
    * @group User - Operations about user
@@ -140,6 +146,16 @@ const getRoutes = () => {
     multer().single('file'),
     authRequired(controller.updateProfilePicture),
   );
+
+  /**
+   * Gets the list of users
+   * @route GET /users/list
+   * @group User - Operations about user
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {UsersResponse.model} 200 - list of users response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.get('/list', authRequired(controller.getUsers));
 
   return app;
 };

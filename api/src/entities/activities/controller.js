@@ -17,6 +17,27 @@ class ActivitiesController extends Controller {
     this.service = service;
   }
 
+  getActivities = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.invalidParamError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    const activities = await this.service.getActivities();
+
+    response.json({
+      activities,
+      success: true,
+    });
+  });
+
   getPendingActivities = this.errorHandler(async (request: $Request, response: $Response) => {
     const loggedInUser: Object | null = response.locals.user || null;
 

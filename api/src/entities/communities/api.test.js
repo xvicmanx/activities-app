@@ -6,6 +6,7 @@ import { before, describe, it } from 'mocha';
 import { getAuthHeaders, getUrl } from '../../test/helpers';
 import requester from '../../test/requester';
 import createTestUser from '../users/test-entity-factory';
+import Community from './model';
 import createTestCommunity from './test-entity-factory';
 
 const mapItem = (x, shouldMapMembers = false) => {
@@ -28,6 +29,49 @@ const mapItem = (x, shouldMapMembers = false) => {
 };
 
 describe('Community API', () => {
+  describe('Getting communities list', () => {
+    const getCommunitiesList = async (user) => {
+      let headers = {};
+
+      if (user) {
+        headers = await getAuthHeaders(user);
+      }
+
+      return requester.get(getUrl('/communities/list'), headers);
+    };
+
+    let adminUser;
+    let normalUser;
+
+    before(async () => {
+      adminUser = await createTestUser({ admin: true });
+      normalUser = await createTestUser();
+    });
+
+    it('fails if the user is not logged in', async () => {
+      const response = await getCommunitiesList(null);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.communities).to.be.equal(undefined);
+      expect(response.message).to.be.equal('It is not authorized');
+    });
+
+    it('fails if the user is not admin', async () => {
+      const response = await getCommunitiesList(normalUser);
+      expect(response.success).to.be.equal(undefined);
+      expect(response.communities).to.be.equal(undefined);
+      expect(response.message).to.be.equal('The user is not authorized');
+    });
+
+    it('successfully returns the list of communities', async () => {
+      const communities = await Community.findAll();
+      const response = await getCommunitiesList(adminUser);
+      expect(response.success).to.be.equal(true);
+      expect(response.message).to.be.equal(undefined);
+      expect(response.communities.map((x) => mapItem(x)))
+        .to.eql(communities.map((x) => mapItem(x)));
+    });
+  });
+
   describe('Getting user communities', () => {
     const getUserCommunities = async (user) => {
       let headers = {};

@@ -67,6 +67,16 @@ const getRoutes = () => {
    */
   app.get('/find/:id', authRequired(controller.findById));
 
+  /**
+   * Gets the list of communities
+   * @route GET /communities/list
+   * @group Community - Operations about community
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {CommunitiesResponse.model} 200 - list of communities response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.get('/list', authRequired(controller.getCommunities));
+
   return app;
 };
 

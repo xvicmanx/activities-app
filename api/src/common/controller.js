@@ -1,4 +1,8 @@
-import { errorHandler, invalidParamError } from '../helpers';
+import {
+  authorizationError,
+  errorHandler,
+  invalidParamError,
+} from '../helpers';
 
 /**
  * All the controllers extend from this class
@@ -6,9 +10,15 @@ import { errorHandler, invalidParamError } from '../helpers';
 class Controller {
   /**
    * @method invalidParamError
-   * Throws a invalid param error
+   * Throws an invalid param error
    */
   invalidParamError = (...args) => invalidParamError(...args);
+
+  /**
+   * @method authorizationError
+   * Throws an authorization error
+   */
+  authorizationError = (...args) => authorizationError(...args);
 
   /**
    * @method errorHandler
