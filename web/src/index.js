@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import './CrudTable.css';
 
 import './index.css';
 
