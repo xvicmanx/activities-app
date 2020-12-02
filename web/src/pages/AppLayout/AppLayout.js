@@ -5,7 +5,10 @@ import { Image } from 'react-bulma-components';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 
 import {
-  HomePage
+  HomePage,
+  ActivitiesPage,
+  CommunitiesPage,
+  UsersPage,
 } from '../';
 import {
   NavBar,
@@ -62,6 +65,27 @@ const AppLayout = () => {
                 className="Option__Icon"
               /> Inicio
             </NavLink>
+            <NavLink exact className="Option__Link" to="/activities">
+              <Image
+                src={homeIcon}
+                alt="activities"
+                className="Option__Icon"
+              /> Actividades
+            </NavLink>
+            <NavLink exact className="Option__Link" to="/communities">
+              <Image
+                src={homeIcon}
+                alt="communities"
+                className="Option__Icon"
+              /> Comunidades
+            </NavLink>
+            <NavLink exact className="Option__Link" to="/users">
+              <Image
+                src={homeIcon}
+                alt="users"
+                className="Option__Icon"
+              /> Usuarios
+            </NavLink>
           </div>
         </div>
         <div className="Layout__Content">
@@ -69,6 +93,9 @@ const AppLayout = () => {
           <div className={`Layout__Scroll-Content-Wrapper ${showMobileMenu ? 'hide' : ''}`}>
             <div className="Layout__Scroll-Content">
               <Switch>
+                <Route path="/activities" component={ActivitiesPage} />
+                <Route path="/communities" component={CommunitiesPage} />
+                <Route path="/users" component={UsersPage} />
                 <Route path="/home" component={HomePage} />
               </Switch>
               <ToastContainer />
