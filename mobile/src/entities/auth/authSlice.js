@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateDescription } from '../../common/actions';
 
 const INITIAL_STATE = {
   currentUser: {
@@ -48,6 +49,11 @@ const authSlice = createSlice({
           isLoading: false,
         },
       };
+    },
+  },
+  extraReducers: {
+    [updateDescription]: (state, action) => {
+      state.currentUser.data.description = action.payload;
     },
   },
 });
