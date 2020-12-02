@@ -1,0 +1,41 @@
+.HomePage {
+  padding: 15px;
+  margin-bottom: 200px;
+}
+
+.HomePage__Title {
+  margin-bottom: 0;
+  padding-left: 10px;
+  color: #767e84;
+  font-size: 1.5rem;
+}
+
+.Graph {
+  max-width: 585px;
+  background: #fff;
+  padding: 20px;
+  margin: 20px 10px;
+}
+
+.Graph__Title {
+  color: #767e84;
+  font-size: 1.2rem !important;
+}
+
+.Graph .axis {
+  font-size: 12px;
+}
+
+.Graph .table thead th, .Graph .table {
+  color: #767e84;
+}
+
+@media only screen and (min-width: 1024px) {
+  .HomePage__Content {
+    display: flex;
+  }
+
+  .HomePage__Title {
+    font-size: 1.8rem;
+  }
+}

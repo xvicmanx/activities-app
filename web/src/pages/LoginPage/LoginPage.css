@@ -1,0 +1,81 @@
+.LoginPage {
+  padding: 10px;
+  background: #919ba2;
+  min-height: 100vh;
+}
+
+.LoginPage__Container {
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  overflow: hidden;
+}
+
+.LoginPage__Content{
+  width: 100%;
+  background: #f9f9f9;  
+}
+
+.LoginPage__App-Info {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid #efefef;
+  border-right: 1px solid #efefef;
+}
+
+.LoginPage__Form {
+  width: 100%;
+  height: calc(100% - 55px);
+  padding: 0 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.LoginPage__Logo.top {
+  display: none;
+}
+
+.LoginPage__Title,
+.LoginPage__Subtitle {
+  color: #919ba2;
+}
+
+.LoginPage__Subtitle {
+  font-size: 0.9rem !important;
+  font-weight: 400;
+}
+
+@media only screen and (min-width: 1024px) {
+  .LoginPage {
+    padding: 40px;
+  }
+
+  .LoginPage__Logo.top {
+    margin: auto;
+    width: 50%;
+    display: block;
+  }
+
+  .LoginPage__Form {
+    padding: 20px 80px;
+  }
+
+  .LoginPage__Container {
+    display: flex;
+    height: calc(100vh - 80px);
+  }
+
+  .LoginPage__App-Info {
+    padding: 70px 60px;
+    max-width: 500px;
+  }
+
+  .LoginPage__Subtitle {
+    font-size: 1.25rem;
+  }
+
+}

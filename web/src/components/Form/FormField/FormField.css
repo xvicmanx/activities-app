@@ -1,0 +1,9 @@
+.FormField {
+  margin: 0 0 15px;
+  color: #767e84;
+}
+
+.FormField__label {
+  display: block;
+  margin: 0 0 10px;
+}

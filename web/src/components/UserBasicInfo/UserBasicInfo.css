@@ -1,0 +1,40 @@
+.UserBasicInfo {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.UserBasicInfo__Picture {
+  width: 25%;
+  margin-right: 20px;
+}
+
+.UserBasicInfo__Picture img {
+  border-radius: 50%;
+}
+
+.UserBasicInfo .inverted {
+  color: #909aa1;
+  padding: 10px 0 0 0;
+  text-align: center;
+}
+
+
+@media only screen and (min-width: 1024px) {
+  .UserBasicInfo {
+    flex-direction: column;
+  }
+
+  .UserBasicInfo__Picture {
+    display: block;
+    width: 50%;
+    margin-right: 0;
+  }
+
+  .UserBasicInfo__Picture img {
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+  }
+}

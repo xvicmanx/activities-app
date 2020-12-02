@@ -1,0 +1,45 @@
+.NavBar {
+  background-color: #5caaf6;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.NavBar__link {
+  margin: 0 15px;
+  color: #fff;
+}
+
+
+.NavBar.inverted {
+  background: #fff;
+  border-bottom: 1px solid #f3f3f3;
+  margin-bottom: 0;
+}
+
+.NavBar.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.NavBar.inverted .NavBar__link{
+  color: #76858e;
+}
+
+.NavBar__link.menu {
+  position: absolute;
+  left: 10px;
+}
+
+.NavBar__link.menu .image {
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  width: 2rem;
+  margin-top: -4px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .NavBar__link.menu {
+    display: none;
+  }
+}

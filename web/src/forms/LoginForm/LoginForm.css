@@ -1,0 +1,31 @@
+.LoginForm {
+  width: 90%;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.LoginForm__Title {
+  text-align: center;
+  font-size: 1.7rem;
+}
+
+.LoginForm .FormField {
+  margin-bottom: 30px;
+}
+
+.LoginForm .FormField__label,
+.LoginForm__Title {
+  color: #9aa4aa;
+}
+
+.LoginForm .button {
+  height: 2.5rem;
+}
+
+@media only screen and (min-width: 1024px) {
+  .LoginForm {
+    width: 70%;
+  }
+}
