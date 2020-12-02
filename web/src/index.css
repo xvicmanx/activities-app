@@ -1,0 +1,77 @@
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+.Title-Icon {
+  width: 2rem;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.title {
+  color: #767e84;
+}
+
+.modal-content {
+  width: calc(100% - 20px);
+  max-height: calc(100vh - 30px);
+}
+
+.modal-card {
+  margin: auto;
+}
+
+.modal-card-title {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.modal-card-body .title {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.modal-card-head {
+  border-bottom: 1px solid #efefef;
+  background: #5caaf6;
+  padding: 15px;
+}
+
+.modal-content .buttons {
+  justify-content: center;
+}
+
+.dropdown .button {
+  color: #767e84;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  line-height: 2rem;
+  width: 100%;
+  display: block;
+  border: 1px solid #d3d3d3;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #7b8389;
+}

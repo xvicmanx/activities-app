@@ -1,0 +1,16 @@
+.DatePicker {
+  display: flex;
+}
+
+.DatePicker__month {
+  display: flex;
+  margin: 0 15px;
+}
+
+.DatePicker__day {
+  width: 60px;
+}
+
+.DatePicker__input {
+  max-width: 100%;
+}
