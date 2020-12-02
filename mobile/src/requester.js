@@ -1,6 +1,7 @@
 import { LOCAL_HOST } from '@env';
 
-const requester = async ({ token, path, method, payload }) => {
+const requester = async (data) => {
+  const { token, path, method, payload } = data;
   const HOST = LOCAL_HOST;
 
   let headers = {

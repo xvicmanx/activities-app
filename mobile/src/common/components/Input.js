@@ -9,11 +9,12 @@ const Input = forwardRef((props, ref) => {
   return (
     <InputRNE
       leftIcon={{ type: 'ionicon', name: iconName, color: COLORS.primary }}
-      errorStyle={styles.errorStyle}
+      errorStyle={styles.error}
       errorMessage={error}
       onChangeText={onChange}
       editable={!disable}
-      inputStyle={styles.inputStyle}
+      inputStyle={styles.input}
+      inputContainerStyle={error && styles.inputContainerError}
       ref={ref}
       {...rest}
     />
@@ -21,12 +22,18 @@ const Input = forwardRef((props, ref) => {
 });
 
 const styles = StyleSheet.create({
-  errorStyle: {
+  error: {
     color: COLORS.danger,
   },
-  inputStyle: {
+  success: {
+    color: COLORS.green,
+  },
+  input: {
     color: COLORS.primary,
     fontSize: 15,
+  },
+  inputContainerError: {
+    borderColor: COLORS.danger,
   },
 });
 
