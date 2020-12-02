@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Button as ButtonRNE } from 'react-native-elements';
 import { COLORS } from '../../constants';
 
-const Button = ({ icon, danger, small, children, loading, ...rest }) => {
+const Button = ({ style, icon, danger, small, children, loading, ...rest }) => {
   const smallStyles = small && styles.small;
   const dangerStyles = danger && styles.danger;
 
@@ -16,6 +16,7 @@ const Button = ({ icon, danger, small, children, loading, ...rest }) => {
         height: 50,
         ...smallStyles,
         ...dangerStyles,
+        ...style,
       }}
       icon={icon && <View style={styles.iconContainer}>{icon}</View>}
       iconRight

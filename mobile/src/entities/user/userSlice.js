@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import authSlice from '../auth/authSlice';
+import { updateDescription } from '../../common/actions';
 
 const INITIAL_STATE = {
   previousPassword: '',
@@ -7,6 +8,8 @@ const INITIAL_STATE = {
   confirmPassword: '',
   isEditing: false,
   isLoading: false,
+  modalVisibility: false,
+  modalLoader: false,
   errors: {
     previousPassword: null,
     password: null,
@@ -47,10 +50,20 @@ const userSlice = createSlice({
       state.errors = { ...INITIAL_STATE.errors };
       state.message = action.payload;
     },
+    setModalVisibility(state, action) {
+      state.modalVisibility = action.payload;
+    },
+    setModalLoader(state, action) {
+      state.modalLoader = action.payload;
+    },
   },
   extraReducers: {
     [authSlice.actions.logOut]: (state, action) => {
       return { ...INITIAL_STATE };
+    },
+    [updateDescription]: (state, action) => {
+      state.modalLoader = false;
+      state.modalVisibility = false;
     },
   },
 });

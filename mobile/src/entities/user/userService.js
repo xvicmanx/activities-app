@@ -13,6 +13,16 @@ const updatePassword = async (passwordsData, token) => {
   });
 };
 
+const updateDescription = async (description, token) => {
+  return await requester({
+    path: `/users/update-information`,
+    method: 'PUT',
+    token,
+    payload: { description },
+  });
+};
+
 export default {
   updatePassword,
+  updateDescription,
 };
