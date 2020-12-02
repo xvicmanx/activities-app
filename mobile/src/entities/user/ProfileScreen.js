@@ -1,46 +1,54 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { Avatar, Button, Input } from '../../common/components';
 import { COLORS } from '../../constants';
-import {
-  initialState,
-  reducer,
-  HANDLE_CHANGE,
-  EDIT_PASSWORD,
-} from './ProfileScreenReducer';
 import authSlice from '../auth/authSlice';
 import { updatePassword } from './actions';
+import userSlice from './userSlice';
+import validator from './validator';
 
 const ProfileScreen = () => {
-  const reduxDispatch = useDispatch();
+  const dispatch = useDispatch();
   const currentUser = useSelector((s) => s.auth.currentUser);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const state = useSelector((s) => s.user);
   const repeatPasswordRef = useRef();
   const newPasswordRef = useRef();
 
   const onChange = (name, value) => {
-    dispatch({
-      type: HANDLE_CHANGE,
-      payload: { name, value },
-    });
+    dispatch(
+      userSlice.actions.handleChange({
+        name,
+        value,
+      })
+    );
   };
 
-  const editDescription = () => {
-    //TODO
-  };
-
+  const editDescription = () => {};
   const editPassword = () => {
-    dispatch({ type: EDIT_PASSWORD });
+    dispatch(userSlice.actions.setIsEditing());
   };
 
-  const changePassword = () => {
-    reduxDispatch(updatePassword(currentUser.data));
+  const submit = () => {
+    const { isValid, errors } = validator(state);
+
+    if (!isValid) {
+      dispatch(userSlice.actions.setErrors(errors));
+      return;
+    }
+
+    const passwordsData = {
+      previousPassword: state.previousPassword,
+      password: state.password,
+      confirmPassword: state.confirmPassword,
+    };
+
+    dispatch(updatePassword(passwordsData, currentUser.data.token));
   };
 
   const closeSession = () => {
-    reduxDispatch(authSlice.actions.logOut());
+    dispatch(authSlice.actions.logOut());
   };
 
   return (
@@ -60,11 +68,9 @@ const ProfileScreen = () => {
       >
         Editar Descripcion
       </Button>
-
       <View style={styles.lineBreak} />
 
       <Button onPress={editPassword}>Cambiar Contraseña</Button>
-
       <View style={styles.lineBreak} />
 
       {state.isEditing && (
@@ -72,8 +78,8 @@ const ProfileScreen = () => {
           <Text style={styles.label}>Cambiar Contraseña</Text>
 
           <Input
-            value={state.currentPassword}
-            onChange={onChange.bind(this, 'currentPassword')}
+            value={state.previousPassword}
+            onChange={onChange.bind(this, 'previousPassword')}
             placeholder="Escribre la contraseña actual..."
             secureTextEntry
             returnKeyType="next"
@@ -81,13 +87,14 @@ const ProfileScreen = () => {
               newPasswordRef.current.focus();
             }}
             blurOnSubmit={false}
+            error={state.errors.previousPassword}
           />
 
           <View style={styles.lineBreak} />
 
           <Input
-            value={state.nextPassword}
-            onChange={onChange.bind(this, 'nextPassword')}
+            value={state.password}
+            onChange={onChange.bind(this, 'password')}
             placeholder="Escribre la nueva contraseña..."
             secureTextEntry
             returnKeyType="next"
@@ -96,22 +103,42 @@ const ProfileScreen = () => {
             }}
             blurOnSubmit={false}
             ref={newPasswordRef}
+            error={
+              state.errors.password || (state.errors.confirmPassword && ' ')
+            }
           />
 
           <View style={styles.lineBreak} />
 
           <Input
-            value={state.confirmNextPassword}
-            onChange={onChange.bind(this, 'confirmNextPassword')}
+            value={state.confirmPassword}
+            onChange={onChange.bind(this, 'confirmPassword')}
             placeholder="Repite la nueva contraseña..."
             secureTextEntry
             ref={repeatPasswordRef}
-            // error={passwordError}
+            error={state.errors.confirmPassword}
           />
 
           <View style={styles.lineBreak} />
+          {state.message.visibility && (
+            <>
+              <Text
+                style={[
+                  styles.meesage,
+                  {
+                    color: state.message.success ? COLORS.green : COLORS.danger,
+                  },
+                ]}
+              >
+                {state.message.text}
+              </Text>
+              <View style={styles.lineBreak} />
+            </>
+          )}
 
-          <Button onPress={changePassword} small>
+          <View style={styles.lineBreak} />
+
+          <Button loading={state.isLoading} onPress={submit} small>
             Cambiar
           </Button>
         </View>
@@ -163,6 +190,10 @@ const styles = StyleSheet.create({
   },
   scrollBottomHeight: {
     height: 100,
+  },
+  meesage: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
 

@@ -1,13 +1,14 @@
 import requester from '../../requester';
 
-const updatePassword = async (user) => {
+const updatePassword = async (passwordsData, token) => {
   return await requester({
     path: `/users/change-password`,
-    method: 'POST',
-    token: user.token,
+    method: 'PUT',
+    token,
     payload: {
-      email: user.email,
-      password: '123456',
+      previousPassword: passwordsData.previousPassword,
+      password: passwordsData.password,
+      confirmPassword: passwordsData.confirmPassword,
     },
   });
 };
