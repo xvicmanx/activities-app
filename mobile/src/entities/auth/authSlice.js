@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateDescription } from '../../common/actions';
+import { updateDescription, uploadImage } from '../../common/actions';
 
 const INITIAL_STATE = {
   currentUser: {
@@ -54,6 +54,9 @@ const authSlice = createSlice({
   extraReducers: {
     [updateDescription]: (state, action) => {
       state.currentUser.data.description = action.payload;
+    },
+    [uploadImage]: (state, action) => {
+      state.currentUser.data.profileURL = action.payload;
     },
   },
 });
