@@ -1,7 +1,7 @@
 import requester from '../requester';
 
 const createActivity = (payload, token) => requester({
-  path: '/activities',
+  path: '/activities/create',
   method: 'POST',
   payload,
   token,

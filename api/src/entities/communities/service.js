@@ -2,6 +2,7 @@
 
 import { throwNotFoundError } from '../../helpers';
 import User from '../users/model';
+import type { CommunityAttributes } from './model';
 import Community from './model';
 
 class CommunitiesService {
@@ -32,6 +33,21 @@ class CommunitiesService {
     }
 
     return user.communities;
+  }
+
+  async createCommunity(data: CommunityAttributes): Promise<Community> {
+    return Community.create(data);
+  }
+
+  async updateCommunity(data: CommunityAttributes): Promise<Community> {
+    const item = await Community.findByPk(data.id);
+    return item.update(data);
+  }
+
+  async deleteCommunity(id: number): Promise<Community> {
+    const item = await Community.findByPk(id);
+    await item.destroy(id);
+    return item;
   }
 
   get include() {

@@ -7,6 +7,7 @@ import type {
 import _ from 'lodash';
 
 import Controller from '../../common/controller';
+import { asObject } from '../../helpers';
 import CommunitiesService from './service';
 
 class CommunitiesController extends Controller {
@@ -98,6 +99,88 @@ class CommunitiesController extends Controller {
 
     response.json({
       communities,
+      success: true,
+    });
+  });
+
+  createCommunity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    const body = asObject(request.body);
+    const { name, slogan } = body;
+
+    if (!name) {
+      this.invalidParamError(request, response, 'The "name" param is missing');
+      return;
+    }
+
+    if (!slogan) {
+      this.invalidParamError(request, response, 'The "slogan" param is missing');
+      return;
+    }
+
+    response.json({
+      community: await this.service.createCommunity(body),
+      success: true,
+    });
+  });
+
+  updateCommunity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    const body = asObject(request.body);
+
+    const { name, slogan } = body;
+
+    if (!name) {
+      this.invalidParamError(request, response, 'The "name" param is missing');
+      return;
+    }
+
+    if (!slogan) {
+      this.invalidParamError(request, response, 'The "slogan" param is missing');
+      return;
+    }
+
+    response.json({
+      community: await this.service.updateCommunity({
+        id: request.params.id,
+        ...body,
+      }),
+      success: true,
+    });
+  });
+
+  deleteCommunity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      community: await this.service.deleteCommunity(+request.params.id),
       success: true,
     });
   });

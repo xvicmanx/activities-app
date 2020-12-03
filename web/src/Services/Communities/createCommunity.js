@@ -1,7 +1,7 @@
 import requester from '../requester';
 
 const createCommunity = (payload, token) => requester({
-  path: '/communities',
+  path: '/communities/create',
   method: 'POST',
   payload,
   token,

@@ -1,7 +1,7 @@
 import requester from '../requester';
 
 const deleteActivity = (id, token) => requester({
-  path: `/activities/${id}`,
+  path: `/activities/${id}/delete`,
   method: 'DELETE',
   token,
 });
