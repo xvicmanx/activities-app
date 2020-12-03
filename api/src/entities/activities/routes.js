@@ -62,6 +62,49 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef JoinActivityResponse
+   * @property {boolean} success
+   */
+
+  /**
+   * @typedef UnjoinActivityResponse
+   * @property {boolean} success
+   */
+
+  /**
+   * @typedef CreateActivityPayload
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef CreateActivityResponse
+   * @property {boolean} success
+   * @property {Activity} activity
+   */
+
+  /**
+   * @typedef UpdateActivityPayload
+   * @property {integer} id.required
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef UpdateActivityResponse
+   * @property {boolean} success
+   * @property {Activity} activity
+   */
+
+  /**
+   * @typedef DeleteActivityResponse
+   * @property {boolean} success
+   * @property {Activity} activity
+   */
+
+  /**
    * Gets the current user pending activities
    * @route GET /activities/pending
    * @group Activity - Operations about activity
@@ -87,7 +130,7 @@ const getRoutes = () => {
   * @group Activity - Operations about activity
   * @param {integer} id.path.required - the id of the activity
   * @param {string} authorization.header.required - authorization token header
-  * @returns {RequestResponse.model} 200 - accept response
+  * @returns {JoinActivityResponse.model} 200 - unjoin response
   * @returns {Error}  default - Unexpected error
   */
   app.put('/:id/join', authRequired(controller.joinActivity));
@@ -98,7 +141,7 @@ const getRoutes = () => {
   * @group Activity - Operations about activity
   * @param {integer} id.path.required - the id of the activity
   * @param {string} authorization.header.required - authorization token header
-  * @returns {RequestResponse.model} 200 - accept response
+  * @returns {JoinActivityResponse.model} 200 - join response
   * @returns {Error}  default - Unexpected error
   */
   app.put('/:id/unjoin', authRequired(controller.unjoinActivity));
@@ -112,6 +155,40 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.get('/list', authRequired(controller.getActivities));
+
+  /**
+  * Creates an activity
+  * @route POST /activities/create
+  * @group Activity - Operations about activity
+  * @param {CreateActivityPayload.model} body.body.required - the create activity payload
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {CreateActivityResponse.model} 200 - create response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.post('/create', authRequired(controller.createActivity));
+
+  /**
+  * Updates an activity
+  * @route POST /activities/{id}/update
+  * @group Activity - Operations about activity
+  * @param {integer} id.path.required - the id of the activity
+  * @param {UpdateActivityPayload.model} body.body.required - the update activity payload
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {UpdateActivityResponse.model} 200 - update response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/:id/update', authRequired(controller.updateActivity));
+
+  /**
+  * Deletes an activity
+  * @route POST /activities/{id}/delete
+  * @group Activity - Operations about activity
+  * @param {integer} id.path.required - the id of the activity
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {DeleteActivityResponse.model} 200 - update response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.delete('/:id/delete', authRequired(controller.deleteActivity));
 
   return app;
 };

@@ -47,6 +47,39 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef CreateCommunityPayload
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef CreateCommunityResponse
+   * @property {boolean} success
+   * @property {Community} community
+   */
+
+  /**
+   * @typedef UpdateCommunityPayload
+   * @property {integer} id.required
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef UpdateCommunityResponse
+   * @property {boolean} success
+   * @property {Community} community
+   */
+
+  /**
+   * @typedef DeleteCommunityResponse
+   * @property {boolean} success
+   * @property {Community} community
+   */
+
+  /**
    * Gets the current user communities
    * @route GET /communities/list-for-user
    * @group Community - Community
@@ -76,6 +109,40 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.get('/list', authRequired(controller.getCommunities));
+
+  /**
+  * Creates an community
+  * @route POST /activities/create
+  * @group Community - Operations about community
+  * @param {CreateCommunityPayload.model} body.body.required - the create community payload
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {CreateCommunityResponse.model} 200 - create response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.post('/create', authRequired(controller.createCommunity));
+
+  /**
+   * Updates an community
+   * @route POST /activities/{id}/update
+   * @group Community - Operations about community
+   * @param {integer} id.path.required - the id of the community
+   * @param {UpdateCommunityPayload.model} body.body.required - the update community payload
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {UpdateCommunityResponse.model} 200 - update response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.put('/:id/update', authRequired(controller.updateCommunity));
+
+  /**
+   * Deletes an community
+   * @route POST /activities/{id}/delete
+   * @group Community - Operations about community
+   * @param {integer} id.path.required - the id of the community
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {DeleteCommunityResponse.model} 200 - update response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.delete('/:id/delete', authRequired(controller.deleteCommunity));
 
   return app;
 };

@@ -204,6 +204,113 @@ class UsersController extends Controller {
       profileURL,
     });
   });
+
+  createUser = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    const body = asObject(request.body);
+    const { name, email, description } = body;
+
+    if (!name) {
+      this.invalidParamError(request, response, 'The "name" param is missing');
+      return;
+    }
+
+    if (!email) {
+      this.invalidParamError(request, response, 'The "email" param is missing');
+      return;
+    }
+
+    if (!description) {
+      this.invalidParamError(request, response, 'The "description" param is missing');
+      return;
+    }
+
+    response.json({
+      user: getSafeUser(await this.service.createUser(body)),
+      success: true,
+    });
+  });
+
+  updateUser = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    const body = asObject(request.body);
+
+    const { name, email, description } = body;
+
+    if (!name) {
+      this.invalidParamError(request, response, 'The "name" param is missing');
+      return;
+    }
+
+    if (!email) {
+      this.invalidParamError(request, response, 'The "email" param is missing');
+      return;
+    }
+
+    if (!description) {
+      this.invalidParamError(request, response, 'The "description" param is missing');
+      return;
+    }
+
+    response.json({
+      user: getSafeUser(await this.service.updateUser({
+        id: request.params.id,
+        ...body,
+      })),
+      success: true,
+    });
+  });
+
+  deleteUser = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      user: getSafeUser(await this.service.deleteUser(+request.params.id)),
+      success: true,
+    });
+  });
 }
 
 export default UsersController;

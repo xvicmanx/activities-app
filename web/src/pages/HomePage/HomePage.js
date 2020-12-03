@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Image } from 'react-bulma-components';
+import { Heading, Image, Message } from 'react-bulma-components';
 
 import homeIcon from "../../assets/images/front.svg";
 
@@ -16,7 +16,11 @@ const HomePage = () => (
     </Heading>
     <div className="HomePage__Content">
       <div>
-        Hello
+        <Message color="info">
+          <Message.Body>
+            Bienvenido!
+          </Message.Body>
+        </Message>
       </div>
     </div>
   </div>

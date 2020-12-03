@@ -1,12 +1,8 @@
 import requester from '../requester';
 
-const fetchActivities = async (token) => {
-  const request = {
-    path: '/activities/list',
-    token
-  };
-
-  return await requester(request);
-};
+const fetchActivities = async (token) => requester({
+  path: '/activities/list',
+  token,
+});
 
 export default fetchActivities;

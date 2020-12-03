@@ -38,24 +38,20 @@ const NavBar = ({ inverted, right }) => {
 
   return (
     <div className={`NavBar ${additionalClasses.join(' ')}`}>
-      <Switch>
-        <Route path="/home">
-          <Link className="NavBar__link menu" to="/home/display-menu">
-            <Image
-              src={menuIcon}
-              alt="menu"
-            />
-          </Link>
+      <Link className="NavBar__link menu" to="/home/display-menu">
+        <Image
+          src={menuIcon}
+          alt="menu"
+        />
+      </Link>
 
-          <Link
-            onClick={() => dispatch(logOutUser())}
-            className="NavBar__link"
-            to="/"
-          >
-            Cerrar Sesion
-          </Link>
-        </Route>
-      </Switch>
+      <Link
+        onClick={() => dispatch(logOutUser())}
+        className="NavBar__link"
+        to="/"
+      >
+        Cerrar Sesion
+      </Link>
     </div>
   );
 };

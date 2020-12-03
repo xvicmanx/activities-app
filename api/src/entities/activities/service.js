@@ -2,6 +2,7 @@
 
 import { throwNotFoundError, throwValidationError } from '../../helpers';
 import User from '../users/model';
+import type { ActivityAttributes } from './model';
 import Activity from './model';
 
 type ActivityListInfo = {
@@ -81,6 +82,21 @@ class ActivitiesService {
       userId,
       false,
     );
+  }
+
+  async createActivity(data: ActivityAttributes): Promise<Activity> {
+    return Activity.create(data);
+  }
+
+  async updateActivity(data: ActivityAttributes): Promise<Activity> {
+    const item = await Activity.findByPk(data.id);
+    return item.update(data);
+  }
+
+  async deleteActivity(id: number): Promise<Activity> {
+    const item = await Activity.findByPk(id);
+    await item.destroy(id);
+    return item;
   }
 
   async changeAttendingStatus(activityId: number, userId: number, willAttendActivity: boolean): Promise<?ActivityListInfo> {

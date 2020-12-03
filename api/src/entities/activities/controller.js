@@ -6,6 +6,7 @@ import type {
 } from 'express';
 
 import Controller from '../../common/controller';
+import { asObject } from '../../helpers';
 import ActivitiesService from './service';
 
 class ActivitiesController extends Controller {
@@ -72,7 +73,7 @@ class ActivitiesController extends Controller {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
-      this.invalidParamError(request, response, 'The user is missing');
+      this.authorizationError(request, response, 'The user is missing');
       return;
     }
 
@@ -93,7 +94,7 @@ class ActivitiesController extends Controller {
     const loggedInUser: Object | null = response.locals.user || null;
 
     if (!loggedInUser || !loggedInUser.id) {
-      this.invalidParamError(request, response, 'The user is missing');
+      this.authorizationError(request, response, 'The user is missing');
       return;
     }
 
@@ -106,6 +107,113 @@ class ActivitiesController extends Controller {
 
     response.json({
       activity: await this.service.unjoinActivity(+params.id, +loggedInUser.id),
+      success: true,
+    });
+  });
+
+  createActivity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    const body = asObject(request.body);
+    const { title, description, date } = body;
+
+    if (!title) {
+      this.invalidParamError(request, response, 'The "title" param is missing');
+      return;
+    }
+
+    if (!description) {
+      this.invalidParamError(request, response, 'The "description" param is missing');
+      return;
+    }
+
+    if (!date) {
+      this.invalidParamError(request, response, 'The "date" param is missing');
+      return;
+    }
+
+    response.json({
+      activity: await this.service.createActivity(body),
+      success: true,
+    });
+  });
+
+  updateActivity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    const body = asObject(request.body);
+
+    const { title, description, date } = body;
+
+    if (!title) {
+      this.invalidParamError(request, response, 'The "title" param is missing');
+      return;
+    }
+
+    if (!description) {
+      this.invalidParamError(request, response, 'The "description" param is missing');
+      return;
+    }
+
+    if (!date) {
+      this.invalidParamError(request, response, 'The "date" param is missing');
+      return;
+    }
+
+    response.json({
+      activity: await this.service.updateActivity({
+        id: request.params.id,
+        ...body,
+      }),
+      success: true,
+    });
+  });
+
+  deleteActivity = this.errorHandler(async (request: $Request, response: $Response) => {
+    const loggedInUser: Object | null = response.locals.user || null;
+
+    if (!loggedInUser || !loggedInUser.id) {
+      this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
+    if (!request.params.id) {
+      this.invalidParamError(request, response, 'The "id" param is missing');
+      return;
+    }
+
+    response.json({
+      activity: await this.service.deleteActivity(+request.params.id),
       success: true,
     });
   });
