@@ -15,6 +15,9 @@ const styles = {
   },
 };
 
+const DescriptionRenderer = ({ field }) => <textarea {...field} />;
+
+
 const service = {
   fetchItems: async () => {
     const response = await Communities.fetchCommunities(readTokenFromCookie());
@@ -37,9 +40,18 @@ const CommunitiesTable = () => (
       fetchItems={payload => service.fetchItems(payload)}
     >
       <Fields>
-        <Field name="id" label="Id" hideInCreateForm />
+        <Field
+          name="id"
+          label="Id"
+          hideInCreateForm
+          readOnly
+        />
         <Field name="name" label="Nombre" placeholder="Nombre" />
-        <Field name="slogan" label="Eslogan" />
+        <Field
+          name="slogan"
+          label="Eslogan"
+          render={DescriptionRenderer}
+        />
       </Fields>
       <CreateForm
         title="Crear comunidad"

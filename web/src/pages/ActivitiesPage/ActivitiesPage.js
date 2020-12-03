@@ -9,8 +9,13 @@ import { Activities } from '../../Services';
 import './ActivitiesPage.css';
 
 const styles = {
-  container: { margin: "auto", width: "fit-content" }
+  container: {
+    margin: "auto",
+    width: "fit-content",
+  },
 };
+
+const DescriptionRenderer = ({ field }) => <textarea {...field} />;
 
 const service = {
   fetchItems: async () => {
@@ -34,9 +39,19 @@ const ActivitiesTable = () => (
       fetchItems={payload => service.fetchItems(payload)}
     >
       <Fields>
-        <Field name="id" label="Id" hideInCreateForm />
+        <Field
+          name="id"
+          label="Id"
+          hideInCreateForm
+          readOnly
+        />
         <Field name="title" label="Titulo" placeholder="Titulo" />
-        <Field name="description" label="Descripcion" />
+        <Field
+          name="description"
+          label="Descripcion"
+          render={DescriptionRenderer}
+        />
+        <Field name="date" type="date" label="Fecha" />
       </Fields>
       <CreateForm
         title="Crear actividad"

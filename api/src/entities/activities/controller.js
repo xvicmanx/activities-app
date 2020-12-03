@@ -119,6 +119,11 @@ class ActivitiesController extends Controller {
       return;
     }
 
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
     const body = asObject(request.body);
     const { title, description, date } = body;
 
@@ -148,6 +153,11 @@ class ActivitiesController extends Controller {
 
     if (!loggedInUser || !loggedInUser.id) {
       this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
       return;
     }
 
@@ -189,6 +199,11 @@ class ActivitiesController extends Controller {
 
     if (!loggedInUser || !loggedInUser.id) {
       this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
       return;
     }
 

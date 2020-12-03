@@ -111,6 +111,11 @@ class CommunitiesController extends Controller {
       return;
     }
 
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
+      return;
+    }
+
     const body = asObject(request.body);
     const { name, slogan } = body;
 
@@ -135,6 +140,11 @@ class CommunitiesController extends Controller {
 
     if (!loggedInUser || !loggedInUser.id) {
       this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
       return;
     }
 
@@ -171,6 +181,11 @@ class CommunitiesController extends Controller {
 
     if (!loggedInUser || !loggedInUser.id) {
       this.authorizationError(request, response, 'The user is missing');
+      return;
+    }
+
+    if (!loggedInUser.admin) {
+      this.authorizationError(request, response, 'The user is not authorized');
       return;
     }
 

@@ -83,6 +83,39 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef CreateUserPayload
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef CreateUserResponse
+   * @property {boolean} success
+   * @property {User} user
+   */
+
+  /**
+   * @typedef UpdateUserPayload
+   * @property {integer} id.required
+   * @property {string} title.required
+   * @property {string} description.required
+   * @property {string} date.required
+   */
+
+  /**
+   * @typedef UpdateUserResponse
+   * @property {boolean} success
+   * @property {User} user
+   */
+
+  /**
+   * @typedef DeleteUserResponse
+   * @property {boolean} success
+   * @property {User} user
+   */
+
+  /**
    * Get current user
    * @route GET /users/current
    * @group User - Operations about user
@@ -156,6 +189,40 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.get('/list', authRequired(controller.getUsers));
+
+  /**
+  * Creates a user
+  * @route POST /users/create
+  * @group User - Operations about user
+  * @param {CreateUserPayload.model} body.body.required - the create community payload
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {CreateUserResponse.model} 200 - create response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.post('/create', authRequired(controller.createUser));
+
+  /**
+  * Updates a user
+  * @route POST /users/{id}/update
+  * @group User - Operations about user
+  * @param {integer} id.path.required - the id of the user
+  * @param {UpdateUserPayload.model} body.body.required - the update user payload
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {UpdateUserResponse.model} 200 - update response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.put('/:id/update', authRequired(controller.updateUser));
+
+  /**
+  * Deletes a user
+  * @route POST /users/{id}/delete
+  * @group User - Operations about user
+  * @param {integer} id.path.required - the id of the user
+  * @param {string} authorization.header.required - authorization token header
+  * @returns {DeleteUserResponse.model} 200 - update response
+  * @returns {Error}  default - Unexpected error
+  */
+  app.delete('/:id/delete', authRequired(controller.deleteUser));
 
   return app;
 };

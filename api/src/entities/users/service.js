@@ -151,6 +151,21 @@ class UsersService {
     return !!existingUser;
   }
 
+  async createUser(data: UserAttributes): Promise<User> {
+    return User.create(data);
+  }
+
+  async updateUser(data: UserAttributes): Promise<User> {
+    const item = await User.findByPk(data.id);
+    return item.update(data);
+  }
+
+  async deleteUser(id: number): Promise<User> {
+    const item = await User.findByPk(id);
+    await item.destroy(id);
+    return item;
+  }
+
   get include() {
     return [];
   }
