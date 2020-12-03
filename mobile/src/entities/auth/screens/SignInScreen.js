@@ -31,10 +31,8 @@ const SignIn = () => {
         type: SET_ERRORS,
         payload: { name: 'email', value: ERRORS.emailFormat },
       });
-
       return;
     }
-
     if (state.password.length < 6) {
       dispatch({
         type: SET_ERRORS,
@@ -43,10 +41,8 @@ const SignIn = () => {
           value: ERRORS.password.lessThanSixCharacters,
         },
       });
-
       return;
     }
-
     reduxDispatch(loginUser(state.email, state.password));
   };
 
