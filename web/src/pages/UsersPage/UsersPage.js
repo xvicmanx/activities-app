@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heading, Image } from 'react-bulma-components';
-import CRUDTable, { Fields, Field, Pagination } from 'react-crud-table';
+import CRUDTable, { CreateForm, Fields, Field, Pagination } from 'react-crud-table';
 
 import icon from '../../assets/images/front.svg';
 import { readTokenFromCookie } from '../../redux/Users/UsersActions';
@@ -49,7 +49,7 @@ const UsersPage = () => (
         src={icon}
         alt="users-icon"
         className="Title-Icon"
-      /> Users
+      /> Usuarios
     </Heading>
     <div className="UsersPage__Content">
       <div>

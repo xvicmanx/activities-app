@@ -69,7 +69,7 @@ const LoginForm = () => {
             disabled={!password || !email}
             fullwidth
             type="submit"
-            color="primary"
+            color="info"
           >
             Entrar
           </Button>

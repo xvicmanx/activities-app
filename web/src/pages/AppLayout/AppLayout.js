@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { Image } from 'react-bulma-components';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons'
 
 import {
   HomePage,
@@ -55,36 +56,20 @@ const AppLayout = () => {
         <div className={`Layout__Left-Navigator ${showMobileMenu ? 'show' : ''}`}>
           <UserBasicInfo
             user={Users.data}
-            image={require('../../assets/images/avatar.png')}
+            image={Users.data.profileURL}
           />
           <div className="Options">
             <NavLink exact className="Option__Link" to="/home">
-              <Image
-                src={homeIcon}
-                alt="home"
-                className="Option__Icon"
-              /> Inicio
+              <FontAwesomeIcon icon={faHome} className="Option__Icon" /> Inicio
             </NavLink>
             <NavLink exact className="Option__Link" to="/activities">
-              <Image
-                src={homeIcon}
-                alt="activities"
-                className="Option__Icon"
-              /> Actividades
+              <FontAwesomeIcon icon={faUsers} className="Option__Icon" /> Actividades
             </NavLink>
             <NavLink exact className="Option__Link" to="/communities">
-              <Image
-                src={homeIcon}
-                alt="communities"
-                className="Option__Icon"
-              /> Comunidades
+              <FontAwesomeIcon icon={faBuilding} className="Option__Icon" /> Comunidades
             </NavLink>
             <NavLink exact className="Option__Link" to="/users">
-              <Image
-                src={homeIcon}
-                alt="users"
-                className="Option__Icon"
-              /> Usuarios
+              <FontAwesomeIcon icon={faUsers} className="Option__Icon" /> Usuarios
             </NavLink>
           </div>
         </div>

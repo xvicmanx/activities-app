@@ -1,10 +1,10 @@
 import React from 'react';
 import { Heading, Image } from 'react-bulma-components';
-import CRUDTable, { Fields, Field, Pagination } from 'react-crud-table';
+import CRUDTable, { CreateForm, DeleteForm, Fields, Field, Pagination, UpdateForm } from 'react-crud-table';
 
 import icon from '../../assets/images/front.svg';
 import { readTokenFromCookie } from '../../redux/Users/UsersActions';
-import fetchActivities from '../../Services/Activities/fetchActivities';
+import { Activities } from '../../Services';
 
 import './ActivitiesPage.css';
 
@@ -14,13 +14,16 @@ const styles = {
 
 const service = {
   fetchItems: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await Activities.fetchActivities(readTokenFromCookie());
     return response.activities;
   },
   fetchTotal: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await Activities.fetchActivities(readTokenFromCookie());
     return response.activities.length;
   },
+  create: (activity) => Activities.createActivity(activity, readTokenFromCookie()),
+  update: (activity) => Activities.updateActivity(activity, readTokenFromCookie()),
+  delete: (activity) => Activities.deleteActivity(activity.id, readTokenFromCookie()),
 };
 
 
@@ -32,9 +35,69 @@ const ActivitiesTable = () => (
     >
       <Fields>
         <Field name="id" label="Id" hideInCreateForm />
-        <Field name="title" label="Title" placeholder="Title" />
-        <Field name="description" label="Description" />
+        <Field name="title" label="Titulo" placeholder="Titulo" />
+        <Field name="description" label="Descripcion" />
       </Fields>
+      <CreateForm
+        title="Crear actividad"
+        message="Crear una nueva actividad"
+        trigger="Crear actividad"
+        onSubmit={service.create}
+        submitText="Crear"
+        validate={(values) => {
+          const errors = {};
+
+          if (!values.title) {
+            errors.title = 'Por favor, provea un titulo';
+          }
+
+          if (!values.description) {
+            errors.description = 'Por favor, provea una descripcion';
+          }
+
+          return errors;
+        }}
+      />
+      <UpdateForm
+        title="Actualizar actividad"
+        message="Actualizar actividad"
+        trigger="Actualizar"
+        onSubmit={service.update}
+        submitText="Actualizar"
+        validate={(values) => {
+          const errors = {};
+
+          if (!values.id) {
+            errors.id = 'Por favor, provea el id';
+          }
+
+          if (!values.title) {
+            errors.title = 'Por favor, provea un titulo';
+          }
+
+          if (!values.description) {
+            errors.description = 'Por favor, provea una descripcion';
+          }
+
+          return errors;
+        }}
+      />
+      <DeleteForm
+        title="Eliminar actividad"
+        message="Esta seguro que quiere eliminar la actividad?"
+        trigger="Eliminar"
+        onSubmit={service.delete}
+        submitText="Eliminar"
+        validate={(values) => {
+          const errors = {};
+          
+          if (!values.id) {
+            errors.id = 'Por favor, provea el id';
+          }
+
+          return errors;
+        }}
+      />
       <Pagination
         itemsPerPage={10}
         fetchTotalOfItems={payload => service.fetchTotal(payload)}
@@ -50,7 +113,7 @@ const ActivitiesPage = () => (
         src={icon}
         alt="activities-icon"
         className="Title-Icon"
-      /> Activities
+      /> Actividades
     </Heading>
     <div className="ActivitiesPage__Content">
       <div>
