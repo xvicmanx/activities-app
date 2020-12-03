@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { updateDescription, uploadImage } from '../../common/actions';
+import messaging from '@react-native-firebase/messaging';
 
 const INITIAL_STATE = {
   currentUser: {
@@ -36,12 +37,20 @@ const authSlice = createSlice({
       state.signin.errors = null;
       state.currentUser.isLoading = false;
       state.currentUser.data = payload;
+
+      messaging()
+        .subscribeToTopic('newActivity')
+        .then(() => console.log('subscribeToTopic'));
     },
     setSigninErrors: (state, { payload }) => {
       state.signin.errors = payload;
       state.signin.isLoading = false;
     },
     logOut: (state, { payload }) => {
+      messaging()
+        .unsubscribeFromTopic('newActivity')
+        .then(() => console.log('unsubscribeFromTopic()'));
+
       return {
         ...INITIAL_STATE,
         currentUser: {
