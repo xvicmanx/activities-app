@@ -1,6 +1,9 @@
 import UserService from './userService';
 import userSlice from './userSlice';
-import { updateDescription as updateDescriptionAction } from '../../common/actions';
+import {
+  updateDescription as updateDescriptionAction,
+  uploadImage as uploadImageAction,
+} from '../../common/actions';
 
 export const updatePassword = (passwordsData, token) => async (dispatch) => {
   dispatch(userSlice.actions.setLoading(true));
@@ -39,6 +42,18 @@ export const updateDescription = (description, token) => async (dispatch) => {
 
     if (res.success) {
       dispatch(updateDescriptionAction(description));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const uploadImage = (data, token) => async (dispatch) => {
+  try {
+    const res = await UserService.uploadImage(data, token);
+
+    if (res.success) {
+      dispatch(uploadImageAction(res.profileURL));
     }
   } catch (error) {
     console.log(error);

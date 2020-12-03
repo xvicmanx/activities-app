@@ -59,7 +59,7 @@ const ProfileScreen = () => {
     <>
       <ScrollView style={styles.container}>
         <View style={styles.avatarContainer}>
-          <Avatar size={75} img={currentUser.data.profileURL} />
+          <Avatar edit size={75} img={currentUser.data.profileURL} />
           <Text style={styles.name}>{currentUser.data.name}</Text>
         </View>
 
