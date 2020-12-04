@@ -41,6 +41,7 @@ An application for communities to create activities and get together.
 ## Setup
 To setup the project follow the instructions:
 - [API Setup](api/README.md)
+- [Web Admin Setup](web/README.md)
 - [Mobile App Setup](mobile/README.md)
 
 ## Contributing
