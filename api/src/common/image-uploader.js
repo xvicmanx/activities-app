@@ -1,6 +1,12 @@
 // @flow
 
+import { loadEnvVars } from '../helpers';
+import FirebaseApp from './firebase-app';
+
 const fs = require('fs').promises;
+const faker = require('faker');
+
+loadEnvVars();
 
 const ensureDir = async (dir: string) => {
   try {
@@ -8,11 +14,6 @@ const ensureDir = async (dir: string) => {
   // eslint-disable-next-line no-empty
   } catch (err) {}
 };
-
-const {
-  NODE_ENV,
-  PORT,
-} = process.env;
 
 /**
  * Helper class to upload pictures
@@ -28,11 +29,33 @@ class PictureUploader {
    * @return {string} url of the uploaded image
    */
   static upload = async (data: Buffer, name: string) => {
+    const bucket = FirebaseApp.getBucketService();
+
+    if (!bucket) {
+      return faker.image.imageUrl();
+    }
+
     const dir = `${__dirname}/../../public/images`;
     await ensureDir(dir);
-    await fs.writeFile(`${dir}/${name}`, data, 'binary');
-    const port = NODE_ENV === 'TEST' ? 4600 : PORT;
-    return `http://localhost:${port || 4500}/images/${name}`;
+    const filePath = `${dir}/${name}`;
+    await fs.writeFile(filePath, data, 'binary');
+
+    const res = await bucket.upload(filePath, {
+      // Support for HTTP requests made with `Accept-Encoding: gzip`
+      gzip: true,
+      // By setting the option `destination`, you can change the name of the
+      // object you are uploading to a bucket.
+      metadata: {
+        // Enable long-lived HTTP caching headers
+        // Use only if the contents of the file will never change
+        // (If the contents will change, use cacheControl: 'no-cache')
+        cacheControl: 'public, max-age=31536000',
+      },
+    });
+
+    await fs.unlink(filePath);
+
+    return res[0].publicUrl();
   };
 }
 

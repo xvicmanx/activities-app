@@ -5,10 +5,12 @@
  * @module helpers
  */
 
+import dotEnv from 'dotenv';
 import type {
   $Request,
   $Response,
 } from 'express';
+import fs from 'fs';
 import _ from 'lodash';
 
 import UsersService from './entities/users/service';
@@ -145,6 +147,9 @@ export const throwNotFoundError = (message: string) => {
   throw new NotFoundError(message);
 };
 
+const isTest = () => process.env.NODE_ENV === 'test';
+const { log } = console;
+
 /**
  * Handles error returning the correct status
  * @name errorHandler
@@ -155,9 +160,27 @@ export const errorHandler = (fn: Function) => async (req: $Request, res: $Respon
     const result = await fn(req, res);
     return result;
   } catch (err) {
+    if (!isTest) {
+      log(err);
+    }
+
     res.status(err.status || 500).json({
       message: err.status ? err.message : 'Unexpected error',
     });
     return null;
+  }
+};
+
+export const loadEnvVars = () => {
+  const envPath = isTest()
+    ? `${__dirname}/../test.env`
+    : `${__dirname}/../.env`;
+
+  if (fs.existsSync(envPath)) {
+    const envConfig = dotEnv.parse(fs.readFileSync(envPath));
+    // eslint-disable-next-line
+    for (let k in envConfig) {
+      process.env[k] = envConfig[k];
+    }
   }
 };

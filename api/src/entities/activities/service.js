@@ -100,7 +100,7 @@ class ActivitiesService {
       },
     );
 
-    await activity.setMembers(members.map((x) => x.id));
+    await activity.setParticipants(members.map((x) => x.id));
 
     return activity;
   }
