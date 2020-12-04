@@ -89,6 +89,9 @@ DATABASE_PASSWORD: Password of user of the database
 DATABASE_HOST:  Database host
 DATABASE_DIALECT: Database dialect (mysql, sqlite, etc)
 DATABASE_PORT: Database port
+FIREBASE_DATABASE_URL: Firebase database url
+FIREBASE_STORAGE_BUCKET: Firebase storage bucket
+FIREBASE_KEYS_FILE: Firebase keys file path
 ```
 
 ## Dependencies

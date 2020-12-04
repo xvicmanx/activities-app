@@ -6,6 +6,7 @@ import type {
 } from 'express';
 
 import Controller from '../../common/controller';
+import PushNotifier from '../../common/push-notifier';
 import { asObject } from '../../helpers';
 import ActivitiesService from './service';
 
@@ -152,8 +153,19 @@ class ActivitiesController extends Controller {
       return;
     }
 
+    const activity = await this.service.createActivity(body);
+
+    await PushNotifier.notify(
+      'newActivity',
+      {
+        message: activity.title,
+        title: 'Insiemi App',
+        // imageUrl: '<URL>',
+      },
+    );
+
     response.json({
-      activity: await this.service.createActivity(body),
+      activity,
       success: true,
     });
   });

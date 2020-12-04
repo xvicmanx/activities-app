@@ -11,6 +11,7 @@ import express from 'express';
 import faye from 'faye';
 import http from 'http';
 
+import FirebaseApp from '../common/firebase-app';
 import { getLoggedInUser } from '../helpers';
 import seedDB from './seed-db';
 import setupDB from './setup-db';
@@ -48,6 +49,8 @@ const setupServer = async (port: number) => {
   });
 
   setupRoutes(app);
+
+  FirebaseApp.init();
 
   // Subscription setup step 2
   const server = http.createServer(app);
