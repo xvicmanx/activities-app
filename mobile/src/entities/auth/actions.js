@@ -4,12 +4,12 @@ import { ERRORS } from '../../constants';
 
 export const checkUserInfo = () => async (dispatch) => {
   try {
-    const res = await AuthService.checkUserInfo();
+    // const res = await AuthService.checkUserInfo();
 
-    if (res.code === 'NOT_AUTHORIZED') {
-      dispatch(authSlice.actions.setCurrentUser(null));
-      return;
-    }
+    // if (res.code === 'NOT_AUTHORIZED') {
+    //   dispatch(authSlice.actions.setCurrentUser(null));
+    //   return;
+    // }
   } catch (error) {
     console.log(error);
   }

@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   currentUser: {
     isLoading: true,
     data: null,
+    isSignout: false,
   },
   signin: {
     isLoading: false,
