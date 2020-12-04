@@ -1,6 +1,9 @@
 // @flow
 
+import _ from 'lodash';
+
 import { throwNotFoundError, throwValidationError } from '../../helpers';
+import Community from '../communities/model';
 import User from '../users/model';
 import type { ActivityAttributes } from './model';
 import Activity from './model';
@@ -85,7 +88,21 @@ class ActivitiesService {
   }
 
   async createActivity(data: ActivityAttributes): Promise<Activity> {
-    return Activity.create(data);
+    const activity = await Activity.create(_.omit(data, ['communityId']));
+
+    const { members } = await Community.findByPk(
+      data.communityId,
+      {
+        include: [{
+          model: User,
+          as: 'members',
+        }],
+      },
+    );
+
+    await activity.setMembers(members.map((x) => x.id));
+
+    return activity;
   }
 
   async updateActivity(data: ActivityAttributes): Promise<Activity> {

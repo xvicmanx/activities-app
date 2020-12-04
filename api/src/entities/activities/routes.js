@@ -76,6 +76,7 @@ const getRoutes = () => {
    * @property {string} title.required
    * @property {string} description.required
    * @property {string} date.required
+   * @property {integer} communityId.required
    */
 
   /**

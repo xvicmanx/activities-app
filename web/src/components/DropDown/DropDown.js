@@ -1,29 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Dropdown as BulmaDropdown } from 'react-bulma-components';
 import './DropDown.css';
 
-const DropDown = ({ onChange, data }) => {
-  const [value, setValue] = useState(0);
-
+const DropDown = ({
+  name,
+  value,
+  onChange,
+  items,
+  placeholder
+}) => {
   let options = [];
 
-  if (data !== undefined) {
-    options = data;
+  if (items !== undefined) {
+    options = items;
   }
 
-  const handleChange = value => {
-    setValue(value);
-    onChange(options[+value]);
+  const handleChange = val => {
+    onChange({
+      persist: () => {},
+      target: {
+        name,
+        value: val,
+      },
+    });
   };
 
-  useEffect(() => {
-    if (onChange !== undefined) {
-      onChange(options[0]);
-    }
-  }, []);
-
   return (
-    <BulmaDropdown value={value} onChange={handleChange}>
+    <BulmaDropdown
+      value={value}
+      onChange={handleChange}
+    >
+      <BulmaDropdown.Item>
+        {placeholder}
+      </BulmaDropdown.Item>
       {options.map((el, i) => {
         return (
           <BulmaDropdown.Item value={i} key={el.id}>

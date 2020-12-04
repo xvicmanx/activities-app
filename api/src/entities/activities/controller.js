@@ -125,7 +125,12 @@ class ActivitiesController extends Controller {
     }
 
     const body = asObject(request.body);
-    const { title, description, date } = body;
+    const {
+      title,
+      description,
+      date,
+      communityId,
+    } = body;
 
     if (!title) {
       this.invalidParamError(request, response, 'The "title" param is missing');
@@ -139,6 +144,11 @@ class ActivitiesController extends Controller {
 
     if (!date) {
       this.invalidParamError(request, response, 'The "date" param is missing');
+      return;
+    }
+
+    if (!communityId) {
+      this.invalidParamError(request, response, 'The "communityId" param is missing');
       return;
     }
 

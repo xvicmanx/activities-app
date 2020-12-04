@@ -7,6 +7,7 @@ export type ActivityAttributes = {
   title: string;
   description: string;
   date: Date;
+  communityId?: number;
 };
 
 class Activity extends Sequelize.Model<ActivityAttributes> {
