@@ -147,7 +147,7 @@ export const throwNotFoundError = (message: string) => {
   throw new NotFoundError(message);
 };
 
-const isTest = () => process.env.NODE_ENV === 'test';
+const isTest = () => process.env.NODE_ENV === 'TEST';
 const { log } = console;
 
 /**

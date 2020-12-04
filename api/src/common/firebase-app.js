@@ -14,7 +14,7 @@ const {
   NODE_ENV,
 } = process.env;
 
-const isTest = NODE_ENV === 'test';
+const isTest = () => NODE_ENV === 'TEST';
 
 class FirebaseApp {
   static initialized = false;
@@ -24,7 +24,7 @@ class FirebaseApp {
    * @method FirebaseApp#init
    */
   static init = () => {
-    if (!isTest && !FirebaseApp.initialized) {
+    if (!isTest() && !FirebaseApp.initialized) {
       if (FIREBASE_DATABASE_URL && FIREBASE_STORAGE_BUCKET) {
         const credsFilePath = FIREBASE_KEYS_FILE || `${__dirname}/../../data/key.json`;
         const content = fs.readFileSync(credsFilePath).toString();
