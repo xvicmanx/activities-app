@@ -41,6 +41,7 @@ const ActivitiesTable = () => (
     <CRUDTable
       caption="Actividades"
       fetchItems={payload => service.fetchItems(payload)}
+      actionsLabel="Acciones"
     >
       <Fields>
         <Field
@@ -49,10 +50,10 @@ const ActivitiesTable = () => (
           hideInCreateForm
           readOnly
         />
-        <Field name="title" label="Titulo" placeholder="Titulo" />
+        <Field name="title" label="Título" placeholder="Título" />
         <Field
           name="description"
-          label="Descripcion"
+          label="Descripción"
           render={DescriptionRenderer}
         />
         <Field
@@ -64,7 +65,8 @@ const ActivitiesTable = () => (
           name="communityId"
           label="Comunidad"
           render={CommunitiesSelectRenderer}
-          hideInUpdateForm  
+          hideInUpdateForm
+          hideFromTable
         />
       </Fields>
       <CreateForm
@@ -77,11 +79,11 @@ const ActivitiesTable = () => (
           const errors = {};
 
           if (!values.title) {
-            errors.title = 'Por favor, provea un titulo';
+            errors.title = 'Por favor, provea un título';
           }
 
           if (!values.description) {
-            errors.description = 'Por favor, provea una descripcion';
+            errors.description = 'Por favor, provea una Descripción';
           }
 
           if (!values.date) {
@@ -109,11 +111,11 @@ const ActivitiesTable = () => (
           }
 
           if (!values.title) {
-            errors.title = 'Por favor, provea un titulo';
+            errors.title = 'Por favor, provea un título';
           }
 
           if (!values.description) {
-            errors.description = 'Por favor, provea una descripcion';
+            errors.description = 'Por favor, provea una Descripción';
           }
 
           if (!values.date) {

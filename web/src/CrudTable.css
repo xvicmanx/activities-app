@@ -111,8 +111,9 @@
   border-radius: 3px;
   padding: .6rem 1rem;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
+  margin: 0.2rem 0;
 }
 
 .crud-button--circular {

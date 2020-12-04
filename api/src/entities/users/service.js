@@ -152,7 +152,15 @@ class UsersService {
   }
 
   async createUser(data: UserAttributes): Promise<User> {
-    return User.create(data);
+    const fields = [
+      'name',
+      'email',
+      'description',
+    ];
+    return User.create({
+      ..._.pick(data, fields),
+      password: sha1(data.password),
+    });
   }
 
   async updateUser(data: UserAttributes): Promise<User> {
