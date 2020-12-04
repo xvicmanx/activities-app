@@ -12,6 +12,7 @@
     "release": "npx react-native run-android --variant=release"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^10.1.0",
     "@react-native-firebase/messaging": "^10.1.1",
