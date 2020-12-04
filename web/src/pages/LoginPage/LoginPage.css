@@ -45,8 +45,9 @@
 }
 
 .LoginPage__Subtitle {
-  font-size: 0.9rem !important;
-  font-weight: 400;
+  font-size: 2rem !important;
+  font-weight: 900;
+  line-height: 1.6;
 }
 
 @media only screen and (min-width: 1024px) {
