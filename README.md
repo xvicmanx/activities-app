@@ -36,6 +36,10 @@ An application for communities to create activities and get together.
   <img src="screenshots/profile.jpeg" width="30%" title="User profile">
 
   <img src="screenshots/change-password.jpeg" width="30%" title="Change password">
+
+  <img src="screenshots/admin-login.png" width="75%" title="Admin Login">
+
+  <img src="screenshots/admin-activities-view.png" width="75%" title="Admin Activities View">
 </p>
 
 ## Setup

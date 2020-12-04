@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import CRUDTable, { CreateForm, DeleteForm, Fields, Field, Pagination, UpdateForm } from 'react-crud-table';
 
@@ -60,6 +61,7 @@ const ActivitiesTable = () => (
           name="date"
           type="date"
           label="Fecha"
+          tableValueResolver={(item) => moment(item.date).format('DD-MM-YYYY HH:mm')}
         />
         <Field
           name="communityId"
