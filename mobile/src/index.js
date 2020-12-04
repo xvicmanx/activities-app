@@ -2,13 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
-import App from './App';
+import Auth from './Auth';
 
 const index = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <App />
+        <Auth />
       </NavigationContainer>
     </Provider>
   );

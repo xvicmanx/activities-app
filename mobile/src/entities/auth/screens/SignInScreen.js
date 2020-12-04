@@ -4,12 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Text } from 'react-native-elements';
 import { COLORS, ERRORS, RegExpValidation } from '../../../constants';
 import { Input, Button } from '../../../common/components';
-import {
-  initialState,
-  reducer,
-  HANDLE_CHANGE,
-  SET_ERRORS,
-} from './SignInScreenReducer';
+import { initialState, reducer, HANDLE_CHANGE, SET_ERRORS } from './SignInScreenReducer';
 import { loginUser } from '../actions';
 
 const SignIn = () => {
@@ -38,7 +33,7 @@ const SignIn = () => {
         type: SET_ERRORS,
         payload: {
           name: 'password',
-          value: ERRORS.password.lessThanSixCharacters,
+          value: ERRORS.email,
         },
       });
       return;

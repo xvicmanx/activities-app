@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { updateDescription, uploadImage } from '../../common/actions';
 import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const INITIAL_STATE = {
   currentUser: {
     isLoading: true,
     data: null,
-    isSignout: false,
   },
   signin: {
     isLoading: false,
@@ -18,6 +18,14 @@ const INITIAL_STATE = {
   },
 };
 
+const removeToken = async () => {
+  try {
+    await AsyncStorage.removeItem('userToken');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: INITIAL_STATE,
@@ -25,6 +33,12 @@ const authSlice = createSlice({
     setCurrentUser: (state, { payload }) => {
       state.currentUser.data = payload;
       state.currentUser.isLoading = false;
+      state.signin.isLoading = false;
+      state.signin.errors = null;
+
+      messaging()
+        .subscribeToTopic('newActivity')
+        .then(() => console.log('subscribeToTopic'));
     },
     setSpecificUser: (state, { payload }) => {
       state.specificUser.isLoading = false;
@@ -32,16 +46,6 @@ const authSlice = createSlice({
     },
     loginUserStarted: (state, { payload }) => {
       state.signin.isLoading = true;
-    },
-    loginUser: (state, { payload }) => {
-      state.signin.isLoading = false;
-      state.signin.errors = null;
-      state.currentUser.isLoading = false;
-      state.currentUser.data = payload;
-
-      messaging()
-        .subscribeToTopic('newActivity')
-        .then(() => console.log('subscribeToTopic'));
     },
     setSigninErrors: (state, { payload }) => {
       state.signin.errors = payload;
@@ -51,6 +55,8 @@ const authSlice = createSlice({
       messaging()
         .unsubscribeFromTopic('newActivity')
         .then(() => console.log('unsubscribeFromTopic()'));
+
+      removeToken();
 
       return {
         ...INITIAL_STATE,
