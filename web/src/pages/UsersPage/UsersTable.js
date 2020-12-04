@@ -1,5 +1,6 @@
 import React from 'react';
 import CRUDTable, { CreateForm, UpdateForm, DeleteForm, Fields, Field, Pagination } from 'react-crud-table';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { readTokenFromCookie } from '../../redux/Users/UsersActions';
 import { Users } from '../../Services';
@@ -10,10 +11,25 @@ const styles = {
     margin: "auto",
     width: "fit-content",
   },
+  copy: {
+    backgroundColor: '#5caaf6',
+    cursor: 'pointer',
+    marginLeft: '10px',
+    padding: '5px',
+    borderRadius: '5px',
+    color: '#fff',
+  },
 };
 
 const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-
+const PasswordRenderer = ({ field }) => (
+  <div>
+    <input {...field} type="password" />
+    <CopyToClipboard text={field.value}>
+      <span style={styles.copy}>Copiar</span>
+    </CopyToClipboard>
+  </div>
+);
 
 const service = {
   fetchItems: async () => {
@@ -35,6 +51,7 @@ const UsersTable = () => (
     <CRUDTable
       caption="Usuarios"
       fetchItems={payload => service.fetchItems(payload)}
+      actionsLabel="Acciones"
     >
       <Fields>
         <Field
@@ -55,8 +72,15 @@ const UsersTable = () => (
         />
         <Field
           name="description"
-          label="Descripcion"
+          label="Descripción"
           render={DescriptionRenderer}
+        />
+        <Field
+          name="password"
+          label="Contraseña"
+          render={PasswordRenderer}
+          hideInUpdateForm
+          hideFromTable
         />
       </Fields>
       <CreateForm
@@ -77,7 +101,7 @@ const UsersTable = () => (
           }
 
           if (!values.description) {
-            errors.description = 'Por favor, provea un descripcion';
+            errors.description = 'Por favor, provea un Descripción';
           }
 
           return errors;
@@ -105,7 +129,7 @@ const UsersTable = () => (
           }
 
           if (!values.description) {
-            errors.description = 'Por favor, provea un descripcion';
+            errors.description = 'Por favor, provea un Descripción';
           }
 
           return errors;

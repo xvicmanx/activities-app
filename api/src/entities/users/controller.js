@@ -219,7 +219,12 @@ class UsersController extends Controller {
     }
 
     const body = asObject(request.body);
-    const { name, email, description } = body;
+    const {
+      name,
+      email,
+      description,
+      password,
+    } = body;
 
     if (!name) {
       this.invalidParamError(request, response, 'The "name" param is missing');
@@ -233,6 +238,11 @@ class UsersController extends Controller {
 
     if (!description) {
       this.invalidParamError(request, response, 'The "description" param is missing');
+      return;
+    }
+
+    if (!password) {
+      this.invalidParamError(request, response, 'The "password" param is missing');
       return;
     }
 

@@ -78,7 +78,7 @@ const ProfileScreen = () => {
             setModalVisibility(true);
           }}
         >
-          Editar Descripcion
+          Editar Descripción
         </Button>
         <View style={styles.lineBreak} />
 

@@ -34,6 +34,7 @@ const CommunitiesTable = () => (
     <CRUDTable
       caption="Comunidades"
       fetchItems={payload => service.fetchItems(payload)}
+      actionsLabel="Acciones"
     >
       <Fields>
         <Field
