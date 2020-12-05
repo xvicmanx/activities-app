@@ -3,11 +3,11 @@ import renderer from 'react-test-renderer';
 import { faUsers, faHome } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store';
 
 import AppLayout from './';
 
-const mockStore = configureMockStore()
+const mockStore = configureMockStore();
 const store = mockStore({
   Users: { data: {} },
 });
@@ -35,7 +35,7 @@ describe('AppLayout', () => {
             Test
           </AppLayout>
         </Provider>
-      </Router>,
+      </Router>
     );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();

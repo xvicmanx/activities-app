@@ -4,9 +4,7 @@ import LoadingIndicator from './';
 
 describe('LoadingIndicator', () => {
   it('renders properly', () => {
-    const component = renderer.create(
-      <LoadingIndicator />,
-    );
+    const component = renderer.create(<LoadingIndicator />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

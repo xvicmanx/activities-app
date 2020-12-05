@@ -14,7 +14,6 @@ import CRUDTable, {
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 import CommunitiesService from '../services/CommunitiesService';
 
-
 type RendererProps = {
   field: Object,
 };

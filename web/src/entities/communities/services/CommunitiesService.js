@@ -33,7 +33,12 @@ const CommunitiesService = {
       method: 'DELETE',
       token,
     }),
-  addMember: (token: string, id: string | number, memberId: string | number, coordinates: boolean): Promise<Object> =>
+  addMember: (
+    token: string,
+    id: string | number,
+    memberId: string | number,
+    coordinates: boolean
+  ): Promise<Object> =>
     requester({
       method: 'POST',
       path: `/communities/${id}/add-member/${memberId}?coordinates=${+coordinates}`,

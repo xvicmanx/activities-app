@@ -7,7 +7,9 @@ import Page from './Page';
 describe('Page', () => {
   it('renders properly', () => {
     const component = renderer.create(
-      <Page title="Test title" icon={faBuilding}>Hello!</Page>,
+      <Page title="Test title" icon={faBuilding}>
+        Hello!
+      </Page>
     );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();

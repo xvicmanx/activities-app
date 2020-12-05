@@ -4,9 +4,7 @@ import Input from './Input';
 
 describe('Input', () => {
   it('renders properly', () => {
-    const component = renderer.create(
-      <Input className="test" value="foo" />,
-    );
+    const component = renderer.create(<Input className="test" value="foo" />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

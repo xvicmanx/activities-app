@@ -4,9 +4,7 @@ import UserBasicInfo from './UserBasicInfo';
 
 describe('UserBasicInfo', () => {
   it('renders properly when user is not provided', () => {
-    const component = renderer.create(
-      <UserBasicInfo />,
-    );
+    const component = renderer.create(<UserBasicInfo />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -16,9 +14,7 @@ describe('UserBasicInfo', () => {
       name: 'John',
       profileURL: 'test.com',
     };
-    const component = renderer.create(
-      <UserBasicInfo user={user} />,
-    );
+    const component = renderer.create(<UserBasicInfo user={user} />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

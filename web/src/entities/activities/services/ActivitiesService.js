@@ -30,5 +30,4 @@ const ActivitiesService = {
     }),
 };
 
-
 export default ActivitiesService;

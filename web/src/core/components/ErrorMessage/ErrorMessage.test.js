@@ -4,9 +4,7 @@ import ErrorMessage from './';
 
 describe('ErrorMessage', () => {
   it('renders properly', () => {
-    const component = renderer.create(
-      <ErrorMessage>Error!</ErrorMessage>,
-    );
+    const component = renderer.create(<ErrorMessage>Error!</ErrorMessage>);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
