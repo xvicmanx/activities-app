@@ -1,5 +1,5 @@
 import React from 'react';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 import Page from '../../components/Page/Page';
 import CommunitiesTable from './CommunitiesTable';

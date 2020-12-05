@@ -1,5 +1,7 @@
 // @flow
 
+import _ from 'lodash';
+
 import { throwNotFoundError } from '../../helpers';
 import User from '../users/model';
 import type { CommunityAttributes } from './model';
@@ -48,6 +50,21 @@ class CommunitiesService {
     const item = await Community.findByPk(id);
     await item.destroy(id);
     return item;
+  }
+
+  async addMember(id: number, memberId: number, coordinates: boolean): Promise<?Object> {
+    const item = await Community.findByPk(id);
+    await item.addMember(memberId, { through: { coordinates } });
+    const user = await User.findByPk(memberId);
+
+    return {
+      ..._.pick(user, [
+        'id',
+        'name',
+        'profileURL',
+      ]),
+      coordinates,
+    };
   }
 
   get include() {

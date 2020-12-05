@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Heading } from 'react-bulma-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchCommunities } from '../../redux/Communities/CommunitiesActions';
+import { fetchUsers } from '../../redux/Users/UsersActions';
 
 import {
   DropDown,
@@ -10,28 +10,28 @@ import {
 } from '../../components';
 import { readTokenFromCookie } from '../../redux/Users/UsersActions';
 
-const CommunitiesDropdown = ({ name, value, onChange }) => {
-  const { Communities } = useSelector(state => state);
+const UsersDropdown = ({ name, value, onChange }) => {
+  const { Users } = useSelector(state => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
 
   useEffect(() => {
-    dispatch(fetchCommunities(token));
+    dispatch(fetchUsers(token));
   }, [dispatch]);
 
-  if (Communities.isLoading) {
+  if (Users.isLoading) {
     return <LoadingIndicator />;
   }
 
   return (
     <DropDown
       name={name}
-      items={Communities.communities || []}
+      items={Users.users || []}
       onChange={onChange}
-      placeholder="Seleccione comunidad"
+      placeholder="Seleccione usuario"
       value={value}
     />
   );
 };
 
-export default CommunitiesDropdown;
+export default UsersDropdown;
