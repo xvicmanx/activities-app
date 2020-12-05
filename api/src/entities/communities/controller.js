@@ -230,7 +230,7 @@ class CommunitiesController extends Controller {
       return;
     }
 
-    if (community.members.map((u) => u.id).includes(request.params.memberId)) {
+    if (community.members.map((u) => u.id).includes(+request.params.memberId)) {
       response.status(400).json({
         message: 'The user already belongs to the community',
         success: false,
@@ -244,7 +244,7 @@ class CommunitiesController extends Controller {
       member: await this.service.addMember(
         +request.params.id,
         +request.params.memberId,
-        !!query.coordinates,
+        !!(+query.coordinates),
       ),
       success: true,
     });
