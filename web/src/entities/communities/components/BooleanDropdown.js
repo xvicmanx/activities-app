@@ -1,24 +1,32 @@
-import React, { useEffect } from 'react';
-import { Heading } from 'react-bulma-components';
-import { useSelector, useDispatch } from 'react-redux';
+// @flow
+
+import React from 'react';
 
 import { DropDown } from '../../../core/components';
 
-const BooleanDropdown = ({ name, value, onChange }) => (
+type Props = {
+  name: string,
+  value?: string | number,
+  onChange: Function,
+};
+
+const BooleanDropdown = ({
+  name,
+  value,
+  onChange,
+}: Props): React$Element<any> => (
   <DropDown
     name={name}
-    items={
-      [
-        {
-          id: true,
-          name: 'Si',
-        },
-        {
-          id: false,
-          name: 'No',
-        },
-      ]
-    }
+    items={[
+      {
+        id: true,
+        name: 'Si',
+      },
+      {
+        id: false,
+        name: 'No',
+      },
+    ]}
     onChange={onChange}
     placeholder="Seleccione"
     value={value}

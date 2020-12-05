@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CRUDTable, {
@@ -10,68 +12,72 @@ import CRUDTable, {
 } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import * as Communities from '../services/CommunitiesService';
+import CommunitiesService from '../services/CommunitiesService';
 
 const styles = {
   container: {
-    margin: "auto",
-    width: "fit-content",
+    margin: 'auto',
+    width: 'fit-content',
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
+type RendererProps = {
+  field: Object,
+};
 
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
 
 const service = {
   fetchItems: async () => {
-    const response = await Communities.fetchCommunities(readTokenFromCookie());
+    const response = await CommunitiesService.fetchCommunities(
+      readTokenFromCookie()
+    );
     return response.communities;
   },
   fetchTotal: async () => {
-    const response = await Communities.fetchCommunities(readTokenFromCookie());
+    const response = await CommunitiesService.fetchCommunities(
+      readTokenFromCookie()
+    );
     return response.communities.length;
   },
-  create: (community) => Communities.createCommunity(community, readTokenFromCookie()),
-  update: (community) => Communities.updateCommunity(community, readTokenFromCookie()),
-  delete: (community) => Communities.deleteCommunity(community.id, readTokenFromCookie()),
+  create: (community) =>
+    CommunitiesService.createCommunity(community, readTokenFromCookie()),
+  update: (community) =>
+    CommunitiesService.updateCommunity(community, readTokenFromCookie()),
+  delete: (community) =>
+    CommunitiesService.deleteCommunity(community.id, readTokenFromCookie()),
 };
 
-
-const CommunitiesTable = () => (
+const CommunitiesTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Comunidades"
-      fetchItems={payload => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
-        <Field
-          name="id"
-          label="Id"
-          hideInCreateForm
-          readOnly
-        />
+        <Field name="id" label="Id" hideInCreateForm readOnly />
         <Field
           name="name"
           label="Nombre"
           placeholder="Nombre"
-          tableValueResolver={(item) => <Link to={`/communities/${item.id}`}>{item.name}</Link>}
+          tableValueResolver={(item) => (
+            <Link to={`/communities/${item.id}`}>{item.name}</Link>
+          )}
         />
-        <Field
-          name="slogan"
-          label="Eslogan"
-          render={DescriptionRenderer}
-        />
+        <Field name="slogan" label="Eslogan" render={DescriptionRenderer} />
       </Fields>
       <CreateForm
         title="Crear comunidad"
         message="Crear una nueva comunidad"
         trigger="Crear comunidad"
-        onSubmit={task => service.create(task)}
+        onSubmit={(task) => service.create(task)}
         submitText="Crear"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.name) {
             errors.name = 'Por favor, provea un nombre';
           }
@@ -115,7 +121,7 @@ const CommunitiesTable = () => (
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
@@ -125,7 +131,7 @@ const CommunitiesTable = () => (
       />
       <Pagination
         itemsPerPage={100}
-        fetchTotalOfItems={payload => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

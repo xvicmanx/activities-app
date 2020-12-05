@@ -2,7 +2,7 @@ import { HANDLE_CHANGE } from './LoginFormActionTypes';
 
 const INITIAL_STATE = {
   email: '',
-  password: ''
+  password: '',
 };
 
 const LoginFormReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -10,7 +10,7 @@ const LoginFormReducer = (state = INITIAL_STATE, { type, payload }) => {
     case HANDLE_CHANGE:
       return {
         ...state,
-        [payload.name]: payload.value
+        [payload.name]: payload.value,
       };
 
     default:

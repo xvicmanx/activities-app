@@ -1,15 +1,23 @@
+//@flow
+
 import React from 'react';
-import CRUDTable, { CreateForm, UpdateForm, DeleteForm, Fields, Field, Pagination } from 'react-crud-table';
+import CRUDTable, {
+  CreateForm,
+  UpdateForm,
+  DeleteForm,
+  Fields,
+  Field,
+  Pagination,
+} from 'react-crud-table';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { readTokenFromCookie } from '../redux/UsersActions';
-import * as Users from '../services/UsersService';
-
+import UsersService from '../services/UsersService';
 
 const styles = {
   container: {
-    margin: "auto",
-    width: "fit-content",
+    margin: 'auto',
+    width: 'fit-content',
   },
   copy: {
     backgroundColor: '#5caaf6',
@@ -21,8 +29,16 @@ const styles = {
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-const PasswordRenderer = ({ field }) => (
+type RendererProps = {
+  field: {
+    value: string,
+  },
+};
+
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
+const PasswordRenderer = ({ field }: RendererProps) => (
   <div>
     <input {...field} type="password" />
     <CopyToClipboard text={field.value}>
@@ -33,43 +49,29 @@ const PasswordRenderer = ({ field }) => (
 
 const service = {
   fetchItems: async () => {
-    const response = await Users.fetchUsers(readTokenFromCookie());
+    const response = await UsersService.fetchUsers(readTokenFromCookie());
     return response.users;
   },
   fetchTotal: async () => {
-    const response = await Users.fetchUsers(readTokenFromCookie());
+    const response = await UsersService.fetchUsers(readTokenFromCookie());
     return response.users.length;
   },
-  create: (user) => Users.createUser(user, readTokenFromCookie()),
-  update: (user) => Users.updateUser(user, readTokenFromCookie()),
-  delete: (user) => Users.deleteUser(user.id, readTokenFromCookie()),
+  create: (user) => UsersService.createUser(user, readTokenFromCookie()),
+  update: (user) => UsersService.updateUser(user, readTokenFromCookie()),
+  delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
 };
 
-
-const UsersTable = () => (
+const UsersTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Usuarios"
-      fetchItems={payload => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
-        <Field
-          name="id"
-          label="Id"
-          hideInCreateForm
-          readOnly
-        />
-        <Field
-          name="name"
-          label="Nombre"
-          placeholder="Nombre"
-        />
-        <Field
-          name="email"
-          label="Correo"
-          placeholder="Correo"
-        />
+        <Field name="id" label="Id" hideInCreateForm readOnly />
+        <Field name="name" label="Nombre" placeholder="Nombre" />
+        <Field name="email" label="Correo" placeholder="Correo" />
         <Field
           name="description"
           label="Descripción"
@@ -87,11 +89,11 @@ const UsersTable = () => (
         title="Crear usuario"
         message="Crear una nueva usuario"
         trigger="Crear usuario"
-        onSubmit={task => service.create(task)}
+        onSubmit={(task) => service.create(task)}
         submitText="Crear"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.name) {
             errors.name = 'Por favor, provea un nombre';
           }
@@ -143,7 +145,7 @@ const UsersTable = () => (
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
@@ -153,7 +155,7 @@ const UsersTable = () => (
       />
       <Pagination
         itemsPerPage={100}
-        fetchTotalOfItems={payload => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

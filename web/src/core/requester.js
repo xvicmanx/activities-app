@@ -1,15 +1,15 @@
 const requester = async (data) => {
-  const {
-    protocol,
-    host,
-  } = window.location;
-  const HOST = process.env.NODE_ENV === 'production' ? 
-    `${protocol}//${host}/api` : 'http://localhost:4500';
-  
+  const { protocol, host } = window.location;
+  const { PORT, NODE_ENV } = process.env;
+  const HOST =
+    NODE_ENV === 'production'
+      ? `${protocol}//${host}/api`
+      : `http://localhost:${PORT || 4500}`;
+
   const { token, path, method, payload } = data;
 
   let headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
 
   if (token) {
@@ -20,7 +20,7 @@ const requester = async (data) => {
     const res = await fetch(`${HOST}${path}`, {
       method: method || 'GET',
       headers,
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     }).then((res) => res.json());
 
     return res;

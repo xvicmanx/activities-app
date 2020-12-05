@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -5,12 +7,17 @@ import { Image } from 'react-bulma-components';
 
 import { logOutUser } from '../../../entities/users/redux/UsersActions';
 
-import menuIcon from "../../../assets/images/menu.svg";
+import menuIcon from '../../../assets/images/menu.svg';
 
 import './NavBar.css';
 
-const NavBar = ({ inverted, right }) => {
-  const { Users } = useSelector(state => state);
+type Props = {
+  inverted?: boolean,
+  right?: boolean,
+};
+
+const NavBar = ({ inverted, right }: Props): React$Element<'div'> => {
+  const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const additionalClasses = [];
 
@@ -39,10 +46,7 @@ const NavBar = ({ inverted, right }) => {
   return (
     <div className={`NavBar ${additionalClasses.join(' ')}`}>
       <Link className="NavBar__link menu" to="/home/display-menu">
-        <Image
-          src={menuIcon}
-          alt="menu"
-        />
+        <Image src={menuIcon} alt="menu" />
       </Link>
 
       <Link

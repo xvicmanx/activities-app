@@ -1,3 +1,5 @@
+// @flow
+
 import moment from 'moment';
 import React from 'react';
 import CRUDTable, {
@@ -10,23 +12,28 @@ import CRUDTable, {
 } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import {
-  fetchActivities,
-  createActivity,
-  updateActivity,
-  deleteActivity,
-} from '../services/ActivitiesService';
+import ActivitiesService from '../services/ActivitiesService';
 import CommunitiesDropdown from '../../communities/components/CommunitiesDropdown';
 
 const styles = {
   container: {
-    margin: "auto",
-    width: "fit-content",
+    margin: 'auto',
+    width: 'fit-content',
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-const CommunitiesSelectRenderer = ({ field }) => (
+type RendererProps = {
+  field: {
+    value: string | number,
+    name: string,
+    onChange: Function,
+  },
+};
+
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
+const CommunitiesSelectRenderer = ({ field }: RendererProps) => (
   <CommunitiesDropdown
     name={field.name}
     value={field.value}
@@ -36,33 +43,34 @@ const CommunitiesSelectRenderer = ({ field }) => (
 
 const service = {
   fetchItems: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await ActivitiesService.fetchActivities(
+      readTokenFromCookie()
+    );
     return response.activities;
   },
   fetchTotal: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await ActivitiesService.fetchActivities(
+      readTokenFromCookie()
+    );
     return response.activities.length;
   },
-  create: (activity) => createActivity(activity, readTokenFromCookie()),
-  update: (activity) => updateActivity(activity, readTokenFromCookie()),
-  delete: (activity) => deleteActivity(activity.id, readTokenFromCookie()),
+  create: (activity) =>
+    ActivitiesService.createActivity(activity, readTokenFromCookie()),
+  update: (activity) =>
+    ActivitiesService.updateActivity(activity, readTokenFromCookie()),
+  delete: (activity) =>
+    ActivitiesService.deleteActivity(activity.id, readTokenFromCookie()),
 };
 
-
-const ActivitiesTable = () => (
+const ActivitiesTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Actividades"
-      fetchItems={payload => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
-        <Field
-          name="id"
-          label="Id"
-          hideInCreateForm
-          readOnly
-        />
+        <Field name="id" label="Id" hideInCreateForm readOnly />
         <Field name="title" label="Título" placeholder="Título" />
         <Field
           name="description"
@@ -73,7 +81,9 @@ const ActivitiesTable = () => (
           name="date"
           type="date"
           label="Fecha"
-          tableValueResolver={(item) => moment(item.date).format('DD-MM-YYYY HH:mm')}
+          tableValueResolver={(item) =>
+            moment(item.date).format('DD-MM-YYYY HH:mm')
+          }
         />
         <Field
           name="communityId"
@@ -147,7 +157,7 @@ const ActivitiesTable = () => (
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
@@ -157,7 +167,7 @@ const ActivitiesTable = () => (
       />
       <Pagination
         itemsPerPage={10}
-        fetchTotalOfItems={payload => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

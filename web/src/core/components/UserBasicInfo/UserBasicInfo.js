@@ -1,9 +1,19 @@
+// @flow
+
 import React from 'react';
 import { Heading, Image } from 'react-bulma-components';
 
 import './UserBasicInfo.css';
 
-const UserBasicInfo = ({ user }) => {
+type User = {
+  profileURL: string,
+  name: string,
+};
+type Props = {
+  user: User,
+};
+
+const UserBasicInfo = ({ user }: Props): null | React$Element<'div'> => {
   if (!user) return null;
   return (
     <div className="UserBasicInfo">
@@ -13,10 +23,7 @@ const UserBasicInfo = ({ user }) => {
         className="UserBasicInfo__Picture"
       />
       <div>
-        <Heading
-          size={4}
-          className="inverted"
-        >
+        <Heading size={4} className="inverted">
           {user.name}
         </Heading>
       </div>

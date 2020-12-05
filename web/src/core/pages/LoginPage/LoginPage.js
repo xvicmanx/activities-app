@@ -8,10 +8,10 @@ import { useSelector } from 'react-redux';
 
 import { LoginForm } from '../../forms';
 import { NavBar } from '../../components';
-import logo from "../../../assets/images/logo.png";
+import logo from '../../../assets/images/logo.png';
 
 const LoginPage = () => {
-  const { Users } = useSelector(state => state);
+  const { Users } = useSelector((state) => state);
 
   if (Users.data) {
     return <Redirect to="/home" />;
@@ -22,17 +22,13 @@ const LoginPage = () => {
       <div className="LoginPage__Container">
         <div className="LoginPage__App-Info">
           <div className="LoginPage__LogoContainer top">
-            <Image
-              src={logo}
-              alt="Pic"
-              className="LoginPage__Logo top"
-            />
+            <Image src={logo} alt="Pic" className="LoginPage__Logo top" />
           </div>
           <Heading subtitle className="LoginPage__Subtitle">
             Insiemi
           </Heading>
         </div>
-        
+
         <div className="LoginPage__Content">
           <NavBar right />
           <div className="LoginPage__Form">

@@ -1,12 +1,17 @@
+// @flow
+
 import React from 'react';
+import type { Node } from 'react';
 import './Form.css';
 
-const Form = ({ children, ...rest }) => {
-  return (
-    <form {...rest} className="Form">
-      {children}
-    </form>
-  );
+type Props = {
+  children: Node,
 };
+
+const Form = ({ children, ...rest }: Props): React$Element<'form'> => (
+  <form {...rest} className="Form">
+    {children}
+  </form>
+);
 
 export default Form;

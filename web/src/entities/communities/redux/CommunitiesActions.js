@@ -1,4 +1,3 @@
-import cookies from 'browser-cookies';
 import {
   SET_COMMUNITIES,
   SET_COMMUNITIES_LOADING_STATE,
@@ -9,7 +8,7 @@ import {
   ADD_MEMBER,
 } from './CommunitiesActionTypes';
 
-import * as Communities from '../services/CommunitiesService';
+import CommunitiesService from '../services/CommunitiesService';
 
 export const fetchCommunities = (token) => async (dispatch) => {
   dispatch({
@@ -17,7 +16,7 @@ export const fetchCommunities = (token) => async (dispatch) => {
     payload: true,
   });
 
-  const res = await Communities.fetchCommunities(token);
+  const res = await CommunitiesService.fetchCommunities(token);
 
   if (res.success) {
     dispatch({
@@ -37,14 +36,13 @@ export const fetchCommunities = (token) => async (dispatch) => {
   });
 };
 
-
 export const fetchCommunity = (token, id) => async (dispatch) => {
   dispatch({
     type: SET_COMMUNITY_LOADING_STATE,
     payload: true,
   });
 
-  const res = await Communities.fetchCommunity(token, id);
+  const res = await CommunitiesService.fetchCommunity(token, id);
 
   if (res.success) {
     dispatch({
@@ -64,14 +62,20 @@ export const fetchCommunity = (token, id) => async (dispatch) => {
   });
 };
 
-
-export const addMember = (token, communityId, memberId, coordinates) => async (dispatch) => {
+export const addMember = (token, communityId, memberId, coordinates) => async (
+  dispatch
+) => {
   dispatch({
     type: SET_COMMUNITY_LOADING_STATE,
     payload: true,
   });
 
-  const res = await Communities.addMember(token, communityId, memberId, coordinates);
+  const res = await CommunitiesService.addMember(
+    token,
+    communityId,
+    memberId,
+    coordinates
+  );
 
   if (res && res.success) {
     dispatch({

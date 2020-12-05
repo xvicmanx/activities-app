@@ -1,7 +1,6 @@
 import React from 'react';
 import { Loader } from 'react-bulma-components';
 
-
 const styles = {
   container: {
     textAlign: 'center',
@@ -22,7 +21,6 @@ const styles = {
     margin: 'auto',
   },
 };
-
 
 const LoadingIndicator = () => (
   <div style={styles.container}>

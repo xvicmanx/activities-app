@@ -27,3 +27,7 @@ jobs:
     - run: cd api && npm install
     - run: cd api && npm run lint
     - run: cd api && npm test
+
+    - run: cd web && npm install
+    - run: cd web && npm run lint
+    - run: cd web && npm run types:check
