@@ -11,6 +11,7 @@ import UserBasicInfo from './UserBasicInfo/UserBasicInfo';
 
 import LoadingIndicator from './LoadingIndicator';
 import ErrorMessage from './ErrorMessage';
+import AppLayout from './AppLayout';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   UserBasicInfo,
   LoadingIndicator,
   ErrorMessage,
+  AppLayout,
 };
