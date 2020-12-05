@@ -80,6 +80,12 @@ const getRoutes = () => {
    */
 
   /**
+   * @typedef AddMemberToCommunityResponse
+   * @property {boolean} success
+   * @property {CommunityMember} member
+   */
+
+  /**
    * Gets the current user communities
    * @route GET /communities/list-for-user
    * @group Community - Community
@@ -112,7 +118,7 @@ const getRoutes = () => {
 
   /**
   * Creates an community
-  * @route POST /activities/create
+  * @route POST /communities/create
   * @group Community - Operations about community
   * @param {CreateCommunityPayload.model} body.body.required - the create community payload
   * @param {string} authorization.header.required - authorization token header
@@ -123,7 +129,7 @@ const getRoutes = () => {
 
   /**
    * Updates an community
-   * @route POST /activities/{id}/update
+   * @route POST /communities/{id}/update
    * @group Community - Operations about community
    * @param {integer} id.path.required - the id of the community
    * @param {UpdateCommunityPayload.model} body.body.required - the update community payload
@@ -135,7 +141,7 @@ const getRoutes = () => {
 
   /**
    * Deletes an community
-   * @route POST /activities/{id}/delete
+   * @route POST /communities/{id}/delete
    * @group Community - Operations about community
    * @param {integer} id.path.required - the id of the community
    * @param {string} authorization.header.required - authorization token header
@@ -143,6 +149,18 @@ const getRoutes = () => {
    * @returns {Error}  default - Unexpected error
    */
   app.delete('/:id/delete', authRequired(controller.deleteCommunity));
+
+  /**
+   * Adds a member to a communitiy
+   * @route POST /communities/{id}/add-member/{memberId}
+   * @group Community - Operations about community
+   * @param {integer} id.path.required - the id of the community
+   * @param {integer} memberId.path.required - the id of the member
+   * @param {string} authorization.header.required - authorization token header
+   * @returns {AddMemberToCommunityResponse.model} 200 - update response
+   * @returns {Error}  default - Unexpected error
+   */
+  app.post('/:id/add-member/:memberId', authRequired(controller.addMember));
 
   return app;
 };

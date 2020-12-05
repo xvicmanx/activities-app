@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CRUDTable, { CreateForm, DeleteForm, Fields, Field, Pagination, UpdateForm } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../redux/Users/UsersActions';
@@ -43,7 +44,12 @@ const CommunitiesTable = () => (
           hideInCreateForm
           readOnly
         />
-        <Field name="name" label="Nombre" placeholder="Nombre" />
+        <Field
+          name="name"
+          label="Nombre"
+          placeholder="Nombre"
+          tableValueResolver={(item) => <Link to={`/communities/${item.id}`}>{item.name}</Link>}
+        />
         <Field
           name="slogan"
           label="Eslogan"

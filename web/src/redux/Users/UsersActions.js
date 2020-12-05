@@ -3,7 +3,9 @@ import {
   SET_CURRENT_USER,
   LOG_OUT_CURRENT_USER,
   SET_USERS_LOADING_STATE,
-  SET_USER_ERROR
+  SET_USER_ERROR,
+  SET_USERS_ERROR,
+  SET_USERS,
 } from './UsersActionTypes';
 
 import { Users } from '../../Services';
@@ -82,5 +84,32 @@ export const logOutUser = () => async (dispatch) => {
   clearToken(); 
   dispatch({
     type: LOG_OUT_CURRENT_USER
+  });
+};
+
+
+export const fetchUsers = (token) => async (dispatch) => {
+  dispatch({
+    type: SET_USERS_LOADING_STATE,
+    payload: true,
+  });
+
+  const res = await Users.fetchUsers(token);
+
+  if (res.success) {
+    dispatch({
+      type: SET_USERS,
+      payload: res.users,
+    });
+  } else {
+    dispatch({
+      type: SET_USERS_ERROR,
+      payload: res.message,
+    });
+  }
+
+  dispatch({
+    type: SET_USERS_LOADING_STATE,
+    payload: false,
   });
 };

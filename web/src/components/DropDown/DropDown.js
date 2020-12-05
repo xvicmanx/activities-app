@@ -9,12 +9,6 @@ const DropDown = ({
   items,
   placeholder
 }) => {
-  let options = [];
-
-  if (items !== undefined) {
-    options = items;
-  }
-
   const handleChange = val => {
     onChange({
       persist: () => {},
@@ -33,9 +27,9 @@ const DropDown = ({
       <BulmaDropdown.Item>
         {placeholder}
       </BulmaDropdown.Item>
-      {options.map((el, i) => {
+      {(items || []).map((el) => {
         return (
-          <BulmaDropdown.Item value={i} key={el.id}>
+          <BulmaDropdown.Item value={el.id} key={el.id}>
             {el.name}
           </BulmaDropdown.Item>
         );

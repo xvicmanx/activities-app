@@ -9,6 +9,7 @@ import {
   HomePage,
   ActivitiesPage,
   CommunitiesPage,
+  CommunityDetailsPage,
   UsersPage,
 } from '../';
 import {
@@ -79,7 +80,8 @@ const AppLayout = () => {
             <div className="Layout__Scroll-Content">
               <Switch>
                 <Route path="/activities" component={ActivitiesPage} />
-                <Route path="/communities" component={CommunitiesPage} />
+                <Route path="/communities" component={CommunitiesPage} exact />
+                <Route path="/communities/:id" component={CommunityDetailsPage} />
                 <Route path="/users" component={UsersPage} />
                 <Route path="/home" component={HomePage} />
               </Switch>

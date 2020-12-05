@@ -1,6 +1,6 @@
 import requester from '../requester';
 
-const fetchActivities = async (token) => {
+const fetchCommunities = async (token) => {
   const request = {
     path: '/communities/list',
     token
@@ -9,4 +9,4 @@ const fetchActivities = async (token) => {
   return await requester(request);
 };
 
-export default fetchActivities;
+export default fetchCommunities;
