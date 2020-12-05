@@ -3,8 +3,12 @@ const requester = async (data) => {
     protocol,
     host,
   } = window.location;
-  const HOST = process.env.NODE_ENV === 'production' ? 
-    `${protocol}//${host}/api` : 'http://localhost:4500';
+  const {
+    PORT,
+    NODE_ENV,
+  } = process.env;
+  const HOST = NODE_ENV === 'production' ? 
+    `${protocol}//${host}/api` : `http://localhost:${PORT || 4500}`;
   
   const { token, path, method, payload } = data;
 

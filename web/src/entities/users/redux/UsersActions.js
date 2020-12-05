@@ -8,7 +8,7 @@ import {
   SET_USERS,
 } from './UsersActionTypes';
 
-import * as Users from '../services/UsersService';
+import UsersService from '../services/UsersService';
 
 const storeToken = (token) => {
   cookies.set('jwt', token, { expires: 1 });
@@ -32,7 +32,7 @@ export const loadUserFromToken = ({ token, shouldLoadToken }) => async (dispatch
 
   clearToken();
 
-  const res = await Users.loadUserFromToken(token);
+  const res = await UsersService.loadUserFromToken(token);
 
   if (res.success) {
     storeToken(res.token); 
@@ -59,7 +59,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     payload: true,
   });
 
-  const res = await Users.loginUser(email, password);
+  const res = await UsersService.loginUser(email, password);
 
   if (res && res.success) {
     storeToken(res.token); 
@@ -94,7 +94,7 @@ export const fetchUsers = (token) => async (dispatch) => {
     payload: true,
   });
 
-  const res = await Users.fetchUsers(token);
+  const res = await UsersService.fetchUsers(token);
 
   if (res.success) {
     dispatch({

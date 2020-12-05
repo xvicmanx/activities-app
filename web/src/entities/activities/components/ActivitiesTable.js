@@ -10,12 +10,7 @@ import CRUDTable, {
 } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import {
-  fetchActivities,
-  createActivity,
-  updateActivity,
-  deleteActivity,
-} from '../services/ActivitiesService';
+import ActivitiesService from '../services/ActivitiesService';
 import CommunitiesDropdown from '../../communities/components/CommunitiesDropdown';
 
 const styles = {
@@ -36,16 +31,16 @@ const CommunitiesSelectRenderer = ({ field }) => (
 
 const service = {
   fetchItems: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await ActivitiesService.fetchActivities(readTokenFromCookie());
     return response.activities;
   },
   fetchTotal: async () => {
-    const response = await fetchActivities(readTokenFromCookie());
+    const response = await ActivitiesService.fetchActivities(readTokenFromCookie());
     return response.activities.length;
   },
-  create: (activity) => createActivity(activity, readTokenFromCookie()),
-  update: (activity) => updateActivity(activity, readTokenFromCookie()),
-  delete: (activity) => deleteActivity(activity.id, readTokenFromCookie()),
+  create: (activity) => ActivitiesService.createActivity(activity, readTokenFromCookie()),
+  update: (activity) => ActivitiesService.updateActivity(activity, readTokenFromCookie()),
+  delete: (activity) => ActivitiesService.deleteActivity(activity.id, readTokenFromCookie()),
 };
 
 

@@ -10,7 +10,7 @@ import CRUDTable, {
 } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import * as Communities from '../services/CommunitiesService';
+import CommunitiesService from '../services/CommunitiesService';
 
 const styles = {
   container: {
@@ -24,16 +24,16 @@ const DescriptionRenderer = ({ field }) => <textarea {...field} />;
 
 const service = {
   fetchItems: async () => {
-    const response = await Communities.fetchCommunities(readTokenFromCookie());
+    const response = await CommunitiesService.fetchCommunities(readTokenFromCookie());
     return response.communities;
   },
   fetchTotal: async () => {
-    const response = await Communities.fetchCommunities(readTokenFromCookie());
+    const response = await CommunitiesService.fetchCommunities(readTokenFromCookie());
     return response.communities.length;
   },
-  create: (community) => Communities.createCommunity(community, readTokenFromCookie()),
-  update: (community) => Communities.updateCommunity(community, readTokenFromCookie()),
-  delete: (community) => Communities.deleteCommunity(community.id, readTokenFromCookie()),
+  create: (community) => CommunitiesService.createCommunity(community, readTokenFromCookie()),
+  update: (community) => CommunitiesService.updateCommunity(community, readTokenFromCookie()),
+  delete: (community) => CommunitiesService.deleteCommunity(community.id, readTokenFromCookie()),
 };
 
 

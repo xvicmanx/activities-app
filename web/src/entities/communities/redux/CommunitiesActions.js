@@ -9,7 +9,7 @@ import {
   ADD_MEMBER,
 } from './CommunitiesActionTypes';
 
-import * as Communities from '../services/CommunitiesService';
+import CommunitiesService from '../services/CommunitiesService';
 
 export const fetchCommunities = (token) => async (dispatch) => {
   dispatch({
@@ -17,7 +17,7 @@ export const fetchCommunities = (token) => async (dispatch) => {
     payload: true,
   });
 
-  const res = await Communities.fetchCommunities(token);
+  const res = await CommunitiesService.fetchCommunities(token);
 
   if (res.success) {
     dispatch({
@@ -44,7 +44,7 @@ export const fetchCommunity = (token, id) => async (dispatch) => {
     payload: true,
   });
 
-  const res = await Communities.fetchCommunity(token, id);
+  const res = await CommunitiesService.fetchCommunity(token, id);
 
   if (res.success) {
     dispatch({
@@ -71,7 +71,7 @@ export const addMember = (token, communityId, memberId, coordinates) => async (d
     payload: true,
   });
 
-  const res = await Communities.addMember(token, communityId, memberId, coordinates);
+  const res = await CommunitiesService.addMember(token, communityId, memberId, coordinates);
 
   if (res && res.success) {
     dispatch({

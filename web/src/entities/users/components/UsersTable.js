@@ -3,7 +3,7 @@ import CRUDTable, { CreateForm, UpdateForm, DeleteForm, Fields, Field, Paginatio
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { readTokenFromCookie } from '../redux/UsersActions';
-import * as Users from '../services/UsersService';
+import UsersService from '../services/UsersService';
 
 
 const styles = {
@@ -33,16 +33,16 @@ const PasswordRenderer = ({ field }) => (
 
 const service = {
   fetchItems: async () => {
-    const response = await Users.fetchUsers(readTokenFromCookie());
+    const response = await UsersService.fetchUsers(readTokenFromCookie());
     return response.users;
   },
   fetchTotal: async () => {
-    const response = await Users.fetchUsers(readTokenFromCookie());
+    const response = await UsersService.fetchUsers(readTokenFromCookie());
     return response.users.length;
   },
-  create: (user) => Users.createUser(user, readTokenFromCookie()),
-  update: (user) => Users.updateUser(user, readTokenFromCookie()),
-  delete: (user) => Users.deleteUser(user.id, readTokenFromCookie()),
+  create: (user) => UsersService.createUser(user, readTokenFromCookie()),
+  update: (user) => UsersService.updateUser(user, readTokenFromCookie()),
+  delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
 };
 
 
