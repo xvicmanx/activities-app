@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { Avatar as AvatarRNE, Text, Icon } from 'react-native-elements';
+import { Avatar, Text, Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
-import { COLORS } from '../../constants';
+import COLORS from '../../constants/colors';
 import { uploadImage } from '../../entities/user/actions';
 import { HOST } from '@env';
 
-const Avatar = ({ size, img, name, edit }) => {
+export default ({ size, img, name, edit }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const currentUser = useSelector(({ auth }) => auth.currentUser);
 
   const chooseImage = () => {
     const options = {
@@ -32,18 +32,14 @@ const Avatar = ({ size, img, name, edit }) => {
       } else if (response.customButton) {
         console.log(response.customButton);
       } else {
-        dispatch(uploadImage(response, currentUser.data.token));
+        dispatch(uploadImage(response, currentUser.token));
       }
     });
   };
 
   return (
     <View style={styles.container}>
-      <AvatarRNE
-        rounded
-        source={{ uri: img.replace('localhost', HOST) }}
-        size={size}
-      />
+      <Avatar rounded source={{ uri: img.replace('localhost', HOST) }} size={size} />
 
       {edit && (
         <TouchableNativeFeedback onPress={chooseImage}>
@@ -80,5 +76,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default Avatar;

@@ -4,38 +4,40 @@ import { Card, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, getDay } from 'date-fns';
-import { Button } from '../../../common/components';
-import { DAYS, COLORS } from '../../../constants';
+import Button from '../../../common/components/Button';
+import COLORS from '../../../constants/colors';
+import DATE from '../../../constants/date';
 import { unjoinActivity, joinActivity } from '../actions';
 
-const ActivityCard = ({ activity }) => {
+export default ({ activityId }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const activity = useSelector(({ activities }) => {
+    return activities.entities[activityId];
+  });
   const { navigate } = useNavigation();
 
   const signup = () => {
-    dispatch(joinActivity(activity.id, currentUser.data.token));
+    dispatch(joinActivity(activityId));
   };
 
   const cancel = () => {
-    dispatch(unjoinActivity(activity.id, currentUser.data.token));
+    dispatch(unjoinActivity(activityId));
   };
 
   const seeWhoGoes = () => {
-    navigate('ParticipantsScreen', { activityId: activity.id });
+    navigate('ParticipantsScreen', { activityId });
   };
 
   const button = activity.userWillAttend ? (
-    <Button danger onPress={cancel} small>
+    <Button loading={activity.isLoading} danger onPress={cancel} small>
       Cancelar
     </Button>
   ) : (
     <Button
-      icon={
-        <Icon type="simple-line-icon" name="pencil" size={15} color="white" />
-      }
+      icon={<Icon type="simple-line-icon" name="pencil" size={15} color="white" />}
       onPress={signup}
       small
+      loading={activity.isLoading}
     >
       Anotarse
     </Button>
@@ -43,46 +45,31 @@ const ActivityCard = ({ activity }) => {
 
   return (
     <Card containerStyle={styles.container}>
-      <Card.Title style={styles.title}>{activity.title}</Card.Title>
-      <Card.Divider />
+      <View style={styles.titleContainer}>
+        <Card.Title style={styles.title}>{activity.title}</Card.Title>
+        {activity.userWillAttend && (
+          <Icon type="ionicon" name="checkmark-circle" size={20} color="green" />
+        )}
+      </View>
 
       <View style={styles.dateContainer}>
         <View style={styles.spaceBetween}>
           <View style={styles.spaceBetween}>
-            <Text style={styles.dateText}>
-              {DAYS[getDay(new Date(activity.date))]}
-            </Text>
-
-            <Text style={styles.dateText}>
-              {format(new Date(activity.date), 'dd/MM/yyyy')}
-            </Text>
-
-            {activity.userWillAttend && (
-              <Icon
-                type="ionicon"
-                name="checkmark-circle"
-                size={20}
-                color="green"
-              />
-            )}
+            <Text style={styles.dateText}>{DATE.days[getDay(new Date(activity.date))]}</Text>
+            <Text style={styles.dateText}>{format(new Date(activity.date), 'dd/MM/yyyy')}</Text>
           </View>
         </View>
 
         <TouchableNativeFeedback onPress={seeWhoGoes}>
           <View style={styles.whoGoesContainer}>
             <Text style={styles.whoGoesText}>Van</Text>
-            <Icon
-              type="font-awesome-5"
-              name="users"
-              size={15}
-              color={COLORS.primary}
-            />
-            <Text style={styles.whoGoesCounter}>
-              ({activity.willAttendCount})
-            </Text>
+            <Icon type="font-awesome-5" name="users" size={15} color={COLORS.primary} />
+            <Text style={styles.whoGoesCounter}>({activity.willAttendCount})</Text>
           </View>
         </TouchableNativeFeedback>
       </View>
+
+      <Card.Divider />
 
       <Text style={styles.descriptionContainer}>{activity.description}</Text>
 
@@ -93,13 +80,18 @@ const ActivityCard = ({ activity }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
     marginHorizontal: 0,
     marginTop: 0,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     textAlign: 'left',
-    fontSize: 18,
+    fontSize: 22,
+    marginBottom: 0,
+    marginRight: 5,
   },
   dateContainer: {
     flexDirection: 'row',
@@ -114,6 +106,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: '#43484d',
     fontWeight: 'bold',
+    fontSize: 13,
   },
   whoGoesContainer: {
     flexDirection: 'row',
@@ -138,5 +131,3 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
-
-export default ActivityCard;

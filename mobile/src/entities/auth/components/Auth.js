@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'react-native';
-import SplashScreen from './screens/SplashScreen';
-import SignInScreen from './screens/SignInScreen';
-// import { checkUserInfo } from './entities/auth/actions';
-// import TabBarNavigation from './TabBarNavigation';
-import COLORS from '../../constants/colors';
-import { checkUserInfo } from './authSliceTemp';
+import SplashScreen from '../screens/SplashScreen';
+import SignInScreen from '../screens/SignInScreen';
+import TabBarNavigation from '../../../TabBarNavigation';
+import COLORS from '../../../constants/colors';
+import { checkUserInfo } from '../actions';
 
 export default () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export default () => {
   return (
     <>
       <StatusBar backgroundColor={COLORS.primary} />
-      {!currentUser ? <SignInScreen /> : null}
+      {!currentUser ? <SignInScreen /> : <TabBarNavigation />}
     </>
   );
 };

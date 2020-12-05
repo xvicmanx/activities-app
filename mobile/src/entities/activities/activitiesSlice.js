@@ -1,24 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import authSlice from '../auth/authSlice';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+// import authSlice from '../auth/authSlice';
+import { fetchActivities, unjoinActivity, joinActivity } from './actions';
 
-const INITIAL_STATE = {
-  isLoading: true,
-  list: [],
-  participants: {
-    isLoading: true,
-    list: [],
-  },
-};
+export const activitiesAdapter = createEntityAdapter();
 
-const activitiesSlice = createSlice({
+const initialState = activitiesAdapter.getInitialState({ isLoading: true });
+
+export default createSlice({
   name: 'activities',
-  initialState: INITIAL_STATE,
+  initialState,
   reducers: {
-    setActivities: (state, { payload }) => {
-      state.list = payload;
-      state.isLoading = false;
-    },
-    setParticipants: (state, {payload}) => {
+    setParticipants: (state, { payload }) => {
       state.participants.list = payload;
       state.participants.isLoading = false;
     },
@@ -31,11 +23,29 @@ const activitiesSlice = createSlice({
       activity.willAttendCount = payload.willAttendCount;
     },
   },
-  extraReducers: {
-    [authSlice.actions.logOut]: (state, action) => {
-      return { ...INITIAL_STATE };
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchActivities.fulfilled, (state, { payload }) => {
+        activitiesAdapter.upsertMany(state, payload);
+        state.isLoading = false;
+      })
+      .addCase(joinActivity.fulfilled, (state, { payload }) => {
+        activitiesAdapter.updateOne(state, {
+          id: payload.id,
+          changes: {
+            userWillAttend: payload.userWillAttend,
+            willAttendCount: payload.willAttendCount,
+          },
+        });
+      })
+      .addCase(unjoinActivity.fulfilled, (state, { payload }) => {
+        activitiesAdapter.updateOne(state, {
+          id: payload.id,
+          changes: {
+            userWillAttend: payload.userWillAttend,
+            willAttendCount: payload.willAttendCount,
+          },
+        });
+      });
   },
 });
-
-export default activitiesSlice;

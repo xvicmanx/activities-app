@@ -1,30 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, thunkAPI) => {
-  const token = await AsyncStorage.getItem('userToken');
-
-  if (!token) {
-    return null;
-  }
-
-  // const res = await AuthService.checkUserInfo(token);
-
-  // if (res.code === 'NOT_AUTHORIZED') {
-  //   dispatch(authSlice.actions.setCurrentUser(null));
-  //   return;
-  // }
-
-  // if (res.success) {
-  //   dispatch(
-  //     authSlice.actions.setCurrentUser({
-  //       exp: res.exp,
-  //       token: res.token,
-  //       ...res.user,
-  //     })
-  //   );
-  // }
-});
+import { createSlice } from '@reduxjs/toolkit';
+import { checkUserInfo, loginUser } from './actions';
 
 export default createSlice({
   name: 'auth',
@@ -39,8 +14,8 @@ export default createSlice({
         state.isLoading = false;
         state.currentUser = payload;
       })
-      .addCase(checkUserInfo.rejected, (state, { error }) => {
-        console.log(error);
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
+        state.currentUser = payload;
       });
   },
 });

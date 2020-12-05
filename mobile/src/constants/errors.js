@@ -7,7 +7,7 @@ export default {
   },
   email: {
     invalid: 'Email o contraseña inválido',
-    emailFormat: 'El formato de email es inválido',
+    emailFormat: 'El formato del email no es válido',
   },
   empty: '*Este campo está vacío',
 };

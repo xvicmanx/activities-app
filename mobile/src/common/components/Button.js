@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button as ButtonRNE } from 'react-native-elements';
-import { COLORS } from '../../constants';
+import { Button } from 'react-native-elements';
+import COLORS from '../../constants/colors';
 
-const Button = ({ style, icon, danger, small, children, loading, ...rest }) => {
+export default ({ onPress, style, icon, danger, small, children, loading }) => {
   const smallStyles = small && styles.small;
   const dangerStyles = danger && styles.danger;
 
   return (
-    <ButtonRNE
+    <Button
       title={children}
       loading={loading}
       buttonStyle={{
@@ -20,7 +20,7 @@ const Button = ({ style, icon, danger, small, children, loading, ...rest }) => {
       }}
       icon={icon && <View style={styles.iconContainer}>{icon}</View>}
       iconRight
-      {...rest}
+      onPress={onPress}
     />
   );
 };
@@ -38,5 +38,3 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-
-export default Button;

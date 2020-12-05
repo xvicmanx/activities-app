@@ -1,50 +1,61 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { normalize, schema } from 'normalizr';
 import ActivitiesService from './activitiesService';
-import activitiesSlice from './activitiesSlice';
+// import activitiesSlice from './activitiesSlice';
 
-export const fetchActivities = (token) => async (dispatch) => {
-  try {
+const activityEntity = new schema.Entity('activities');
+const participantEntity = new schema.Entity('participants');
+
+export const fetchActivities = createAsyncThunk(
+  'activities/fetchActivities',
+  async (arg, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.getActivities(token);
 
     if (res.success) {
-      dispatch(activitiesSlice.actions.setActivities(res.activities));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+      const normalized = normalize(res.activities, [activityEntity]);
+      const { activities } = normalized.entities;
 
-export const fetchParticipants = (activityId, token) => async (dispatch) => {
-  try {
+      return activities;
+    }
+  }
+);
+
+export const fetchParticipants = createAsyncThunk(
+  'activities/fetchParticipants',
+  async (activityId, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.getParticipants(activityId, token);
 
     if (res.success) {
-      dispatch(activitiesSlice.actions.setParticipants(res.participants));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+      const normalized = normalize(res.participants, [participantEntity]);
+      const { participants } = normalized.entities;
 
-export const joinActivity = (activityId, token) => async (dispatch) => {
-  try {
+      return participants;
+    }
+  }
+);
+
+export const joinActivity = createAsyncThunk(
+  'activities/joinActivity',
+  async (activityId, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.joinActivity(activityId, token);
 
     if (res.success) {
-      dispatch(activitiesSlice.actions.updateParticipant(res.activity));
+      return res.activity;
     }
-  } catch (error) {
-    console.log(error);
   }
-};
+);
 
-export const unjoinActivity = (activityId, token) => async (dispatch) => {
-  try {
+export const unjoinActivity = createAsyncThunk(
+  'activities/unjoinActivity',
+  async (activityId, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.unjoinActivity(activityId, token);
 
     if (res.success) {
-      dispatch(activitiesSlice.actions.updateParticipant(res.activity));
+      return res.activity;
     }
-  } catch (error) {
-    console.log(error);
   }
-};
+);
