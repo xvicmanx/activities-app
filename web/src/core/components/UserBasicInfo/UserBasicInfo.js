@@ -13,10 +13,7 @@ const UserBasicInfo = ({ user }) => {
         className="UserBasicInfo__Picture"
       />
       <div>
-        <Heading
-          size={4}
-          className="inverted"
-        >
+        <Heading size={4} className="inverted">
           {user.name}
         </Heading>
       </div>

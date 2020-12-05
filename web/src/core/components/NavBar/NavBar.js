@@ -5,12 +5,12 @@ import { Image } from 'react-bulma-components';
 
 import { logOutUser } from '../../../entities/users/redux/UsersActions';
 
-import menuIcon from "../../../assets/images/menu.svg";
+import menuIcon from '../../../assets/images/menu.svg';
 
 import './NavBar.css';
 
 const NavBar = ({ inverted, right }) => {
-  const { Users } = useSelector(state => state);
+  const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const additionalClasses = [];
 
@@ -39,10 +39,7 @@ const NavBar = ({ inverted, right }) => {
   return (
     <div className={`NavBar ${additionalClasses.join(' ')}`}>
       <Link className="NavBar__link menu" to="/home/display-menu">
-        <Image
-          src={menuIcon}
-          alt="menu"
-        />
+        <Image src={menuIcon} alt="menu" />
       </Link>
 
       <Link

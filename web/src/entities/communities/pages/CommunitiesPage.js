@@ -5,10 +5,7 @@ import { Page } from '../../../core/components';
 import CommunitiesTable from '../components/CommunitiesTable';
 
 const CommunitiesPage = () => (
-  <Page
-    title="Comunidades"
-    icon={faBuilding}
-  >
+  <Page title="Comunidades" icon={faBuilding}>
     <CommunitiesTable />
   </Page>
 );

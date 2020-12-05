@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { Button as BulmaButton } from 'react-bulma-components';
 
-
-
-const Button = ({
-  children,
-  className,
-  hoverClassName,
-  ...rest
-}) => {
+const Button = ({ children, className, hoverClassName, ...rest }) => {
   const [hovered, setHovered] = useState(false);
   const classes = [];
 

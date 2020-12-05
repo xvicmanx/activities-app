@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   data: null,
   users: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 const UsersReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -25,27 +25,27 @@ const UsersReducer = (state = INITIAL_STATE, { type, payload }) => {
 
     case SET_USER_ERROR:
     case SET_USERS_ERROR:
-        return {
-          ...state,
-          error: payload,
-        };
+      return {
+        ...state,
+        error: payload,
+      };
 
     case SET_CURRENT_USER:
       return {
         ...state,
-        data: payload
+        data: payload,
       };
-    
+
     case SET_USERS:
       return {
         ...state,
-        users: payload
+        users: payload,
       };
 
     case LOG_OUT_CURRENT_USER:
       return {
         ...state,
-        data: null
+        data: null,
       };
 
     default:

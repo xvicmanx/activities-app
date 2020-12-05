@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 import { AppLayout, LoadingIndicator } from './core/components';
 
@@ -16,19 +16,20 @@ import CommunitiesPage from './entities/communities/pages/CommunitiesPage';
 import CommunityDetailsPage from './entities/communities/pages/CommunityDetailsPage';
 import UsersPage from './entities/users/pages/UsersPage';
 
-
 const AdminApp = (props) => {
-  const { Users } = useSelector(state => state);
+  const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
 
   const shouldLoadToken = !Users.data && !Users.loading && token;
 
   useEffect(() => {
-    dispatch(loadUserFromToken({
-      token,
-      shouldLoadToken,
-    }));
+    dispatch(
+      loadUserFromToken({
+        token,
+        shouldLoadToken,
+      })
+    );
   }, [dispatch, token, shouldLoadToken]);
 
   if (!Users.data && !Users.loading && !token) {
@@ -36,11 +37,9 @@ const AdminApp = (props) => {
   }
 
   if (!Users.data) {
-    return (
-      <LoadingIndicator />
-    );
+    return <LoadingIndicator />;
   }
-  
+
   return (
     <AppLayout
       {...props}
@@ -80,4 +79,3 @@ const AdminApp = (props) => {
 };
 
 export default AdminApp;
-

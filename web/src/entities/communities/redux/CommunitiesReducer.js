@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   community: null,
   member: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 const CommunitiesReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -26,15 +26,15 @@ const CommunitiesReducer = (state = INITIAL_STATE, { type, payload }) => {
       };
 
     case SET_COMMUNITIES_ERROR:
-        return {
-          ...state,
-          error: payload,
-        };
+      return {
+        ...state,
+        error: payload,
+      };
 
     case SET_COMMUNITIES:
       return {
         ...state,
-        communities: payload
+        communities: payload,
       };
 
     case ADD_MEMBER:
@@ -42,10 +42,7 @@ const CommunitiesReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         community: {
           ...state.community,
-          members: [
-            ...(state.community.members || []),
-            payload,
-          ],
+          members: [...(state.community.members || []), payload],
         },
       };
 
@@ -57,15 +54,15 @@ const CommunitiesReducer = (state = INITIAL_STATE, { type, payload }) => {
       };
 
     case SET_COMMUNITY_ERROR:
-        return {
-          ...state,
-          error: payload,
-        };
+      return {
+        ...state,
+        error: payload,
+      };
 
     case SET_COMMUNITY:
       return {
         ...state,
-        community: payload
+        community: payload,
       };
 
     default:

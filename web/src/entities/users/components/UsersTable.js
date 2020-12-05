@@ -1,15 +1,21 @@
 import React from 'react';
-import CRUDTable, { CreateForm, UpdateForm, DeleteForm, Fields, Field, Pagination } from 'react-crud-table';
+import CRUDTable, {
+  CreateForm,
+  UpdateForm,
+  DeleteForm,
+  Fields,
+  Field,
+  Pagination,
+} from 'react-crud-table';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { readTokenFromCookie } from '../redux/UsersActions';
 import UsersService from '../services/UsersService';
 
-
 const styles = {
   container: {
-    margin: "auto",
-    width: "fit-content",
+    margin: 'auto',
+    width: 'fit-content',
   },
   copy: {
     backgroundColor: '#5caaf6',
@@ -45,31 +51,17 @@ const service = {
   delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
 };
 
-
 const UsersTable = () => (
   <div style={styles.container}>
     <CRUDTable
       caption="Usuarios"
-      fetchItems={payload => service.fetchItems(payload)}
+      fetchItems={(payload) => service.fetchItems(payload)}
       actionsLabel="Acciones"
     >
       <Fields>
-        <Field
-          name="id"
-          label="Id"
-          hideInCreateForm
-          readOnly
-        />
-        <Field
-          name="name"
-          label="Nombre"
-          placeholder="Nombre"
-        />
-        <Field
-          name="email"
-          label="Correo"
-          placeholder="Correo"
-        />
+        <Field name="id" label="Id" hideInCreateForm readOnly />
+        <Field name="name" label="Nombre" placeholder="Nombre" />
+        <Field name="email" label="Correo" placeholder="Correo" />
         <Field
           name="description"
           label="Descripción"
@@ -87,11 +79,11 @@ const UsersTable = () => (
         title="Crear usuario"
         message="Crear una nueva usuario"
         trigger="Crear usuario"
-        onSubmit={task => service.create(task)}
+        onSubmit={(task) => service.create(task)}
         submitText="Crear"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.name) {
             errors.name = 'Por favor, provea un nombre';
           }
@@ -143,7 +135,7 @@ const UsersTable = () => (
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
@@ -153,7 +145,7 @@ const UsersTable = () => (
       />
       <Pagination
         itemsPerPage={100}
-        fetchTotalOfItems={payload => service.fetchTotal(payload)}
+        fetchTotalOfItems={(payload) => service.fetchTotal(payload)}
       />
     </CRUDTable>
   </div>

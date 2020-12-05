@@ -15,12 +15,14 @@ const storeToken = (token) => {
 };
 
 export const clearToken = () => {
-  cookies.erase('jwt'); 
+  cookies.erase('jwt');
 };
 
 export const readTokenFromCookie = () => cookies.get('jwt');
 
-export const loadUserFromToken = ({ token, shouldLoadToken }) => async (dispatch) => {
+export const loadUserFromToken = ({ token, shouldLoadToken }) => async (
+  dispatch
+) => {
   if (!shouldLoadToken) {
     return;
   }
@@ -35,10 +37,10 @@ export const loadUserFromToken = ({ token, shouldLoadToken }) => async (dispatch
   const res = await UsersService.loadUserFromToken(token);
 
   if (res.success) {
-    storeToken(res.token); 
+    storeToken(res.token);
     dispatch({
       type: SET_CURRENT_USER,
-      payload: { ...res.user, token: res.token }
+      payload: { ...res.user, token: res.token },
     });
   } else {
     dispatch({
@@ -62,10 +64,10 @@ export const loginUser = (email, password) => async (dispatch) => {
   const res = await UsersService.loginUser(email, password);
 
   if (res && res.success) {
-    storeToken(res.token); 
+    storeToken(res.token);
     dispatch({
       type: SET_CURRENT_USER,
-      payload: { ...res.user, token: res.token }
+      payload: { ...res.user, token: res.token },
     });
   } else {
     dispatch({
@@ -81,12 +83,11 @@ export const loginUser = (email, password) => async (dispatch) => {
 };
 
 export const logOutUser = () => async (dispatch) => {
-  clearToken(); 
+  clearToken();
   dispatch({
-    type: LOG_OUT_CURRENT_USER
+    type: LOG_OUT_CURRENT_USER,
   });
 };
-
 
 export const fetchUsers = (token) => async (dispatch) => {
   dispatch({

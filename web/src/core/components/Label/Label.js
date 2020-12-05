@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag } from 'react-bulma-components';
 
-const Label = props => {
+const Label = (props) => {
   return <Tag {...props} />;
 };
 

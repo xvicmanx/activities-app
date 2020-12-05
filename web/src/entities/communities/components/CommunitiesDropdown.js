@@ -3,14 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchCommunities } from '../redux/CommunitiesActions';
 
-import {
-  DropDown,
-  LoadingIndicator,
-} from '../../../core/components';
+import { DropDown, LoadingIndicator } from '../../../core/components';
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 
 const CommunitiesDropdown = ({ name, value, onChange }) => {
-  const { Communities } = useSelector(state => state);
+  const { Communities } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
 

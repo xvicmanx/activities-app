@@ -2,14 +2,8 @@ import React from 'react';
 import { Dropdown as BulmaDropdown } from 'react-bulma-components';
 import './DropDown.css';
 
-const DropDown = ({
-  name,
-  value,
-  onChange,
-  items,
-  placeholder
-}) => {
-  const handleChange = val => {
+const DropDown = ({ name, value, onChange, items, placeholder }) => {
+  const handleChange = (val) => {
     onChange({
       persist: () => {},
       target: {
@@ -20,13 +14,8 @@ const DropDown = ({
   };
 
   return (
-    <BulmaDropdown
-      value={value}
-      onChange={handleChange}
-    >
-      <BulmaDropdown.Item>
-        {placeholder}
-      </BulmaDropdown.Item>
+    <BulmaDropdown value={value} onChange={handleChange}>
+      <BulmaDropdown.Item>{placeholder}</BulmaDropdown.Item>
       {(items || []).map((el) => {
         return (
           <BulmaDropdown.Item value={el.id} key={el.id}>

@@ -3,13 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchUsers, readTokenFromCookie } from '../redux/UsersActions';
 
-import {
-  DropDown,
-  LoadingIndicator,
-} from '../../../core/components';
+import { DropDown, LoadingIndicator } from '../../../core/components';
 
 const UsersDropdown = ({ name, value, onChange }) => {
-  const { Users } = useSelector(state => state);
+  const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
 

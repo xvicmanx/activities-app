@@ -1,34 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import CRUDTable, {
-  CreateForm,
-  Fields,
-  Field,
-} from 'react-crud-table';
+import CRUDTable, { CreateForm, Fields, Field } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 import { addMember } from '../redux/CommunitiesActions';
 import UsersDropdown from '../../users/components/UsersDropdown';
 import BooleanDropdown from './BooleanDropdown';
 
+const MembersSelectRenderer = ({ field }) => <UsersDropdown {...field} />;
 
-const MembersSelectRenderer = ({ field }) => (
-  <UsersDropdown {...field}/>
-);
-
-const CoordinatesSelectRenderer = ({ field }) => (
-  <BooleanDropdown {...field} />
-);
-
+const CoordinatesSelectRenderer = ({ field }) => <BooleanDropdown {...field} />;
 
 const CommunityMembersTable = ({ communityId, members }) => {
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
   return (
-    <CRUDTable
-      caption="Miembros"
-      items={members}
-    >
+    <CRUDTable caption="Miembros" items={members}>
       <Fields>
         <Field
           name="memberId"
@@ -45,7 +32,7 @@ const CommunityMembersTable = ({ communityId, members }) => {
         <Field
           name="coordinates"
           label="Coordinador?"
-          tableValueResolver={item => item.coordinates ? 'Si' : 'No'}
+          tableValueResolver={(item) => (item.coordinates ? 'Si' : 'No')}
           render={CoordinatesSelectRenderer}
         />
       </Fields>
@@ -53,24 +40,24 @@ const CommunityMembersTable = ({ communityId, members }) => {
         title="Agregar miembro"
         message="Agregar miembro"
         trigger="Agregar miembro"
-        onSubmit={item => dispatch(addMember(
-          token,
-          communityId,
-          item.memberId,
-          item.coordinates,
-        ))}
+        onSubmit={(item) =>
+          dispatch(
+            addMember(token, communityId, item.memberId, item.coordinates)
+          )
+        }
         submitText="Agregar"
         validate={(values) => {
           const errors = {};
-          
+
           if (!values.memberId) {
             errors.memberId = 'Por favor, seleccione miembro';
           }
 
-          if (members.map(x => x.id).includes(values.memberId)) {
-            errors.memberId = 'El miembro seleccionado ya existe en la comunidad';
+          if (members.map((x) => x.id).includes(values.memberId)) {
+            errors.memberId =
+              'El miembro seleccionado ya existe en la comunidad';
           }
-  
+
           return errors;
         }}
       />

@@ -36,7 +36,6 @@ export const fetchCommunities = (token) => async (dispatch) => {
   });
 };
 
-
 export const fetchCommunity = (token, id) => async (dispatch) => {
   dispatch({
     type: SET_COMMUNITY_LOADING_STATE,
@@ -63,14 +62,20 @@ export const fetchCommunity = (token, id) => async (dispatch) => {
   });
 };
 
-
-export const addMember = (token, communityId, memberId, coordinates) => async (dispatch) => {
+export const addMember = (token, communityId, memberId, coordinates) => async (
+  dispatch
+) => {
   dispatch({
     type: SET_COMMUNITY_LOADING_STATE,
     payload: true,
   });
 
-  const res = await CommunitiesService.addMember(token, communityId, memberId, coordinates);
+  const res = await CommunitiesService.addMember(
+    token,
+    communityId,
+    memberId,
+    coordinates
+  );
 
   if (res && res.success) {
     dispatch({

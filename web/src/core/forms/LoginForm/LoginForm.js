@@ -13,11 +13,10 @@ import {
   ErrorMessage,
 } from '../../components';
 
-import './LoginForm.css'; 
-
+import './LoginForm.css';
 
 const LoginForm = () => {
-  const { Users } = useSelector(state => state);
+  const { Users } = useSelector((state) => state);
   const { email, password } = useSelector((state) => state.LoginForm);
   const dispatch = useDispatch();
 
@@ -32,9 +31,7 @@ const LoginForm = () => {
 
   return (
     <div className="LoginForm">
-      <Heading className="LoginForm__Title">
-        Iniciar sesion
-      </Heading>
+      <Heading className="LoginForm__Title">Iniciar sesion</Heading>
 
       {Users.error && <ErrorMessage text={Users.error} />}
 
