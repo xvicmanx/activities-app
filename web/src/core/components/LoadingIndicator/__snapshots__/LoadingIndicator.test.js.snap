@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingIndicator renders properly 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "border": "1px solid #efefef",
+      "borderRadius": "5px",
+      "color": "#5caaf6",
+      "lineHeight": "1.6",
+      "margin": "20px auto",
+      "padding": "10px",
+      "textAlign": "center",
+      "width": "fit-content",
+    }
+  }
+>
+  <div
+    className="loader"
+    style={
+      Object {
+        "border": "3px solid #5caaf6",
+        "display": "block",
+        "height": "50px",
+        "margin": "auto",
+        "width": "50px",
+      }
+    }
+  />
+  Cargando ...
+</div>
+`;

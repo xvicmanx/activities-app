@@ -1,4 +1,13 @@
-const requester = async (data) => {
+// @flow
+
+type Data = {
+  token?: string,
+  path: string,
+  method?: 'POST' | 'GET' | 'PUT' | 'DELETE',
+  payload?: Object,
+};
+
+const requester = async (data: Data): Promise<Object> => {
   const { protocol, host } = window.location;
   const { PORT, NODE_ENV } = process.env;
   const HOST =
@@ -8,7 +17,7 @@ const requester = async (data) => {
 
   const { token, path, method, payload } = data;
 
-  let headers = {
+  let headers: Object = {
     'Content-Type': 'application/json',
   };
 

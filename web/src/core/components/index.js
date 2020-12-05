@@ -8,7 +8,6 @@ import Message from './Message/Message';
 import NavBar from './NavBar/NavBar';
 import Page from './Page/Page';
 import UserBasicInfo from './UserBasicInfo/UserBasicInfo';
-
 import LoadingIndicator from './LoadingIndicator';
 import ErrorMessage from './ErrorMessage';
 import AppLayout from './AppLayout';

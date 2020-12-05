@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input renders properly 1`] = `
+<div
+  className="control Control"
+>
+  <input
+    autoComplete="off"
+    className="input Input test"
+    disabled={false}
+    placeholder=""
+    readOnly={false}
+    type="text"
+    value="foo"
+  />
+</div>
+`;

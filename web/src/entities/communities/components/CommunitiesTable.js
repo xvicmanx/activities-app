@@ -14,12 +14,6 @@ import CRUDTable, {
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 import CommunitiesService from '../services/CommunitiesService';
 
-const styles = {
-  container: {
-    margin: 'auto',
-    width: 'fit-content',
-  },
-};
 
 type RendererProps = {
   field: Object,
@@ -50,91 +44,89 @@ const service = {
     CommunitiesService.deleteCommunity(community.id, readTokenFromCookie()),
 };
 
-const CommunitiesTable = (): React$Element<'div'> => (
-  <div style={styles.container}>
-    <CRUDTable
-      caption="Comunidades"
-      fetchItems={() => service.fetchItems()}
-      actionsLabel="Acciones"
-    >
-      <Fields>
-        <Field name="id" label="Id" hideInCreateForm readOnly />
-        <Field
-          name="name"
-          label="Nombre"
-          placeholder="Nombre"
-          tableValueResolver={(item) => (
-            <Link to={`/communities/${item.id}`}>{item.name}</Link>
-          )}
-        />
-        <Field name="slogan" label="Eslogan" render={DescriptionRenderer} />
-      </Fields>
-      <CreateForm
-        title="Crear comunidad"
-        message="Crear una nueva comunidad"
-        trigger="Crear comunidad"
-        onSubmit={(task) => service.create(task)}
-        submitText="Crear"
-        validate={(values) => {
-          const errors = {};
-
-          if (!values.name) {
-            errors.name = 'Por favor, provea un nombre';
-          }
-
-          if (!values.slogan) {
-            errors.slogan = 'Por favor, provea un eslogan';
-          }
-
-          return errors;
-        }}
+const CommunitiesTable = (): React$Element<any> => (
+  <CRUDTable
+    caption="Comunidades"
+    fetchItems={() => service.fetchItems()}
+    actionsLabel="Acciones"
+  >
+    <Fields>
+      <Field name="id" label="Id" hideInCreateForm readOnly />
+      <Field
+        name="name"
+        label="Nombre"
+        placeholder="Nombre"
+        tableValueResolver={(item) => (
+          <Link to={`/communities/${item.id}`}>{item.name}</Link>
+        )}
       />
-      <UpdateForm
-        title="Actualizar comunidad"
-        message="Actualizar comunidad"
-        trigger="Actualizar"
-        onSubmit={service.update}
-        submitText="Actualizar"
-        validate={(values) => {
-          const errors = {};
+      <Field name="slogan" label="Eslogan" render={DescriptionRenderer} />
+    </Fields>
+    <CreateForm
+      title="Crear comunidad"
+      message="Crear una nueva comunidad"
+      trigger="Crear comunidad"
+      onSubmit={(task) => service.create(task)}
+      submitText="Crear"
+      validate={(values) => {
+        const errors = {};
 
-          if (!values.id) {
-            errors.id = 'Por favor, provea el id';
-          }
+        if (!values.name) {
+          errors.name = 'Por favor, provea un nombre';
+        }
 
-          if (!values.name) {
-            errors.name = 'Por favor, provea un nombre';
-          }
+        if (!values.slogan) {
+          errors.slogan = 'Por favor, provea un eslogan';
+        }
 
-          if (!values.slogan) {
-            errors.slogan = 'Por favor, provea un eslogan';
-          }
+        return errors;
+      }}
+    />
+    <UpdateForm
+      title="Actualizar comunidad"
+      message="Actualizar comunidad"
+      trigger="Actualizar"
+      onSubmit={service.update}
+      submitText="Actualizar"
+      validate={(values) => {
+        const errors = {};
 
-          return errors;
-        }}
-      />
-      <DeleteForm
-        title="Eliminar comunidad"
-        message="Esta seguro que quiere eliminar la comunidad?"
-        trigger="Eliminar"
-        onSubmit={service.delete}
-        submitText="Eliminar"
-        validate={(values) => {
-          const errors = {};
+        if (!values.id) {
+          errors.id = 'Por favor, provea el id';
+        }
 
-          if (!values.id) {
-            errors.id = 'Por favor, provea el id';
-          }
+        if (!values.name) {
+          errors.name = 'Por favor, provea un nombre';
+        }
 
-          return errors;
-        }}
-      />
-      <Pagination
-        itemsPerPage={100}
-        fetchTotalOfItems={() => service.fetchTotal()}
-      />
-    </CRUDTable>
-  </div>
+        if (!values.slogan) {
+          errors.slogan = 'Por favor, provea un eslogan';
+        }
+
+        return errors;
+      }}
+    />
+    <DeleteForm
+      title="Eliminar comunidad"
+      message="Esta seguro que quiere eliminar la comunidad?"
+      trigger="Eliminar"
+      onSubmit={service.delete}
+      submitText="Eliminar"
+      validate={(values) => {
+        const errors = {};
+
+        if (!values.id) {
+          errors.id = 'Por favor, provea el id';
+        }
+
+        return errors;
+      }}
+    />
+    <Pagination
+      itemsPerPage={100}
+      fetchTotalOfItems={() => service.fetchTotal()}
+    />
+  </CRUDTable>
 );
 
 export default CommunitiesTable;

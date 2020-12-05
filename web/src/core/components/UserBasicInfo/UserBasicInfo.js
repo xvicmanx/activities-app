@@ -10,7 +10,7 @@ type User = {
   name: string,
 };
 type Props = {
-  user: User,
+  user?: User,
 };
 
 const UserBasicInfo = ({ user }: Props): null | React$Element<'div'> => {

@@ -1,40 +1,44 @@
+// @flow
+
 import requester from '../../../core/requester';
 
-export default {
-  fetchCommunities: (token) =>
+const CommunitiesService = {
+  fetchCommunities: (token: string): Promise<Object> =>
     requester({
       path: '/communities/list',
       token,
     }),
-  fetchCommunity: (token, id) =>
+  fetchCommunity: (token: string, id: string | number): Promise<Object> =>
     requester({
       path: `/communities/find/${id}`,
       token,
     }),
-  createCommunity: (payload, token) =>
+  createCommunity: (payload: Object, token: string): Promise<Object> =>
     requester({
       path: '/communities/create',
       method: 'POST',
       payload,
       token,
     }),
-  updateCommunity: (payload, token) =>
+  updateCommunity: (payload: Object, token: string): Promise<Object> =>
     requester({
       path: `/communities/${payload.id}/update`,
       method: 'PUT',
       payload,
       token,
     }),
-  deleteCommunity: (id, token) =>
+  deleteCommunity: (id: string | number, token: string): Promise<Object> =>
     requester({
       path: `/communities/${id}/delete`,
       method: 'DELETE',
       token,
     }),
-  addMember: (token, id, memberId, coordinates) =>
+  addMember: (token: string, id: string | number, memberId: string | number, coordinates: boolean): Promise<Object> =>
     requester({
       method: 'POST',
       path: `/communities/${id}/add-member/${memberId}?coordinates=${+coordinates}`,
       token,
     }),
 };
+
+export default CommunitiesService;

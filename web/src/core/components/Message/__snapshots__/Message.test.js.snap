@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message renders properly 1`] = `
+<div
+  className="Message"
+>
+  Hello my friend!
+</div>
+`;
