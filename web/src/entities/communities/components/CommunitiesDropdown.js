@@ -7,7 +7,7 @@ import { fetchCommunities } from '../redux/CommunitiesActions';
 import {
   DropDown,
   LoadingIndicator,
-} from '../../../components';
+} from '../../../core/components';
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 
 const CommunitiesDropdown = ({ name, value, onChange }) => {

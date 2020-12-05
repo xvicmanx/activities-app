@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { Heading } from 'react-bulma-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-
-import { DropDown } from '../../../components';
+import { DropDown } from '../../../core/components';
 
 const BooleanDropdown = ({ name, value, onChange }) => (
   <DropDown

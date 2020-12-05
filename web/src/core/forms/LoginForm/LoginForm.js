@@ -11,7 +11,7 @@ import {
   Input,
   LoadingIndicator,
   ErrorMessage,
-} from '../../../components';
+} from '../../components';
 
 import './LoginForm.css'; 
 

@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import CRUDTable, { CreateForm, DeleteForm, Fields, Field } from 'react-crud-table';
+import CRUDTable, {
+  CreateForm,
+  DeleteForm,
+  Fields,
+  Field,
+} from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 import { addMember } from '../redux/CommunitiesActions';

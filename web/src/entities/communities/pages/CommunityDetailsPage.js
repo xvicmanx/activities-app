@@ -6,8 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { fetchCommunity } from '../redux/CommunitiesActions';
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import Page from '../../../components/Page/Page';
-import { LoadingIndicator } from '../../../components';
+import { LoadingIndicator, Page } from '../../../core/components';
 import CommunityMembersTable from '../components/CommunityMembersTable';
 
 

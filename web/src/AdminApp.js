@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons'
 
-import { AppLayout, LoadingIndicator } from './components';
+import { AppLayout, LoadingIndicator } from './core/components';
 
 import {
   readTokenFromCookie,

@@ -7,6 +7,7 @@ import Input from './Input/Input';
 import Label from './Label/Label';
 import Message from './Message/Message';
 import NavBar from './NavBar/NavBar';
+import Page from './Page/Page';
 import UserBasicInfo from './UserBasicInfo/UserBasicInfo';
 
 import LoadingIndicator from './LoadingIndicator';
@@ -24,6 +25,7 @@ export {
   NavBar,
   UserBasicInfo,
   LoadingIndicator,
+  Page,
   ErrorMessage,
   AppLayout,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
-import Page from '../../../components/Page/Page';
+import { Page } from '../../../core/components';
 import ActivitiesTable from '../components/ActivitiesTable';
 
 

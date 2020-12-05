@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CRUDTable, { CreateForm, DeleteForm, Fields, Field, Pagination, UpdateForm } from 'react-crud-table';
+import CRUDTable, {
+  CreateForm,
+  DeleteForm,
+  Fields,
+  Field,
+  Pagination,
+  UpdateForm,
+} from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
 import * as Communities from '../services/CommunitiesService';

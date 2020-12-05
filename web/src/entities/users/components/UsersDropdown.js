@@ -7,7 +7,7 @@ import { fetchUsers, readTokenFromCookie } from '../redux/UsersActions';
 import {
   DropDown,
   LoadingIndicator,
-} from '../../../components';
+} from '../../../core/components';
 
 const UsersDropdown = ({ name, value, onChange }) => {
   const { Users } = useSelector(state => state);

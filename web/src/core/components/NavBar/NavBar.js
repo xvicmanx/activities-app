@@ -3,9 +3,9 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Image } from 'react-bulma-components';
 
-import { logOutUser } from '../../entities/users/redux/UsersActions';
+import { logOutUser } from '../../../entities/users/redux/UsersActions';
 
-import menuIcon from "../../assets/images/menu.svg";
+import menuIcon from "../../../assets/images/menu.svg";
 
 import './NavBar.css';
 
