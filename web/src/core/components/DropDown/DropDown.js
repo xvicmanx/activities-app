@@ -1,8 +1,29 @@
+// @flow
+
 import React from 'react';
 import { Dropdown as BulmaDropdown } from 'react-bulma-components';
 import './DropDown.css';
 
-const DropDown = ({ name, value, onChange, items, placeholder }) => {
+type Item = {
+  id: number | string,
+  name: string,
+};
+
+type Props = {
+  name: string,
+  value?: any,
+  onChange: Function,
+  items: Array<Item>,
+  placeholder?: string,
+};
+
+const DropDown = ({
+  name,
+  value,
+  onChange,
+  items,
+  placeholder,
+}: Props): React$Element<any> => {
   const handleChange = (val) => {
     onChange({
       persist: () => {},

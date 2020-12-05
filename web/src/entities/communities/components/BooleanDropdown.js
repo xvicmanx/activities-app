@@ -1,8 +1,20 @@
+// @flow
+
 import React from 'react';
 
 import { DropDown } from '../../../core/components';
 
-const BooleanDropdown = ({ name, value, onChange }) => (
+type Props = {
+  name: string,
+  value?: string | number,
+  onChange: Function,
+};
+
+const BooleanDropdown = ({
+  name,
+  value,
+  onChange,
+}: Props): React$Element<any> => (
   <DropDown
     name={name}
     items={[

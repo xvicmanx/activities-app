@@ -1,3 +1,5 @@
+// @flow
+
 import moment from 'moment';
 import React from 'react';
 import CRUDTable, {
@@ -20,8 +22,18 @@ const styles = {
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-const CommunitiesSelectRenderer = ({ field }) => (
+type RendererProps = {
+  field: {
+    value: string | number,
+    name: string,
+    onChange: Function,
+  },
+};
+
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
+const CommunitiesSelectRenderer = ({ field }: RendererProps) => (
   <CommunitiesDropdown
     name={field.name}
     value={field.value}
@@ -50,11 +62,11 @@ const service = {
     ActivitiesService.deleteActivity(activity.id, readTokenFromCookie()),
 };
 
-const ActivitiesTable = () => (
+const ActivitiesTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Actividades"
-      fetchItems={(payload) => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
@@ -155,7 +167,7 @@ const ActivitiesTable = () => (
       />
       <Pagination
         itemsPerPage={10}
-        fetchTotalOfItems={(payload) => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

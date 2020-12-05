@@ -1,8 +1,15 @@
+// @flow
+
 import React from 'react';
+import type { Node } from 'react';
 import './Message.css';
 
-const Message = ({ children }) => {
-  return <div className="Message">{children}</div>;
+type Props = {
+  children: Node,
 };
+
+const Message = ({ children }: Props): React$Element<'div'> => (
+  <div className="Message">{children}</div>
+);
 
 export default Message;

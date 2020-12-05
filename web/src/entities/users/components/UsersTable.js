@@ -1,3 +1,5 @@
+//@flow
+
 import React from 'react';
 import CRUDTable, {
   CreateForm,
@@ -27,8 +29,16 @@ const styles = {
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-const PasswordRenderer = ({ field }) => (
+type RendererProps = {
+  field: {
+    value: string,
+  },
+};
+
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
+const PasswordRenderer = ({ field }: RendererProps) => (
   <div>
     <input {...field} type="password" />
     <CopyToClipboard text={field.value}>
@@ -51,11 +61,11 @@ const service = {
   delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
 };
 
-const UsersTable = () => (
+const UsersTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Usuarios"
-      fetchItems={(payload) => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
@@ -145,7 +155,7 @@ const UsersTable = () => (
       />
       <Pagination
         itemsPerPage={100}
-        fetchTotalOfItems={(payload) => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

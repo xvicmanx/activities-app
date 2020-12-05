@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CRUDTable, {
@@ -19,7 +21,13 @@ const styles = {
   },
 };
 
-const DescriptionRenderer = ({ field }) => <textarea {...field} />;
+type RendererProps = {
+  field: Object,
+};
+
+const DescriptionRenderer = ({ field }: RendererProps) => (
+  <textarea {...field} />
+);
 
 const service = {
   fetchItems: async () => {
@@ -42,11 +50,11 @@ const service = {
     CommunitiesService.deleteCommunity(community.id, readTokenFromCookie()),
 };
 
-const CommunitiesTable = () => (
+const CommunitiesTable = (): React$Element<'div'> => (
   <div style={styles.container}>
     <CRUDTable
       caption="Comunidades"
-      fetchItems={(payload) => service.fetchItems(payload)}
+      fetchItems={() => service.fetchItems()}
       actionsLabel="Acciones"
     >
       <Fields>
@@ -123,7 +131,7 @@ const CommunitiesTable = () => (
       />
       <Pagination
         itemsPerPage={100}
-        fetchTotalOfItems={(payload) => service.fetchTotal(payload)}
+        fetchTotalOfItems={() => service.fetchTotal()}
       />
     </CRUDTable>
   </div>

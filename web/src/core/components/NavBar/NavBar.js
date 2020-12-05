@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +11,12 @@ import menuIcon from '../../../assets/images/menu.svg';
 
 import './NavBar.css';
 
-const NavBar = ({ inverted, right }) => {
+type Props = {
+  inverted?: boolean,
+  right?: boolean,
+};
+
+const NavBar = ({ inverted, right }: Props): React$Element<'div'> => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const additionalClasses = [];

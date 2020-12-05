@@ -1,7 +1,21 @@
+// @flow
+
 import React, { useState } from 'react';
+import type { Node } from 'react';
 import { Button as BulmaButton } from 'react-bulma-components';
 
-const Button = ({ children, className, hoverClassName, ...rest }) => {
+type Props = {
+  children: Node,
+  className?: string,
+  hoverClassName?: string,
+};
+
+const Button = ({
+  children,
+  className,
+  hoverClassName,
+  ...rest
+}: Props): React$Element<any> => {
   const [hovered, setHovered] = useState(false);
   const classes = [];
 

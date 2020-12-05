@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +8,23 @@ import { NavBar, UserBasicInfo } from '../../components';
 
 import './AppLayout.css';
 
-const AppLayout = ({ user, navigationLinks, children }) => {
+type NavigationLinkOption = {
+  path: string,
+  icon: any,
+  label: string,
+};
+
+export type Props = {
+  user: Object,
+  navigationLinks: Array<NavigationLinkOption>,
+  children: any,
+};
+
+const AppLayout = ({
+  user,
+  navigationLinks,
+  children,
+}: Props): React$Element<'div'> => {
   const showMobileMenu = window.location.pathname.includes('display-menu');
   return (
     <div className="LayoutWrapper">

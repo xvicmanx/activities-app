@@ -1,9 +1,19 @@
+// @flow
+
 import React from 'react';
 import { Heading, Image } from 'react-bulma-components';
 
 import './UserBasicInfo.css';
 
-const UserBasicInfo = ({ user }) => {
+type User = {
+  profileURL: string,
+  name: string,
+};
+type Props = {
+  user: User,
+};
+
+const UserBasicInfo = ({ user }: Props): null | React$Element<'div'> => {
   if (!user) return null;
   return (
     <div className="UserBasicInfo">

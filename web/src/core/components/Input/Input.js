@@ -1,17 +1,17 @@
+// @flow
+
 import React from 'react';
 import { Form } from 'react-bulma-components';
 import './Input.css';
 
-const Input = ({ className, ...rest }) => {
-  return (
-    <Form.Control className="Control">
-      <Form.Input
-        autoComplete="off"
-        className={`Input ${className}`}
-        {...rest}
-      />
-    </Form.Control>
-  );
+type Props = {
+  className: string,
 };
+
+const Input = ({ className, ...rest }: Props): React$Element<any> => (
+  <Form.Control className="Control">
+    <Form.Input {...rest} autoComplete="off" className={`Input ${className}`} />
+  </Form.Control>
+);
 
 export default Input;

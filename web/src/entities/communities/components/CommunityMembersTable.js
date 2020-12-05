@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import CRUDTable, { CreateForm, Fields, Field } from 'react-crud-table';
@@ -7,11 +9,27 @@ import { addMember } from '../redux/CommunitiesActions';
 import UsersDropdown from '../../users/components/UsersDropdown';
 import BooleanDropdown from './BooleanDropdown';
 
-const MembersSelectRenderer = ({ field }) => <UsersDropdown {...field} />;
+type RendererProps = {
+  field: Object,
+};
 
-const CoordinatesSelectRenderer = ({ field }) => <BooleanDropdown {...field} />;
+const MembersSelectRenderer = ({ field }: RendererProps) => (
+  <UsersDropdown {...field} />
+);
 
-const CommunityMembersTable = ({ communityId, members }) => {
+const CoordinatesSelectRenderer = ({ field }: RendererProps) => (
+  <BooleanDropdown {...field} />
+);
+
+type Props = {
+  communityId: number,
+  members: Array<{ id: number | string }>,
+};
+
+const CommunityMembersTable = ({
+  communityId,
+  members,
+}: Props): React$Element<any> => {
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
   return (

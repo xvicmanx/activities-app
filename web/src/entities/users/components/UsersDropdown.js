@@ -1,3 +1,5 @@
+// @flow
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -5,7 +7,17 @@ import { fetchUsers, readTokenFromCookie } from '../redux/UsersActions';
 
 import { DropDown, LoadingIndicator } from '../../../core/components';
 
-const UsersDropdown = ({ name, value, onChange }) => {
+type Props = {
+  name: string,
+  value?: string | number,
+  onChange: Function,
+};
+
+const UsersDropdown = ({
+  name,
+  value,
+  onChange,
+}: Props): React$Element<any> => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();
