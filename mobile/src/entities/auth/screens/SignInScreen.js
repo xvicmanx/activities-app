@@ -1,48 +1,49 @@
 import React, { useRef, useReducer } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text } from 'react-native-elements';
-import { COLORS, ERRORS, RegExpValidation } from '../../../constants';
-import { Input, Button } from '../../../common/components';
-import { initialState, reducer, HANDLE_CHANGE, SET_ERRORS } from './SignInScreenReducer';
-import { loginUser } from '../actions';
+import COLORS from '../../../constants/colors';
+// import { Input, Button } from '../../../common/components';
+// import { initialState, reducer, HANDLE_CHANGE, SET_ERRORS } from './SignInScreenReducer';
+// import { loginUser } from '../actions';
 
-const SignIn = () => {
-  const reduxDispatch = useDispatch();
-  const { isLoading, errors } = useSelector((s) => s.auth.signin);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const passwordRef = useRef();
+export default () => {
+  // const reduxDispatch = useDispatch();
+  // const { isLoading, errors } = useSelector((s) => s.auth.signin);
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  // const passwordRef = useRef();
 
-  const onChange = (name, value) => {
-    dispatch({
-      type: HANDLE_CHANGE,
-      payload: { name, value },
-    });
-  };
+  // const onChange = (name, value) => {
+  //   dispatch({
+  //     type: HANDLE_CHANGE,
+  //     payload: { name, value },
+  //   });
+  // };
 
-  const signin = () => {
-    if (!state.email.match(RegExpValidation.email)) {
-      dispatch({
-        type: SET_ERRORS,
-        payload: { name: 'email', value: ERRORS.emailFormat },
-      });
-      return;
-    }
-    if (state.password.length < 6) {
-      dispatch({
-        type: SET_ERRORS,
-        payload: {
-          name: 'password',
-          value: ERRORS.email,
-        },
-      });
-      return;
-    }
-    reduxDispatch(loginUser(state.email, state.password));
-  };
+  // const signin = () => {
+  //   if (!state.email.match(RegExpValidation.email)) {
+  //     dispatch({
+  //       type: SET_ERRORS,
+  //       payload: { name: 'email', value: ERRORS.emailFormat },
+  //     });
+  //     return;
+  //   }
+  //   if (state.password.length < 6) {
+  //     dispatch({
+  //       type: SET_ERRORS,
+  //       payload: {
+  //         name: 'password',
+  //         value: ERRORS.email,
+  //       },
+  //     });
+  //     return;
+  //   }
+  //   reduxDispatch(loginUser(state.email, state.password));
+  // };
 
   return (
     <View style={styles.container}>
+      <Text>login</Text>
+      {/* 
       <Image
         style={styles.logo}
         source={require('../../../assets/images/logo.png')}
@@ -84,7 +85,8 @@ const SignIn = () => {
 
       <Button loading={isLoading} onPress={signin}>
         Entrar
-      </Button>
+      </Button> 
+      */}
     </View>
   );
 };
@@ -111,5 +113,3 @@ const styles = StyleSheet.create({
     height: 15,
   },
 });
-
-export default SignIn;
