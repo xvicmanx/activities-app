@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { 
-  LoginPage,
-  AppLayout
-} from './pages';
+import LoginPage from './core/pages/LoginPage/LoginPage';
+import AppLayout from './AppLayout/AppLayout';
 
 import './App.css';
 
