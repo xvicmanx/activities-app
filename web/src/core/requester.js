@@ -4,7 +4,7 @@ const requester = async (data) => {
     host,
   } = window.location;
   const HOST = process.env.NODE_ENV === 'production' ? 
-    `${protocol}//${host}` : 'http://localhost:4500';
+    `${protocol}//${host}/api` : 'http://localhost:4500';
   
   const { token, path, method, payload } = data;
 
