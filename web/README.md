@@ -6,8 +6,11 @@ Admin for the Activies App
 * [Setup](#setup)
 * [Start](#start)
 * [Running tests](#running-tests)
+* [Running lints](#running-lints)
+* [Running types check](#running-types-check)
 * [Building app](#building-app)
 * [Dependencies](#dependencies)
+* [Dev Dependencies](#dev-dependencies)
 
 ## Setup
 ```
@@ -24,6 +27,18 @@ It will start a server at port `3000` by default.
 
 ```sh
 npm test
+```
+
+## Running lints
+
+```sh
+npm run lint
+```
+
+## Running types checks
+
+```sh
+npm run types:check
 ```
 
 ## Building app
@@ -63,3 +78,14 @@ npm run build
 - [semantic-ui-css](https://ghub.io/semantic-ui-css): CSS Only distribution of Semantic UI
 - [semantic-ui-react](https://ghub.io/semantic-ui-react): The official Semantic-UI-React integration.
 - [uuid](https://ghub.io/uuid): RFC4122 (v1, v4, and v5) UUIDs
+
+## Dev Dependencies
+
+- [eslint-config-prettier](https://ghub.io/eslint-config-prettier): Turns off all rules that are unnecessary or might conflict with Prettier.
+- [eslint-loader](https://ghub.io/eslint-loader): A ESlint loader for webpack
+- [eslint-plugin-flowtype](https://ghub.io/eslint-plugin-flowtype): Flowtype linting rules for ESLint.
+- [eslint-plugin-prettier](https://ghub.io/eslint-plugin-prettier): Runs prettier as an eslint rule
+- [eslint-plugin-react](https://ghub.io/eslint-plugin-react): React specific linting rules for ESLint
+- [flow-bin](https://ghub.io/flow-bin): Binary wrapper for Flow - A static type checker for JavaScript
+- [prettier](https://ghub.io/prettier): Prettier is an opinionated code formatter
+
