@@ -1,5 +1,4 @@
 import Button from './Button/Button';
-import DatePicker from './DatePicker/DatePicker';
 import DropDown from './DropDown/DropDown';
 import Form from './Form/Form';
 import FormField from './Form/FormField/FormField';
@@ -16,7 +15,6 @@ import AppLayout from './AppLayout';
 
 export {
   Button,
-  DatePicker,
   DropDown,
   Form,
   FormField,
@@ -24,6 +22,7 @@ export {
   Message,
   NavBar,
   UserBasicInfo,
+  Label,
   LoadingIndicator,
   Page,
   ErrorMessage,

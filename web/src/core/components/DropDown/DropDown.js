@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown as BulmaDropdown } from 'react-bulma-components';
 import './DropDown.css';
 

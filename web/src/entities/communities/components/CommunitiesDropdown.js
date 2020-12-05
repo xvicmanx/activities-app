@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Heading } from 'react-bulma-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchCommunities } from '../redux/CommunitiesActions';
@@ -17,7 +16,7 @@ const CommunitiesDropdown = ({ name, value, onChange }) => {
 
   useEffect(() => {
     dispatch(fetchCommunities(token));
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   if (Communities.isLoading) {
     return <LoadingIndicator />;

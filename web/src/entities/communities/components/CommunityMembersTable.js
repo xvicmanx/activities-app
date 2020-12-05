@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CRUDTable, {
   CreateForm,
-  DeleteForm,
   Fields,
   Field,
 } from 'react-crud-table';
@@ -13,12 +11,6 @@ import { addMember } from '../redux/CommunitiesActions';
 import UsersDropdown from '../../users/components/UsersDropdown';
 import BooleanDropdown from './BooleanDropdown';
 
-const styles = {
-  container: {
-    margin: "auto",
-    width: "fit-content",
-  },
-};
 
 const MembersSelectRenderer = ({ field }) => (
   <UsersDropdown {...field}/>

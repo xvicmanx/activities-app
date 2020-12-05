@@ -1,4 +1,3 @@
-import cookies from 'browser-cookies';
 import {
   SET_COMMUNITIES,
   SET_COMMUNITIES_LOADING_STATE,

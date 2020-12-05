@@ -21,7 +21,7 @@ const CommunityDetailsPage = () => {
       token,
       id,
     ));
-  }, [dispatch, token]);
+  }, [dispatch, token, id]);
 
   const { community } = Communities;
 

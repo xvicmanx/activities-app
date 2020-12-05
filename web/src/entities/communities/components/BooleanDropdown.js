@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { Heading } from 'react-bulma-components';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 
 import { DropDown } from '../../../core/components';
 

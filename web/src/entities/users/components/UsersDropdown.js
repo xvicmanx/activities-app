@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Heading } from 'react-bulma-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchUsers, readTokenFromCookie } from '../redux/UsersActions';
@@ -16,7 +15,7 @@ const UsersDropdown = ({ name, value, onChange }) => {
 
   useEffect(() => {
     dispatch(fetchUsers(token));
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   if (Users.isLoading) {
     return <LoadingIndicator />;
