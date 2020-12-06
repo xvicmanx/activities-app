@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ActivitiesScreen from './screens/ActivitiesScreen';
 import ParticipantsScreen from './screens/ParticipantsScreen';
-// import { SpecificUserScreen } from '../auth/screens';
+import OthersProfile from '../user/screens/OthersProfile';
 import COLORS from '../../constants/colors';
 const Stack = createStackNavigator();
 
@@ -19,19 +19,13 @@ export default () => (
       options={{ title: 'Actividades (0)' }}
       component={ActivitiesScreen}
     />
-    
+
     <Stack.Screen
       name="ParticipantsScreen"
       options={{ title: 'Participantes' }}
       component={ParticipantsScreen}
     />
-    {/* 
-    
-    <Stack.Screen
-      options={{ title: '' }}
-      name="SpecificUserScreen"
-      component={SpecificUserScreen}
-    /> 
-    */}
+
+    <Stack.Screen options={{ title: '' }} name="OthersProfile" component={OthersProfile} />
   </Stack.Navigator>
 );

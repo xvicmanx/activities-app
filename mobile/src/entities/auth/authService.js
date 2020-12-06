@@ -15,12 +15,7 @@ const loginUser = async (email, password) => {
   });
 };
 
-const fetUserById = async (userId, token) => {
-  return await requester({ path: `/users/find/${userId}`, token });
-};
-
 export default {
   loginUser,
   checkUserInfo,
-  fetUserById,
 };

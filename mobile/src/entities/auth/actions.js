@@ -70,14 +70,3 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (arg, thunkAPI
   }
 });
 
-export const fetUserById = (userId, token) => async (dispatch) => {
-  try {
-    const res = await AuthService.fetUserById(userId, token);
-
-    if (res.success) {
-      dispatch(authSlice.actions.setSpecificUser(res.user));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};

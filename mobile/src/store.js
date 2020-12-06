@@ -9,6 +9,7 @@ import authSlice from './entities/auth/authSliceTemp';
 import loginFormSlice from './entities/auth/loginFormSlice';
 import activitiesSlice from './entities/activities/activitiesSlice';
 import participantsSlice from './entities/activities/participantsSlice';
+import othersUsersSlice from './entities/user/othersUsersSlice';
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     loginForm: loginFormSlice.reducer,
     activities: activitiesSlice.reducer,
     participants: participantsSlice.reducer,
+    othersUsers: othersUsersSlice.reducer,
   },
 });

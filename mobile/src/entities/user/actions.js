@@ -1,9 +1,19 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import UserService from './userService';
 import userSlice from './userSlice';
 import {
   updateDescription as updateDescriptionAction,
   uploadImage as uploadImageAction,
 } from '../../common/actions';
+
+export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, thunkAPI) => {
+  const token = thunkAPI.getState().auth.currentUser.token;
+  const res = await UserService.fetUserById(userId, token);
+
+  if (res.success) {
+    return res.user;
+  }
+});
 
 export const updatePassword = (passwordsData, token) => async (dispatch) => {
   dispatch(userSlice.actions.setLoading(true));

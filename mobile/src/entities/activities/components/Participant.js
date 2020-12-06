@@ -14,7 +14,7 @@ export default ({ participantId }) => {
     <ListItem
       item={participant}
       onPress={() => {
-        console.warn('OK');
+        navigate('OthersProfile', { userId: participantId, name: participant.name });
       }}
     />
   );
