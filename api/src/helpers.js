@@ -186,6 +186,6 @@ export const loadEnvVars = () => {
 };
 
 export const decode = (data: string) => {
-  const buffer = new Buffer.from(data, 'base64');
+  const buffer = Buffer.from(data, 'base64');
   return buffer.toString('utf-8');
 };
