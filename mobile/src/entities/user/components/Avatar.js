@@ -5,12 +5,11 @@ import Avatar from '../../../common/components/Avatar';
 import COLORS from '../../../constants/colors';
 
 export default ({ name }) => {
-  const isLoading = useSelector(({ image }) => image.isLoading);
-  const url = useSelector(({ image }) => image.url);
+  const profileURL = useSelector(({ auth }) => auth.currentUser.profileURL);
 
-  return (
+  return(
     <View style={styles.avatarContainer}>
-      <Avatar loading={isLoading} edit size={75} img={url} />
+      <Avatar edit size={190} uri={profileURL} />
       <Text style={styles.name}>{name}</Text>
     </View>
   );
