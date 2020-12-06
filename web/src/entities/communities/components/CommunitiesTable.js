@@ -24,12 +24,11 @@ const DescriptionRenderer = ({ field }: RendererProps) => (
   <textarea {...field} />
 );
 
-
 const service = {
   fetchItems: async (options: Options) => {
     const response = await CommunitiesService.fetchCommunities(
       readTokenFromCookie(),
-      encode(options),
+      encode(options)
     );
     return {
       items: response.communities,
@@ -91,15 +90,15 @@ const CommunitiesTable = (): React$Element<any> => {
         submitText="Crear"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.name) {
             errors.name = 'Por favor, provea un nombre';
           }
-  
+
           if (!values.slogan) {
             errors.slogan = 'Por favor, provea un eslogan';
           }
-  
+
           return errors;
         }}
       />
@@ -111,19 +110,19 @@ const CommunitiesTable = (): React$Element<any> => {
         submitText="Actualizar"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
-  
+
           if (!values.name) {
             errors.name = 'Por favor, provea un nombre';
           }
-  
+
           if (!values.slogan) {
             errors.slogan = 'Por favor, provea un eslogan';
           }
-  
+
           return errors;
         }}
       />
@@ -135,11 +134,11 @@ const CommunitiesTable = (): React$Element<any> => {
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
-  
+
           return errors;
         }}
       />
@@ -151,6 +150,5 @@ const CommunitiesTable = (): React$Element<any> => {
     </CRUDTable>
   );
 };
-
 
 export default CommunitiesTable;

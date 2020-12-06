@@ -53,7 +53,7 @@ const service = {
   fetchItems: async (options: Options) => {
     const response = await UsersService.fetchUsers(
       readTokenFromCookie(),
-      encode(options),
+      encode(options)
     );
     return {
       items: response.users,
@@ -84,7 +84,10 @@ const service = {
   },
   delete: async (user) => {
     try {
-      const result = await UsersService.deleteUser(user.id, readTokenFromCookie());
+      const result = await UsersService.deleteUser(
+        user.id,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -94,8 +97,6 @@ const service = {
     }
   },
 };
-
-
 
 const UsersTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);

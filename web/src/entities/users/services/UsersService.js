@@ -14,7 +14,7 @@ const UsersService = {
       path: '/users/current',
       token,
     }),
-    fetchUsers: (token: string, queryOptions: string = ''): Promise<Object> =>
+  fetchUsers: (token: string, queryOptions: string = ''): Promise<Object> =>
     requester({
       path: `/users/list?options=${queryOptions}`,
       token,

@@ -3,7 +3,10 @@
 import requester from '../../../core/requester';
 
 const ActivitiesService = {
-  fetchActivities: (token: string, queryOptions: string = ''): Promise<Object> =>
+  fetchActivities: (
+    token: string,
+    queryOptions: string = ''
+  ): Promise<Object> =>
     requester({
       path: `/activities/list?options=${queryOptions}`,
       token,

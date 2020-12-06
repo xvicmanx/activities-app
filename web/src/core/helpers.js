@@ -19,7 +19,8 @@ export type Result = {
   total: number,
 };
 
-export const encode = (target: Object): string => Buffer.from(JSON.stringify(target)).toString('base64');
+export const encode = (target: Object): string =>
+  Buffer.from(JSON.stringify(target)).toString('base64');
 
 export const DEFAULT_OPTIONS: Options = {
   activePage: 1,

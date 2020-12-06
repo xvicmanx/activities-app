@@ -41,7 +41,7 @@ const service = {
   fetchItems: async (options: Options) => {
     const response = await ActivitiesService.fetchActivities(
       readTokenFromCookie(),
-      encode(options),
+      encode(options)
     );
     return {
       items: response.activities,
@@ -115,23 +115,23 @@ const ActivitiesTable = (): React$Element<any> => {
         submitText="Crear"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.title) {
             errors.title = 'Por favor, provea un título';
           }
-  
+
           if (!values.description) {
             errors.description = 'Por favor, provea una Descripción';
           }
-  
+
           if (!values.date) {
             errors.date = 'Por favor, provea una fecha';
           }
-  
+
           if (!values.communityId) {
             errors.communityId = 'Por favor, seleccione una comunidad';
           }
-  
+
           return errors;
         }}
       />
@@ -143,23 +143,23 @@ const ActivitiesTable = (): React$Element<any> => {
         submitText="Actualizar"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
-  
+
           if (!values.title) {
             errors.title = 'Por favor, provea un título';
           }
-  
+
           if (!values.description) {
             errors.description = 'Por favor, provea una Descripción';
           }
-  
+
           if (!values.date) {
             errors.date = 'Por favor, provea una fecha';
           }
-  
+
           return errors;
         }}
       />
@@ -171,11 +171,11 @@ const ActivitiesTable = (): React$Element<any> => {
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
-  
+
           if (!values.id) {
             errors.id = 'Por favor, provea el id';
           }
-  
+
           return errors;
         }}
       />
