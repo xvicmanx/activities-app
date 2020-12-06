@@ -209,6 +209,7 @@ img {
   padding: 0;
   width: 2rem;
   line-height: 2rem;
+  min-width: fit-content;
 }
 
 .crud-button--primary {
@@ -363,7 +364,7 @@ img {
   padding: .48rem 1rem;
   border-radius: .2rem;
   background-color: #f9fafb;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   margin-right: .5rem;
   margin-bottom: .7rem;
 }

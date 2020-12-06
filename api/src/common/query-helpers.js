@@ -7,6 +7,8 @@ const { Op } = Sequelize;
 type Direction = 'ascending' | 'descending';
 type Rule = {
   field: string,
+  value: any,
+  condition: string,
 };
 
 export type Options = {
@@ -112,10 +114,7 @@ const conditionsForFields = (queryFields) => queryFields.reduce((res, x) => {
   return result;
 }, {});
 
-const generateFilterCondition = (query: Object) => {
-  const queryFields = (query.fields || []);
-  return conditionsForFields(queryFields);
-};
+const generateFilterCondition = (rules: Array<Rule>) => conditionsForFields(rules);
 
 const MODEL_PROP_REGEX = /(\w+)(\.)(\w+)/;
 const extractModelAndPropNames = (prop: string) => ({

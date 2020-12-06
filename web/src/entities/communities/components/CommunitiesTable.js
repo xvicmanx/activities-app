@@ -61,6 +61,7 @@ const CommunitiesTable = (): React$Element<any> => {
       caption="Comunidades"
       items={result.items}
       actionsLabel="Acciones"
+      showQueryBuilder
       onChange={(data) => {
         setOptions({
           sort: data.sort,
@@ -149,7 +150,7 @@ const CommunitiesTable = (): React$Element<any> => {
       />
     </CRUDTable>
   );
-}
+};
 
 
 export default CommunitiesTable;

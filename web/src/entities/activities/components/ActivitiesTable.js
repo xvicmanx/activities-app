@@ -73,6 +73,7 @@ const ActivitiesTable = (): React$Element<any> => {
       caption="Actividades"
       items={result.items}
       actionsLabel="Acciones"
+      showQueryBuilder
       onChange={(data) => {
         setOptions({
           sort: data.sort,

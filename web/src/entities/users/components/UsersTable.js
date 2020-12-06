@@ -114,6 +114,7 @@ const UsersTable = (): React$Element<any> => {
       caption="Usuarios"
       items={result.items}
       actionsLabel="Acciones"
+      showQueryBuilder
       onChange={(data) => {
         setOptions({
           sort: data.sort,
