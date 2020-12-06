@@ -5,7 +5,8 @@ import ActivitiesService from './activities.service';
 const activityEntity = new schema.Entity('activities');
 const participantEntity = new schema.Entity('participants');
 
-export const setLoader = createAction('participants/setLoader');
+export const setLoaderParticipants = createAction('participants/setLoader');
+export const setLoaderActivity = createAction('activity/setLoader');
 
 export const fetchActivities = createAsyncThunk(
   'activities/fetchActivities',
@@ -17,7 +18,14 @@ export const fetchActivities = createAsyncThunk(
       const normalized = normalize(res.activities, [activityEntity]);
       const { activities } = normalized.entities;
 
-      return activities;
+      Object.keys(activities).forEach((key) => {
+        activities[key].isLoading = false;
+      });
+
+      return {
+        ids: normalized.result,
+        activities,
+      };
     }
   }
 );
@@ -40,6 +48,8 @@ export const fetchParticipants = createAsyncThunk(
 export const joinActivity = createAsyncThunk(
   'activities/joinActivity',
   async (activityId, thunkAPI) => {
+    thunkAPI.dispatch(setLoaderActivity(activityId));
+
     const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.joinActivity(activityId, token);
 
@@ -52,6 +62,8 @@ export const joinActivity = createAsyncThunk(
 export const unjoinActivity = createAsyncThunk(
   'activities/unjoinActivity',
   async (activityId, thunkAPI) => {
+    thunkAPI.dispatch(setLoaderActivity(activityId));
+
     const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.unjoinActivity(activityId, token);
 

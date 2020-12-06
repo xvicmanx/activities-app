@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
-import { fetchParticipants, setLoader } from '../actions';
+import { fetchParticipants, setLoaderParticipants } from '../actions';
 import Participant from '../components/Participant';
 
 export default ({ route }) => {
@@ -15,7 +15,7 @@ export default ({ route }) => {
     dispatch(fetchParticipants(activityId));
 
     return () => {
-      dispatch(setLoader(true));
+      dispatch(setLoaderParticipants(true));
     };
   }, []);
 

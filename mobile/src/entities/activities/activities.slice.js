@@ -1,14 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchActivities, unjoinActivity, joinActivity } from './actions';
+import { createSlice, current } from '@reduxjs/toolkit';
+import { fetchActivities, unjoinActivity, joinActivity, setLoaderActivity } from './actions';
 
 export default createSlice({
   name: 'activities',
-  initialState: {},
+  initialState: {
+    isLoading: true,
+    ids: [],
+    entities: {},
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchActivities.fulfilled, (state, { payload }) => {})
-      .addCase(joinActivity.fulfilled, (state, { payload }) => {})
-      .addCase(unjoinActivity.fulfilled, (state, { payload }) => {});
+      .addCase(setLoaderActivity, (state, { payload }) => {
+        state.entities[payload].isLoading = true;
+      })
+      .addCase(fetchActivities.fulfilled, (state, { payload }) => {
+        state.entities = payload.activities;
+        state.ids = payload.ids;
+        state.isLoading = false;
+      })
+      .addCase(joinActivity.fulfilled, (state, { payload }) => {
+        const { userWillAttend, willAttendCount } = payload;
+
+        state.entities[payload.id].userWillAttend = userWillAttend;
+        state.entities[payload.id].willAttendCount = willAttendCount;
+        state.entities[payload.id].isLoading = false;
+      })
+
+      .addCase(unjoinActivity.fulfilled, (state, { payload }) => {
+        const { userWillAttend, willAttendCount } = payload;
+
+        state.entities[payload.id].userWillAttend = userWillAttend;
+        state.entities[payload.id].willAttendCount = willAttendCount;
+        state.entities[payload.id].isLoading = false;
+      });
   },
 });

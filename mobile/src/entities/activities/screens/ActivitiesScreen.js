@@ -27,6 +27,10 @@ export default ({ navigation }) => {
     return <Activity activityId={item} />;
   };
 
+  const renderFooter = () => {
+    return <View style={styles.ListFooterComponent} />;
+  };
+
   return (
     <View style={styles.container}>
       {list.length === 0 ? (
@@ -36,7 +40,7 @@ export default ({ navigation }) => {
           data={list}
           renderItem={renderItem}
           keyExtractor={(item) => String(item)}
-          ListFooterComponent={<View style={styles.ListFooterComponent} />}
+          ListFooterComponent={renderFooter()}
         />
       )}
     </View>
