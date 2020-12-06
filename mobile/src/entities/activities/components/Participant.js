@@ -16,5 +16,7 @@ export default ({ participantId }) => {
     });
   };
 
+ 
+
   return <ListItem item={participant} onPress={handleOnPress} />;
 };

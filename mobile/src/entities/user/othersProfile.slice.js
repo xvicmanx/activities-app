@@ -2,16 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetUserById } from './actions';
 
 export default createSlice({
-  name: 'othersUsers',
+  name: 'othersProfile',
   initialState: {
     isLoading: true,
-    data: null,
+    entity: {},
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetUserById.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.data = payload;
+      state.entity = payload;
     });
   },
 });

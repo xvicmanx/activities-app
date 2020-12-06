@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, TouchableNativeFeedback, ActivityIndicator } from 'react-native';
-import { Avatar, Text, Icon } from 'react-native-elements';
+import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { Text, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import COLORS from '../../constants/colors';
 import { updateImage } from '../../entities/user/actions';
-import { HOST } from '@env';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Circle';
 
-export default ({ size, img, name, edit, loading }) => {
+export default ({ size, uri, name, edit }) => {
   const dispatch = useDispatch();
+  const sizeImage = size || 50;
 
   const chooseImage = () => {
     const options = {
@@ -36,29 +38,16 @@ export default ({ size, img, name, edit, loading }) => {
     });
   };
 
-  const renderPlaceholder = () => {
-    return <ActivityIndicator color="#fff" />;
-  };
-
-  const avatar = loading ? (
-    <Avatar
-      rounded
-      overlayContainerStyle={styles.overlayContainer}
-      size={size}
-      renderPlaceholderContent={renderPlaceholder()}
-    />
-  ) : (
-    <Avatar
-      renderPlaceholderContent={renderPlaceholder()}
-      rounded
-      source={{ uri: img.replace('localhost', HOST) }}
-      size={size}
-    />
-  );
-
   return (
     <View style={styles.container}>
-      {avatar}
+      <Image
+        source={{ uri }}
+        indicator={ProgressBar}
+        style={{
+          width: sizeImage,
+          height: sizeImage,
+        }}
+      />
 
       {edit && (
         <TouchableNativeFeedback onPress={chooseImage}>

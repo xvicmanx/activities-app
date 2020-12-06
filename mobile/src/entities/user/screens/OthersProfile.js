@@ -8,8 +8,8 @@ import COLORS from '../../../constants/colors';
 
 export default ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(({ othersUsers }) => othersUsers.isLoading);
-  const user = useSelector(({ othersUsers }) => othersUsers.data);
+  const isLoading = useSelector(({ othersProfile }) => othersProfile.isLoading);
+  const user = useSelector(({ othersProfile }) => othersProfile.entity);
   const { userId, name } = route.params;
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default ({ route, navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Avatar img={user.profileURL} size="large" />
+        <Avatar uri={user.profileURL} size={190} />
       </View>
       <Text style={styles.description}>{user.description}</Text>
       <View style={styles.scrollBottomHeight} />

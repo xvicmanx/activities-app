@@ -40,7 +40,7 @@ export const fetchParticipants = createAsyncThunk(
       const normalized = normalize(res.participants, [participantEntity]);
       const { participants } = normalized.entities;
 
-      return participants;
+      return { ids: normalized.result, participants };
     }
   }
 );
