@@ -1,3 +1,5 @@
+// @flow
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -16,7 +18,9 @@ import CommunitiesPage from './entities/communities/pages/CommunitiesPage';
 import CommunityDetailsPage from './entities/communities/pages/CommunityDetailsPage';
 import UsersPage from './entities/users/pages/UsersPage';
 
-const AdminApp = (props) => {
+type Props = {};
+
+const AdminApp = (props: Props): React$Element<any> => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readTokenFromCookie();

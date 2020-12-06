@@ -56,9 +56,39 @@ const service = {
     const response = await UsersService.fetchUsers(readTokenFromCookie());
     return response.users.length;
   },
-  create: (user) => UsersService.createUser(user, readTokenFromCookie()),
-  update: (user) => UsersService.updateUser(user, readTokenFromCookie()),
-  delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
+  create: async (user) => {
+    try {
+      const result = await UsersService.createUser(user, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  update: async (user) => {
+    try {
+      const result = await UsersService.updateUser(user, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  delete: async (user) => {
+    try {
+      const result = await UsersService.deleteUser(user.id, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
 };
 
 const UsersTable = (): React$Element<'div'> => (
@@ -89,7 +119,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Crear usuario"
         message="Crear una nueva usuario"
         trigger="Crear usuario"
-        onSubmit={(task) => service.create(task)}
+        onSubmit={async (user) => {
+          const result = await service.create(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Crear"
         validate={(values) => {
           const errors = {};
@@ -113,7 +151,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Actualizar usuario"
         message="Actualizar usuario"
         trigger="Actualizar"
-        onSubmit={service.update}
+        onSubmit={async (user) => {
+          const result = await service.update(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Actualizar"
         validate={(values) => {
           const errors = {};
@@ -141,7 +187,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Eliminar usuario"
         message="Esta seguro que quiere eliminar la usuario?"
         trigger="Eliminar"
-        onSubmit={service.delete}
+        onSubmit={async (user) => {
+          const result = await service.delete(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
