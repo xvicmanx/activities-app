@@ -4,6 +4,7 @@ import { Card, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { format, getDay } from 'date-fns';
+import { es } from 'date-fns/locale';
 import Button from '../../../common/components/Button';
 import COLORS from '../../../constants/colors';
 import DATE from '../../../constants/date';
@@ -15,6 +16,9 @@ const Activity = ({ activityId }) => {
   const activity = useSelector(({ activities }) => {
     return activities.entities[activityId];
   });
+
+  const day = DATE.days[getDay(new Date(activity.date))];
+  const date = format(new Date(activity.date), `dd/MMM/yy`, { locale: es });
 
   const signup = () => {
     dispatch(joinActivity(activityId));
@@ -55,8 +59,8 @@ const Activity = ({ activityId }) => {
       <View style={styles.dateContainer}>
         <View style={styles.spaceBetween}>
           <View style={styles.spaceBetween}>
-            <Text style={styles.dateText}>{DATE.days[getDay(new Date(activity.date))]}</Text>
-            <Text style={styles.dateText}>{format(new Date(activity.date), 'dd/MM/yyyy')}</Text>
+            <Text style={styles.dateText}>{day}</Text>
+            <Text style={styles.dateText}>{date}</Text>
           </View>
         </View>
 
