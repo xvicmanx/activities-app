@@ -1,15 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Keyboard } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../../common/components/Input';
 import Button from '../../../common/components/Button';
 import COLORS from '../../../constants/colors';
 import { onChange, updatePassword } from '../actions';
-import { useNavigation } from '@react-navigation/native';
 
 const ChangePassword = () => {
-  const { setOptions } = useNavigation();
-  const [tabBarVisible, setTabBarVisible] = useState(true);
   const dispatch = useDispatch();
   const newPasswordRef = useRef();
   const repeatPasswordRef = useRef();
@@ -30,27 +27,6 @@ const ChangePassword = () => {
   const submit = () => {
     dispatch(updatePassword());
   };
-
-  const keyboardDidShow = () => {
-    console.warn('OK');
-  };
-  const keyboardDidHide = () => {
-    console.warn('Se fue');
-  };
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
-
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
-    };
-  }, []);
-
-  useEffect(() => {
-    setOptions({ tabBarVisible: false });
-  }, [tabBarVisible]);
 
   return (
     <View style={styles.container}>
