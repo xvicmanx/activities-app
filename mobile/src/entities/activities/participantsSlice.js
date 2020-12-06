@@ -2,15 +2,18 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { fetchParticipants } from './actions';
 
 const participantsAdapter = createEntityAdapter();
-const initialState = participantsAdapter.getInitialState({ isLoading: true });
 
 export default createSlice({
   name: 'participants',
-  initialState,
-  reducers: {},
+  initialState: participantsAdapter.getInitialState({ isLoading: true }),
+  reducers: {
+    setLoarder(state, { payload }) {
+      state.isLoading = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchParticipants.fulfilled, (state, { payload }) => {
-      participantsAdapter.upsertMany(state, payload);
+      participantsAdapter.setAll(state, payload);
       state.isLoading = false;
     });
   },

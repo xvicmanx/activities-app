@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
 import { fetchParticipants } from '../actions';
 import Participant from '../components/Participant';
+import participantsSlice from '../participantsSlice';
 
 export default ({ route }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ export default ({ route }) => {
 
   useEffect(() => {
     dispatch(fetchParticipants(activityId));
+
+    return () => {
+      dispatch(participantsSlice.actions.setLoarder(true));
+    };
   }, []);
 
   if (isLoading) {

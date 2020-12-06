@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { normalize, schema } from 'normalizr';
 import ActivitiesService from './activitiesService';
-// import activitiesSlice from './activitiesSlice';
 
 const activityEntity = new schema.Entity('activities');
 const participantEntity = new schema.Entity('participants');

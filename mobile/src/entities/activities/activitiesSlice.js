@@ -1,14 +1,11 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
-// import authSlice from '../auth/authSlice';
 import { fetchActivities, unjoinActivity, joinActivity } from './actions';
 
-export const activitiesAdapter = createEntityAdapter();
-
-const initialState = activitiesAdapter.getInitialState({ isLoading: true });
+const activitiesAdapter = createEntityAdapter();
 
 export default createSlice({
   name: 'activities',
-  initialState,
+  initialState: activitiesAdapter.getInitialState({ isLoading: true }),
   reducers: {
     setParticipants: (state, { payload }) => {
       state.participants.list = payload;
