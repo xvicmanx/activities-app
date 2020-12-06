@@ -2,14 +2,26 @@
 
 import _ from 'lodash';
 
+import type { Options } from '../../common/query-helpers';
+import { generateQueryPayload } from '../../common/query-helpers';
 import { throwNotFoundError } from '../../helpers';
 import User from '../users/model';
 import type { CommunityAttributes } from './model';
 import Community from './model';
 
+type CommunitiesResult = {
+  communities: Array<Community>,
+  total: number,
+};
+
 class CommunitiesService {
-  async getCommunities(): Promise<Array<Community>> {
-    return Community.findAll();
+  async getCommunities(options: Options): Promise<CommunitiesResult> {
+    const payload = generateQueryPayload(options);
+    const result = await Community.findAndCountAll(payload);
+    return {
+      total: result.count,
+      communities: result.rows,
+    };
   }
 
   async findById(id: number): Promise<?Community> {

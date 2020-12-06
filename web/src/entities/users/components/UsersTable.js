@@ -1,6 +1,6 @@
 //@flow
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CRUDTable, {
   CreateForm,
   UpdateForm,
@@ -11,6 +11,8 @@ import CRUDTable, {
 } from 'react-crud-table';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import { DEFAULT_OPTIONS, DEFAULT_RESULT, encode } from '../../../core/helpers';
+import type { Options } from '../../../core/helpers';
 import { readTokenFromCookie } from '../redux/UsersActions';
 import UsersService from '../services/UsersService';
 
@@ -48,25 +50,80 @@ const PasswordRenderer = ({ field }: RendererProps) => (
 );
 
 const service = {
-  fetchItems: async () => {
-    const response = await UsersService.fetchUsers(readTokenFromCookie());
-    return response.users;
+  fetchItems: async (options: Options) => {
+    const response = await UsersService.fetchUsers(
+      readTokenFromCookie(),
+      encode(options)
+    );
+    return {
+      items: response.users,
+      total: response.total,
+    };
   },
-  fetchTotal: async () => {
-    const response = await UsersService.fetchUsers(readTokenFromCookie());
-    return response.users.length;
+  create: async (user) => {
+    try {
+      const result = await UsersService.createUser(user, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   },
-  create: (user) => UsersService.createUser(user, readTokenFromCookie()),
-  update: (user) => UsersService.updateUser(user, readTokenFromCookie()),
-  delete: (user) => UsersService.deleteUser(user.id, readTokenFromCookie()),
+  update: async (user) => {
+    try {
+      const result = await UsersService.updateUser(user, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  delete: async (user) => {
+    try {
+      const result = await UsersService.deleteUser(
+        user.id,
+        readTokenFromCookie()
+      );
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
 };
 
-const UsersTable = (): React$Element<'div'> => (
-  <div style={styles.container}>
+const UsersTable = (): React$Element<any> => {
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
+  const [result, setResult] = useState(DEFAULT_RESULT);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const res = await service.fetchItems(options);
+      setResult(res);
+    };
+    fetchItems();
+  }, [options]);
+
+  return (
     <CRUDTable
       caption="Usuarios"
-      fetchItems={() => service.fetchItems()}
+      items={result.items}
       actionsLabel="Acciones"
+      showQueryBuilder
+      onChange={(data) => {
+        setOptions({
+          sort: data.sort,
+          queryRules: data.queryRules,
+          activePage: data.pagination.activePage,
+          itemsPerPage: data.pagination.itemsPerPage,
+        });
+      }}
     >
       <Fields>
         <Field name="id" label="Id" hideInCreateForm readOnly />
@@ -89,7 +146,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Crear usuario"
         message="Crear una nueva usuario"
         trigger="Crear usuario"
-        onSubmit={(task) => service.create(task)}
+        onSubmit={async (user) => {
+          const result = await service.create(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Crear"
         validate={(values) => {
           const errors = {};
@@ -113,7 +178,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Actualizar usuario"
         message="Actualizar usuario"
         trigger="Actualizar"
-        onSubmit={service.update}
+        onSubmit={async (user) => {
+          const result = await service.update(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Actualizar"
         validate={(values) => {
           const errors = {};
@@ -141,7 +214,15 @@ const UsersTable = (): React$Element<'div'> => (
         title="Eliminar usuario"
         message="Esta seguro que quiere eliminar la usuario?"
         trigger="Eliminar"
-        onSubmit={service.delete}
+        onSubmit={async (user) => {
+          const result = await service.delete(user);
+
+          if (!result.success) {
+            throw new Error(result.message);
+          }
+
+          return result;
+        }}
         submitText="Eliminar"
         validate={(values) => {
           const errors = {};
@@ -154,11 +235,12 @@ const UsersTable = (): React$Element<'div'> => (
         }}
       />
       <Pagination
-        itemsPerPage={100}
-        fetchTotalOfItems={() => service.fetchTotal()}
+        defaultActivePage={1}
+        itemsPerPage={options.itemsPerPage}
+        totalOfItems={result.total}
       />
     </CRUDTable>
-  </div>
-);
+  );
+};
 
 export default UsersTable;

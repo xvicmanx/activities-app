@@ -40,18 +40,21 @@ const CommunityMembersTable = ({
           label="Miembro"
           hideFromTable
           render={MembersSelectRenderer}
+          sortable={false}
         />
         <Field
           name="name"
           label="Nombre"
           placeholder="Nombre"
           hideInCreateForm
+          sortable={false}
         />
         <Field
           name="coordinates"
           label="Coordinador?"
           tableValueResolver={(item) => (item.coordinates ? 'Si' : 'No')}
           render={CoordinatesSelectRenderer}
+          sortable={false}
         />
       </Fields>
       <CreateForm

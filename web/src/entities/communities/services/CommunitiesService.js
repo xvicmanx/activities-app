@@ -3,9 +3,12 @@
 import requester from '../../../core/requester';
 
 const CommunitiesService = {
-  fetchCommunities: (token: string): Promise<Object> =>
+  fetchCommunities: (
+    token: string,
+    queryOptions: string = ''
+  ): Promise<Object> =>
     requester({
-      path: '/communities/list',
+      path: `/communities/list?options=${queryOptions}`,
       token,
     }),
   fetchCommunity: (token: string, id: string | number): Promise<Object> =>

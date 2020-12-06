@@ -8,7 +8,7 @@ import generateHash from 'random-hash';
 
 import Controller from '../../common/controller';
 import ImageUploader from '../../common/image-uploader';
-import { asObject } from '../../helpers';
+import { asObject, decode } from '../../helpers';
 import { getSafeUser } from './helpers';
 import UsersService from './service';
 
@@ -34,8 +34,13 @@ class UsersController extends Controller {
       return;
     }
 
+    const { options } = asObject(request.query);
+    const queryOptions = options ? JSON.parse(decode(options)) : {};
+    const result = await this.service.getUsers(queryOptions);
+
     response.json({
-      users: await this.service.getUsers(),
+      ...queryOptions,
+      ...result,
       success: true,
     });
   });

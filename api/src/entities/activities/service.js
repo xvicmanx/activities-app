@@ -2,6 +2,8 @@
 
 import _ from 'lodash';
 
+import type { Options } from '../../common/query-helpers';
+import { generateQueryPayload } from '../../common/query-helpers';
 import { throwNotFoundError, throwValidationError } from '../../helpers';
 import Community from '../communities/model';
 import User from '../users/model';
@@ -24,6 +26,11 @@ type ActivityParticipant = {
 };
 
 const willAttend = (x) => x.UserActivity.willAttend;
+
+type ActivitiesResult = {
+  activities: Array<Activity>,
+  total: number,
+};
 
 class ActivitiesService {
   async getPendingActivities(userId: number): Promise<Array<ActivityListInfo>> {
@@ -54,8 +61,13 @@ class ActivitiesService {
     }));
   }
 
-  async getActivities(): Promise<Array<Activity>> {
-    return Activity.findAll();
+  async getActivities(options: Options): Promise<ActivitiesResult> {
+    const payload = generateQueryPayload(options);
+    const result = await Activity.findAndCountAll(payload);
+    return {
+      total: result.count,
+      activities: result.rows,
+    };
   }
 
   async getParticipantsList(activityId: number): Promise<Array<ActivityParticipant>> {
