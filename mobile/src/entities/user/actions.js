@@ -1,6 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import UserService from './user.service';
-// import userSlice from './user.slice';
+import ERRORS from '../../constants/errors';
+
+export const onChange = createAction('user/changePasswordForm/onChange');
 
 export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, thunkAPI) => {
   const token = thunkAPI.getState().auth.currentUser.token;
@@ -11,48 +13,53 @@ export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, t
   }
 });
 
-// export const updatePassword = (passwordsData, token) => async (dispatch) => {
-//   dispatch(userSlice.actions.setLoading(true));
+export const updatePassword = createAsyncThunk(
+  'user/changePasswordForm/update',
+  async (arg, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
+    const { previousPassword, password, confirmPassword } = thunkAPI.getState().changePasswordForm;
 
-//   try {
-//     const res = await UserService.updatePassword(passwordsData, token);
+    if (password.value.length < 6) {
+      return thunkAPI.rejectWithValue({
+        name: 'password',
+        value: ERRORS.password.lessThanSixCharacters,
+      });
+    } else if (password.value !== confirmPassword.value) {
+      return thunkAPI.rejectWithValue({
+        name: 'confirmPassword',
+        value: ERRORS.password.dontMatch,
+      });
+    } else if (previousPassword.value.length === 0) {
+      return thunkAPI.rejectWithValue({
+        name: 'previousPassword',
+        value: ERRORS.empty,
+      });
+    }
 
-//     if (!res.success) {
-//       dispatch(
-//         userSlice.actions.setMessage({
-//           visibility: true,
-//           success: false,
-//           text: 'No se pudo cambiar la contraseña',
-//         })
-//       );
-//       return;
-//     }
+    const payload = {
+      previousPassword: previousPassword.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+    };
 
-//     dispatch(
-//       userSlice.actions.setMessage({
-//         visibility: true,
-//         success: true,
-//         text: 'Su contraseña ha sido cambiada con exito',
-//       })
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    const res = await UserService.updatePassword(payload, token);
 
-// export const updateDescription = (description, token) => async (dispatch) => {
-//   dispatch(userSlice.actions.setModalLoader(true));
+    if (res.success) {
+      return { error: false, text: 'La contraseña ha sido cambiada con éxito' };
+    } else {
+      return { error: true, text: 'No se pudo cambiar la contraseña' };
+    }
+  }
+);
 
-//   try {
-//     const res = await UserService.updateDescription(description, token);
-
-//     if (res.success) {
-//       dispatch(updateDescriptionAction(description));
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const updateDescription = createAsyncThunk(
+  'user/updateDescription',
+  async (description, thunkAPI) => {
+    const token = thunkAPI.getState().auth.currentUser.token;
+    await UserService.updateDescription(description, token);
+    return description;
+  }
+);
 
 export const updateImage = createAsyncThunk('user/uploadImage', async (imageData, thunkAPI) => {
   const token = thunkAPI.getState().auth.currentUser.token;

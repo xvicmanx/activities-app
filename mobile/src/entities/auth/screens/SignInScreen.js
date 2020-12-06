@@ -6,6 +6,7 @@ import Email from '../components/Email';
 import Password from '../components/Password';
 import Button from '../../../common/components/Button';
 import { loginUser } from '../actions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default () => {
   const dispatch = useDispatch();
@@ -17,18 +18,20 @@ export default () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.logo} source={logoImage} resizeMode="contain" />
+    <KeyboardAwareScrollView>
+      <View style={styles.container}>
+        <Image style={styles.logo} source={logoImage} resizeMode="contain" />
 
-      <View style={styles.fieldsContainer}>
-        <Email passwordRef={passwordRef} />
-        <Password passwordRef={passwordRef} />
+        <View style={styles.fieldsContainer}>
+          <Email passwordRef={passwordRef} />
+          <Password passwordRef={passwordRef} />
+        </View>
+
+        <Button loading={isLoading} onPress={signin}>
+          Entrar
+        </Button>
       </View>
-
-      <Button loading={isLoading} onPress={signin}>
-        Entrar
-      </Button>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

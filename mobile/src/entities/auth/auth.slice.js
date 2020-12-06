@@ -1,6 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 import { checkUserInfo, loginUser } from './actions';
-import { updateImage } from '../user/actions';
+import { updateImage, updateDescription } from '../user/actions';
 
 export default createSlice({
   name: 'auth',
@@ -20,6 +20,9 @@ export default createSlice({
       })
       .addCase(updateImage.fulfilled, (state, { payload }) => {
         state.currentUser.profileURL = payload;
+      })
+      .addCase(updateDescription.fulfilled, (state, { payload }) => {
+        state.currentUser.description = payload;
       });
   },
 });

@@ -4,9 +4,9 @@ import authSlice from './entities/auth/auth.slice';
 import loginForm from './entities/auth/loginForm.slice';
 import activities from './entities/activities/activities.slice';
 import participants from './entities/activities/participants.slice';
-import profile from './entities/user/profile.slice';
+import descriptionForm from './entities/user/descriptionForm.slice';
 import othersProfile from './entities/user/othersProfile.slice';
-// import profileImage from './entities/user/profileImage.slice';
+import changePasswordForm from './entities/user/changePasswordForm.slice';
 
 export default configureStore({
   reducer: {
@@ -14,7 +14,8 @@ export default configureStore({
     loginForm: loginForm.reducer,
     activities: activities.reducer,
     participants: participants.reducer,
-    profile: profile.reducer,
     othersProfile: othersProfile.reducer,
+    descriptionForm: descriptionForm.reducer,
+    changePasswordForm: changePasswordForm.reducer,
   },
 });
