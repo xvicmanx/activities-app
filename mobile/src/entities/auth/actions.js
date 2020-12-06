@@ -1,9 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import authSlice from './authSlice';
-import AuthService from './authService';
+import AuthService from './auth.service';
 import ERRORS from '../../constants/errors';
 import REG_EXP from '../../constants/regExp';
+
+export const onChange = createAction('auth/loginForm/onChange');
 
 export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, thunkAPI) => {
   const token = await AsyncStorage.getItem('userToken');
@@ -69,4 +70,3 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (arg, thunkAPI
     return user;
   }
 });
-

@@ -1,19 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, StyleSheet, TouchableNativeFeedback, ActivityIndicator } from 'react-native';
 import { Avatar, Text, Icon } from 'react-native-elements';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import COLORS from '../../constants/colors';
-import { uploadImage } from '../../entities/user/actions';
+import { updateImage } from '../../entities/user/actions';
 import { HOST } from '@env';
 
-export default ({ size, img, name, edit }) => {
+export default ({ size, img, name, edit, loading }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector(({ auth }) => auth.currentUser);
 
   const chooseImage = () => {
     const options = {
-      title: 'Elegir Una Imagen',
+      title: 'Elegir una imagen',
       takePhotoButtonTitle: null,
       chooseFromLibraryButtonTitle: 'Galeria',
       storageOptions: {
@@ -32,14 +31,34 @@ export default ({ size, img, name, edit }) => {
       } else if (response.customButton) {
         console.log(response.customButton);
       } else {
-        dispatch(uploadImage(response, currentUser.token));
+        dispatch(updateImage(response));
       }
     });
   };
 
+  const renderPlaceholder = () => {
+    return <ActivityIndicator color="#fff" />;
+  };
+
+  const avatar = loading ? (
+    <Avatar
+      rounded
+      overlayContainerStyle={styles.overlayContainer}
+      size={size}
+      renderPlaceholderContent={renderPlaceholder()}
+    />
+  ) : (
+    <Avatar
+      renderPlaceholderContent={renderPlaceholder()}
+      rounded
+      source={{ uri: img.replace('localhost', HOST) }}
+      size={size}
+    />
+  );
+
   return (
     <View style={styles.container}>
-      <Avatar rounded source={{ uri: img.replace('localhost', HOST) }} size={size} />
+      {avatar}
 
       {edit && (
         <TouchableNativeFeedback onPress={chooseImage}>
@@ -58,6 +77,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  overlayContainer: {
+    backgroundColor: COLORS.dark,
+    flex: 1,
   },
   text: {
     marginLeft: 10,

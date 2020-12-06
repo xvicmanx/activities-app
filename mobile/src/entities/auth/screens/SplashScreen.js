@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, ActivityIndicator, ImageBackground, StatusBar } from 'react-native';
 import COLORS from '../../../constants/colors';
+import splash from '../../../assets/images/splash.jpeg';
 
 export default () => (
   <>
     <StatusBar backgroundColor={COLORS.primary} />
-    <ImageBackground source={require('../../../assets/images/splash.jpeg')} style={styles.image}>
+    <ImageBackground source={splash} style={styles.image}>
       <ActivityIndicator size="large" color="#fff" style={styles.loader} />
     </ImageBackground>
   </>

@@ -30,14 +30,19 @@ export default () => {
         activeTintColor: COLORS.primary,
         inactiveTintColor: 'gray',
       }}
+      initialRouteName="ActivitiesStack"
     >
       <Tab.Screen
         name="ActivitiesStack"
         options={{ title: 'Actividades' }}
         component={ActivitiesStack}
       />
+
       {/* 
-      <Tab.Screen name="ProfileStack" options={{ title: 'Perfil' }} component={ProfileStack} />
+      <Tab.Screen name="ProfileStack" options={{ title: 'Perfil' }} component={ProfileStack} /> 
+      */}
+
+      {/* 
       <Tab.Screen
         name="CommunityStack"
         options={{ title: 'Comunidades' }}

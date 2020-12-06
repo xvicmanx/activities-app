@@ -11,10 +11,10 @@ import { unjoinActivity, joinActivity } from '../actions';
 
 export default ({ activityId }) => {
   const dispatch = useDispatch();
+  const { navigate } = useNavigation();
   const activity = useSelector(({ activities }) => {
     return activities.entities[activityId];
   });
-  const { navigate } = useNavigation();
 
   const signup = () => {
     dispatch(joinActivity(activityId));

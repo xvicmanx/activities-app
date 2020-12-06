@@ -4,6 +4,7 @@ import ActivitiesScreen from './screens/ActivitiesScreen';
 import ParticipantsScreen from './screens/ParticipantsScreen';
 import OthersProfile from '../user/screens/OthersProfile';
 import COLORS from '../../constants/colors';
+
 const Stack = createStackNavigator();
 
 export default () => (

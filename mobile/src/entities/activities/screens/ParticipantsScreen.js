@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
-import { fetchParticipants } from '../actions';
+import { fetchParticipants, setLoader } from '../actions';
 import Participant from '../components/Participant';
-import participantsSlice from '../participantsSlice';
 
 export default ({ route }) => {
   const dispatch = useDispatch();
@@ -16,7 +15,7 @@ export default ({ route }) => {
     dispatch(fetchParticipants(activityId));
 
     return () => {
-      dispatch(participantsSlice.actions.setLoarder(true));
+      dispatch(setLoader(true));
     };
   }, []);
 

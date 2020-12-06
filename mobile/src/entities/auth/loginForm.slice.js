@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser } from './actions';
+import { loginUser, onChange } from './actions';
 
 export default createSlice({
   name: 'auth/loginForm',
@@ -14,15 +14,14 @@ export default createSlice({
       error: null,
     },
   },
-  reducers: {
-    onChange(state, { payload }) {
-      const { name, value } = payload;
-      state[name].value = value;
-      state[name].error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(onChange, (state, { payload }) => {
+        const { name, value } = payload;
+        state[name].value = value;
+        state[name].error = null;
+      })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })

@@ -5,7 +5,7 @@ import logoImage from '../../../assets/images/logo.png';
 import Email from '../components/Email';
 import Password from '../components/Password';
 import Button from '../../../common/components/Button';
-import { loginUser } from '../loginFormSlice';
+import { loginUser } from '../actions';
 
 export default () => {
   const dispatch = useDispatch();

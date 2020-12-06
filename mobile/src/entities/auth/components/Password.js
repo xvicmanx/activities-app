@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../../common/components/Input';
-import loginFormSlice from '../loginFormSlice';
+import { onChange } from '../actions';
 
 export default ({ passwordRef }) => {
   const dispatch = useDispatch();
@@ -9,20 +9,15 @@ export default ({ passwordRef }) => {
   const error = useSelector(({ loginForm }) => loginForm.password.error);
   const isLoading = useSelector(({ loginForm }) => loginForm.isLoading);
 
-  const onChange = (name, value) => {
-    dispatch(
-      loginFormSlice.actions.onChange({
-        name,
-        value,
-      })
-    );
+  const handleOnChange = (name, value) => {
+    dispatch(onChange({ name, value }));
   };
 
   return (
     <Input
       error={error}
       value={value}
-      onChange={onChange.bind(this, 'password')}
+      onChange={handleOnChange.bind(this, 'password')}
       secureTextEntry
       disabled={isLoading}
       placeholder="Contraseña..."

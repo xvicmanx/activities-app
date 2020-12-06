@@ -9,12 +9,12 @@ export default ({ participantId }) => {
     return participants.entities[participantId];
   });
 
-  return (
-    <ListItem
-      item={participant}
-      onPress={() => {
-        navigate('OthersProfile', { userId: participantId, name: participant.name });
-      }}
-    />
-  );
+  const handleOnPress = () => {
+    navigate('OthersProfile', {
+      userId: participantId,
+      name: participant.name,
+    });
+  };
+
+  return <ListItem item={participant} onPress={handleOnPress} />;
 };
