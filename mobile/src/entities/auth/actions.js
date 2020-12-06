@@ -6,17 +6,24 @@ import REG_EXP from '../../constants/regExp';
 
 export const onChange = createAction('auth/onChange');
 
-export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async () => {
+export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, thunkAPI) => {
   const token = await AsyncStorage.getItem('userToken');
+  const email = await AsyncStorage.getItem('userEmail');
 
   if (!token) {
-    return null;
+    return thunkAPI.rejectWithValue({
+      net: false,
+      email,
+    });
   }
 
   const res = await AuthService.checkUserInfo(token);
 
   if (res.code === 'NOT_AUTHORIZED') {
-    return null;
+    return thunkAPI.rejectWithValue({
+      net: false,
+      email,
+    });
   }
 
   const user = {
@@ -37,6 +44,7 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
     return thunkAPI.rejectWithValue({
       name: 'email',
       value: ERRORS.email.emailFormat,
+      net: false,
     });
   }
 
@@ -44,6 +52,7 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
     return thunkAPI.rejectWithValue({
       name: 'password',
       value: ERRORS.password.lessThanSixCharacters,
+      net: false,
     });
   }
 
@@ -54,11 +63,13 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
       name: 'password',
       value: ERRORS.email.invalid,
       clean: true,
+      net: false,
     });
   }
 
   if (res.success) {
     await AsyncStorage.setItem('userToken', res.token);
+    await AsyncStorage.setItem('userEmail', res.user.email);
 
     const user = {
       exp: res.exp,

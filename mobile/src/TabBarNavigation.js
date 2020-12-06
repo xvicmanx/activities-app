@@ -30,7 +30,7 @@ const TabBarNavigation = () => {
         activeTintColor: COLORS.primary,
         inactiveTintColor: 'gray',
       }}
-      initialRouteName="ProfileStack"
+      initialRouteName="ActivitiesStack"
     >
       <Tab.Screen
         name="ActivitiesStack"

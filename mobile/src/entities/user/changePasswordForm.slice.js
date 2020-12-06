@@ -59,7 +59,7 @@ const changePasswordFormSlice = createSlice({
 
         state.isLoading = false;
       })
-      .addCase(logOut, (state) => {
+      .addCase(logOut.fulfilled, (state) => {
         state.message.error = null;
         state.message.value = '';
       });

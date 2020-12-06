@@ -1,16 +1,17 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import logoImage from '../../../assets/images/logo.png';
 import Email from '../components/Email';
 import Password from '../components/Password';
 import Button from '../../../common/components/Button';
 import { loginUser } from '../actions';
+import COLORS from '../../../constants/colors';
 
 const SignInScreen = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ loginForm }) => loginForm.isLoading);
+  const network = useSelector(({ auth }) => auth.network);
   const passwordRef = useRef();
 
   const signin = () => {
@@ -18,20 +19,19 @@ const SignInScreen = () => {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={styles.container}>
-        <Image style={styles.logo} source={logoImage} resizeMode="contain" />
+    <View style={styles.container}>
+      {network.error && <Text style={styles.networkError}>{network.message}</Text>}
+      <Image style={styles.logo} source={logoImage} resizeMode="contain" />
 
-        <View style={styles.fieldsContainer}>
-          <Email passwordRef={passwordRef} />
-          <Password passwordRef={passwordRef} />
-        </View>
-
-        <Button loading={isLoading} onPress={signin}>
-          Entrar
-        </Button>
+      <View style={styles.fieldsContainer}>
+        <Email passwordRef={passwordRef} />
+        <Password passwordRef={passwordRef} />
       </View>
-    </KeyboardAwareScrollView>
+
+      <Button loading={isLoading} onPress={signin}>
+        Entrar
+      </Button>
+    </View>
   );
 };
 
@@ -53,6 +53,17 @@ const styles = StyleSheet.create({
   },
   fieldsContainer: {
     marginBottom: 15,
+  },
+  networkError: {
+    color: '#fff',
+    backgroundColor: COLORS.danger,
+    textAlign: 'center',
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginVertical: 20,
+    width: 250,
   },
 });
 

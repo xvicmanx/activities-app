@@ -35,7 +35,7 @@ const activitiesSlice = createSlice({
         state.entities[payload.id].willAttendCount = willAttendCount;
         state.entities[payload.id].isLoading = false;
       })
-      .addCase(logOut, (state) => {
+      .addCase(logOut.fulfilled, (state) => {
         state.isLoading = true;
         state.ids = [];
         state.entities = {};

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, onChange } from './actions';
+import { loginUser, onChange, checkUserInfo } from './actions';
 
 const loginFormSlice = createSlice({
   name: 'auth/loginForm',
@@ -28,6 +28,9 @@ const loginFormSlice = createSlice({
       .addCase(loginUser.fulfilled, (state) => {
         state.isLoading = false;
         state.password.value = '';
+      })
+      .addCase(checkUserInfo.rejected, (state, { payload }) => {
+        state.email.value = payload.email
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         const { name, value, clean } = payload;

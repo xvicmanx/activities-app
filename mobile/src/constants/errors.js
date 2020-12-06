@@ -10,4 +10,5 @@ export default {
     emailFormat: 'El formato del email no es válido',
   },
   empty: '*Este campo está vacío',
+  network: 'No hay conexión a internet',
 };

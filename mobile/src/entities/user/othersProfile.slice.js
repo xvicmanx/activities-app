@@ -15,7 +15,7 @@ const othersProfileSlice = createSlice({
         state.isLoading = false;
         state.entity = payload;
       })
-      .addCase(logOut, (state, { payload }) => {
+      .addCase(logOut.fulfilled, (state, { payload }) => {
         state.isLoading = true;
         state.entity = {};
       });

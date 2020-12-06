@@ -17,7 +17,7 @@ const participantsSlice = createSlice({
         state.entities = payload.participants;
         state.isLoading = false;
       })
-      .addCase(logOut, (state) => {
+      .addCase(logOut.fulfilled, (state) => {
         state.isLoading = true;
         state.ids = [];
         state.entities = {};

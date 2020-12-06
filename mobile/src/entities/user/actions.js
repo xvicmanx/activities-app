@@ -1,9 +1,13 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from './user.service';
 import ERRORS from '../../constants/errors';
 
 export const onChange = createAction('user/onChange');
-export const logOut = createAction('user/logOut');
+
+export const logOut = createAsyncThunk('user/logOut', async () => {
+  await AsyncStorage.removeItem('userToken');
+});
 
 export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, thunkAPI) => {
   const token = thunkAPI.getState().auth.currentUser.token;
