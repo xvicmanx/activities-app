@@ -56,10 +56,14 @@ export const updatePassword = createAsyncThunk('user/update/password', async (ar
 
 export const updateDescription = createAsyncThunk(
   'user/update/description',
-  async (description, thunkAPI) => {
-    const token = thunkAPI.getState().auth.currentUser.token;
-    await UserService.updateDescription(description, token);
-    return description;
+  async (newDescription, thunkAPI) => {
+    const { token, description } = thunkAPI.getState().auth.currentUser;
+
+    if (newDescription !== description) {
+      await UserService.updateDescription(newDescription, token);
+    }
+
+    return newDescription;
   }
 );
 
