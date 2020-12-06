@@ -61,7 +61,7 @@ const changePasswordFormSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state) => {
         state.message.error = null;
-        state.message.value = '';
+        state.message.value = null;
       });
   },
 });
