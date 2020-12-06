@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import sha1 from 'sha1';
 
+import type { Options } from '../../common/query-helpers';
+import { generateQueryPayload } from '../../common/query-helpers';
 import { getSafeUser } from './helpers';
 import type { UserAttributes } from './model';
 import User from './model';
@@ -41,11 +43,19 @@ export const getUserTokenInfo = (user: User) => {
   };
 };
 
-class UsersService {
-  async getUsers(): Promise<Array<UserAttributes>> {
-    const users = await User.findAll();
+type UsersResult = {
+  users: Array<User>,
+  total: number,
+};
 
-    return users.map(getSafeUser);
+class UsersService {
+  async getUsers(options: Options): Promise<UsersResult> {
+    const payload = generateQueryPayload(options);
+    const result = await User.findAndCountAll(payload);
+    return {
+      total: result.count,
+      users: result.rows.map(getSafeUser),
+    };
   }
 
   async findById(id: number): Promise<?User> {

@@ -14,9 +14,9 @@ const UsersService = {
       path: '/users/current',
       token,
     }),
-  fetchUsers: (token: string): Promise<Object> =>
+    fetchUsers: (token: string, queryOptions: string = ''): Promise<Object> =>
     requester({
-      path: '/users/list',
+      path: `/users/list?options=${queryOptions}`,
       token,
     }),
   createUser: (payload: Object, token: string): Promise<Object> =>

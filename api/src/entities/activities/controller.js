@@ -7,7 +7,7 @@ import type {
 
 import Controller from '../../common/controller';
 import PushNotifier from '../../common/push-notifier';
-import { asObject } from '../../helpers';
+import { asObject, decode } from '../../helpers';
 import ActivitiesService from './service';
 
 class ActivitiesController extends Controller {
@@ -32,10 +32,14 @@ class ActivitiesController extends Controller {
       return;
     }
 
-    const activities = await this.service.getActivities();
+    const { options } = asObject(request.query);
+    const queryOptions = options ? JSON.parse(decode(options)) : {};
+
+    const result = await this.service.getActivities(queryOptions);
 
     response.json({
-      activities,
+      ...queryOptions,
+      ...result,
       success: true,
     });
   });

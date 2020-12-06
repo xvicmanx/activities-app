@@ -1,7 +1,7 @@
 // @flow
 
 import moment from 'moment';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CRUDTable, {
   CreateForm,
   DeleteForm,
@@ -12,6 +12,9 @@ import CRUDTable, {
 } from 'react-crud-table';
 
 import { readTokenFromCookie } from '../../users/redux/UsersActions';
+import { DEFAULT_OPTIONS, DEFAULT_RESULT, encode } from '../../../core/helpers';
+import type { Options } from '../../../core/helpers';
+
 import ActivitiesService from '../services/ActivitiesService';
 import CommunitiesDropdown from '../../communities/components/CommunitiesDropdown';
 
@@ -35,17 +38,15 @@ const CommunitiesSelectRenderer = ({ field }: RendererProps) => (
 );
 
 const service = {
-  fetchItems: async () => {
+  fetchItems: async (options: Options) => {
     const response = await ActivitiesService.fetchActivities(
-      readTokenFromCookie()
+      readTokenFromCookie(),
+      encode(options),
     );
-    return response.activities;
-  },
-  fetchTotal: async () => {
-    const response = await ActivitiesService.fetchActivities(
-      readTokenFromCookie()
-    );
-    return response.activities.length;
+    return {
+      items: response.activities,
+      total: response.total,
+    };
   },
   create: (activity) =>
     ActivitiesService.createActivity(activity, readTokenFromCookie()),
@@ -55,113 +56,135 @@ const service = {
     ActivitiesService.deleteActivity(activity.id, readTokenFromCookie()),
 };
 
-const ActivitiesTable = (): React$Element<any> => (
-  <CRUDTable
-    caption="Actividades"
-    fetchItems={() => service.fetchItems()}
-    actionsLabel="Acciones"
-  >
-    <Fields>
-      <Field name="id" label="Id" hideInCreateForm readOnly />
-      <Field name="title" label="Título" placeholder="Título" />
-      <Field
-        name="description"
-        label="Descripción"
-        render={DescriptionRenderer}
-      />
-      <Field
-        name="date"
-        type="date"
-        label="Fecha"
-        tableValueResolver={(item) =>
-          moment(item.date).format('DD-MM-YYYY HH:mm')
-        }
-      />
-      <Field
-        name="communityId"
-        label="Comunidad"
-        render={CommunitiesSelectRenderer}
-        hideInUpdateForm
-        hideFromTable
-      />
-    </Fields>
-    <CreateForm
-      title="Crear actividad"
-      message="Crear una nueva actividad"
-      trigger="Crear actividad"
-      onSubmit={service.create}
-      submitText="Crear"
-      validate={(values) => {
-        const errors = {};
+const ActivitiesTable = (): React$Element<any> => {
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
+  const [result, setResult] = useState(DEFAULT_RESULT);
 
-        if (!values.title) {
-          errors.title = 'Por favor, provea un título';
-        }
+  useEffect(() => {
+    const fetchItems = async () => {
+      const res = await service.fetchItems(options);
+      setResult(res);
+    };
+    fetchItems();
+  }, [options]);
 
-        if (!values.description) {
-          errors.description = 'Por favor, provea una Descripción';
-        }
-
-        if (!values.date) {
-          errors.date = 'Por favor, provea una fecha';
-        }
-
-        if (!values.communityId) {
-          errors.communityId = 'Por favor, seleccione una comunidad';
-        }
-
-        return errors;
+  return (
+    <CRUDTable
+      caption="Actividades"
+      items={result.items}
+      actionsLabel="Acciones"
+      onChange={(data) => {
+        setOptions({
+          sort: data.sort,
+          queryRules: data.queryRules,
+          activePage: data.pagination.activePage,
+          itemsPerPage: data.pagination.itemsPerPage,
+        });
       }}
-    />
-    <UpdateForm
-      title="Actualizar actividad"
-      message="Actualizar actividad"
-      trigger="Actualizar"
-      onSubmit={service.update}
-      submitText="Actualizar"
-      validate={(values) => {
-        const errors = {};
-
-        if (!values.id) {
-          errors.id = 'Por favor, provea el id';
-        }
-
-        if (!values.title) {
-          errors.title = 'Por favor, provea un título';
-        }
-
-        if (!values.description) {
-          errors.description = 'Por favor, provea una Descripción';
-        }
-
-        if (!values.date) {
-          errors.date = 'Por favor, provea una fecha';
-        }
-
-        return errors;
-      }}
-    />
-    <DeleteForm
-      title="Eliminar actividad"
-      message="Esta seguro que quiere eliminar la actividad?"
-      trigger="Eliminar"
-      onSubmit={service.delete}
-      submitText="Eliminar"
-      validate={(values) => {
-        const errors = {};
-
-        if (!values.id) {
-          errors.id = 'Por favor, provea el id';
-        }
-
-        return errors;
-      }}
-    />
-    <Pagination
-      itemsPerPage={10}
-      fetchTotalOfItems={() => service.fetchTotal()}
-    />
-  </CRUDTable>
-);
+    >
+      <Fields>
+        <Field name="id" label="Id" hideInCreateForm readOnly />
+        <Field name="title" label="Título" placeholder="Título" />
+        <Field
+          name="description"
+          label="Descripción"
+          render={DescriptionRenderer}
+        />
+        <Field
+          name="date"
+          type="date"
+          label="Fecha"
+          tableValueResolver={(item) =>
+            moment(item.date).format('DD-MM-YYYY HH:mm')
+          }
+        />
+        <Field
+          name="communityId"
+          label="Comunidad"
+          render={CommunitiesSelectRenderer}
+          hideInUpdateForm
+          hideFromTable
+        />
+      </Fields>
+      <CreateForm
+        title="Crear actividad"
+        message="Crear una nueva actividad"
+        trigger="Crear actividad"
+        onSubmit={service.create}
+        submitText="Crear"
+        validate={(values) => {
+          const errors = {};
+  
+          if (!values.title) {
+            errors.title = 'Por favor, provea un título';
+          }
+  
+          if (!values.description) {
+            errors.description = 'Por favor, provea una Descripción';
+          }
+  
+          if (!values.date) {
+            errors.date = 'Por favor, provea una fecha';
+          }
+  
+          if (!values.communityId) {
+            errors.communityId = 'Por favor, seleccione una comunidad';
+          }
+  
+          return errors;
+        }}
+      />
+      <UpdateForm
+        title="Actualizar actividad"
+        message="Actualizar actividad"
+        trigger="Actualizar"
+        onSubmit={service.update}
+        submitText="Actualizar"
+        validate={(values) => {
+          const errors = {};
+  
+          if (!values.id) {
+            errors.id = 'Por favor, provea el id';
+          }
+  
+          if (!values.title) {
+            errors.title = 'Por favor, provea un título';
+          }
+  
+          if (!values.description) {
+            errors.description = 'Por favor, provea una Descripción';
+          }
+  
+          if (!values.date) {
+            errors.date = 'Por favor, provea una fecha';
+          }
+  
+          return errors;
+        }}
+      />
+      <DeleteForm
+        title="Eliminar actividad"
+        message="Esta seguro que quiere eliminar la actividad?"
+        trigger="Eliminar"
+        onSubmit={service.delete}
+        submitText="Eliminar"
+        validate={(values) => {
+          const errors = {};
+  
+          if (!values.id) {
+            errors.id = 'Por favor, provea el id';
+          }
+  
+          return errors;
+        }}
+      />
+      <Pagination
+        defaultActivePage={1}
+        itemsPerPage={options.itemsPerPage}
+        totalOfItems={result.total}
+      />
+    </CRUDTable>
+  );
+};
 
 export default ActivitiesTable;

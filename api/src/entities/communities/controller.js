@@ -7,7 +7,7 @@ import type {
 import _ from 'lodash';
 
 import Controller from '../../common/controller';
-import { asObject } from '../../helpers';
+import { asObject, decode } from '../../helpers';
 import CommunitiesService from './service';
 
 class CommunitiesController extends Controller {
@@ -32,10 +32,14 @@ class CommunitiesController extends Controller {
       return;
     }
 
-    const communities = await this.service.getCommunities();
+    const { options } = asObject(request.query);
+    const queryOptions = options ? JSON.parse(decode(options)) : {};
+
+    const result = await this.service.getCommunities(queryOptions);
 
     response.json({
-      communities,
+      ...queryOptions,
+      ...result,
       success: true,
     });
   });
