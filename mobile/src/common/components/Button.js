@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button as ButtonRNE } from 'react-native-elements';
 import COLORS from '../../constants/colors';
 
-export default ({ onPress, style, icon, danger, small, children, loading }) => {
+const Button = ({ onPress, style, icon, danger, small, children, loading }) => {
   const smallStyles = small && styles.small;
   const dangerStyles = danger && styles.danger;
 
   return (
-    <Button
+    <ButtonRNE
       title={children}
       loading={loading}
       buttonStyle={{
@@ -38,3 +38,5 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+
+export default Button;

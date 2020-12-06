@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { onChange, updatePassword } from './actions';
+import { onChange, updatePassword, logOut } from './actions';
 
-export default createSlice({
+const changePasswordFormSlice = createSlice({
   name: 'user/changePasswordForm',
   initialState: {
     isLoading: false,
     isEditing: false,
+
     message: {
       error: null,
       value: null,
@@ -57,6 +58,12 @@ export default createSlice({
         }
 
         state.isLoading = false;
+      })
+      .addCase(logOut, (state) => {
+        state.message.error = null;
+        state.message.value = '';
       });
   },
 });
+
+export default changePasswordFormSlice;

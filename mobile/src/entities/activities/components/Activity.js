@@ -9,7 +9,7 @@ import COLORS from '../../../constants/colors';
 import DATE from '../../../constants/date';
 import { unjoinActivity, joinActivity } from '../actions';
 
-export default ({ activityId }) => {
+const Activity = ({ activityId }) => {
   const dispatch = useDispatch();
   const { navigate } = useNavigation();
   const activity = useSelector(({ activities }) => {
@@ -131,3 +131,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
+
+export default Activity;

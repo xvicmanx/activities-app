@@ -6,7 +6,7 @@ import Button from '../../../common/components/Button';
 import COLORS from '../../../constants/colors';
 import { onChange, updatePassword } from '../actions';
 
-export default () => {
+const ChangePassword = () => {
   const dispatch = useDispatch();
   const newPasswordRef = useRef();
   const repeatPasswordRef = useRef();
@@ -27,8 +27,6 @@ export default () => {
   const submit = () => {
     dispatch(updatePassword());
   };
-
-  console.log(message);
 
   return (
     <View style={styles.container}>
@@ -106,3 +104,5 @@ const styles = StyleSheet.create({
     height: 15,
   },
 });
+
+export default ChangePassword;

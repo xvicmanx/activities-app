@@ -9,8 +9,9 @@ import EditDescription from '../components/EditDescription';
 import Avatar from '../components/Avatar';
 import ChangePassword from '../components/ChangePassword';
 import changePasswordForm from '../changePasswordForm.slice';
+import { logOut } from '../actions';
 
-export default () => {
+const ProfileScreen = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(({ auth }) => auth.currentUser);
   const modalVisibility = useSelector(({ descriptionForm }) => descriptionForm.modalVisibility);
@@ -25,7 +26,7 @@ export default () => {
   };
 
   const closeSession = () => {
-    // dispatch(authSlice.actions.logOut());
+    dispatch(logOut());
   };
 
   const pencilIcon = <Icon type="simple-line-icon" name="pencil" size={15} color="white" />;
@@ -94,3 +95,5 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
+export default ProfileScreen;

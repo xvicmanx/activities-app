@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { updateDescription } from './actions';
 
-export default createSlice({
+const descriptionFormSlice = createSlice({
   name: 'user/descriptionForm',
   initialState: {
     isLoading: false,
@@ -23,3 +23,5 @@ export default createSlice({
       });
   },
 });
+
+export default descriptionFormSlice;

@@ -7,26 +7,30 @@ import COLORS from '../../constants/colors';
 
 const Stack = createStackNavigator();
 
-export default () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerTitleAlign: 'center',
-      headerStyle: { backgroundColor: COLORS.primary },
-      headerTintColor: '#fff',
-    }}
-  >
-    <Stack.Screen
-      name="ActivitiesScreen"
-      options={{ title: 'Actividades (0)' }}
-      component={ActivitiesScreen}
-    />
+const ActivitiesStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: COLORS.primary },
+        headerTintColor: '#fff',
+      }}
+    >
+      <Stack.Screen
+        name="ActivitiesScreen"
+        options={{ title: 'Actividades (0)' }}
+        component={ActivitiesScreen}
+      />
 
-    <Stack.Screen
-      name="ParticipantsScreen"
-      options={{ title: 'Participantes' }}
-      component={ParticipantsScreen}
-    />
+      <Stack.Screen
+        name="ParticipantsScreen"
+        options={{ title: 'Participantes' }}
+        component={ParticipantsScreen}
+      />
 
-    <Stack.Screen options={{ title: '' }} name="OthersProfile" component={OthersProfile} />
-  </Stack.Navigator>
-);
+      <Stack.Screen options={{ title: '' }} name="OthersProfile" component={OthersProfile} />
+    </Stack.Navigator>
+  );
+};
+
+export default ActivitiesStack;

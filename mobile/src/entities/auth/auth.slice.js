@@ -1,8 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { checkUserInfo, loginUser } from './actions';
-import { updateImage, updateDescription } from '../user/actions';
+import { updateImage, updateDescription, logOut } from '../user/actions';
 
-export default createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState: {
     isLoading: true,
@@ -23,6 +23,11 @@ export default createSlice({
       })
       .addCase(updateDescription.fulfilled, (state, { payload }) => {
         state.currentUser.description = payload;
+      })
+      .addCase(logOut, (state) => {
+        state.currentUser = null;
       });
   },
 });
+
+export default authSlice;

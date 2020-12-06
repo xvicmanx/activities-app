@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, onChange } from './actions';
 
-export default createSlice({
+const loginFormSlice = createSlice({
   name: 'auth/loginForm',
   initialState: {
     isLoading: false,
@@ -41,3 +41,5 @@ export default createSlice({
       });
   },
 });
+
+export default loginFormSlice;

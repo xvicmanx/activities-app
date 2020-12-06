@@ -1,7 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchActivities, unjoinActivity, joinActivity, setLoaderActivity } from './actions';
+import { logOut } from '../user/actions';
 
-export default createSlice({
+const activitiesSlice = createSlice({
   name: 'activities',
   initialState: {
     isLoading: true,
@@ -33,6 +34,13 @@ export default createSlice({
         state.entities[payload.id].userWillAttend = userWillAttend;
         state.entities[payload.id].willAttendCount = willAttendCount;
         state.entities[payload.id].isLoading = false;
+      })
+      .addCase(logOut, (state) => {
+        state.isLoading = true;
+        state.ids = [];
+        state.entities = {};
       });
   },
 });
+
+export default activitiesSlice;

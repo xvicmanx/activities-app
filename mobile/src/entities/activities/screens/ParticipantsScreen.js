@@ -5,7 +5,7 @@ import Loader from '../../../common/components/Loader';
 import { fetchParticipants, setLoaderParticipants } from '../actions';
 import Participant from '../components/Participant';
 
-export default ({ route }) => {
+const ParticipantsScreen = ({ route }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ participants }) => participants.isLoading);
   const list = useSelector(({ participants }) => participants.ids);
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default ParticipantsScreen;

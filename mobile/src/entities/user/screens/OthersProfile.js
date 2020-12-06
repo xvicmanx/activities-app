@@ -6,7 +6,7 @@ import Avatar from '../../../common/components/Avatar';
 import { fetUserById } from '../actions';
 import COLORS from '../../../constants/colors';
 
-export default ({ route, navigation }) => {
+const OthersProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ othersProfile }) => othersProfile.isLoading);
   const user = useSelector(({ othersProfile }) => othersProfile.entity);
@@ -58,3 +58,5 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
+export default OthersProfile;

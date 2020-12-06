@@ -5,7 +5,7 @@ import COLORS from '../../constants/colors';
 
 const Stack = createStackNavigator();
 
-export default () => {
+const ProfileStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -18,3 +18,5 @@ export default () => {
     </Stack.Navigator>
   );
 };
+
+export default ProfileStack;

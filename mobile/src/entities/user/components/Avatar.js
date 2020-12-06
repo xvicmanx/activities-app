@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import Avatar from '../../../common/components/Avatar';
+import AvatarCommon from '../../../common/components/Avatar';
 import COLORS from '../../../constants/colors';
 
-export default ({ name }) => {
+const Avatar = ({ name }) => {
   const profileURL = useSelector(({ auth }) => auth.currentUser.profileURL);
 
-  return(
+  return (
     <View style={styles.avatarContainer}>
-      <Avatar edit size={190} uri={profileURL} />
+      <AvatarCommon edit size={190} uri={profileURL} />
       <Text style={styles.name}>{name}</Text>
     </View>
   );
@@ -27,3 +27,5 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
   },
 });
+
+export default Avatar;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../../common/components/Input';
 import { onChange } from '../actions';
 
-export default ({ passwordRef }) => {
+const Email = ({ passwordRef }) => {
   const dispatch = useDispatch();
   const value = useSelector(({ loginForm }) => loginForm.email.value);
   const error = useSelector(({ loginForm }) => loginForm.email.error);
@@ -29,3 +29,5 @@ export default ({ passwordRef }) => {
     />
   );
 };
+
+export default Email;

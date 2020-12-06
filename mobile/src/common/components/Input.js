@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input as InputRNE } from 'react-native-elements';
 import COLORS from '../../constants/colors';
 
-export default forwardRef(
+const Input = forwardRef(
   (
     {
       blurOnSubmit,
@@ -19,7 +19,7 @@ export default forwardRef(
     },
     ref
   ) => (
-    <Input
+    <InputRNE
       value={value}
       leftIcon={{ type: 'ionicon', name: iconName, color: COLORS.primary }}
       errorStyle={styles.error}
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     borderColor: COLORS.danger,
   },
 });
+
+export default Input;

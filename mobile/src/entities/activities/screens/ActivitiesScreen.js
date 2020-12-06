@@ -6,7 +6,7 @@ import Activity from '../components/Activity';
 import Loader from '../../../common/components/Loader';
 import { fetchActivities } from '../actions';
 
-export default ({ navigation }) => {
+const ActivitiesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ activities }) => activities.isLoading);
   const list = useSelector(({ activities }) => activities.ids);
@@ -56,3 +56,5 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
+export default ActivitiesScreen;

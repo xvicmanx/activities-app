@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import ListItem from '../../../common/components/ListItem';
 
-export default ({ participantId }) => {
+const Participant = ({ participantId }) => {
   const { navigate } = useNavigation();
   const participant = useSelector(({ participants }) => {
     return participants.entities[participantId];
@@ -16,7 +16,7 @@ export default ({ participantId }) => {
     });
   };
 
- 
-
   return <ListItem item={participant} onPress={handleOnPress} />;
 };
+
+export default Participant;

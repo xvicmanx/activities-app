@@ -1,7 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchParticipants } from './actions';
+import { logOut } from '../user/actions';
 
-export default createSlice({
+const participantsSlice = createSlice({
   name: 'participants',
   initialState: {
     isLoading: true,
@@ -10,10 +11,18 @@ export default createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchParticipants.fulfilled, (state, { payload }) => {
-      state.ids = payload.ids;
-      state.entities = payload.participants;
-      state.isLoading = false;
-    });
+    builder
+      .addCase(fetchParticipants.fulfilled, (state, { payload }) => {
+        state.ids = payload.ids;
+        state.entities = payload.participants;
+        state.isLoading = false;
+      })
+      .addCase(logOut, (state) => {
+        state.isLoading = true;
+        state.ids = [];
+        state.entities = {};
+      });
   },
 });
+
+export default participantsSlice;

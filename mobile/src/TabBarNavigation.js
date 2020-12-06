@@ -8,7 +8,7 @@ import ProfileStack from './entities/user/ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
-export default () => {
+const TabBarNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -50,3 +50,5 @@ export default () => {
     </Tab.Navigator>
   );
 };
+
+export default TabBarNavigation;

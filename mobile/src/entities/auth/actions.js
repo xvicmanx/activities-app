@@ -4,9 +4,9 @@ import AuthService from './auth.service';
 import ERRORS from '../../constants/errors';
 import REG_EXP from '../../constants/regExp';
 
-export const onChange = createAction('auth/loginForm/onChange');
+export const onChange = createAction('auth/onChange');
 
-export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, thunkAPI) => {
+export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async () => {
   const token = await AsyncStorage.getItem('userToken');
 
   if (!token) {
@@ -30,25 +30,24 @@ export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, 
   }
 });
 
-export const loginUser = createAsyncThunk('auth/loginUser', async (arg, thunkAPI) => {
-  const email = thunkAPI.getState().loginForm.email.value;
-  const password = thunkAPI.getState().loginForm.password.value;
+export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) => {
+  const { email, password } = thunkAPI.getState().loginForm;
 
-  if (!email.match(REG_EXP.validEmail)) {
+  if (!email.value.match(REG_EXP.validEmail)) {
     return thunkAPI.rejectWithValue({
       name: 'email',
       value: ERRORS.email.emailFormat,
     });
   }
 
-  if (password.length < 6) {
+  if (password.value.length < 6) {
     return thunkAPI.rejectWithValue({
       name: 'password',
       value: ERRORS.password.lessThanSixCharacters,
     });
   }
 
-  const res = await AuthService.loginUser(email, password);
+  const res = await AuthService.loginUser(email.value, password.value);
 
   if (res.code === 'INVALID_PARAMETERS') {
     return thunkAPI.rejectWithValue({

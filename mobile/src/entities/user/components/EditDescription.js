@@ -3,12 +3,12 @@ import { TextInput } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Icon, Overlay, Text } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Button from '../../../common/components/Button';
 import COLORS from '../../../constants/colors';
 import { updateDescription } from '../actions';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default ({ description, close }) => {
+const EditDescription = ({ description, close }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ descriptionForm }) => descriptionForm.isLoading);
   const [value, setValue] = useState(description);
@@ -85,3 +85,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
+
+export default EditDescription;

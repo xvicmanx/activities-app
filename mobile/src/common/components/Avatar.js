@@ -2,13 +2,13 @@ import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Text, Icon } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Circle';
 import ImagePicker from 'react-native-image-picker';
 import COLORS from '../../constants/colors';
 import { updateImage } from '../../entities/user/actions';
-import Image from 'react-native-image-progress';
-import ProgressBar from 'react-native-progress/Circle';
 
-export default ({ size, uri, name, edit }) => {
+const Avatar = ({ size, uri, name, edit }) => {
   const dispatch = useDispatch();
   const sizeImage = size || 50;
 
@@ -88,3 +88,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default Avatar;

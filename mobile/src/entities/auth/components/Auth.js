@@ -7,7 +7,7 @@ import TabBarNavigation from '../../../TabBarNavigation';
 import COLORS from '../../../constants/colors';
 import { checkUserInfo } from '../actions';
 
-export default () => {
+const Auth = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ auth }) => auth.isLoading);
   const currentUser = useSelector(({ auth }) => auth.currentUser);
@@ -27,3 +27,5 @@ export default () => {
     </>
   );
 };
+
+export default Auth;

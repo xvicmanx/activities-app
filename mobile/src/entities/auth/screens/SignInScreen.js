@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import logoImage from '../../../assets/images/logo.png';
 import Email from '../components/Email';
 import Password from '../components/Password';
 import Button from '../../../common/components/Button';
 import { loginUser } from '../actions';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default () => {
+const SignInScreen = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ loginForm }) => loginForm.isLoading);
   const passwordRef = useRef();
@@ -55,3 +55,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
+
+export default SignInScreen;

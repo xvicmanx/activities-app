@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import COLORS from '../../../constants/colors';
 
-export default () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>No hay actividades por el momento</Text>
-  </View>
-);
+const NoActivity = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>No hay actividades por el momento</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +27,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 17,
     color: '#fff',
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });
+
+export default NoActivity;

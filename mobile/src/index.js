@@ -4,10 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
 import Auth from './entities/auth/components/Auth';
 
-export default () => (
-  <Provider store={store}>
-    <NavigationContainer>
-      <Auth />
-    </NavigationContainer>
-  </Provider>
-);
+const index = () => {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Auth />
+      </NavigationContainer>
+    </Provider>
+  );
+};
+
+export default index;

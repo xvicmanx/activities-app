@@ -1,14 +1,16 @@
 import React from 'react';
-import { ListItem } from 'react-native-elements';
+import { ListItem as ListItemRNE } from 'react-native-elements';
 import Avatar from './Avatar';
 
-export default ({ item, onPress }) => (
-  <ListItem bottomDivider onPress={onPress}>
+const ListItem = ({ item, onPress }) => (
+  <ListItemRNE bottomDivider onPress={onPress}>
     {item.profileURL && <Avatar uri={item.profileURL} />}
-    <ListItem.Content>
-      <ListItem.Title>{item.name}</ListItem.Title>
-      {item.slogan && <ListItem.Subtitle>{item.slogan}</ListItem.Subtitle>}
-    </ListItem.Content>
-    <ListItem.Chevron />
-  </ListItem>
+    <ListItemRNE.Content>
+      <ListItemRNE.Title>{item.name}</ListItemRNE.Title>
+      {item.slogan && <ListItemRNE.Subtitle>{item.slogan}</ListItemRNE.Subtitle>}
+    </ListItemRNE.Content>
+    <ListItemRNE.Chevron />
+  </ListItemRNE>
 );
+
+export default ListItem;
