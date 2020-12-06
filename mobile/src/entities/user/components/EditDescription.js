@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, Dimensions } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Icon, Overlay, Text } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Button from '../../../common/components/Button';
 import COLORS from '../../../constants/colors';
 import { updateDescription } from '../actions';
+const { width } = Dimensions.get('window');
 
 const EditDescription = ({ description, close }) => {
   const dispatch = useDispatch();
@@ -24,41 +24,39 @@ const EditDescription = ({ description, close }) => {
   );
 
   return (
-    <KeyboardAwareScrollView>
-      <Overlay isVisible={true} onBackdropPress={close}>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.title} h4>
-              Editar Description
-            </Text>
-            {pencilIcon}
-          </View>
-
-          <TextInput
-            value={value}
-            style={styles.input}
-            multiline
-            onChangeText={setValue}
-            textAlignVertical="top"
-          />
-
-          <View style={styles.footer}>
-            <Button danger small onPress={cancel}>
-              Cancelar
-            </Button>
-            <Button loading={isLoading} small style={{ marginLeft: 10 }} onPress={submit}>
-              Cambiar
-            </Button>
-          </View>
+    <Overlay isVisible={true} onBackdropPress={close}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title} h4>
+            Editar Description
+          </Text>
+          {pencilIcon}
         </View>
-      </Overlay>
-    </KeyboardAwareScrollView>
+
+        <TextInput
+          value={value}
+          style={styles.input}
+          multiline
+          onChangeText={setValue}
+          textAlignVertical="top"
+        />
+
+        <View style={styles.footer}>
+          <Button danger small onPress={cancel}>
+            Cancelar
+          </Button>
+          <Button loading={isLoading} small style={{ marginLeft: 10 }} onPress={submit}>
+            Cambiar
+          </Button>
+        </View>
+      </View>
+    </Overlay>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: 300,
+    width: width - width / 10,
     padding: 15,
   },
   header: {

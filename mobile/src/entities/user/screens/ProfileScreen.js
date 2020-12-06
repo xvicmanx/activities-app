@@ -35,8 +35,14 @@ const ProfileScreen = () => {
     <>
       <ScrollView style={styles.container}>
         <Avatar name={currentUser.name} />
-
-        <Text style={styles.description}>{currentUser.description}</Text>
+        {currentUser.description?.length === 0 ? (
+          <Text style={styles.noDescription}>
+            "Presiona <Text style={styles.span}>Editar Descripción</Text> para agregar una
+            descripcion tuya"
+          </Text>
+        ) : (
+          <Text style={styles.description}>{currentUser.description}</Text>
+        )}
 
         <Button
           icon={pencilIcon}
@@ -82,11 +88,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 15,
   },
-
   description: {
     fontSize: 20,
     marginBottom: 40,
     color: COLORS.text,
+  },
+  noDescription: {
+    fontSize: 20,
+    marginBottom: 40,
+    color: COLORS.text,
+    textAlign: 'center',
+  },
+  span: {
+    fontSize: 20,
+    marginBottom: 40,
+    color: COLORS.text,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   lineBreak: {
     height: 15,
