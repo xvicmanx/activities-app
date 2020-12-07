@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage renders properly 1`] = `
+<div
+  className="HomePage"
+>
+  <Heading
+    className="HomePage__Title"
+    heading={false}
+    renderAs="h1"
+    spaced={false}
+    subtitle={false}
+  >
+    <Image
+      alt="home"
+      className="Title-Icon"
+      fallback="https://bulma.io/images/placeholders/480x480.png"
+      rounded={false}
+      src="front.svg"
+    />
+     Inicio
+  </Heading>
+  <div
+    className="HomePage__Content"
+  >
+    <div>
+      <Message
+        color="info"
+        renderAs="article"
+      >
+        <MessageBody
+          renderAs="div"
+        >
+          Bienvenido!
+        </MessageBody>
+      </Message>
+    </div>
+  </div>
+</div>
+`;
