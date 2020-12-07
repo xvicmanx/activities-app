@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import CRUDTable, { CreateForm, Fields, Field } from 'react-crud-table';
 
-import { readTokenFromCookie } from '../../../users/redux/UsersActions';
+import { readToken } from '../../../users/redux/UsersActions';
 import { addMember } from '../../redux/CommunitiesActions';
 import { CoordinatesSelectRenderer, MembersSelectRenderer } from './renderers';
 import { addMemberFormValidator } from './validators';
@@ -20,7 +20,7 @@ const CommunityMembersTable = ({
   members,
 }: Props): React$Element<any> => {
   const dispatch = useDispatch();
-  const token = readTokenFromCookie();
+  const token = readToken();
   return (
     <CRUDTable caption="Miembros" items={members}>
       <Fields>

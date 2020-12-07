@@ -2,7 +2,7 @@
 
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
-import { readTokenFromCookie } from '../../../users/redux/UsersActions';
+import { readToken } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
 const Controller = {
@@ -10,7 +10,7 @@ const Controller = {
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
     const response = await CommunitiesService.fetchCommunities(
-      readTokenFromCookie(),
+      readToken(),
       encode(options)
     );
     return {
@@ -22,7 +22,7 @@ const Controller = {
     try {
       const result = await CommunitiesService.createCommunity(
         community,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {
@@ -36,7 +36,7 @@ const Controller = {
     try {
       const result = await CommunitiesService.updateCommunity(
         community,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {
@@ -50,7 +50,7 @@ const Controller = {
     try {
       const result = await CommunitiesService.deleteCommunity(
         community.id,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {

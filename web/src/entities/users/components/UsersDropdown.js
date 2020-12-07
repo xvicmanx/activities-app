@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchUsers, readTokenFromCookie } from '../redux/UsersActions';
+import { fetchUsers, readToken } from '../redux/UsersActions';
 
 import { DropDown, LoadingIndicator } from '../../../core/components';
 
@@ -20,7 +20,7 @@ const UsersDropdown = ({
 }: Props): React$Element<any> => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const token = readTokenFromCookie();
+  const token = readToken();
 
   useEffect(() => {
     dispatch(fetchUsers(token));

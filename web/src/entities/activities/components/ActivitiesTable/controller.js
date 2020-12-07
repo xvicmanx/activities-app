@@ -1,6 +1,6 @@
 // @flow
 
-import { readTokenFromCookie } from '../../../users/redux/UsersActions';
+import { readToken } from '../../../users/redux/UsersActions';
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
 import ActivitiesService from '../../services/ActivitiesService';
@@ -10,7 +10,7 @@ const Controller = {
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
     const response = await ActivitiesService.fetchActivities(
-      readTokenFromCookie(),
+      readToken(),
       encode(options)
     );
     return {
@@ -22,7 +22,7 @@ const Controller = {
     try {
       const result = await ActivitiesService.createActivity(
         activity,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {
@@ -36,7 +36,7 @@ const Controller = {
     try {
       const result = await ActivitiesService.updateActivity(
         activity,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {
@@ -50,7 +50,7 @@ const Controller = {
     try {
       const result = await ActivitiesService.deleteActivity(
         activity.id,
-        readTokenFromCookie()
+        readToken()
       );
       return result;
     } catch (error) {

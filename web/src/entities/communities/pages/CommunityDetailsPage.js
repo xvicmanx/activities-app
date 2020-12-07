@@ -5,7 +5,7 @@ import { Breadcrumb } from 'react-bulma-components';
 import { Link, useParams } from 'react-router-dom';
 
 import { fetchCommunity } from '../redux/CommunitiesActions';
-import { readTokenFromCookie } from '../../users/redux/UsersActions';
+import { readToken } from '../../users/redux/UsersActions';
 import { LoadingIndicator, Page } from '../../../core/components';
 import CommunityMembersTable from '../components/CommunityMembersTable';
 
@@ -13,7 +13,7 @@ const CommunityDetailsPage = () => {
   const { id } = useParams();
   const { Communities } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const token = readTokenFromCookie();
+  const token = readToken();
 
   useEffect(() => {
     dispatch(fetchCommunity(token, id));

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesTable helpers nameTableValueResolver returns the expected values 1`] = `
+<ForwardRef
+  to="/communities/1"
+>
+  John
+</ForwardRef>
+`;

@@ -18,7 +18,7 @@ export const clearToken = () => {
   cookies.erase('jwt');
 };
 
-export const readTokenFromCookie = () => cookies.get('jwt');
+export const readToken = () => cookies.get('jwt');
 
 export const loadUserFromToken = ({ token, shouldLoadToken }) => async (
   dispatch
@@ -63,7 +63,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
   const res = await UsersService.loginUser(email, password);
 
-  if (res && res.success) {
+  if (res.success) {
     storeToken(res.token);
     dispatch({
       type: SET_CURRENT_USER,
@@ -72,7 +72,7 @@ export const loginUser = (email, password) => async (dispatch) => {
   } else {
     dispatch({
       type: SET_USER_ERROR,
-      payload: res ? res.message : 'Error',
+      payload: res.message,
     });
   }
 
