@@ -4,22 +4,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import CRUDTable, { CreateForm, Fields, Field } from 'react-crud-table';
 
-import { readTokenFromCookie } from '../../users/redux/UsersActions';
-import { addMember } from '../redux/CommunitiesActions';
-import UsersDropdown from '../../users/components/UsersDropdown';
-import BooleanDropdown from './BooleanDropdown';
+import { readTokenFromCookie } from '../../../users/redux/UsersActions';
+import { addMember } from '../../redux/CommunitiesActions';
+import { CoordinatesSelectRenderer, MembersSelectRenderer } from './renderers';
+import { addMemberFormValidator } from './validators';
+import { coordinatesTableValueResolver } from './helpers';
 
-type RendererProps = {
-  field: Object,
-};
-
-const MembersSelectRenderer = ({ field }: RendererProps) => (
-  <UsersDropdown {...field} />
-);
-
-const CoordinatesSelectRenderer = ({ field }: RendererProps) => (
-  <BooleanDropdown {...field} />
-);
 
 type Props = {
   communityId: number,
@@ -52,7 +42,7 @@ const CommunityMembersTable = ({
         <Field
           name="coordinates"
           label="Coordinador?"
-          tableValueResolver={(item) => (item.coordinates ? 'Si' : 'No')}
+          tableValueResolver={coordinatesTableValueResolver}
           render={CoordinatesSelectRenderer}
           sortable={false}
         />
@@ -67,20 +57,7 @@ const CommunityMembersTable = ({
           )
         }
         submitText="Agregar"
-        validate={(values) => {
-          const errors = {};
-
-          if (!values.memberId) {
-            errors.memberId = 'Por favor, seleccione miembro';
-          }
-
-          if (members.map((x) => x.id).includes(values.memberId)) {
-            errors.memberId =
-              'El miembro seleccionado ya existe en la comunidad';
-          }
-
-          return errors;
-        }}
+        validate={addMemberFormValidator}
       />
     </CRUDTable>
   );
