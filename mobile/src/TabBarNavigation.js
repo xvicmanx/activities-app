@@ -31,8 +31,6 @@ const TabBarNavigation = () => {
         inactiveTintColor: 'gray',
         showLabel: false,
       }}
-      initialRouteName="CommunityStack"
-      
     >
       <Tab.Screen name="ActivitiesStack" component={ActivitiesStack} />
       <Tab.Screen name="ProfileStack" component={ProfileStack} />
