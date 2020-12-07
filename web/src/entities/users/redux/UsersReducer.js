@@ -7,7 +7,7 @@ import {
   SET_USERS,
 } from './UsersActionTypes';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   data: null,
   users: null,
   loading: false,

@@ -57,7 +57,7 @@ const CommunityMembersTable = ({
           )
         }
         submitText="Agregar"
-        validate={addMemberFormValidator}
+        validate={addMemberFormValidator(members)}
       />
     </CRUDTable>
   );
