@@ -16,8 +16,8 @@ exports[`LoadingIndicator renders properly 1`] = `
     }
   }
 >
-  <div
-    className="loader"
+  <Loader
+    renderAs="div"
     style={
       Object {
         "border": "3px solid #5caaf6",

@@ -3,5 +3,7 @@
 exports[`ErrorMessage renders properly 1`] = `
 <div
   className="ErrorMessage"
-/>
+>
+  Error!
+</div>
 `;

@@ -1,17 +1,17 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 import Page from './Page';
 
 describe('Page', () => {
   it('renders properly', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(
       <Page title="Test title" icon={faBuilding}>
         Hello!
       </Page>
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 });

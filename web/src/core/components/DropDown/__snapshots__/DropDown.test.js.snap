@@ -1,65 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropDown renders properly 1`] = `
-<div
-  className="dropdown"
+<Dropdown
+  closeOnSelect={true}
+  onChange={[Function]}
+  renderAs="div"
+  value={1}
 >
-  <div
-    className="dropdown-trigger"
-    onClick={[Function]}
-    role="presentation"
+  <DropdownItem
+    active={false}
+    value={0}
   >
-    <button
-      className="button"
-      disabled={false}
-      onClick={[Function]}
-      tabIndex={0}
-    >
-      <span>
-        first
-      </span>
-      <span
-        className="icon is-small"
-      >
-        <i
-          className="rbc rbc-angle-down"
-        />
-      </span>
-    </button>
-  </div>
-  <div
-    className="dropdown-menu"
-    id="dropdown-menu"
-    role="menu"
+    Please select
+  </DropdownItem>
+  <DropdownItem
+    active={false}
+    value={1}
   >
-    <div
-      className="dropdown-content"
-    >
-      <div
-        className="dropdown-item"
-        onClick={[Function]}
-        role="presentation"
-        title={0}
-      >
-        Please select
-      </div>
-      <div
-        className="dropdown-item is-active"
-        onClick={[Function]}
-        role="presentation"
-        title={1}
-      >
-        first
-      </div>
-      <div
-        className="dropdown-item"
-        onClick={[Function]}
-        role="presentation"
-        title={2}
-      >
-        second
-      </div>
-    </div>
-  </div>
-</div>
+    first
+  </DropdownItem>
+  <DropdownItem
+    active={false}
+    value={2}
+  >
+    second
+  </DropdownItem>
+</Dropdown>
+`;
+
+exports[`DropDown renders properly if props are not passed 1`] = `
+<Dropdown
+  closeOnSelect={true}
+  onChange={[Function]}
+  renderAs="div"
+>
+  <DropdownItem
+    active={false}
+    value={0}
+  />
+</Dropdown>
 `;

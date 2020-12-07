@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import DropDown from './DropDown';
@@ -26,12 +26,18 @@ describe('DropDown', () => {
   };
 
   it('renders properly', () => {
-    const component = renderer.create(<DropDown
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(<DropDown
       {...props}
       onChange={() => {}}
     />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
+  });
+
+  it('renders properly if props are not passed', () => {
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(<DropDown />);
+    expect(result).toMatchSnapshot();
   });
 
   it('calls the onChange handler when dropdown value changes', () => {
@@ -40,7 +46,7 @@ describe('DropDown', () => {
       target: { name: 'test-drop', value: 2 },
     };
     const component = Enzyme.mount(<DropDown {...props} onChange={onChangeMock} />);
-    component.find('.dropdown-item').at(4).simulate('click');
+    component.find('DropdownItem').at(2).simulate('click');
     expect(onChangeMock).toBeCalledWith(expect.objectContaining({
       target: event.target,
     }));

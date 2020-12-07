@@ -1,12 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button renders properly 1`] = `
-<button
-  className="test button"
+<Button
+  className="test"
   disabled={false}
+  fullwidth={false}
+  inverted={false}
+  isSelected={false}
+  isStatic={false}
+  loading={false}
   onClick={[Function]}
-  tabIndex={0}
+  outlined={false}
+  remove={false}
+  renderAs="button"
+  reset={false}
+  rounded={false}
+  submit={false}
+  text={false}
 >
   Hello
-</button>
+</Button>
 `;
