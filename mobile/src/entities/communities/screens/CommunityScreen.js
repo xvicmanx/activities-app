@@ -1,91 +1,95 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, ListItem } from '../../../common/components';
-import { COLORS } from '../../../constants';
+import Loader from '../../../common/components/Loader';
+import ListItem from '../../../common/components/ListItem';
+import COLORS from '../../../constants/colors';
 import { fetchCommunityById } from '../actions';
 
 const CommunityScreen = ({ route, navigation }) => {
-  const dispatch = useDispatch();
-  const community = useSelector((s) => s.communities.community);
-  const currentUser = useSelector((s) => s.auth.currentUser);
   const { id, name } = route.params;
+  const dispatch = useDispatch();
+  const community = useSelector(({ communities }) => communities.communities.entities[id]);
+  const members = useSelector(({ communities }) => communities.members);
+  const coordinators = useSelector(({ communities }) => communities.coordinators);
+  const isLoading = useSelector(({ communities }) => communities.isLoading);
 
   useEffect(() => {
-    dispatch(fetchCommunityById(id, currentUser.data.token));
+    dispatch(fetchCommunityById(id));
   }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: name });
   });
 
-  if (community.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  const coordinates = community.data.members?.filter((member) => {
-    return member.coordinates;
-  });
+  //TODO: seguir aqui
+  console.log({ community, members, coordinators });
 
-  const members = community.data.members?.filter((member) => {
-    return !member.coordinates;
-  });
+  // const coordinates = community.data.members?.filter((member) => {
+  //   return member.coordinates;
+  // });
 
-  return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.communitySlogan}>{community.data.slogan}</Text>
+  return <Text>klk</Text>;
 
-      {coordinates.length > 0 && (
-        <>
-          <Text style={styles.label}>Coordinadores:</Text>
+  // return (
+  //   <ScrollView style={styles.container}>
+  //     <Text style={styles.communitySlogan}>{community.data.slogan}</Text>
 
-          {coordinates.map((member) => {
-            if (member.coordinates) {
-              return (
-                <ListItem
-                  bottomDivider
-                  key={member.id}
-                  item={member}
-                  onPress={() => {
-                    navigation.navigate('SpecificUserScreen', {
-                      id: member.id,
-                      name: member.name,
-                    });
-                  }}
-                />
-              );
-            }
-          })}
-        </>
-      )}
+  //     {coordinates.length > 0 && (
+  //       <>
+  //         <Text style={styles.label}>Coordinadores:</Text>
 
-      {members.length > 0 && (
-        <>
-          <Text style={styles.label}>Miembros:</Text>
+  //         {coordinates.map((member) => {
+  //           if (member.coordinates) {
+  //             return (
+  //               <ListItem
+  //                 bottomDivider
+  //                 key={member.id}
+  //                 item={member}
+  //                 onPress={() => {
+  //                   navigation.navigate('SpecificUserScreen', {
+  //                     id: member.id,
+  //                     name: member.name,
+  //                   });
+  //                 }}
+  //               />
+  //             );
+  //           }
+  //         })}
+  //       </>
+  //     )}
 
-          {members.map((member) => {
-            if (!member.coordinates) {
-              return (
-                <ListItem
-                  bottomDivider
-                  key={member.id}
-                  item={member}
-                  onPress={() => {
-                    navigation.navigate('SpecificUserScreen', {
-                      id: member.id,
-                      name: member.name,
-                    });
-                  }}
-                />
-              );
-            }
-          })}
-        </>
-      )}
+  //     {members.length > 0 && (
+  //       <>
+  //         <Text style={styles.label}>Miembros:</Text>
 
-      <View style={styles.scrollBottomHeight} />
-    </ScrollView>
-  );
+  //         {members.map((member) => {
+  //           if (!member.coordinates) {
+  //             return (
+  //               <ListItem
+  //                 bottomDivider
+  //                 key={member.id}
+  //                 item={member}
+  //                 onPress={() => {
+  //                   navigation.navigate('SpecificUserScreen', {
+  //                     id: member.id,
+  //                     name: member.name,
+  //                   });
+  //                 }}
+  //               />
+  //             );
+  //           }
+  //         })}
+  //       </>
+  //     )}
+
+  //     <View style={styles.scrollBottomHeight} />
+  //   </ScrollView>
+  // );
 };
 
 const styles = StyleSheet.create({

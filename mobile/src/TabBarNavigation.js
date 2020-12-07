@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import COLORS from './constants/colors';
 import ActivitiesStack from './entities/activities/ActivitiesStack';
 import ProfileStack from './entities/user/ProfileStack';
-// import CommunityStack from './entities/communities/CommunityStack';
+import CommunityStack from './entities/communities/CommunityStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,24 +29,14 @@ const TabBarNavigation = () => {
       tabBarOptions={{
         activeTintColor: COLORS.primary,
         inactiveTintColor: 'gray',
+        showLabel: false,
       }}
-      initialRouteName="ActivitiesStack"
+      initialRouteName="CommunityStack"
+      
     >
-      <Tab.Screen
-        name="ActivitiesStack"
-        options={{ title: 'Actividades' }}
-        component={ActivitiesStack}
-      />
-
-      <Tab.Screen name="ProfileStack" options={{ title: 'Perfil' }} component={ProfileStack} />
-
-      {/* 
-      <Tab.Screen
-        name="CommunityStack"
-        options={{ title: 'Comunidades' }}
-        component={CommunityStack}
-      /> 
-      */}
+      <Tab.Screen name="ActivitiesStack" component={ActivitiesStack} />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} />
+      <Tab.Screen name="CommunityStack" component={CommunityStack} />
     </Tab.Navigator>
   );
 };

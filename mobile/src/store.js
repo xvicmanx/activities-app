@@ -7,6 +7,7 @@ import participants from './entities/activities/participants.slice';
 import descriptionForm from './entities/user/descriptionForm.slice';
 import othersProfile from './entities/user/othersProfile.slice';
 import changePasswordForm from './entities/user/changePasswordForm.slice';
+import communities from './entities/communities/communities.slice';
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     othersProfile: othersProfile.reducer,
     descriptionForm: descriptionForm.reducer,
     changePasswordForm: changePasswordForm.reducer,
+    communities: communities.reducer,
   },
 });
 
