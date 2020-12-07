@@ -64,4 +64,4 @@ To setup the project follow the instructions:
 |-------------|-------------|
 
 ## License
-Activities App is open source software licensed as MIT.
+Activities App is open source software licensed as [MIT](LICENSE.md)
