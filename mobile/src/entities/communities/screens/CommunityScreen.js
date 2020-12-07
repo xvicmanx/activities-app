@@ -30,7 +30,7 @@ const CommunityScreen = ({ route, navigation }) => {
     <ScrollView style={styles.container}>
       <Text style={styles.communitySlogan}>{community.slogan}</Text>
 
-      {coordinatorsList.length > 0 && <Text style={styles.label}>Miembros:</Text>}
+      {coordinatorsList.length > 0 && <Text style={styles.label}>Coordinadores:</Text>}
       {coordinatorsList.length > 0 && coordinatorsList.map((id) => <Member key={id} id={id} />)}
 
       {membersList.length > 0 && <Text style={styles.label}>Miembros:</Text>}
