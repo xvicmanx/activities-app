@@ -10,11 +10,10 @@ import CRUDTable, {
   Pagination,
 } from 'react-crud-table';
 
-import { DEFAULT_OPTIONS, DEFAULT_RESULT } from '../../../../core/helpers';
+import { DEFAULT_OPTIONS, DEFAULT_RESULT, throwErrorWhenNotSuccess } from '../../../../core/helpers';
 import { DescriptionRenderer, PasswordRenderer } from './renderers';
 import { createFormValidator, deleteFormValidator, updateFormValidator } from './validators';
 import Controller from './controller';
-import { throwErrorWhenNotSuccess } from './helpers';
 
 
 const UsersTable = (): React$Element<any> => {

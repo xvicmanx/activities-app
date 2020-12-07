@@ -10,7 +10,7 @@ import CRUDTable, {
   UpdateForm,
 } from 'react-crud-table';
 
-import { DEFAULT_OPTIONS, DEFAULT_RESULT } from '../../../../core/helpers';
+import { DEFAULT_OPTIONS, DEFAULT_RESULT, throwErrorWhenNotSuccess } from '../../../../core/helpers';
 
 import { createFormValidator, deleteFormValidator, updateFormValidator } from './validators';
 import { CommunitiesSelectRenderer, DescriptionRenderer } from './renderers';
@@ -71,7 +71,7 @@ const ActivitiesTable = (): React$Element<any> => {
         title="Crear actividad"
         message="Crear una nueva actividad"
         trigger="Crear actividad"
-        onSubmit={Controller.create}
+        onSubmit={throwErrorWhenNotSuccess(Controller.create)}
         submitText="Crear"
         validate={createFormValidator}
       />
@@ -79,7 +79,7 @@ const ActivitiesTable = (): React$Element<any> => {
         title="Actualizar actividad"
         message="Actualizar actividad"
         trigger="Actualizar"
-        onSubmit={Controller.update}
+        onSubmit={throwErrorWhenNotSuccess(Controller.update)}
         submitText="Actualizar"
         validate={updateFormValidator}
       />
@@ -87,7 +87,7 @@ const ActivitiesTable = (): React$Element<any> => {
         title="Eliminar actividad"
         message="Esta seguro que quiere eliminar la actividad?"
         trigger="Eliminar"
-        onSubmit={Controller.delete}
+        onSubmit={throwErrorWhenNotSuccess(Controller.delete)}
         submitText="Eliminar"
         validate={deleteFormValidator}
       />

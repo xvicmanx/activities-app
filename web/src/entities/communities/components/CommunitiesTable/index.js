@@ -10,7 +10,7 @@ import CRUDTable, {
   UpdateForm,
 } from 'react-crud-table';
 
-import { DEFAULT_OPTIONS, DEFAULT_RESULT } from '../../../../core/helpers';
+import { DEFAULT_OPTIONS, DEFAULT_RESULT, throwErrorWhenNotSuccess } from '../../../../core/helpers';
 import { createFormValidator, deleteFormValidator, updateFormValidator } from './validators';
 import { DescriptionRenderer } from './renderers';
 import Controller from './controller';
@@ -58,7 +58,7 @@ const CommunitiesTable = (): React$Element<any> => {
         title="Crear comunidad"
         message="Crear una nueva comunidad"
         trigger="Crear comunidad"
-        onSubmit={(task) => Controller.create(task)}
+        onSubmit={throwErrorWhenNotSuccess(Controller.create)}
         submitText="Crear"
         validate={createFormValidator}
       />
@@ -66,7 +66,7 @@ const CommunitiesTable = (): React$Element<any> => {
         title="Actualizar comunidad"
         message="Actualizar comunidad"
         trigger="Actualizar"
-        onSubmit={Controller.update}
+        onSubmit={throwErrorWhenNotSuccess(Controller.update)}
         submitText="Actualizar"
         validate={updateFormValidator}
       />
@@ -74,7 +74,7 @@ const CommunitiesTable = (): React$Element<any> => {
         title="Eliminar comunidad"
         message="Esta seguro que quiere eliminar la comunidad?"
         trigger="Eliminar"
-        onSubmit={Controller.delete}
+        onSubmit={throwErrorWhenNotSuccess(Controller.delete)}
         submitText="Eliminar"
         validate={deleteFormValidator}
       />

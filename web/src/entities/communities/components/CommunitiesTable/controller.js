@@ -16,12 +16,39 @@ const Controller = {
       total: response.total,
     };
   },
-  create: (community: Object): Promise<any> =>
-    CommunitiesService.createCommunity(community, readTokenFromCookie()),
-  update: (community: Object): Promise<any> =>
-    CommunitiesService.updateCommunity(community, readTokenFromCookie()),
-  delete: (community: Object): Promise<any> =>
-    CommunitiesService.deleteCommunity(community.id, readTokenFromCookie()),
+  create: async (community: Object): Promise<any> => {
+    try {
+      const result = await CommunitiesService.createCommunity(community, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  update: async (community: Object): Promise<any> => {
+    try {
+      const result = await CommunitiesService.updateCommunity(community, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  delete: async (community: Object): Promise<any> => {
+    try {
+      const result = await CommunitiesService.deleteCommunity(community.id, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
 };
 
 export default Controller;

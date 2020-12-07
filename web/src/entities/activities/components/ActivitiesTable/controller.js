@@ -17,12 +17,39 @@ const Controller = {
       total: response.total,
     };
   },
-  create: (activity: Object): Promise<any> =>
-    ActivitiesService.createActivity(activity, readTokenFromCookie()),
-  update: (activity: Object): Promise<any> =>
-    ActivitiesService.updateActivity(activity, readTokenFromCookie()),
-  delete: (activity: Object): Promise<any> =>
-    ActivitiesService.deleteActivity(activity.id, readTokenFromCookie()),
+  create: async (activity: Object): Promise<any> => {
+    try {
+      const result = await ActivitiesService.createActivity(activity, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  update: async (activity: Object): Promise<any> => {
+    try {
+      const result = await ActivitiesService.updateActivity(activity, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  },
+  delete: async (activity: Object): Promise<any> => {
+    try {
+      const result = await ActivitiesService.deleteActivity(activity.id, readTokenFromCookie());
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+  }
 };
 
 export default Controller;
