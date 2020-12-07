@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { Avatar as AvatarRNE, Text, Icon } from 'react-native-elements';
-import { useDispatch, useSelector } from 'react-redux';
+import { Text, Icon } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Circle';
 import ImagePicker from 'react-native-image-picker';
-import { COLORS } from '../../constants';
-import { uploadImage } from '../../entities/user/actions';
-import { HOST } from '@env';
+import COLORS from '../../constants/colors';
+import { updateImage } from '../../entities/user/actions';
 
-const Avatar = ({ size, img, name, edit }) => {
+const Avatar = ({ size, uri, name, edit }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const sizeImage = size || 50;
 
   const chooseImage = () => {
     const options = {
-      title: 'Elegir Una Imagen',
+      title: 'Elegir una imagen',
       takePhotoButtonTitle: null,
       chooseFromLibraryButtonTitle: 'Galeria',
       storageOptions: {
@@ -32,17 +33,20 @@ const Avatar = ({ size, img, name, edit }) => {
       } else if (response.customButton) {
         console.log(response.customButton);
       } else {
-        dispatch(uploadImage(response, currentUser.data.token));
+        dispatch(updateImage(response));
       }
     });
   };
 
   return (
     <View style={styles.container}>
-      <AvatarRNE
-        rounded
-        source={{ uri: img.replace('localhost', HOST) }}
-        size={size}
+      <Image
+        source={{ uri }}
+        indicator={ProgressBar}
+        style={{
+          width: sizeImage,
+          height: sizeImage,
+        }}
       />
 
       {edit && (
@@ -62,6 +66,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  overlayContainer: {
+    backgroundColor: COLORS.dark,
+    flex: 1,
   },
   text: {
     marginLeft: 10,

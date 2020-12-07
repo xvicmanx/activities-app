@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ProfileScreen from './ProfileScreen';
-import { COLORS } from '../../constants';
+import ProfileScreen from './screens/ProfileScreen';
+import COLORS from '../../constants/colors';
 
 const Stack = createStackNavigator();
 
@@ -14,11 +14,7 @@ const ProfileStack = () => {
         headerTintColor: '#fff',
       }}
     >
-      <Stack.Screen
-        name="ProfileScreen"
-        options={{ title: 'Perfil' }}
-        component={ProfileScreen}
-      />
+      <Stack.Screen name="ProfileScreen" options={{ title: 'Perfil' }} component={ProfileScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,42 +1,37 @@
 import React, { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, ListItem } from '../../../common/components';
-import { fetchParticipants } from '../actions';
+import Loader from '../../../common/components/Loader';
+import { fetchParticipants, setLoaderParticipants } from '../actions';
+import Participant from '../components/Participant';
 
-const ParticipantsScreen = ({ route, navigation }) => {
+const ParticipantsScreen = ({ route }) => {
   const dispatch = useDispatch();
-  const participants = useSelector((s) => s.activities.participants);
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const isLoading = useSelector(({ participants }) => participants.isLoading);
+  const list = useSelector(({ participants }) => participants.ids);
   const { activityId } = route.params;
 
   useEffect(() => {
-    dispatch(fetchParticipants(activityId, currentUser.data.token));
+    dispatch(fetchParticipants(activityId));
+
+    return () => {
+      dispatch(setLoaderParticipants(true));
+    };
   }, []);
 
-  if (participants.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
   const renderItem = ({ item }) => {
-    return (
-      <ListItem
-        item={item}
-        onPress={() => {
-          navigation.navigate('SpecificUserScreen', {
-            id: item.id,
-            name: item.name,
-          });
-        }}
-      />
-    );
+    return <Participant participantId={item} />;
   };
 
   return (
     <FlatList
       style={styles.flatlist}
-      keyExtractor={({ id }) => String(id)}
-      data={participants.list}
+      keyExtractor={(item) => String(item)}
+      data={list}
       renderItem={renderItem}
     />
   );

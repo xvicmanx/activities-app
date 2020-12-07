@@ -1,9 +1,7 @@
-const COLORS = {
+export default {
   primary: 'rgb(96, 174, 251)',
-  text: '#636363',
   danger: '#e74c3c',
+  success: '#2ecc71',
   dark: 'rgb(66, 66, 66)',
-  green: '#2ecc71',
+  text: '#636363',
 };
-
-export default COLORS;

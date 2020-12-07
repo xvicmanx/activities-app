@@ -1,8 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { CommunitiesScreen, CommunityScreen } from './screens';
-import { SpecificUserScreen } from '../auth/screens';
-import { COLORS } from '../../constants';
+import CommunitiesScreen from './screens/CommunitiesScreen';
+import CommunityScreen from './screens/CommunityScreen';
+import OthersProfile from '../user/screens/OthersProfile';
+import COLORS from '../../constants/colors';
 
 const Stack = createStackNavigator();
 
@@ -22,11 +23,10 @@ const CommunityStack = () => {
       />
       <Stack.Screen
         name="CommunityScreen"
-        options={{ title: 'Comunidades' }}
+        options={{ title: 'Comunidad' }}
         component={CommunityScreen}
       />
-
-      <Stack.Screen name="SpecificUserScreen" component={SpecificUserScreen} />
+      <Stack.Screen name="OthersProfile" component={OthersProfile} />
     </Stack.Navigator>
   );
 };

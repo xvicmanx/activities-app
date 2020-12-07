@@ -1,73 +1,82 @@
-import authSlice from './authSlice';
-import AuthService from './authService';
-import { ERRORS } from '../../constants';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthService from './auth.service';
+import ERRORS from '../../constants/errors';
+import REG_EXP from '../../constants/regExp';
 
-export const checkUserInfo = () => async (dispatch) => {
-  try {
-    const token = await AsyncStorage.getItem('userToken');
+export const onChange = createAction('auth/onChange');
 
-    if (!token) {
-      dispatch(authSlice.actions.setCurrentUser(null));
-      return;
-    }
+export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, thunkAPI) => {
+  const token = await AsyncStorage.getItem('userToken');
+  const email = await AsyncStorage.getItem('userEmail');
 
-    const res = await AuthService.checkUserInfo(token);
-
-    if (res.code === 'NOT_AUTHORIZED') {
-      dispatch(authSlice.actions.setCurrentUser(null));
-      return;
-    }
-
-    if (res.success) {
-      dispatch(
-        authSlice.actions.setCurrentUser({
-          exp: res.exp,
-          token: res.token,
-          ...res.user,
-        })
-      );
-    }
-  } catch (error) {
-    console.log(error);
+  if (!token) {
+    return thunkAPI.rejectWithValue({
+      net: false,
+      email,
+    });
   }
-};
 
-export const loginUser = (email, password) => async (dispatch) => {
-  dispatch(authSlice.actions.loginUserStarted());
+  const res = await AuthService.checkUserInfo(token);
 
-  try {
-    const res = await AuthService.loginUser(email, password);
-
-    if (res.code === 'INVALID_PARAMETERS') {
-      dispatch(authSlice.actions.setSigninErrors(ERRORS.email));
-      return;
-    }
-
-    if (res.success) {
-      await AsyncStorage.setItem('userToken', res.token);
-
-      dispatch(
-        authSlice.actions.setCurrentUser({
-          exp: res.exp,
-          token: res.token,
-          ...res.user,
-        })
-      );
-    }
-  } catch (error) {
-    console.log(error);
+  if (res.code === 'NOT_AUTHORIZED') {
+    return thunkAPI.rejectWithValue({
+      net: false,
+      email,
+    });
   }
-};
 
-export const fetUserById = (userId, token) => async (dispatch) => {
-  try {
-    const res = await AuthService.fetUserById(userId, token);
+  const user = {
+    exp: res.exp,
+    token: res.token,
+    ...res.user,
+  };
 
-    if (res.success) {
-      dispatch(authSlice.actions.setSpecificUser(res.user));
-    }
-  } catch (error) {
-    console.log(error);
+  if (res.success) {
+    return user;
   }
-};
+});
+
+export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) => {
+  const { email, password } = thunkAPI.getState().loginForm;
+
+  if (!email.value.match(REG_EXP.validEmail)) {
+    return thunkAPI.rejectWithValue({
+      name: 'email',
+      value: ERRORS.email.emailFormat,
+      net: false,
+    });
+  }
+
+  if (password.value.length < 6) {
+    return thunkAPI.rejectWithValue({
+      name: 'password',
+      value: ERRORS.password.lessThanSixCharacters,
+      net: false,
+    });
+  }
+
+  const res = await AuthService.loginUser(email.value, password.value);
+
+  if (res.code === 'INVALID_PARAMETERS') {
+    return thunkAPI.rejectWithValue({
+      name: 'password',
+      value: ERRORS.email.invalid,
+      clean: true,
+      net: false,
+    });
+  }
+
+  if (res.success) {
+    await AsyncStorage.setItem('userToken', res.token);
+    await AsyncStorage.setItem('userEmail', res.user.email);
+
+    const user = {
+      exp: res.exp,
+      token: res.token,
+      ...res.user,
+    };
+
+    return user;
+  }
+});

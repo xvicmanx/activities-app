@@ -1,9 +1,7 @@
 import { Platform } from 'react-native';
-import { LOCAL_HOST } from '@env';
+import { API } from '@env';
 
-const requester = async (data) => {
-  const { token, path, method, payload, image } = data;
-  const HOST = LOCAL_HOST;
+const requester = async ({ token, path, method, payload, image }) => {
   let headers = {};
 
   if (!image) {
@@ -26,7 +24,7 @@ const requester = async (data) => {
   }
 
   try {
-    const resData = await fetch(`${HOST}${path}`, requestOptions);
+    const resData = await fetch(`${API}${path}`, requestOptions);
     const res = await resData.json();
 
     return res;
@@ -41,8 +39,7 @@ const createFormData = (photo) => {
   data.append('file', {
     name: photo.fileName,
     type: photo.type,
-    uri:
-      Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+    uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
   });
 
   return data;

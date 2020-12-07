@@ -1,42 +1,37 @@
 import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../../../common/components/Loader';
+import Comunity from '../components/Comunity';
 import { fetchCommunities } from '../actions';
-import { Loader, ListItem } from '../../../common/components';
 
-const CommunitiesScreen = ({ navigation }) => {
+const CommunitiesScreen = () => {
   const dispatch = useDispatch();
-  const communities = useSelector((s) => s.communities.communities);
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const isLoading = useSelector(({ communities }) => communities.isLoading);
+  const list = useSelector(({ communities }) => communities.communities.ids);
 
   useEffect(() => {
-    dispatch(fetchCommunities(currentUser.data.token));
+    dispatch(fetchCommunities());
   }, []);
 
-  if (communities.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
   const renderItem = ({ item }) => {
-    return (
-      <ListItem
-        item={item}
-        onPress={() => {
-          navigation.navigate('CommunityScreen', {
-            id: item.id,
-            name: item.name,
-          });
-        }}
-      />
-    );
+    return <Comunity id={item} />;
+  };
+
+  const footer = () => {
+    return <View style={styles.ListFooterComponent} />;
   };
 
   return (
     <FlatList
-      data={communities.list}
+      data={list}
       renderItem={renderItem}
-      keyExtractor={({ id }) => String(id)}
-      ListFooterComponent={<View style={styles.ListFooterComponent} />}
+      keyExtractor={(id) => String(id)}
+      ListFooterComponent={footer()}
       style={styles.flatlist}
     />
   );

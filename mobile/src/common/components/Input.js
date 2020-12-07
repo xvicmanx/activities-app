@@ -1,25 +1,42 @@
 import React, { forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { Input as InputRNE } from 'react-native-elements';
-import { COLORS } from '../../constants';
+import COLORS from '../../constants/colors';
 
-const Input = forwardRef((props, ref) => {
-  const { iconName, error, onChange, disable, ...rest } = props;
-
-  return (
+const Input = forwardRef(
+  (
+    {
+      blurOnSubmit,
+      onSubmitEditing,
+      returnKeyType,
+      value,
+      iconName,
+      error,
+      onChange,
+      disabled,
+      secureTextEntry,
+      placeholder,
+    },
+    ref
+  ) => (
     <InputRNE
+      value={value}
       leftIcon={{ type: 'ionicon', name: iconName, color: COLORS.primary }}
       errorStyle={styles.error}
       errorMessage={error}
       onChangeText={onChange}
-      editable={!disable}
+      editable={!disabled}
       inputStyle={styles.input}
       inputContainerStyle={error && styles.inputContainerError}
+      secureTextEntry={secureTextEntry}
+      returnKeyType={returnKeyType}
+      onSubmitEditing={onSubmitEditing}
+      blurOnSubmit={blurOnSubmit}
+      placeholder={placeholder}
       ref={ref}
-      {...rest}
     />
-  );
-});
+  )
+);
 
 const styles = StyleSheet.create({
   error: {

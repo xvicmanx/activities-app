@@ -1,34 +1,35 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Loader } from '../../../common/components';
+import Loader from '../../../common/components/Loader';
+import Avatar from '../../../common/components/Avatar';
 import { fetUserById } from '../actions';
-import { COLORS } from '../../../constants';
+import COLORS from '../../../constants/colors';
 
-const SpecificUserScreen = ({ route, navigation }) => {
+const OthersProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const user = useSelector((s) => s.auth.specificUser);
-  const currentUser = useSelector((s) => s.auth.currentUser);
-  const { name, id } = route.params;
+  const isLoading = useSelector(({ othersProfile }) => othersProfile.isLoading);
+  const user = useSelector(({ othersProfile }) => othersProfile.entity);
+  const { userId, name } = route.params;
 
   useEffect(() => {
     navigation.setOptions({ title: name });
   });
 
   useEffect(() => {
-    dispatch(fetUserById(id, currentUser.data.token));
-  }, []);
+    dispatch(fetUserById(userId));
+  }, [userId]);
 
-  if (user.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Avatar img={user.data.profileURL} size="large" />
+        <Avatar uri={user.profileURL} size={190} />
       </View>
-      <Text style={styles.description}>{user.data.description}</Text>
+      <Text style={styles.description}>{user.description}</Text>
       <View style={styles.scrollBottomHeight} />
     </ScrollView>
   );
@@ -58,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpecificUserScreen;
+export default OthersProfile;

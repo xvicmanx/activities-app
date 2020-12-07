@@ -1,5 +1,9 @@
 import requester from '../../requester';
 
+const fetUserById = async (userId, token) => {
+  return await requester({ path: `/users/find/${userId}`, token });
+};
+
 const updatePassword = async (passwordsData, token) => {
   return await requester({
     path: `/users/change-password`,
@@ -36,4 +40,5 @@ export default {
   updatePassword,
   updateDescription,
   uploadImage,
+  fetUserById,
 };

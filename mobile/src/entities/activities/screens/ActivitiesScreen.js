@@ -1,43 +1,46 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { NoActivity, ActivityCard } from '../components';
-import { Loader } from '../../../common/components';
 import { useDispatch, useSelector } from 'react-redux';
+import NoActivity from '../components/NoActivity';
+import Activity from '../components/Activity';
+import Loader from '../../../common/components/Loader';
 import { fetchActivities } from '../actions';
 
 const ActivitiesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const activities = useSelector((s) => s.activities);
-  const currentUser = useSelector((s) => s.auth.currentUser);
+  const isLoading = useSelector(({ activities }) => activities.isLoading);
+  const list = useSelector(({ activities }) => activities.ids);
 
   useEffect(() => {
-    navigation.setOptions({ title: `Actividades (${activities.list.length})` });
-  }, [activities]);
+    navigation.setOptions({ title: `Actividades (${list.length})` });
+  }, [list]);
 
   useEffect(() => {
-    dispatch(fetchActivities(currentUser.data.token));
+    dispatch(fetchActivities());
   }, []);
 
-  if (activities.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
   const renderItem = ({ item }) => {
-    return <ActivityCard activity={item} />;
+    return <Activity activityId={item} />;
+  };
+
+  const renderFooter = () => {
+    return <View style={styles.ListFooterComponent} />;
   };
 
   return (
     <View style={styles.container}>
-      {activities.list.length === 0 ? (
-        <View style={styles.center}>
-          <NoActivity />
-        </View>
+      {list.length === 0 ? (
+        <NoActivity />
       ) : (
         <FlatList
-          data={activities.list}
+          data={list}
           renderItem={renderItem}
-          keyExtractor={(item) => String(item.id)}
-          ListFooterComponent={<View style={styles.ListFooterComponent} />}
+          keyExtractor={(item) => String(item)}
+          ListFooterComponent={renderFooter()}
         />
       )}
     </View>
@@ -48,11 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   ListFooterComponent: {
     height: 100,

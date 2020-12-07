@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import COLORS from '../../../constants/colors';
 
 const NoActivity = () => {
   return (
@@ -11,16 +12,22 @@ const NoActivity = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ccc',
+    backgroundColor: COLORS.primary,
     width: 300,
     paddingVertical: 20,
     paddingHorizontal: 25,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   text: {
     fontSize: 17,
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 

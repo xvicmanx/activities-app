@@ -1,87 +1,40 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, ListItem } from '../../../common/components';
-import { COLORS } from '../../../constants';
+import Loader from '../../../common/components/Loader';
+import Member from '../components/Member';
+import COLORS from '../../../constants/colors';
 import { fetchCommunityById } from '../actions';
 
 const CommunityScreen = ({ route, navigation }) => {
-  const dispatch = useDispatch();
-  const community = useSelector((s) => s.communities.community);
-  const currentUser = useSelector((s) => s.auth.currentUser);
   const { id, name } = route.params;
+  const dispatch = useDispatch();
+  const community = useSelector(({ communities }) => communities.communities.entities[id]);
+  const membersList = useSelector(({ communities }) => communities.members.ids);
+  const coordinatorsList = useSelector(({ communities }) => communities.coordinators.ids);
+  const isLoading = useSelector(({ communities }) => communities.isLoading);
 
   useEffect(() => {
-    dispatch(fetchCommunityById(id, currentUser.data.token));
+    dispatch(fetchCommunityById(id));
   }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: name });
   });
 
-  if (community.isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  const coordinates = community.data.members?.filter((member) => {
-    return member.coordinates;
-  });
-
-  const members = community.data.members?.filter((member) => {
-    return !member.coordinates;
-  });
-
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.communitySlogan}>{community.data.slogan}</Text>
+      <Text style={styles.communitySlogan}>{community.slogan}</Text>
 
-      {coordinates.length > 0 && (
-        <>
-          <Text style={styles.label}>Coordinadores:</Text>
+      {coordinatorsList.length > 0 && <Text style={styles.label}>Coordinadores:</Text>}
+      {coordinatorsList.length > 0 && coordinatorsList.map((id) => <Member key={id} id={id} />)}
 
-          {coordinates.map((member) => {
-            if (member.coordinates) {
-              return (
-                <ListItem
-                  bottomDivider
-                  key={member.id}
-                  item={member}
-                  onPress={() => {
-                    navigation.navigate('SpecificUserScreen', {
-                      id: member.id,
-                      name: member.name,
-                    });
-                  }}
-                />
-              );
-            }
-          })}
-        </>
-      )}
-
-      {members.length > 0 && (
-        <>
-          <Text style={styles.label}>Miembros:</Text>
-
-          {members.map((member) => {
-            if (!member.coordinates) {
-              return (
-                <ListItem
-                  bottomDivider
-                  key={member.id}
-                  item={member}
-                  onPress={() => {
-                    navigation.navigate('SpecificUserScreen', {
-                      id: member.id,
-                      name: member.name,
-                    });
-                  }}
-                />
-              );
-            }
-          })}
-        </>
-      )}
+      {membersList.length > 0 && <Text style={styles.label}>Miembros:</Text>}
+      {membersList.length > 0 && membersList.map((id) => <Member key={id} id={id} />)}
 
       <View style={styles.scrollBottomHeight} />
     </ScrollView>

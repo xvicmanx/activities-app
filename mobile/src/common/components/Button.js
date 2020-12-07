@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button as ButtonRNE } from 'react-native-elements';
-import { COLORS } from '../../constants';
+import COLORS from '../../constants/colors';
 
-const Button = ({ style, icon, danger, small, children, loading, ...rest }) => {
+const Button = ({ onPress, style, icon, danger, small, children, loading }) => {
   const smallStyles = small && styles.small;
   const dangerStyles = danger && styles.danger;
 
@@ -20,7 +20,7 @@ const Button = ({ style, icon, danger, small, children, loading, ...rest }) => {
       }}
       icon={icon && <View style={styles.iconContainer}>{icon}</View>}
       iconRight
-      {...rest}
+      onPress={onPress}
     />
   );
 };
