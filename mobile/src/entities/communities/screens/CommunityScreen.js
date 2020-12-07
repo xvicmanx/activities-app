@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../common/components/Loader';
-import ListItem from '../../../common/components/ListItem';
+import Member from '../components/Member';
 import COLORS from '../../../constants/colors';
 import { fetchCommunityById } from '../actions';
 
@@ -10,8 +10,8 @@ const CommunityScreen = ({ route, navigation }) => {
   const { id, name } = route.params;
   const dispatch = useDispatch();
   const community = useSelector(({ communities }) => communities.communities.entities[id]);
-  const members = useSelector(({ communities }) => communities.members);
-  const coordinators = useSelector(({ communities }) => communities.coordinators);
+  const membersList = useSelector(({ communities }) => communities.members.ids);
+  const coordinatorsList = useSelector(({ communities }) => communities.coordinators.ids);
   const isLoading = useSelector(({ communities }) => communities.isLoading);
 
   useEffect(() => {
@@ -26,70 +26,19 @@ const CommunityScreen = ({ route, navigation }) => {
     return <Loader />;
   }
 
-  //TODO: seguir aqui
-  console.log({ community, members, coordinators });
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.communitySlogan}>{community.slogan}</Text>
 
-  // const coordinates = community.data.members?.filter((member) => {
-  //   return member.coordinates;
-  // });
+      {coordinatorsList.length > 0 && <Text style={styles.label}>Miembros:</Text>}
+      {coordinatorsList.length > 0 && coordinatorsList.map((id) => <Member key={id} id={id} />)}
 
-  return <Text>klk</Text>;
+      {membersList.length > 0 && <Text style={styles.label}>Miembros:</Text>}
+      {membersList.length > 0 && membersList.map((id) => <Member key={id} id={id} />)}
 
-  // return (
-  //   <ScrollView style={styles.container}>
-  //     <Text style={styles.communitySlogan}>{community.data.slogan}</Text>
-
-  //     {coordinates.length > 0 && (
-  //       <>
-  //         <Text style={styles.label}>Coordinadores:</Text>
-
-  //         {coordinates.map((member) => {
-  //           if (member.coordinates) {
-  //             return (
-  //               <ListItem
-  //                 bottomDivider
-  //                 key={member.id}
-  //                 item={member}
-  //                 onPress={() => {
-  //                   navigation.navigate('SpecificUserScreen', {
-  //                     id: member.id,
-  //                     name: member.name,
-  //                   });
-  //                 }}
-  //               />
-  //             );
-  //           }
-  //         })}
-  //       </>
-  //     )}
-
-  //     {members.length > 0 && (
-  //       <>
-  //         <Text style={styles.label}>Miembros:</Text>
-
-  //         {members.map((member) => {
-  //           if (!member.coordinates) {
-  //             return (
-  //               <ListItem
-  //                 bottomDivider
-  //                 key={member.id}
-  //                 item={member}
-  //                 onPress={() => {
-  //                   navigation.navigate('SpecificUserScreen', {
-  //                     id: member.id,
-  //                     name: member.name,
-  //                   });
-  //                 }}
-  //               />
-  //             );
-  //           }
-  //         })}
-  //       </>
-  //     )}
-
-  //     <View style={styles.scrollBottomHeight} />
-  //   </ScrollView>
-  // );
+      <View style={styles.scrollBottomHeight} />
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

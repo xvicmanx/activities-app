@@ -31,7 +31,6 @@ const communitiesSlice = createSlice({
         const { comunity, members, coordinators } = payload;
         state.members.entities = members;
         state.members.ids = comunity.members;
-        state.communities.entities[comunity.id].members = comunity.members;
         state.coordinators.entities = coordinators.entities;
         state.coordinators.ids = coordinators.ids;
       });
