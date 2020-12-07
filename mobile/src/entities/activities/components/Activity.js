@@ -66,7 +66,7 @@ const Activity = ({ activityId }) => {
 
         <TouchableNativeFeedback onPress={seeWhoGoes}>
           <View style={styles.whoGoesContainer}>
-            <Text style={styles.whoGoesText}>Van</Text>
+            <Text style={styles.whoGoesText}>Ver</Text>
             <Icon type="font-awesome-5" name="users" size={15} color={COLORS.primary} />
             <Text style={styles.whoGoesCounter}>({activity.willAttendCount})</Text>
           </View>
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 0,
     marginTop: 0,
+    paddingHorizontal: 25
   },
   titleContainer: {
     flexDirection: 'row',
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontSize: 22,
+    fontSize: 18,
     marginBottom: 0,
     marginRight: 5,
   },
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: '#43484d',
     fontWeight: 'bold',
-    fontSize: 13,
+    fontSize: 11,
   },
   whoGoesContainer: {
     flexDirection: 'row',
