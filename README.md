@@ -10,6 +10,7 @@ An application for communities to create activities and get together.
 * [Setup](#setup)
 * [Contributing](#contributing)
 * [Contributors](#contributors)
+* [License](#license)
 
 
 ## Features
@@ -61,3 +62,6 @@ To setup the project follow the instructions:
 
 |<img src="https://avatars0.githubusercontent.com/u/7307503?s=100&v=4"> <br/>[Victor Trejo](https://github.com/xvicmanx) | <img src="https://avatars1.githubusercontent.com/u/61056785?s=100&v=4"> <br/>[Dayri Garcia](https://github.com/dayrimax91) |
 |-------------|-------------|
+
+## License
+Activities App is open source software licensed as MIT.
