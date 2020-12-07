@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import { faUsers, faHome } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -14,7 +14,8 @@ const store = mockStore({
 
 describe('AppLayout', () => {
   it('renders properly', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(
       <Router>
         <Provider store={store}>
           <AppLayout
@@ -37,7 +38,6 @@ describe('AppLayout', () => {
         </Provider>
       </Router>
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 });

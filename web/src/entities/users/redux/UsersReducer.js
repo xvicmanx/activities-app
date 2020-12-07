@@ -7,14 +7,14 @@ import {
   SET_USERS,
 } from './UsersActionTypes';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   data: null,
   users: null,
   loading: false,
   error: null,
 };
 
-const UsersReducer = (state = INITIAL_STATE, { type, payload }) => {
+const UsersReducer = (state = INITIAL_STATE, { type, payload } = {}) => {
   switch (type) {
     case SET_USERS_LOADING_STATE:
       return {

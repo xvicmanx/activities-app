@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Label renders properly 1`] = `
-<span
-  className="tag"
+<Tag
+  remove={false}
+  renderAs="span"
+  rounded={false}
 >
   Test
-</span>
+</Tag>
 `;

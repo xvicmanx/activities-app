@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropDown renders properly 1`] = `
+<Dropdown
+  closeOnSelect={true}
+  onChange={[Function]}
+  renderAs="div"
+  value={1}
+>
+  <DropdownItem
+    active={false}
+    value={0}
+  >
+    Please select
+  </DropdownItem>
+  <DropdownItem
+    active={false}
+    value={1}
+  >
+    first
+  </DropdownItem>
+  <DropdownItem
+    active={false}
+    value={2}
+  >
+    second
+  </DropdownItem>
+</Dropdown>
+`;
+
+exports[`DropDown renders properly if props are not passed 1`] = `
+<Dropdown
+  closeOnSelect={true}
+  onChange={[Function]}
+  renderAs="div"
+>
+  <DropdownItem
+    active={false}
+    value={0}
+  />
+</Dropdown>
+`;

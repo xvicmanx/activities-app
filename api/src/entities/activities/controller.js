@@ -35,8 +35,6 @@ class ActivitiesController extends Controller {
     const { options } = asObject(request.query);
     const queryOptions = options ? JSON.parse(decode(options)) : {};
 
-    console.log(queryOptions);
-
     const result = await this.service.getActivities(queryOptions);
 
     response.json({

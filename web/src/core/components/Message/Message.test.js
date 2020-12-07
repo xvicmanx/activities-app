@@ -1,11 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import Message from './Message';
 
 describe('Message', () => {
   it('renders properly', () => {
-    const component = renderer.create(<Message>Hello my friend!</Message>);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(<Message>Hello my friend!</Message>);
+    expect(result).toMatchSnapshot();
   });
 });

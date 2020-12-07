@@ -36,7 +36,7 @@ const DropDown = ({
 
   return (
     <BulmaDropdown value={value} onChange={handleChange}>
-      <BulmaDropdown.Item>{placeholder}</BulmaDropdown.Item>
+      <BulmaDropdown.Item value={0}>{placeholder}</BulmaDropdown.Item>
       {(items || []).map((el) => {
         return (
           <BulmaDropdown.Item value={el.id} key={el.id}>

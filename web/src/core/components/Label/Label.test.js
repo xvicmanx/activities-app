@@ -1,11 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import Label from './Label';
 
 describe('Label', () => {
   it('renders properly', () => {
-    const component = renderer.create(<Label>Test</Label>);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const renderer = new ShallowRenderer();
+    const result = renderer.render(<Label>Test</Label>);
+    expect(result).toMatchSnapshot();
   });
 });
