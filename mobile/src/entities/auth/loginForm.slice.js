@@ -30,7 +30,9 @@ const loginFormSlice = createSlice({
         state.password.value = '';
       })
       .addCase(checkUserInfo.rejected, (state, { payload }) => {
-        state.email.value = payload.email;
+        if (payload.email) {
+          state.email.value = payload.email;
+        }
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         const { name, value, clean } = payload;

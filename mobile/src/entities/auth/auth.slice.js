@@ -28,7 +28,7 @@ const authSlice = createSlice({
           state.network.error = true;
           state.network.message = ERRORS.network;
         }
-        
+
         state.isLoading = false;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
