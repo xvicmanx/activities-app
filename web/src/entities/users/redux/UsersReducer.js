@@ -14,7 +14,7 @@ export const INITIAL_STATE = {
   error: null,
 };
 
-const UsersReducer = (state = INITIAL_STATE, { type, payload }) => {
+const UsersReducer = (state = INITIAL_STATE, { type, payload } = {}) => {
   switch (type) {
     case SET_USERS_LOADING_STATE:
       return {

@@ -8,7 +8,7 @@ import {
   ADD_MEMBER,
 } from './CommunitiesActionTypes';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   communities: null,
   community: null,
   member: null,
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const CommunitiesReducer = (state = INITIAL_STATE, { type, payload }) => {
+const CommunitiesReducer = (state = INITIAL_STATE, { type, payload } = {}) => {
   switch (type) {
     case SET_COMMUNITIES_LOADING_STATE:
       return {
