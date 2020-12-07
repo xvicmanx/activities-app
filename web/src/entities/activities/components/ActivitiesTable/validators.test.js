@@ -31,7 +31,9 @@ describe('ActivitiesTable validators', () => {
         communityId: 1,
         date: '10-01-2021 10:00',
       });
-      expect(errors).toEqual({ description: 'Por favor, provea una Descripción' });
+      expect(errors).toEqual({
+        description: 'Por favor, provea una Descripción',
+      });
     });
 
     it('does return error messages when communityId is missing', async () => {
@@ -40,7 +42,9 @@ describe('ActivitiesTable validators', () => {
         description: 'Come and join us',
         date: '10-01-2021 10:00',
       });
-      expect(errors).toEqual({ communityId: 'Por favor, seleccione una comunidad' });
+      expect(errors).toEqual({
+        communityId: 'Por favor, seleccione una comunidad',
+      });
     });
     it('does return error messages when date is missing', async () => {
       const errors = createFormValidator({
@@ -78,7 +82,9 @@ describe('ActivitiesTable validators', () => {
         title: 'Awesome party',
         date: '10-01-2021 10:00',
       });
-      expect(errors).toEqual({ description: 'Por favor, provea una Descripción' });
+      expect(errors).toEqual({
+        description: 'Por favor, provea una Descripción',
+      });
     });
 
     it('does return error messages when date is missing', async () => {

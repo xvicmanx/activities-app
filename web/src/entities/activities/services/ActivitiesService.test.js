@@ -17,9 +17,9 @@ describe('ActivitiesService', () => {
       const queryOptions = encode({ name: 'test' });
       const result = await ActivitiesService.fetchActivities(
         'test-token',
-        queryOptions,
+        queryOptions
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -45,9 +45,9 @@ describe('ActivitiesService', () => {
       const payload = { title: 'test' };
       const result = await ActivitiesService.createActivity(
         payload,
-        'test-token',
+        'test-token'
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -64,9 +64,9 @@ describe('ActivitiesService', () => {
       const payload = { id: 1, title: 'test' };
       const result = await ActivitiesService.updateActivity(
         payload,
-        'test-token',
+        'test-token'
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -80,11 +80,8 @@ describe('ActivitiesService', () => {
 
   describe('deleteActivity', () => {
     it('works as expected', async () => {
-      const result = await ActivitiesService.deleteActivity(
-        1,
-        'test-token',
-      );
-  
+      const result = await ActivitiesService.deleteActivity(1, 'test-token');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({

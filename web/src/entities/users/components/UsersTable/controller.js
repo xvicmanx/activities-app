@@ -5,9 +5,10 @@ import type { Options } from '../../../../core/helpers';
 import { readTokenFromCookie } from '../../redux/UsersActions';
 import UsersService from '../../services/UsersService';
 
-
 const Controller = {
-  fetchItems: async (options: Options): Promise<{items: any, total: any,...}> => {
+  fetchItems: async (
+    options: Options
+  ): Promise<{ items: any, total: any, ... }> => {
     const response = await UsersService.fetchUsers(
       readTokenFromCookie(),
       encode(options)
@@ -54,6 +55,5 @@ const Controller = {
     }
   },
 };
-
 
 export default Controller;

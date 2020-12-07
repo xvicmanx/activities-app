@@ -8,7 +8,6 @@ jest.mock('../../services/UsersService');
 import UsersService from '../../services/UsersService';
 import { readTokenFromCookie } from '../../redux/UsersActions';
 
-
 describe('UsersTable controller', () => {
   const users = [
     {
@@ -28,16 +27,24 @@ describe('UsersTable controller', () => {
     readTokenFromCookie.mockImplementation(() => 'test-token');
 
     UsersService.fetchUsers.mockClear();
-    UsersService.fetchUsers.mockImplementation(() => Promise.resolve({ users, total: users.length }));
-    
+    UsersService.fetchUsers.mockImplementation(() =>
+      Promise.resolve({ users, total: users.length })
+    );
+
     UsersService.createUser.mockClear();
-    UsersService.createUser.mockImplementation(() => Promise.resolve({ success: true }));
-    
+    UsersService.createUser.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
+
     UsersService.updateUser.mockClear();
-    UsersService.updateUser.mockImplementation(() => Promise.resolve({ success: true }));
+    UsersService.updateUser.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
 
     UsersService.deleteUser.mockClear();
-    UsersService.deleteUser.mockImplementation(() => Promise.resolve({ success: true }));
+    UsersService.deleteUser.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
   });
 
   describe('fetchItems', () => {
@@ -49,7 +56,7 @@ describe('UsersTable controller', () => {
       };
 
       const result = await Controller.fetchItems(options);
-  
+
       expect(result).toEqual({
         items: users,
         total: users.length,
@@ -57,7 +64,7 @@ describe('UsersTable controller', () => {
       expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
       expect(UsersService.fetchUsers).toHaveBeenCalledWith(
         'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=',
+        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
       );
     });
   });
@@ -73,10 +80,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(UsersService.createUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.createUser).toHaveBeenCalledWith(
-        user,
-        'test-token',
-      );
+      expect(UsersService.createUser).toHaveBeenCalledWith(user, 'test-token');
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -85,15 +89,14 @@ describe('UsersTable controller', () => {
         name: 'John',
       };
 
-      UsersService.createUser.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      UsersService.createUser.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.create(user);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.createUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.createUser).toHaveBeenCalledWith(
-        user,
-        'test-token',
-      );
+      expect(UsersService.createUser).toHaveBeenCalledWith(user, 'test-token');
     });
   });
 
@@ -108,10 +111,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(UsersService.updateUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.updateUser).toHaveBeenCalledWith(
-        user,
-        'test-token',
-      );
+      expect(UsersService.updateUser).toHaveBeenCalledWith(user, 'test-token');
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -120,15 +120,14 @@ describe('UsersTable controller', () => {
         name: 'John',
       };
 
-      UsersService.updateUser.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      UsersService.updateUser.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.update(user);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.updateUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.updateUser).toHaveBeenCalledWith(
-        user,
-        'test-token',
-      );
+      expect(UsersService.updateUser).toHaveBeenCalledWith(user, 'test-token');
     });
   });
 
@@ -145,7 +144,7 @@ describe('UsersTable controller', () => {
       expect(UsersService.deleteUser).toHaveBeenCalledTimes(1);
       expect(UsersService.deleteUser).toHaveBeenCalledWith(
         user.id,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -155,14 +154,16 @@ describe('UsersTable controller', () => {
         name: 'John',
       };
 
-      UsersService.deleteUser.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      UsersService.deleteUser.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.delete(user);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.deleteUser).toHaveBeenCalledTimes(1);
       expect(UsersService.deleteUser).toHaveBeenCalledWith(
         user.id,
-        'test-token',
+        'test-token'
       );
     });
   });

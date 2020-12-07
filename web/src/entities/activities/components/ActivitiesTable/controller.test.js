@@ -8,8 +8,6 @@ jest.mock('../../services/ActivitiesService');
 import { readTokenFromCookie } from '../../../users/redux/UsersActions';
 import ActivitiesService from '../../services/ActivitiesService';
 
-
-
 describe('ActivitiesTable controller', () => {
   const activities = [
     {
@@ -29,16 +27,24 @@ describe('ActivitiesTable controller', () => {
     readTokenFromCookie.mockImplementation(() => 'test-token');
 
     ActivitiesService.fetchActivities.mockClear();
-    ActivitiesService.fetchActivities.mockImplementation(() => Promise.resolve({ activities, total: activities.length }));
-    
+    ActivitiesService.fetchActivities.mockImplementation(() =>
+      Promise.resolve({ activities, total: activities.length })
+    );
+
     ActivitiesService.createActivity.mockClear();
-    ActivitiesService.createActivity.mockImplementation(() => Promise.resolve({ success: true }));
-    
+    ActivitiesService.createActivity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
+
     ActivitiesService.updateActivity.mockClear();
-    ActivitiesService.updateActivity.mockImplementation(() => Promise.resolve({ success: true }));
+    ActivitiesService.updateActivity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
 
     ActivitiesService.deleteActivity.mockClear();
-    ActivitiesService.deleteActivity.mockImplementation(() => Promise.resolve({ success: true }));
+    ActivitiesService.deleteActivity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
   });
 
   describe('fetchItems', () => {
@@ -50,7 +56,7 @@ describe('ActivitiesTable controller', () => {
       };
 
       const result = await Controller.fetchItems(options);
-  
+
       expect(result).toEqual({
         items: activities,
         total: activities.length,
@@ -58,7 +64,7 @@ describe('ActivitiesTable controller', () => {
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledWith(
         'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=',
+        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
       );
     });
   });
@@ -76,7 +82,7 @@ describe('ActivitiesTable controller', () => {
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
         activity,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -86,14 +92,16 @@ describe('ActivitiesTable controller', () => {
         title: 'Test activity',
       };
 
-      ActivitiesService.createActivity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      ActivitiesService.createActivity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.create(activity);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
         activity,
-        'test-token',
+        'test-token'
       );
     });
   });
@@ -111,7 +119,7 @@ describe('ActivitiesTable controller', () => {
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
         activity,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -121,14 +129,16 @@ describe('ActivitiesTable controller', () => {
         title: 'Test activity',
       };
 
-      ActivitiesService.updateActivity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      ActivitiesService.updateActivity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.update(activity);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
         activity,
-        'test-token',
+        'test-token'
       );
     });
   });
@@ -146,7 +156,7 @@ describe('ActivitiesTable controller', () => {
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
         activity.id,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -156,14 +166,16 @@ describe('ActivitiesTable controller', () => {
         title: 'Test activity',
       };
 
-      ActivitiesService.deleteActivity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      ActivitiesService.deleteActivity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.delete(activity);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
         activity.id,
-        'test-token',
+        'test-token'
       );
     });
   });

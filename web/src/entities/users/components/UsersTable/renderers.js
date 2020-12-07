@@ -3,7 +3,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-
 const styles = {
   copy: {
     backgroundColor: '#5caaf6',
@@ -21,11 +20,13 @@ type RendererProps = {
   },
 };
 
-export const DescriptionRenderer = ({ field }: RendererProps): React$Element<any> => (
-  <textarea {...field} />
-);
+export const DescriptionRenderer = ({
+  field,
+}: RendererProps): React$Element<any> => <textarea {...field} />;
 
-export const PasswordRenderer = ({ field }: RendererProps): React$Element<any> => (
+export const PasswordRenderer = ({
+  field,
+}: RendererProps): React$Element<any> => (
   <div>
     <input {...field} type="password" />
     <CopyToClipboard text={field.value}>

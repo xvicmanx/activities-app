@@ -1,27 +1,20 @@
-
 import CommunitiesReducer, { INITIAL_STATE } from './CommunitiesReducer';
 
 describe('CommunitiesReducer', () => {
   it('returns properly for the SET_COMMUNITIES_LOADING_STATE type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITIES_LOADING_STATE',
-        payload: true,
-      },
-    );
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITIES_LOADING_STATE',
+      payload: true,
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       loading: true,
     });
 
-    result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITIES_LOADING_STATE',
-        payload: false,
-      },
-    );
+    result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITIES_LOADING_STATE',
+      payload: false,
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       loading: false,
@@ -29,25 +22,19 @@ describe('CommunitiesReducer', () => {
   });
 
   it('returns properly for the SET_COMMUNITY_LOADING_STATE type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITY_LOADING_STATE',
-        payload: true,
-      },
-    );
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITY_LOADING_STATE',
+      payload: true,
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       loading: true,
     });
 
-    result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITY_LOADING_STATE',
-        payload: false,
-      },
-    );
+    result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITY_LOADING_STATE',
+      payload: false,
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       loading: false,
@@ -55,13 +42,10 @@ describe('CommunitiesReducer', () => {
   });
 
   it('returns properly for the SET_COMMUNITY_ERROR type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITY_ERROR',
-        payload: 'test-error',
-      },
-    );
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITY_ERROR',
+      payload: 'test-error',
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       error: 'test-error',
@@ -69,13 +53,10 @@ describe('CommunitiesReducer', () => {
   });
 
   it('returns properly for the SET_COMMUNITIES_ERROR type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITIES_ERROR',
-        payload: 'test-error',
-      },
-    );
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITIES_ERROR',
+      payload: 'test-error',
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       error: 'test-error',
@@ -83,36 +64,34 @@ describe('CommunitiesReducer', () => {
   });
 
   it('returns properly for the SET_COMMUNITIES type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITIES',
-        payload: [{
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITIES',
+      payload: [
+        {
           id: 1,
           name: 'Foo',
-        }],
-      },
-    );
+        },
+      ],
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
-      communities: [{
-        id: 1,
-        name: 'Foo',
-      }],
+      communities: [
+        {
+          id: 1,
+          name: 'Foo',
+        },
+      ],
     });
   });
 
   it('returns properly for the SET_COMMUNITY type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'SET_COMMUNITY',
-        payload: {
-          id: 1,
-          name: 'Foo',
-        },
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'SET_COMMUNITY',
+      payload: {
+        id: 1,
+        name: 'Foo',
       },
-    );
+    });
     expect(result).toEqual({
       ...INITIAL_STATE,
       community: {
@@ -137,28 +116,27 @@ describe('CommunitiesReducer', () => {
           id: 1,
           name: 'John',
         },
-      },
+      }
     );
     expect(result).toEqual({
       ...INITIAL_STATE,
       community: {
         id: 1,
         name: 'Foo',
-        members: [{
-          id: 1,
-          name: 'John',
-        }],
+        members: [
+          {
+            id: 1,
+            name: 'John',
+          },
+        ],
       },
     });
   });
 
   it('returns properly for an unknown a type', () => {
-    let result = CommunitiesReducer(
-      INITIAL_STATE,
-      {
-        type: 'UNKNOWN',
-      },
-    );
+    let result = CommunitiesReducer(INITIAL_STATE, {
+      type: 'UNKNOWN',
+    });
     expect(result).toEqual(INITIAL_STATE);
   });
 

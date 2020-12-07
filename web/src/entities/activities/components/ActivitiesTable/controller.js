@@ -5,9 +5,10 @@ import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
 import ActivitiesService from '../../services/ActivitiesService';
 
-
 const Controller = {
-  fetchItems: async (options: Options): Promise<{items: any, total: any,...}> => {
+  fetchItems: async (
+    options: Options
+  ): Promise<{ items: any, total: any, ... }> => {
     const response = await ActivitiesService.fetchActivities(
       readTokenFromCookie(),
       encode(options)
@@ -19,7 +20,10 @@ const Controller = {
   },
   create: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.createActivity(activity, readTokenFromCookie());
+      const result = await ActivitiesService.createActivity(
+        activity,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -30,7 +34,10 @@ const Controller = {
   },
   update: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.updateActivity(activity, readTokenFromCookie());
+      const result = await ActivitiesService.updateActivity(
+        activity,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -41,7 +48,10 @@ const Controller = {
   },
   delete: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.deleteActivity(activity.id, readTokenFromCookie());
+      const result = await ActivitiesService.deleteActivity(
+        activity.id,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -49,7 +59,7 @@ const Controller = {
         message: error.message,
       };
     }
-  }
+  },
 };
 
 export default Controller;

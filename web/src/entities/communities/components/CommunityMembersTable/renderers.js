@@ -9,10 +9,10 @@ type RendererProps = {
   field: Object,
 };
 
-export const MembersSelectRenderer = ({ field }: RendererProps): React$Element<any> => (
-  <UsersDropdown {...field} />
-);
+export const MembersSelectRenderer = ({
+  field,
+}: RendererProps): React$Element<any> => <UsersDropdown {...field} />;
 
-export const CoordinatesSelectRenderer = ({ field }: RendererProps): React$Element<any> => (
-  <BooleanDropdown {...field} />
-);
+export const CoordinatesSelectRenderer = ({
+  field,
+}: RendererProps): React$Element<any> => <BooleanDropdown {...field} />;

@@ -6,6 +6,6 @@ type RendererProps = {
   field: Object,
 };
 
-export const DescriptionRenderer = ({ field }: RendererProps): React$Element<any> => (
-  <textarea {...field} />
-);
+export const DescriptionRenderer = ({
+  field,
+}: RendererProps): React$Element<any> => <textarea {...field} />;

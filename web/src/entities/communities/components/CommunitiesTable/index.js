@@ -10,12 +10,19 @@ import CRUDTable, {
   UpdateForm,
 } from 'react-crud-table';
 
-import { DEFAULT_OPTIONS, DEFAULT_RESULT, throwErrorWhenNotSuccess } from '../../../../core/helpers';
-import { createFormValidator, deleteFormValidator, updateFormValidator } from './validators';
+import {
+  DEFAULT_OPTIONS,
+  DEFAULT_RESULT,
+  throwErrorWhenNotSuccess,
+} from '../../../../core/helpers';
+import {
+  createFormValidator,
+  deleteFormValidator,
+  updateFormValidator,
+} from './validators';
 import { DescriptionRenderer } from './renderers';
 import Controller from './controller';
 import { nameTableValueResolver } from './helpers';
-
 
 const CommunitiesTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);

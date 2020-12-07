@@ -1,3 +1,4 @@
 // @flow
 
-export const coordinatesTableValueResolver = (item: Object): string => (item.coordinates ? 'Si' : 'No');
+export const coordinatesTableValueResolver = (item: Object): string =>
+  item.coordinates ? 'Si' : 'No';

@@ -17,7 +17,7 @@ describe('CommunitiesService', () => {
       const queryOptions = encode({ name: 'test' });
       const result = await CommunitiesService.fetchCommunities(
         'test-token',
-        queryOptions,
+        queryOptions
       );
 
       expect(result).toEqual({ success: true });
@@ -41,11 +41,8 @@ describe('CommunitiesService', () => {
 
   describe('fetchCommunity', () => {
     it('works as expected', async () => {
-      const result = await CommunitiesService.fetchCommunity(
-        'test-token',
-        1,
-      );
-  
+      const result = await CommunitiesService.fetchCommunity('test-token', 1);
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -60,9 +57,9 @@ describe('CommunitiesService', () => {
       const payload = { title: 'test' };
       const result = await CommunitiesService.createCommunity(
         payload,
-        'test-token',
+        'test-token'
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -79,9 +76,9 @@ describe('CommunitiesService', () => {
       const payload = { id: 1, title: 'test' };
       const result = await CommunitiesService.updateCommunity(
         payload,
-        'test-token',
+        'test-token'
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -95,11 +92,8 @@ describe('CommunitiesService', () => {
 
   describe('deleteCommunity', () => {
     it('works as expected', async () => {
-      const result = await CommunitiesService.deleteCommunity(
-        1,
-        'test-token',
-      );
-  
+      const result = await CommunitiesService.deleteCommunity(1, 'test-token');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -116,9 +110,9 @@ describe('CommunitiesService', () => {
         'test-token',
         1,
         2,
-        true,
+        true
       );
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({

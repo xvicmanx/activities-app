@@ -10,13 +10,20 @@ import CRUDTable, {
   UpdateForm,
 } from 'react-crud-table';
 
-import { DEFAULT_OPTIONS, DEFAULT_RESULT, throwErrorWhenNotSuccess } from '../../../../core/helpers';
+import {
+  DEFAULT_OPTIONS,
+  DEFAULT_RESULT,
+  throwErrorWhenNotSuccess,
+} from '../../../../core/helpers';
 
-import { createFormValidator, deleteFormValidator, updateFormValidator } from './validators';
+import {
+  createFormValidator,
+  deleteFormValidator,
+  updateFormValidator,
+} from './validators';
 import { CommunitiesSelectRenderer, DescriptionRenderer } from './renderers';
 import Controller from './controller';
 import { dateValueTableValueResolver } from './helpers';
-
 
 const ActivitiesTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);

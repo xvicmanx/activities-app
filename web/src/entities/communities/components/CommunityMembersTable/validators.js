@@ -1,6 +1,8 @@
 // @flow
 
-export const addMemberFormValidator = (members: Array<Object>): ((values: any) => any) => (values: Object): Object => {
+export const addMemberFormValidator = (
+  members: Array<Object>
+): ((values: any) => any) => (values: Object): Object => {
   const errors = {};
 
   if (!values.memberId) {
@@ -8,8 +10,7 @@ export const addMemberFormValidator = (members: Array<Object>): ((values: any) =
   }
 
   if (members.map((x) => x.id).includes(values.memberId)) {
-    errors.memberId =
-      'El miembro seleccionado ya existe en la comunidad';
+    errors.memberId = 'El miembro seleccionado ya existe en la comunidad';
   }
 
   return errors;

@@ -14,10 +14,7 @@ const Button = ({
   className,
   ...rest
 }: Props): React$Element<any> => (
-  <BulmaButton
-    {...rest}
-    className={className}
-  >
+  <BulmaButton {...rest} className={className}>
     {children}
   </BulmaButton>
 );

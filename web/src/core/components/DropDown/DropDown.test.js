@@ -4,7 +4,7 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import DropDown from './DropDown';
 
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('DropDown', () => {
   const items = [
@@ -27,10 +27,7 @@ describe('DropDown', () => {
 
   it('renders properly', () => {
     const renderer = new ShallowRenderer();
-    const result = renderer.render(<DropDown
-      {...props}
-      onChange={() => {}}
-    />);
+    const result = renderer.render(<DropDown {...props} onChange={() => {}} />);
     expect(result).toMatchSnapshot();
   });
 
@@ -45,10 +42,14 @@ describe('DropDown', () => {
     const event = {
       target: { name: 'test-drop', value: 2 },
     };
-    const component = Enzyme.mount(<DropDown {...props} onChange={onChangeMock} />);
+    const component = Enzyme.mount(
+      <DropDown {...props} onChange={onChangeMock} />
+    );
     component.find('DropdownItem').at(2).simulate('click');
-    expect(onChangeMock).toBeCalledWith(expect.objectContaining({
-      target: event.target,
-    }));
+    expect(onChangeMock).toBeCalledWith(
+      expect.objectContaining({
+        target: event.target,
+      })
+    );
   });
 });

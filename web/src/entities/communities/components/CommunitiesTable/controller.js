@@ -6,7 +6,9 @@ import { readTokenFromCookie } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
 const Controller = {
-  fetchItems: async (options: Options): Promise<{items: any, total: any,...}> => {
+  fetchItems: async (
+    options: Options
+  ): Promise<{ items: any, total: any, ... }> => {
     const response = await CommunitiesService.fetchCommunities(
       readTokenFromCookie(),
       encode(options)
@@ -18,7 +20,10 @@ const Controller = {
   },
   create: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.createCommunity(community, readTokenFromCookie());
+      const result = await CommunitiesService.createCommunity(
+        community,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -29,7 +34,10 @@ const Controller = {
   },
   update: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.updateCommunity(community, readTokenFromCookie());
+      const result = await CommunitiesService.updateCommunity(
+        community,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {
@@ -40,7 +48,10 @@ const Controller = {
   },
   delete: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.deleteCommunity(community.id, readTokenFromCookie());
+      const result = await CommunitiesService.deleteCommunity(
+        community.id,
+        readTokenFromCookie()
+      );
       return result;
     } catch (error) {
       return {

@@ -7,9 +7,7 @@ import HomePage from './HomePage';
 describe('HomePage', () => {
   it('renders properly', () => {
     const renderer = new ShallowRenderer();
-    const result = renderer.render(
-      <HomePage />
-    );
+    const result = renderer.render(<HomePage />);
     expect(result).toMatchSnapshot();
   });
 });

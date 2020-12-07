@@ -36,7 +36,9 @@ describe('UsersTable validators', () => {
         name: 'john',
         email: 'test-slogan@test.com',
       });
-      expect(errors).toEqual({ description: 'Por favor, provea un Descripción' });
+      expect(errors).toEqual({
+        description: 'Por favor, provea un Descripción',
+      });
     });
   });
 
@@ -75,7 +77,9 @@ describe('UsersTable validators', () => {
         name: 'john',
         email: 'test-slogan@test.com',
       });
-      expect(errors).toEqual({ description: 'Por favor, provea un Descripción' });
+      expect(errors).toEqual({
+        description: 'Por favor, provea un Descripción',
+      });
     });
 
     it('does return error messages when id is missing', async () => {

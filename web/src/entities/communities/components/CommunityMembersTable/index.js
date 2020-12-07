@@ -10,7 +10,6 @@ import { CoordinatesSelectRenderer, MembersSelectRenderer } from './renderers';
 import { addMemberFormValidator } from './validators';
 import { coordinatesTableValueResolver } from './helpers';
 
-
 type Props = {
   communityId: number,
   members: Array<{ id: number | string }>,

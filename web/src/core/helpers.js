@@ -37,7 +37,9 @@ export const DEFAULT_RESULT: Result = {
   items: [],
 };
 
-export const throwErrorWhenNotSuccess = (fn: Function): ((item: any) => Promise<any>) => async (item) => {
+export const throwErrorWhenNotSuccess = (
+  fn: Function
+): ((item: any) => Promise<any>) => async (item) => {
   const result = await fn(item);
 
   if (!result.success) {

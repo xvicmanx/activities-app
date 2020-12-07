@@ -7,9 +7,7 @@ import ActivitiesPage from './ActivitiesPage';
 describe('ActivitiesPage', () => {
   it('renders properly', () => {
     const renderer = new ShallowRenderer();
-    const result = renderer.render(
-      <ActivitiesPage />
-    );
+    const result = renderer.render(<ActivitiesPage />);
     expect(result).toMatchSnapshot();
   });
 });

@@ -30,7 +30,6 @@ export const updateFormValidator = (values) => {
   return errors;
 };
 
-
 export const createFormValidator = (values) => {
   const errors = {};
 

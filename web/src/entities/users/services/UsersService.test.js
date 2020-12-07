@@ -15,7 +15,7 @@ describe('UsersService', () => {
   describe('loadUserFromToken', () => {
     it('works as expected', async () => {
       const result = await UsersService.loadUserFromToken('test-token');
-  
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -27,11 +27,8 @@ describe('UsersService', () => {
 
   describe('loginUser', () => {
     it('works as expected', async () => {
-      const result = await UsersService.loginUser(
-        'john@test.com',
-        'test4321!',
-      );
-  
+      const result = await UsersService.loginUser('john@test.com', 'test4321!');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -48,11 +45,8 @@ describe('UsersService', () => {
   describe('fetchUsers', () => {
     it('works as expected', async () => {
       const queryOptions = encode({ name: 'test' });
-      const result = await UsersService.fetchUsers(
-        'test-token',
-        queryOptions,
-      );
-  
+      const result = await UsersService.fetchUsers('test-token', queryOptions);
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -76,11 +70,8 @@ describe('UsersService', () => {
   describe('createUser', () => {
     it('works as expected', async () => {
       const payload = { title: 'test' };
-      const result = await UsersService.createUser(
-        payload,
-        'test-token',
-      );
-  
+      const result = await UsersService.createUser(payload, 'test-token');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -95,11 +86,8 @@ describe('UsersService', () => {
   describe('updateUser', () => {
     it('works as expected', async () => {
       const payload = { id: 1, title: 'test' };
-      const result = await UsersService.updateUser(
-        payload,
-        'test-token',
-      );
-  
+      const result = await UsersService.updateUser(payload, 'test-token');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
@@ -113,11 +101,8 @@ describe('UsersService', () => {
 
   describe('deleteUser', () => {
     it('works as expected', async () => {
-      const result = await UsersService.deleteUser(
-        1,
-        'test-token',
-      );
-  
+      const result = await UsersService.deleteUser(1, 'test-token');
+
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({

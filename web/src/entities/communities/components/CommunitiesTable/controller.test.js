@@ -8,8 +8,6 @@ jest.mock('../../services/CommunitiesService');
 import { readTokenFromCookie } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
-
-
 describe('CommunitiesTable controller', () => {
   const communities = [
     {
@@ -29,16 +27,24 @@ describe('CommunitiesTable controller', () => {
     readTokenFromCookie.mockImplementation(() => 'test-token');
 
     CommunitiesService.fetchCommunities.mockClear();
-    CommunitiesService.fetchCommunities.mockImplementation(() => Promise.resolve({ communities, total: communities.length }));
-    
+    CommunitiesService.fetchCommunities.mockImplementation(() =>
+      Promise.resolve({ communities, total: communities.length })
+    );
+
     CommunitiesService.createCommunity.mockClear();
-    CommunitiesService.createCommunity.mockImplementation(() => Promise.resolve({ success: true }));
-    
+    CommunitiesService.createCommunity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
+
     CommunitiesService.updateCommunity.mockClear();
-    CommunitiesService.updateCommunity.mockImplementation(() => Promise.resolve({ success: true }));
+    CommunitiesService.updateCommunity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
 
     CommunitiesService.deleteCommunity.mockClear();
-    CommunitiesService.deleteCommunity.mockImplementation(() => Promise.resolve({ success: true }));
+    CommunitiesService.deleteCommunity.mockImplementation(() =>
+      Promise.resolve({ success: true })
+    );
   });
 
   describe('fetchItems', () => {
@@ -50,7 +56,7 @@ describe('CommunitiesTable controller', () => {
       };
 
       const result = await Controller.fetchItems(options);
-  
+
       expect(result).toEqual({
         items: communities,
         total: communities.length,
@@ -58,7 +64,7 @@ describe('CommunitiesTable controller', () => {
       expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(
         'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=',
+        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
       );
     });
   });
@@ -76,7 +82,7 @@ describe('CommunitiesTable controller', () => {
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
         community,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -86,14 +92,16 @@ describe('CommunitiesTable controller', () => {
         name: 'Test community',
       };
 
-      CommunitiesService.createCommunity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      CommunitiesService.createCommunity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.create(community);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
         community,
-        'test-token',
+        'test-token'
       );
     });
   });
@@ -111,7 +119,7 @@ describe('CommunitiesTable controller', () => {
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
         community,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -121,14 +129,16 @@ describe('CommunitiesTable controller', () => {
         name: 'Test community',
       };
 
-      CommunitiesService.updateCommunity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      CommunitiesService.updateCommunity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.update(community);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
         community,
-        'test-token',
+        'test-token'
       );
     });
   });
@@ -146,7 +156,7 @@ describe('CommunitiesTable controller', () => {
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
         community.id,
-        'test-token',
+        'test-token'
       );
     });
 
@@ -156,14 +166,16 @@ describe('CommunitiesTable controller', () => {
         name: 'Test community',
       };
 
-      CommunitiesService.deleteCommunity.mockImplementation(() => Promise.reject(new Error('Unexpected error')));
+      CommunitiesService.deleteCommunity.mockImplementation(() =>
+        Promise.reject(new Error('Unexpected error'))
+      );
       const result = await Controller.delete(community);
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
         community.id,
-        'test-token',
+        'test-token'
       );
     });
   });
