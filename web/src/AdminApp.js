@@ -1,16 +1,10 @@
 // @flow
 
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 import { AppLayout, LoadingIndicator } from './core/components';
-
-import {
-  readToken,
-  loadUserFromToken,
-} from './entities/users/redux/UsersActions';
 
 import HomePage from './core/pages/HomePage/HomePage';
 import ActivitiesPage from './entities/activities/pages/ActivitiesPage';
