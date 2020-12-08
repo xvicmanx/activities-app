@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { logOutUser } from '../../../entities/users/redux/UsersActions';
+import { showMobileMenu } from '../../helpers';
 
 import { NavBar, UserBasicInfo } from '../';
 
@@ -29,12 +30,11 @@ const AppLayout = ({
   children,
 }: Props): React$Element<'div'> => {
   const dispatch = useDispatch();
-  const showMobileMenu = window.location.pathname.includes('display-menu');
   return (
     <div className="LayoutWrapper">
       <div className="Layout">
         <div
-          className={`Layout__Left-Navigator ${showMobileMenu ? 'show' : ''}`}
+          className={`Layout__Left-Navigator ${showMobileMenu() ? 'show' : ''}`}
         >
           <UserBasicInfo user={user} />
           <div className="Options">
@@ -55,7 +55,7 @@ const AppLayout = ({
           <NavBar onLogoutClick={() => dispatch(logOutUser())} />
           <div
             className={`Layout__Scroll-Content-Wrapper ${
-              showMobileMenu ? 'hide' : ''
+              showMobileMenu() ? 'hide' : ''
             }`}
           >
             <div className="Layout__Scroll-Content">{children}</div>

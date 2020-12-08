@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityDetailsPage renders properly when community available 1`] = `
+<Page
+  icon={
+    Object {
+      "icon": Array [
+        448,
+        512,
+        Array [],
+        "f1ad",
+        "M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z",
+      ],
+      "iconName": "building",
+      "prefix": "fas",
+    }
+  }
+  title="Detalles de comunidad: Test community"
+>
+  <div>
+    <Breadcrumb
+      hrefAttr="to"
+      items={
+        Array [
+          Object {
+            "name": "Comunidades",
+            "url": "/communities",
+          },
+          Object {
+            "active": true,
+            "name": "Test community",
+            "url": "/communities/1",
+          },
+        ]
+      }
+      renderAs={[Function]}
+    />
+    <CommunityMembersTable
+      communityId={1}
+      members={
+        Array [
+          Object {
+            "id": 2,
+            "name": "John",
+          },
+        ]
+      }
+    />
+  </div>
+</Page>
+`;
+
+exports[`CommunityDetailsPage renders properly when community not available 1`] = `<LoadingIndicator />`;
