@@ -7,7 +7,6 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { LoginForm } from '../../forms';
-import { NavBar } from '../../components';
 import logo from '../../../assets/images/logo.png';
 
 const LoginPage = () => {
@@ -30,7 +29,6 @@ const LoginPage = () => {
         </div>
 
         <div className="LoginPage__Content">
-          <NavBar right />
           <div className="LoginPage__Form">
             <LoginForm />
           </div>

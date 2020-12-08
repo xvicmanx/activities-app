@@ -2,9 +2,12 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { NavBar, UserBasicInfo } from '../../components';
+import { logOutUser } from '../../../entities/users/redux/UsersActions';
+
+import { NavBar, UserBasicInfo } from '../';
 
 import './AppLayout.css';
 
@@ -25,6 +28,7 @@ const AppLayout = ({
   navigationLinks,
   children,
 }: Props): React$Element<'div'> => {
+  const dispatch = useDispatch();
   const showMobileMenu = window.location.pathname.includes('display-menu');
   return (
     <div className="LayoutWrapper">
@@ -48,7 +52,9 @@ const AppLayout = ({
           </div>
         </div>
         <div className="Layout__Content">
-          <NavBar right />
+          <NavBar
+            onLogoutClick={() => dispatch(logOutUser())}
+          />
           <div
             className={`Layout__Scroll-Content-Wrapper ${
               showMobileMenu ? 'hide' : ''
