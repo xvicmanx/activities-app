@@ -49,4 +49,5 @@ export const throwErrorWhenNotSuccess = (
   return result;
 };
 
-export const showMobileMenu = (): boolean => window.location.pathname.includes('display-menu');
+export const showMobileMenu = (): boolean =>
+  window.location.pathname.includes('display-menu');

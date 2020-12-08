@@ -5,7 +5,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { faUsers, faHome } from '@fortawesome/free-solid-svg-icons';
 
-
 import AppLayout from './';
 
 jest.mock('react-redux');
@@ -15,7 +14,7 @@ jest.mock('../../helpers');
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../../../entities/users/redux/UsersActions';
 import { showMobileMenu } from '../../helpers';
- 
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('AppLayout', () => {
@@ -68,7 +67,7 @@ describe('AppLayout', () => {
         <AppLayout {...props}>Test</AppLayout>
       </Router>
     );
-    
+
     result.find('NavBar').at(0).props().onLogoutClick();
 
     expect(dispatch).toHaveBeenCalledTimes(1);

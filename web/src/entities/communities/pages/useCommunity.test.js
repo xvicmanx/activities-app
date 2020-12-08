@@ -5,7 +5,7 @@ jest.mock('../redux/CommunitiesActions');
 jest.mock('../../users/redux/UsersActions');
 
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchCommunity } from '../redux/CommunitiesActions';
 import { readToken } from '../../users/redux/UsersActions';
 
@@ -18,14 +18,14 @@ describe('useCommunity', () => {
     const token = 'test-token';
     const dispatch = jest.fn();
 
-    jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+    jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
     useSelector.mockImplementation((f) => f({ Communities: { community } }));
     useDispatch.mockImplementation(() => dispatch);
     fetchCommunity.mockImplementation(() => community);
     readToken.mockImplementation(() => token);
 
     const result = useCommunity(1);
-    
+
     expect(result).toEqual(community);
     expect(React.useEffect).toHaveBeenCalledTimes(1);
     expect(useSelector).toHaveBeenCalledTimes(1);

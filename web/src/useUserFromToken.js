@@ -1,5 +1,5 @@
 // @flow
- 
+
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -18,9 +18,9 @@ const useUserFromToken = (): Result => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readToken();
- 
+
   const shouldLoadToken = !Users.data && !Users.loading && token;
- 
+
   useEffect(() => {
     dispatch(
       loadUserFromToken({
@@ -30,7 +30,7 @@ const useUserFromToken = (): Result => {
     );
   }, [dispatch, token, shouldLoadToken]);
 
- return {
+  return {
     token,
     loading: Users.loading,
     user: Users.data,

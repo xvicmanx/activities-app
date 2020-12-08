@@ -11,16 +11,8 @@ import {
 import useLogin from './useLogin';
 import './LoginForm.css';
 
-
 const LoginForm = () => {
-  const {
-    email,
-    password,
-    onChange,
-    onSubmit,
-    loading,
-    error,
-  } = useLogin();
+  const { email, password, onChange, onSubmit, loading, error } = useLogin();
 
   return (
     <div className="LoginForm">

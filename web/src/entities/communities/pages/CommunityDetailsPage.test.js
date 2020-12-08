@@ -19,13 +19,15 @@ describe('CommunityDetailsPage', () => {
     const community = {
       id: 1,
       name: 'Test community',
-      members: [{
-        id: 2,
-        name: 'John',
-      }]
+      members: [
+        {
+          id: 2,
+          name: 'John',
+        },
+      ],
     };
     const renderer = new ShallowRenderer();
-    
+
     useCommunity.mockImplementation(() => community);
 
     const result = renderer.render(<CommunityDetailsPage />);
@@ -37,7 +39,7 @@ describe('CommunityDetailsPage', () => {
 
   it('renders properly when community not available', () => {
     const renderer = new ShallowRenderer();
-    
+
     useCommunity.mockImplementation(() => null);
 
     const result = renderer.render(<CommunityDetailsPage />);

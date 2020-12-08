@@ -45,11 +45,7 @@ const navigationLinks = [
 ];
 
 const AdminApp = (props: Props): React$Element<any> => {
-  const {
-    user,
-    loading,
-    token,
-  } = useUserFromToken();
+  const { user, loading, token } = useUserFromToken();
 
   if (!user && !loading && !token) {
     return <Redirect to="/" />;
@@ -60,11 +56,7 @@ const AdminApp = (props: Props): React$Element<any> => {
   }
 
   return (
-    <AppLayout
-      {...props}
-      user={user}
-      navigationLinks={navigationLinks}
-    >
+    <AppLayout {...props} user={user} navigationLinks={navigationLinks}>
       <Switch>
         <Route path="/activities" component={ActivitiesPage} />
         <Route path="/communities" component={CommunitiesPage} exact />

@@ -21,13 +21,13 @@ const useLogin = (): Result => {
   const onChange = (e) => {
     dispatch(handleChange(e));
   };
- 
+
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(email, password));
   };
 
- return {
+  return {
     error: Users.error,
     loading: Users.loading,
     email,
