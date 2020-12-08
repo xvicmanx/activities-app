@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar renders properly 1`] = `
+<div
+  className="NavBar right"
+>
+  <ForwardRef
+    className="NavBar__link menu"
+    to="/home/display-menu"
+  >
+    <Image
+      alt="menu"
+      fallback="https://bulma.io/images/placeholders/480x480.png"
+      rounded={false}
+      src="menu.svg"
+    />
+  </ForwardRef>
+  <ForwardRef
+    className="NavBar__link"
+    onClick={[MockFunction]}
+    to="/"
+  >
+    Cerrar Sesion
+  </ForwardRef>
+</div>
+`;

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage renders properly when user is not signed in 1`] = `
+Object {
+  "children": <div
+    className="LoginPage__Container"
+  >
+    <div
+      className="LoginPage__App-Info"
+    >
+      <div
+        className="LoginPage__LogoContainer top"
+      >
+        <Image
+          alt="Pic"
+          className="LoginPage__Logo top"
+          fallback="https://bulma.io/images/placeholders/480x480.png"
+          rounded={false}
+          src="logo.png"
+        />
+      </div>
+      <Heading
+        className="LoginPage__Subtitle"
+        heading={false}
+        renderAs="h1"
+        spaced={false}
+        subtitle={true}
+      >
+        Insiemi
+      </Heading>
+    </div>
+    <div
+      className="LoginPage__Content"
+    >
+      <div
+        className="LoginPage__Form"
+      >
+        <LoginForm />
+      </div>
+    </div>
+  </div>,
+  "className": "LoginPage",
+}
+`;
+
+exports[`LoginPage renders properly when user is signed in 1`] = `
+Object {
+  "to": "/home",
+}
+`;
