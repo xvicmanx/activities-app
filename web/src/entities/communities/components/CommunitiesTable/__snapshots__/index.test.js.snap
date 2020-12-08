@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesTable renders properly 1`] = `
+Object {
+  "actionsLabel": "Acciones",
+  "caption": "Comunidades",
+  "children": Array [
+    <CRUDTable_Fields>
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={false}
+        label="Id"
+        name="id"
+        queryable={true}
+        readOnly={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Nombre"
+        name="name"
+        placeholder="Nombre"
+        queryable={true}
+        sortable={true}
+        tableValueResolver={[Function]}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Eslogan"
+        name="slogan"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+    </CRUDTable_Fields>,
+    <CRUDTable_CreateForm
+      message="Crear una nueva comunidad"
+      onSubmit={[Function]}
+      submitText="Crear"
+      title="Crear comunidad"
+      trigger="Crear comunidad"
+      validate={[Function]}
+    />,
+    <CRUDTable_UpdateForm
+      message="Actualizar comunidad"
+      onSubmit={[Function]}
+      submitText="Actualizar"
+      title="Actualizar comunidad"
+      trigger="Actualizar"
+      validate={[Function]}
+    />,
+    <CRUDTable_DeleteForm
+      message="Esta seguro que quiere eliminar la comunidad?"
+      onSubmit={[Function]}
+      submitText="Eliminar"
+      title="Eliminar comunidad"
+      trigger="Eliminar"
+      validate={[Function]}
+    />,
+    <CRUDTable_Pagination
+      defaultActivePage={1}
+      itemsPerPage={20}
+      totalOfItems={2}
+    />,
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Test Community 1",
+    },
+    Object {
+      "id": 2,
+      "name": "Test Community 2",
+    },
+  ],
+  "onChange": [Function],
+  "showQueryBuilder": true,
+}
+`;
+
+exports[`CommunitiesTable updates the options on change 1`] = `
+Object {
+  "actionsLabel": "Acciones",
+  "caption": "Comunidades",
+  "children": Array [
+    <CRUDTable_Fields>
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={false}
+        label="Id"
+        name="id"
+        queryable={true}
+        readOnly={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Nombre"
+        name="name"
+        placeholder="Nombre"
+        queryable={true}
+        sortable={true}
+        tableValueResolver={[Function]}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Eslogan"
+        name="slogan"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+    </CRUDTable_Fields>,
+    <CRUDTable_CreateForm
+      message="Crear una nueva comunidad"
+      onSubmit={[Function]}
+      submitText="Crear"
+      title="Crear comunidad"
+      trigger="Crear comunidad"
+      validate={[Function]}
+    />,
+    <CRUDTable_UpdateForm
+      message="Actualizar comunidad"
+      onSubmit={[Function]}
+      submitText="Actualizar"
+      title="Actualizar comunidad"
+      trigger="Actualizar"
+      validate={[Function]}
+    />,
+    <CRUDTable_DeleteForm
+      message="Esta seguro que quiere eliminar la comunidad?"
+      onSubmit={[Function]}
+      submitText="Eliminar"
+      title="Eliminar comunidad"
+      trigger="Eliminar"
+      validate={[Function]}
+    />,
+    <CRUDTable_Pagination
+      defaultActivePage={1}
+      itemsPerPage={15}
+      totalOfItems={2}
+    />,
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Test Community 1",
+    },
+    Object {
+      "id": 2,
+      "name": "Test Community 2",
+    },
+  ],
+  "onChange": [Function],
+  "showQueryBuilder": true,
+}
+`;

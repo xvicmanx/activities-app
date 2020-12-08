@@ -21,7 +21,6 @@ const CommunityMembersTable = ({
 }: Props): React$Element<any> => {
   const dispatch = useDispatch();
   const token = readToken();
-  console.log(members.length);
   return (
     <CRUDTable caption="Miembros" items={members} key={`${communityId}${members.length}`}>
       <Fields>
