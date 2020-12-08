@@ -21,9 +21,17 @@ const CommunityMembersTable = ({
 }: Props): React$Element<any> => {
   const dispatch = useDispatch();
   const token = readToken();
+  console.log(members.length);
   return (
-    <CRUDTable caption="Miembros" items={members}>
+    <CRUDTable caption="Miembros" items={members} key={`${communityId}${members.length}`}>
       <Fields>
+        <Field
+          name="id"
+          label="Id"
+          hideInCreateForm
+          hideInUpdateForm
+          sortable={false}
+        />
         <Field
           name="memberId"
           label="Miembro"

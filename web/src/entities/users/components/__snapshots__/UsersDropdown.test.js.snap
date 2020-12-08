@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersDropdown renders properly 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "John",
+    },
+    Object {
+      "id": 2,
+      "name": "Mary",
+    },
+  ],
+  "name": "test",
+  "onChange": [MockFunction],
+  "placeholder": "Seleccione usuario",
+  "value": 1,
+}
+`;
+
+exports[`UsersDropdown renders properly even if the users list is not present 1`] = `
+Object {
+  "items": Array [],
+  "name": "test",
+  "onChange": [MockFunction],
+  "placeholder": "Seleccione usuario",
+  "value": 1,
+}
+`;
