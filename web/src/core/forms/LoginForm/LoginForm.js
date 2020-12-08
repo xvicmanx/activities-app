@@ -1,9 +1,5 @@
 import React from 'react';
 import { Heading } from 'react-bulma-components';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { handleChange } from '../../redux/LoginForm/LoginFormActions';
-import { loginUser } from '../../../entities/users/redux/UsersActions';
 import {
   Form,
   FormField,
@@ -12,37 +8,34 @@ import {
   LoadingIndicator,
   ErrorMessage,
 } from '../../components';
-
+import useLogin from './useLogin';
 import './LoginForm.css';
 
+
 const LoginForm = () => {
-  const { Users } = useSelector((state) => state);
-  const { email, password } = useSelector((state) => state.LoginForm);
-  const dispatch = useDispatch();
-
-  const handleOnChange = (e) => {
-    dispatch(handleChange(e));
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser(email, password));
-  };
+  const {
+    email,
+    password,
+    onChange,
+    onSubmit,
+    loading,
+    error,
+  } = useLogin();
 
   return (
     <div className="LoginForm">
       <Heading className="LoginForm__Title">Iniciar sesion</Heading>
 
-      {Users.error && <ErrorMessage text={Users.error} />}
+      {error && <ErrorMessage text={error} />}
 
-      <Form onSubmit={handleOnSubmit}>
+      <Form onSubmit={onSubmit}>
         <FormField>
           <Input
             fullwidth="true"
             placeholder="Correo..."
             name="email"
             value={email}
-            onChange={handleOnChange}
+            onChange={onChange}
             autoComplete="off"
             type="email"
           />
@@ -54,14 +47,14 @@ const LoginForm = () => {
             placeholder="Contraseña..."
             name="password"
             value={password}
-            onChange={handleOnChange}
+            onChange={onChange}
             autoComplete="off"
             type="password"
           />
         </FormField>
 
-        {Users.loading && <LoadingIndicator />}
-        {!Users.loading && (
+        {loading && <LoadingIndicator />}
+        {!loading && (
           <Button
             disabled={!password || !email}
             fullwidth

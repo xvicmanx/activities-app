@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm renders properly when loading 1`] = `
+<div
+  className="LoginForm"
+>
+  <Heading
+    className="LoginForm__Title"
+    heading={false}
+    renderAs="h1"
+    spaced={false}
+    subtitle={false}
+  >
+    Iniciar sesion
+  </Heading>
+  <Form
+    onSubmit={[Function]}
+  >
+    <FormField>
+      <Input
+        autoComplete="off"
+        fullwidth="true"
+        name="email"
+        onChange={[Function]}
+        placeholder="Correo..."
+        type="email"
+        value="test-email"
+      />
+    </FormField>
+    <FormField>
+      <Input
+        autoComplete="off"
+        fullwidth="true"
+        name="password"
+        onChange={[Function]}
+        placeholder="Contraseña..."
+        type="password"
+        value="test-pass"
+      />
+    </FormField>
+    <LoadingIndicator />
+  </Form>
+</div>
+`;
+
+exports[`LoginForm renders properly when not loading 1`] = `
+<div
+  className="LoginForm"
+>
+  <Heading
+    className="LoginForm__Title"
+    heading={false}
+    renderAs="h1"
+    spaced={false}
+    subtitle={false}
+  >
+    Iniciar sesion
+  </Heading>
+  <ErrorMessage
+    text="Error!"
+  />
+  <Form
+    onSubmit={[Function]}
+  >
+    <FormField>
+      <Input
+        autoComplete="off"
+        fullwidth="true"
+        name="email"
+        onChange={[Function]}
+        placeholder="Correo..."
+        type="email"
+        value="test-email"
+      />
+    </FormField>
+    <FormField>
+      <Input
+        autoComplete="off"
+        fullwidth="true"
+        name="password"
+        onChange={[Function]}
+        placeholder="Contraseña..."
+        type="password"
+        value="test-pass"
+      />
+    </FormField>
+    <Button
+      color="info"
+      disabled={false}
+      fullwidth={true}
+      type="submit"
+    >
+      Entrar
+    </Button>
+  </Form>
+</div>
+`;
