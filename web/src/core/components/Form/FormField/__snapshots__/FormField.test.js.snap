@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormField renders properly 1`] = `
+<div
+  className="FormField"
+>
+  <label
+    className="FormField__label"
+  >
+    test
+  </label>
+  Field
+</div>
+`;

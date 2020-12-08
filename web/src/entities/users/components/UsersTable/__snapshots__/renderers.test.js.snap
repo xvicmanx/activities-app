@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersTable renderers DescriptionRenderer renders properly 1`] = `
+<textarea
+  name="test-name"
+  onChange={[MockFunction]}
+  value="test-value"
+/>
+`;
+
+exports[`UsersTable renderers PasswordRenderer renders properly 1`] = `
+<div>
+  <input
+    name="test-name"
+    onChange={[MockFunction]}
+    type="password"
+    value="test-value"
+  />
+  <CopyToClipboard
+    text="test-value"
+  >
+    <span
+      style={
+        Object {
+          "backgroundColor": "#5caaf6",
+          "borderRadius": "5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "marginLeft": "10px",
+          "padding": "5px",
+        }
+      }
+    >
+      Copiar
+    </span>
+  </CopyToClipboard>
+</div>
+`;

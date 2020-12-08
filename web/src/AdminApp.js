@@ -8,7 +8,7 @@ import { faUsers, faHome, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { AppLayout, LoadingIndicator } from './core/components';
 
 import {
-  readTokenFromCookie,
+  readToken,
   loadUserFromToken,
 } from './entities/users/redux/UsersActions';
 
@@ -23,7 +23,7 @@ type Props = {};
 const AdminApp = (props: Props): React$Element<any> => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const token = readTokenFromCookie();
+  const token = readToken();
 
   const shouldLoadToken = !Users.data && !Users.loading && token;
 

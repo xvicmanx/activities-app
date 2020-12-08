@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BooleanDropdown renders properly 1`] = `
+<DropDown
+  items={
+    Array [
+      Object {
+        "id": true,
+        "name": "Si",
+      },
+      Object {
+        "id": false,
+        "name": "No",
+      },
+    ]
+  }
+  name="test-name"
+  onChange={[MockFunction]}
+  placeholder="Seleccione"
+  value="test-value"
+/>
+`;

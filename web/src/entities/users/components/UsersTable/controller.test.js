@@ -6,7 +6,7 @@ jest.mock('../../redux/UsersActions');
 jest.mock('../../services/UsersService');
 
 import UsersService from '../../services/UsersService';
-import { readTokenFromCookie } from '../../redux/UsersActions';
+import { readToken } from '../../redux/UsersActions';
 
 describe('UsersTable controller', () => {
   const users = [
@@ -23,8 +23,8 @@ describe('UsersTable controller', () => {
   ];
 
   beforeEach(() => {
-    readTokenFromCookie.mockClear();
-    readTokenFromCookie.mockImplementation(() => 'test-token');
+    readToken.mockClear();
+    readToken.mockImplementation(() => 'test-token');
 
     UsersService.fetchUsers.mockClear();
     UsersService.fetchUsers.mockImplementation(() =>

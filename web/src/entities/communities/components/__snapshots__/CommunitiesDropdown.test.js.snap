@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesDropdown renders properly 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Test Community 1",
+    },
+    Object {
+      "id": 2,
+      "name": "Test Community 2",
+    },
+  ],
+  "name": "test",
+  "onChange": [MockFunction],
+  "placeholder": "Seleccione comunidad",
+  "value": 1,
+}
+`;
+
+exports[`CommunitiesDropdown renders properly even if the communities list is not present 1`] = `
+Object {
+  "items": Array [],
+  "name": "test",
+  "onChange": [MockFunction],
+  "placeholder": "Seleccione comunidad",
+  "value": 1,
+}
+`;

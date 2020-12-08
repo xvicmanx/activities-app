@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitiesTable renderers CommunitiesSelectRenderer renders properly 1`] = `
+<CommunitiesDropdown
+  name="test-name"
+  onChange={[MockFunction]}
+  value="test-value"
+/>
+`;
+
+exports[`ActivitiesTable renderers DescriptionRenderer renders properly 1`] = `
+<textarea
+  name="test-name"
+  onChange={[MockFunction]}
+  value="test-value"
+/>
+`;

@@ -5,7 +5,7 @@ import Controller from './controller';
 jest.mock('../../../users/redux/UsersActions');
 jest.mock('../../services/CommunitiesService');
 
-import { readTokenFromCookie } from '../../../users/redux/UsersActions';
+import { readToken } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
 describe('CommunitiesTable controller', () => {
@@ -23,8 +23,8 @@ describe('CommunitiesTable controller', () => {
   ];
 
   beforeEach(() => {
-    readTokenFromCookie.mockClear();
-    readTokenFromCookie.mockImplementation(() => 'test-token');
+    readToken.mockClear();
+    readToken.mockImplementation(() => 'test-token');
 
     CommunitiesService.fetchCommunities.mockClear();
     CommunitiesService.fetchCommunities.mockImplementation(() =>

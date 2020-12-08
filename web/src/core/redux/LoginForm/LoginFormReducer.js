@@ -1,11 +1,11 @@
 import { HANDLE_CHANGE } from './LoginFormActionTypes';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   email: '',
   password: '',
 };
 
-const LoginFormReducer = (state = INITIAL_STATE, { type, payload }) => {
+const LoginFormReducer = (state = INITIAL_STATE, { type, payload } = {}) => {
   switch (type) {
     case HANDLE_CHANGE:
       return {

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCommunities } from '../redux/CommunitiesActions';
 
 import { DropDown, LoadingIndicator } from '../../../core/components';
-import { readTokenFromCookie } from '../../users/redux/UsersActions';
+import { readToken } from '../../users/redux/UsersActions';
 
 type Props = {
   name: string,
@@ -21,7 +21,7 @@ const CommunitiesDropdown = ({
 }: Props): React$Element<any> => {
   const { Communities } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const token = readTokenFromCookie();
+  const token = readToken();
 
   useEffect(() => {
     dispatch(fetchCommunities(token));

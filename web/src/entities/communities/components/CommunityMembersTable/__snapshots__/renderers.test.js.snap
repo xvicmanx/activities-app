@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityMembersTable renderers CoordinatesSelectRenderer renders properly 1`] = `
+<BooleanDropdown
+  name="test-name"
+  onChange={[MockFunction]}
+  value="test-value"
+/>
+`;
+
+exports[`CommunityMembersTable renderers MembersSelectRenderer renders properly 1`] = `
+<UsersDropdown
+  name="test-name"
+  onChange={[MockFunction]}
+  value="test-value"
+/>
+`;

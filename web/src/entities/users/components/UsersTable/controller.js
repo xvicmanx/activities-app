@@ -2,7 +2,7 @@
 
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
-import { readTokenFromCookie } from '../../redux/UsersActions';
+import { readToken } from '../../redux/UsersActions';
 import UsersService from '../../services/UsersService';
 
 const Controller = {
@@ -10,7 +10,7 @@ const Controller = {
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
     const response = await UsersService.fetchUsers(
-      readTokenFromCookie(),
+      readToken(),
       encode(options)
     );
     return {
@@ -20,7 +20,7 @@ const Controller = {
   },
   create: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.createUser(user, readTokenFromCookie());
+      const result = await UsersService.createUser(user, readToken());
       return result;
     } catch (error) {
       return {
@@ -31,7 +31,7 @@ const Controller = {
   },
   update: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.updateUser(user, readTokenFromCookie());
+      const result = await UsersService.updateUser(user, readToken());
       return result;
     } catch (error) {
       return {
@@ -42,10 +42,7 @@ const Controller = {
   },
   delete: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.deleteUser(
-        user.id,
-        readTokenFromCookie()
-      );
+      const result = await UsersService.deleteUser(user.id, readToken());
       return result;
     } catch (error) {
       return {

@@ -7,16 +7,15 @@ type Data = {
   payload?: Object,
 };
 
-const requester = async (data: Data): Promise<Object> => {
+const getHost = (): string => {
   const { protocol, host } = window.location;
   const { PORT, NODE_ENV } = process.env;
-  const HOST =
-    NODE_ENV === 'production'
-      ? `${protocol}//${host}/api`
-      : `http://localhost:${PORT || 4500}`;
+  return NODE_ENV === 'production'
+    ? `${protocol}//${host}/api`
+    : `http://localhost:${PORT || 4500}`;
+};
 
-  const { token, path, method, payload } = data;
-
+const getHeaders = (token?: string): Object => {
   let headers: Object = {
     'Content-Type': 'application/json',
   };
@@ -25,17 +24,14 @@ const requester = async (data: Data): Promise<Object> => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  try {
-    const res = await fetch(`${HOST}${path}`, {
-      method: method || 'GET',
-      headers,
-      body: JSON.stringify(payload),
-    }).then((res) => res.json());
-
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
+  return headers;
 };
+
+const requester = (data: Data): Promise<Object> =>
+  fetch(`${getHost()}${data.path}`, {
+    method: data.method || 'GET',
+    headers: getHeaders(data.token),
+    body: JSON.stringify(data.payload),
+  }).then((res) => res.json());
 
 export default requester;

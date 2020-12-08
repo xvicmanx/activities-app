@@ -85,7 +85,7 @@ export const addMember = (token, communityId, memberId, coordinates) => async (
   } else {
     dispatch({
       type: SET_COMMUNITY_ERROR,
-      payload: res ? res.message : 'Unexpected error',
+      payload: res.message,
     });
   }
 

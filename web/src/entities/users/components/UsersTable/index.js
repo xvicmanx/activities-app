@@ -1,6 +1,6 @@
 //@flow
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import CRUDTable, {
   CreateForm,
   UpdateForm,
@@ -12,9 +12,9 @@ import CRUDTable, {
 
 import {
   DEFAULT_OPTIONS,
-  DEFAULT_RESULT,
   throwErrorWhenNotSuccess,
 } from '../../../../core/helpers';
+import useTableItemsFetch from '../../../../core/useTableItemsFetch';
 import { DescriptionRenderer, PasswordRenderer } from './renderers';
 import {
   createFormValidator,
@@ -25,15 +25,7 @@ import Controller from './controller';
 
 const UsersTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
-  const [result, setResult] = useState(DEFAULT_RESULT);
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      const res = await Controller.fetchItems(options);
-      setResult(res);
-    };
-    fetchItems();
-  }, [options]);
+  const result = useTableItemsFetch(Controller.fetchItems, options);
 
   return (
     <CRUDTable

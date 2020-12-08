@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitiesTable renders properly 1`] = `
+Object {
+  "actionsLabel": "Acciones",
+  "caption": "Actividades",
+  "children": Array [
+    <CRUDTable_Fields>
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={false}
+        label="Id"
+        name="id"
+        queryable={true}
+        readOnly={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Título"
+        name="title"
+        placeholder="Título"
+        queryable={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Descripción"
+        name="description"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Fecha"
+        name="date"
+        queryable={true}
+        sortable={true}
+        tableValueResolver={[Function]}
+        type="date"
+      />
+      <CRUDTable_Field
+        hideFromTable={true}
+        hideInCreateForm={false}
+        hideInUpdateForm={true}
+        label="Comunidad"
+        name="communityId"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+    </CRUDTable_Fields>,
+    <CRUDTable_CreateForm
+      message="Crear una nueva actividad"
+      onSubmit={[Function]}
+      submitText="Crear"
+      title="Crear actividad"
+      trigger="Crear actividad"
+      validate={[Function]}
+    />,
+    <CRUDTable_UpdateForm
+      message="Actualizar actividad"
+      onSubmit={[Function]}
+      submitText="Actualizar"
+      title="Actualizar actividad"
+      trigger="Actualizar"
+      validate={[Function]}
+    />,
+    <CRUDTable_DeleteForm
+      message="Esta seguro que quiere eliminar la actividad?"
+      onSubmit={[Function]}
+      submitText="Eliminar"
+      title="Eliminar actividad"
+      trigger="Eliminar"
+      validate={[Function]}
+    />,
+    <CRUDTable_Pagination
+      defaultActivePage={1}
+      itemsPerPage={20}
+      totalOfItems={2}
+    />,
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "title": "Test Activity 1",
+    },
+    Object {
+      "id": 2,
+      "title": "Test Activity 2",
+    },
+  ],
+  "onChange": [Function],
+  "showQueryBuilder": true,
+}
+`;
+
+exports[`ActivitiesTable updates the options on change 1`] = `
+Object {
+  "actionsLabel": "Acciones",
+  "caption": "Actividades",
+  "children": Array [
+    <CRUDTable_Fields>
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={false}
+        label="Id"
+        name="id"
+        queryable={true}
+        readOnly={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Título"
+        name="title"
+        placeholder="Título"
+        queryable={true}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Descripción"
+        name="description"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Fecha"
+        name="date"
+        queryable={true}
+        sortable={true}
+        tableValueResolver={[Function]}
+        type="date"
+      />
+      <CRUDTable_Field
+        hideFromTable={true}
+        hideInCreateForm={false}
+        hideInUpdateForm={true}
+        label="Comunidad"
+        name="communityId"
+        queryable={true}
+        render={[Function]}
+        sortable={true}
+        type="text"
+      />
+    </CRUDTable_Fields>,
+    <CRUDTable_CreateForm
+      message="Crear una nueva actividad"
+      onSubmit={[Function]}
+      submitText="Crear"
+      title="Crear actividad"
+      trigger="Crear actividad"
+      validate={[Function]}
+    />,
+    <CRUDTable_UpdateForm
+      message="Actualizar actividad"
+      onSubmit={[Function]}
+      submitText="Actualizar"
+      title="Actualizar actividad"
+      trigger="Actualizar"
+      validate={[Function]}
+    />,
+    <CRUDTable_DeleteForm
+      message="Esta seguro que quiere eliminar la actividad?"
+      onSubmit={[Function]}
+      submitText="Eliminar"
+      title="Eliminar actividad"
+      trigger="Eliminar"
+      validate={[Function]}
+    />,
+    <CRUDTable_Pagination
+      defaultActivePage={1}
+      itemsPerPage={15}
+      totalOfItems={2}
+    />,
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "title": "Test Activity 1",
+    },
+    Object {
+      "id": 2,
+      "title": "Test Activity 2",
+    },
+  ],
+  "onChange": [Function],
+  "showQueryBuilder": true,
+}
+`;
