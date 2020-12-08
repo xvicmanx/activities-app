@@ -3,7 +3,6 @@ import React from 'react';
 import { handleChange } from './LoginFormActions';
 
 describe('LoginFormActions', () => {
-
   describe('handleChange', () => {
     it('works as expected', async () => {
       const dispatch = jest.fn();

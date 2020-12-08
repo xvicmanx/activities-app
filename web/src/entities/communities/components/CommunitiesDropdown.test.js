@@ -45,11 +45,7 @@ describe('CommunitiesDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <CommunitiesDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <CommunitiesDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 
@@ -66,11 +62,7 @@ describe('CommunitiesDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <CommunitiesDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <CommunitiesDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 
@@ -87,11 +79,7 @@ describe('CommunitiesDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <CommunitiesDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <CommunitiesDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 

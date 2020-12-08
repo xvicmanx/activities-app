@@ -23,37 +23,35 @@ describe('UsersActions', () => {
   const users = [user];
 
   beforeEach(() => {
-    UsersService.fetchUsers.mockImplementation(() =>
-      Promise.resolve({ users, success: true })
-    ).mockClear();
+    UsersService.fetchUsers
+      .mockImplementation(() => Promise.resolve({ users, success: true }))
+      .mockClear();
 
-    UsersService.loginUser.mockImplementation(() =>
-      Promise.resolve({ user, token, success: true })
-    ).mockClear();
+    UsersService.loginUser
+      .mockImplementation(() => Promise.resolve({ user, token, success: true }))
+      .mockClear();
 
-    UsersService.loadUserFromToken.mockImplementation(() =>
-      Promise.resolve({ user, token, success: true })
-    ).mockClear();
+    UsersService.loadUserFromToken
+      .mockImplementation(() => Promise.resolve({ user, token, success: true }))
+      .mockClear();
 
     cookies.set.mockClear();
     cookies.erase.mockClear();
-    cookies.get.mockImplementation(() => token)
-      .mockClear();
+    cookies.get.mockImplementation(() => token).mockClear();
   });
 
   describe('fetchUsers', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-  
+
         await fetchUsers(token)(dispatch);
-  
+
         expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
         expect(UsersService.fetchUsers).toHaveBeenCalledWith(token);
 
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -70,22 +68,21 @@ describe('UsersActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         UsersService.fetchUsers.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
+
         await fetchUsers(token)(dispatch);
-  
+
         expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
         expect(UsersService.fetchUsers).toHaveBeenCalledWith(token);
 
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -111,22 +108,17 @@ describe('UsersActions', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-        
+
         await loginUser(email, password)(dispatch);
-  
+
         expect(UsersService.loginUser).toHaveBeenCalledTimes(1);
         expect(UsersService.loginUser).toHaveBeenCalledWith(email, password);
 
         expect(cookies.set).toHaveBeenCalledTimes(1);
-        expect(cookies.set).toHaveBeenCalledWith(
-          'jwt',
-          token,
-          { expires: 1 },
-        );
-
+        expect(cookies.set).toHaveBeenCalledWith('jwt', token, { expires: 1 });
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -146,23 +138,23 @@ describe('UsersActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         UsersService.loginUser.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
+
         await loginUser(email, password)(dispatch);
-  
+
         expect(UsersService.loginUser).toHaveBeenCalledTimes(1);
         expect(UsersService.loginUser).toHaveBeenCalledWith(email, password);
 
         expect(cookies.set).toHaveBeenCalledTimes(0);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -185,12 +177,12 @@ describe('UsersActions', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-        
+
         await loadUserFromToken({
           token,
           shouldLoadToken: true,
         })(dispatch);
-  
+
         expect(UsersService.loadUserFromToken).toHaveBeenCalledTimes(1);
         expect(UsersService.loadUserFromToken).toHaveBeenCalledWith(token);
 
@@ -198,14 +190,10 @@ describe('UsersActions', () => {
         expect(cookies.erase).toHaveBeenCalledWith('jwt');
 
         expect(cookies.set).toHaveBeenCalledTimes(1);
-        expect(cookies.set).toHaveBeenCalledWith(
-          'jwt',
-          token,
-          { expires: 1 },
-        );
+        expect(cookies.set).toHaveBeenCalledWith('jwt', token, { expires: 1 });
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -225,19 +213,19 @@ describe('UsersActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         UsersService.loadUserFromToken.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
+
         await loadUserFromToken({
           token,
           shouldLoadToken: true,
         })(dispatch);
-  
+
         expect(UsersService.loadUserFromToken).toHaveBeenCalledTimes(1);
         expect(UsersService.loadUserFromToken).toHaveBeenCalledWith(token);
 
@@ -246,7 +234,7 @@ describe('UsersActions', () => {
         expect(cookies.erase).toHaveBeenCalledWith('jwt');
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_USERS_LOADING_STATE',
           payload: true,
@@ -282,7 +270,7 @@ describe('UsersActions', () => {
   describe('logOutUser', () => {
     it('works as expected', async () => {
       const dispatch = jest.fn();
-      
+
       await logOutUser()(dispatch);
 
       expect(cookies.erase).toHaveBeenCalledTimes(1);
@@ -298,7 +286,7 @@ describe('UsersActions', () => {
   describe('readToken', () => {
     it('works as expected', async () => {
       const dispatch = jest.fn();
-      
+
       const result = await readToken();
 
       expect(cookies.get).toHaveBeenCalledTimes(1);

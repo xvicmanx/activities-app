@@ -18,11 +18,7 @@ const NavBar = ({ onLogoutClick }: Props): React$Element<any> => (
       <Image src={menuIcon} alt="menu" />
     </Link>
 
-    <Link
-      onClick={onLogoutClick}
-      className="NavBar__link"
-      to="/"
-    >
+    <Link onClick={onLogoutClick} className="NavBar__link" to="/">
       Cerrar Sesion
     </Link>
   </div>

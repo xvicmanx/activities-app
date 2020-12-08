@@ -15,7 +15,6 @@ jest.mock('react-router-dom', () => ({
 
 import LoginPage from './LoginPage';
 
-
 Enzyme.configure({ adapter: new Adapter() });
 const mockStore = configureMockStore();
 

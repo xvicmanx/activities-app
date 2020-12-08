@@ -28,30 +28,37 @@ describe('CommunitiesTable', () => {
   let itemsResolver;
 
   beforeEach(() => {
-    useTableItemsFetch.mockClear()
-      .mockImplementation(() => ({
-        total: communities.length,
-        items: communities,
-      }));
+    useTableItemsFetch.mockClear().mockImplementation(() => ({
+      total: communities.length,
+      items: communities,
+    }));
   });
 
   it('renders properly', async () => {
-    const result = Enzyme.mount(<Router><CommunitiesTable /></Router>);
+    const result = Enzyme.mount(
+      <Router>
+        <CommunitiesTable />
+      </Router>
+    );
 
     expect(useTableItemsFetch).toHaveBeenCalledTimes(1);
     expect(useTableItemsFetch).toHaveBeenCalledWith(
       Controller.fetchItems,
-      DEFAULT_OPTIONS,
+      DEFAULT_OPTIONS
     );
     expect(result.find('CRUDTable').props()).toMatchSnapshot();
   });
 
   it('updates the options on change', async () => {
-    const result = Enzyme.mount(<Router><CommunitiesTable /></Router>);
+    const result = Enzyme.mount(
+      <Router>
+        <CommunitiesTable />
+      </Router>
+    );
     const data = {
       sort: {
         field: 'name',
-        direction: 'descending', 
+        direction: 'descending',
       },
       queryRules: [],
       pagination: {

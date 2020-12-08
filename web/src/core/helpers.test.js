@@ -1,7 +1,4 @@
-import {
-  throwErrorWhenNotSuccess,
-} from './helpers';
-
+import { throwErrorWhenNotSuccess } from './helpers';
 
 describe('helpers', () => {
   describe('throwErrorWhenNotSuccess', () => {
@@ -14,10 +11,12 @@ describe('helpers', () => {
     });
 
     it('works as expected on failure', async () => {
-      const testFn = jest.fn(() => Promise.resolve({ success: false, message: 'Error!' }));
-      expect(throwErrorWhenNotSuccess(testFn)({ id: 1 })).rejects.toEqual(new Error('Error!'));
+      const testFn = jest.fn(() =>
+        Promise.resolve({ success: false, message: 'Error!' })
+      );
+      expect(throwErrorWhenNotSuccess(testFn)({ id: 1 })).rejects.toEqual(
+        new Error('Error!')
+      );
     });
-
-    
   });
 });

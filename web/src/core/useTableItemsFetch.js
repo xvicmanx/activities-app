@@ -12,7 +12,7 @@ const useTableItemsFetch = (fn: Function, payload: Object): Result => {
     const fetchData = async () => {
       const result = await fn(payload);
       setResult(result);
-    };  
+    };
     fetchData();
   }, [fn, payload]);
 

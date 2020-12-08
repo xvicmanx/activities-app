@@ -42,10 +42,7 @@ const Controller = {
   },
   delete: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.deleteUser(
-        user.id,
-        readToken()
-      );
+      const result = await UsersService.deleteUser(user.id, readToken());
       return result;
     } catch (error) {
       return {

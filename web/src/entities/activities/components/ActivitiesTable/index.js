@@ -27,10 +27,7 @@ import { dateValueTableValueResolver } from './helpers';
 
 const ActivitiesTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
-  const result = useTableItemsFetch(
-    Controller.fetchItems,
-    options,
-  );
+  const result = useTableItemsFetch(Controller.fetchItems, options);
 
   return (
     <CRUDTable

@@ -24,32 +24,31 @@ describe('CommunitiesActions', () => {
   const communities = [community];
 
   beforeEach(() => {
-    CommunitiesService.fetchCommunities.mockImplementation(() =>
-      Promise.resolve({ communities, success: true })
-    ).mockClear();
+    CommunitiesService.fetchCommunities
+      .mockImplementation(() => Promise.resolve({ communities, success: true }))
+      .mockClear();
 
-    CommunitiesService.fetchCommunity.mockImplementation(() =>
-      Promise.resolve({ community, success: true })
-    ).mockClear();
+    CommunitiesService.fetchCommunity
+      .mockImplementation(() => Promise.resolve({ community, success: true }))
+      .mockClear();
 
-    CommunitiesService.addMember.mockImplementation(() =>
-      Promise.resolve({ member, success: true })
-    ).mockClear();
+    CommunitiesService.addMember
+      .mockImplementation(() => Promise.resolve({ member, success: true }))
+      .mockClear();
   });
 
   describe('fetchCommunities', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-  
+
         await fetchCommunities(token)(dispatch);
-  
+
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(token);
 
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITIES_LOADING_STATE',
           payload: true,
@@ -66,22 +65,21 @@ describe('CommunitiesActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         CommunitiesService.fetchCommunities.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
+
         await fetchCommunities(token)(dispatch);
-  
+
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(token);
 
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITIES_LOADING_STATE',
           payload: true,
@@ -104,15 +102,17 @@ describe('CommunitiesActions', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-  
-        await fetchCommunity(token, community.id)(dispatch);
-  
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(token, community.id);
 
+        await fetchCommunity(token, community.id)(dispatch);
+
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
+          token,
+          community.id
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITY_LOADING_STATE',
           payload: true,
@@ -129,22 +129,24 @@ describe('CommunitiesActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         CommunitiesService.fetchCommunity.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
-        await fetchCommunity(token, community.id)(dispatch);
-  
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(token, community.id);
 
+        await fetchCommunity(token, community.id)(dispatch);
+
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
+          token,
+          community.id
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITY_LOADING_STATE',
           payload: true,
@@ -167,20 +169,19 @@ describe('CommunitiesActions', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-  
+
         await addMember(token, community.id, member.id, true)(dispatch);
-  
+
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.addMember).toHaveBeenCalledWith(
           token,
           community.id,
           member.id,
-          true,
+          true
         );
 
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITY_LOADING_STATE',
           payload: true,
@@ -197,26 +198,26 @@ describe('CommunitiesActions', () => {
         });
       });
     });
-    
+
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
         CommunitiesService.addMember.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
-  
+
         await addMember(token, community.id, member.id, true)(dispatch);
-  
+
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.addMember).toHaveBeenCalledWith(
           token,
           community.id,
           member.id,
-          true,
+          true
         );
-  
+
         expect(dispatch).toHaveBeenCalledTimes(3);
-  
+
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITY_LOADING_STATE',
           payload: true,

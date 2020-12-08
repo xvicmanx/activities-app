@@ -22,7 +22,11 @@ const CommunityMembersTable = ({
   const dispatch = useDispatch();
   const token = readToken();
   return (
-    <CRUDTable caption="Miembros" items={members} key={`${communityId}${members.length}`}>
+    <CRUDTable
+      caption="Miembros"
+      items={members}
+      key={`${communityId}${members.length}`}
+    >
       <Fields>
         <Field
           name="id"

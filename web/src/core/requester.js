@@ -27,10 +27,11 @@ const getHeaders = (token?: string): Object => {
   return headers;
 };
 
-const requester = (data: Data): Promise<Object> => fetch(`${getHost()}${data.path}`, {
-  method: data.method || 'GET',
-  headers: getHeaders(data.token),
-  body: JSON.stringify(data.payload),
-}).then((res) => res.json());
+const requester = (data: Data): Promise<Object> =>
+  fetch(`${getHost()}${data.path}`, {
+    method: data.method || 'GET',
+    headers: getHeaders(data.token),
+    body: JSON.stringify(data.payload),
+  }).then((res) => res.json());
 
 export default requester;

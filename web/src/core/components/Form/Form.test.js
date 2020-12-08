@@ -5,7 +5,7 @@ import Form from './Form';
 describe('Form', () => {
   it('renders properly', () => {
     const renderer = new ShallowRenderer();
-    const onClick = jest.fn()
+    const onClick = jest.fn();
     const result = renderer.render(<Form>Test</Form>);
     expect(result).toMatchSnapshot();
   });

@@ -13,7 +13,6 @@ jest.mock('../redux/UsersActions');
 
 import { fetchUsers, readToken } from '../redux/UsersActions';
 
-
 const mockStore = configureMockStore();
 
 describe('UsersDropdown', () => {
@@ -44,11 +43,7 @@ describe('UsersDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <UsersDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <UsersDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 
@@ -65,11 +60,7 @@ describe('UsersDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <UsersDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <UsersDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 
@@ -86,11 +77,7 @@ describe('UsersDropdown', () => {
     const onChange = jest.fn();
     const result = Enzyme.mount(
       <Provider store={store}>
-        <UsersDropdown
-          name="test"
-          value={1}
-          onChange={onChange}
-        />
+        <UsersDropdown name="test" value={1} onChange={onChange} />
       </Provider>
     );
 

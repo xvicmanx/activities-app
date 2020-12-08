@@ -5,7 +5,7 @@ import FormField from './FormField';
 describe('FormField', () => {
   it('renders properly', () => {
     const renderer = new ShallowRenderer();
-    const onClick = jest.fn()
+    const onClick = jest.fn();
     const result = renderer.render(<FormField label="test">Field</FormField>);
     expect(result).toMatchSnapshot();
   });

@@ -25,7 +25,9 @@ describe('CommunityMembersTable validators', () => {
       const errors = addMemberFormValidator(members)({
         memberId: 1,
       });
-      expect(errors).toEqual({ memberId: 'El miembro seleccionado ya existe en la comunidad' });
+      expect(errors).toEqual({
+        memberId: 'El miembro seleccionado ya existe en la comunidad',
+      });
     });
   });
 });

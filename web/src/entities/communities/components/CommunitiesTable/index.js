@@ -24,13 +24,9 @@ import Controller from './controller';
 import { nameTableValueResolver } from './helpers';
 import useTableItemsFetch from '../../../../core/useTableItemsFetch';
 
-
 const CommunitiesTable = (): React$Element<any> => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
-  const result = useTableItemsFetch(
-    Controller.fetchItems,
-    options,
-  );
+  const result = useTableItemsFetch(Controller.fetchItems, options);
 
   return (
     <CRUDTable

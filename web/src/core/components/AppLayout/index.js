@@ -52,9 +52,7 @@ const AppLayout = ({
           </div>
         </div>
         <div className="Layout__Content">
-          <NavBar
-            onLogoutClick={() => dispatch(logOutUser())}
-          />
+          <NavBar onLogoutClick={() => dispatch(logOutUser())} />
           <div
             className={`Layout__Scroll-Content-Wrapper ${
               showMobileMenu ? 'hide' : ''

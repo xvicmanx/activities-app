@@ -28,30 +28,37 @@ describe('UsersTable', () => {
   let itemsResolver;
 
   beforeEach(() => {
-    useTableItemsFetch.mockClear()
-      .mockImplementation(() => ({
-        total: users.length,
-        items: users,
-      }));
+    useTableItemsFetch.mockClear().mockImplementation(() => ({
+      total: users.length,
+      items: users,
+    }));
   });
 
   it('renders properly', async () => {
-    const result = Enzyme.mount(<Router><UsersTable /></Router>);
+    const result = Enzyme.mount(
+      <Router>
+        <UsersTable />
+      </Router>
+    );
 
     expect(useTableItemsFetch).toHaveBeenCalledTimes(1);
     expect(useTableItemsFetch).toHaveBeenCalledWith(
       Controller.fetchItems,
-      DEFAULT_OPTIONS,
+      DEFAULT_OPTIONS
     );
     expect(result.find('CRUDTable').props()).toMatchSnapshot();
   });
 
   it('updates the options on change', async () => {
-    const result = Enzyme.mount(<Router><UsersTable /></Router>);
+    const result = Enzyme.mount(
+      <Router>
+        <UsersTable />
+      </Router>
+    );
     const data = {
       sort: {
         field: 'name',
-        direction: 'descending', 
+        direction: 'descending',
       },
       queryRules: [],
       pagination: {
