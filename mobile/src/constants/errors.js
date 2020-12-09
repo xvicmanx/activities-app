@@ -11,4 +11,5 @@ export default {
   },
   empty: '*Este campo está vacío',
   network: 'No hay conexión a internet',
+  image: 'No se pudo cambiar la imagen',
 };

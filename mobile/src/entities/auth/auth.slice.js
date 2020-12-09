@@ -16,42 +16,48 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(checkUserInfo.fulfilled, (state, { payload }) => {
+      .addCase(checkUserInfo.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.currentUser = payload;
-
+        state.currentUser = action.payload;
         state.network.error = false;
         state.network.message = '';
       })
-      .addCase(checkUserInfo.rejected, (state, { payload }) => {
-        if (payload.net) {
+      .addCase(checkUserInfo.rejected, (state, action) => {
+        if (action.payload.net) {
           state.network.error = true;
           state.network.message = ERRORS.network;
         }
-
         state.isLoading = false;
       })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
-        state.currentUser = payload;
-
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
         state.network.error = false;
         state.network.message = '';
       })
-      .addCase(loginUser.rejected, (state, { payload }) => {
-        if (payload?.net) {
+      .addCase(loginUser.rejected, (state, action) => {
+        if (action.payload?.net) {
           state.network.error = true;
           state.network.message = ERRORS.network;
           state.isLoading = false;
         }
       })
-      .addCase(updateImage.fulfilled, (state, { payload }) => {
-        state.currentUser.profileURL = payload;
+      .addCase(updateImage.fulfilled, (state, action) => {
+        state.currentUser.profileURL = action.payload;
       })
-      .addCase(updateDescription.fulfilled, (state, { payload }) => {
-        state.currentUser.description = payload;
+      .addCase(updateImage.rejected, (state, action) => {
+        console.log('updateImage.rejected', action);
+      })
+      .addCase(updateDescription.fulfilled, (state, action) => {
+        state.currentUser.description = action.payload;
+      })
+      .addCase(updateDescription.rejected, (state, action) => {
+        console.log('updateDescription.rejected', action);
       })
       .addCase(logOut.fulfilled, (state) => {
         state.currentUser = null;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        console.log('logOut.rejected', action);
       });
   },
 });

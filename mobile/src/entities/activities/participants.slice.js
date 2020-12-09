@@ -12,15 +12,21 @@ const participantsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchParticipants.fulfilled, (state, { payload }) => {
-        state.ids = payload.ids;
-        state.entities = payload.participants;
+      .addCase(fetchParticipants.fulfilled, (state, action) => {
+        state.ids = action.payload.ids;
+        state.entities = action.payload.participants;
         state.isLoading = false;
+      })
+      .addCase(fetchParticipants.rejected, (state, action) => {
+        console.log('fetchParticipants.rejected', action);
       })
       .addCase(logOut.fulfilled, (state) => {
         state.isLoading = true;
         state.ids = [];
         state.entities = {};
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        console.log('logOut.rejected', action);
       });
   },
 });

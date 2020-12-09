@@ -31,37 +31,36 @@ const changePasswordFormSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(onChange, (state, { payload }) => {
-        const { name, value } = payload;
+      .addCase(onChange, (state, action) => {
+        const { name, value } = action.payload;
         state[name].value = value;
         state[name].error = null;
       })
       .addCase(updatePassword.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updatePassword.fulfilled, (state, { payload }) => {
+      .addCase(updatePassword.fulfilled, (state, action) => {
         state.isLoading = false;
         state.previousPassword.value = '';
         state.password.value = '';
         state.confirmPassword.value = '';
-
-        state.message.error = payload.error;
-        state.message.value = payload.text;
+        state.message.error = action.payload.error;
+        state.message.value = action.payload.text;
       })
-      .addCase(updatePassword.rejected, (state, { payload }) => {
-        const { name, value, clean } = payload;
-
+      .addCase(updatePassword.rejected, (state, action) => {
+        const { name, value, clean } = action.payload;
         state[name].error = value;
-
         if (clean) {
           state.password.value = '';
         }
-
         state.isLoading = false;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.message.error = null;
         state.message.value = null;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        console.log('logOut.rejected', action);
       });
   },
 });

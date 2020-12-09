@@ -19,22 +19,18 @@ export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, 
 
   const res = await AuthService.checkUserInfo(token);
 
-  if (res.code === 'NOT_AUTHORIZED') {
+  if (!res.success) {
     return thunkAPI.rejectWithValue({
       net: false,
       email,
     });
   }
 
-  const user = {
+  return {
     exp: res.exp,
     token: res.token,
     ...res.user,
   };
-
-  if (res.success) {
-    return user;
-  }
 });
 
 export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) => {
@@ -58,7 +54,7 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
 
   const res = await AuthService.loginUser(email.value, password.value);
 
-  if (res.code === 'INVALID_PARAMETERS') {
+  if (!res.success) {
     return thunkAPI.rejectWithValue({
       name: 'password',
       value: ERRORS.email.invalid,
@@ -67,16 +63,12 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
     });
   }
 
-  if (res.success) {
-    await AsyncStorage.setItem('userToken', res.token);
-    await AsyncStorage.setItem('userEmail', res.user.email);
+  await AsyncStorage.setItem('userToken', res.token);
+  await AsyncStorage.setItem('userEmail', res.user.email);
 
-    const user = {
-      exp: res.exp,
-      token: res.token,
-      ...res.user,
-    };
-
-    return user;
-  }
+  return {
+    exp: res.exp,
+    token: res.token,
+    ...res.user,
+  };
 });

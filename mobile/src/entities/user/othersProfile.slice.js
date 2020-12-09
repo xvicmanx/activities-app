@@ -11,13 +11,19 @@ const othersProfileSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetUserById.fulfilled, (state, { payload }) => {
+      .addCase(fetUserById.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.entity = payload;
+        state.entity = action.payload;
       })
-      .addCase(logOut.fulfilled, (state, { payload }) => {
+      .addCase(fetUserById.rejected, (state, action) => {
+        console.log('fetUserById.rejected', action);
+      })
+      .addCase(logOut.fulfilled, (state) => {
         state.isLoading = true;
         state.entity = {};
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        console.log('logOut.rejected', action);
       });
   },
 });
