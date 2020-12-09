@@ -20,10 +20,8 @@ export const clearToken = () => {
 
 export const readToken = () => cookies.get('jwt');
 
-export const loadUserFromToken = ({ token, shouldLoadToken }) => async (
-  dispatch
-) => {
-  if (!shouldLoadToken) {
+export const loadSignedInUser = ({ shouldLoad }) => async (dispatch) => {
+  if (!shouldLoad) {
     return;
   }
 
@@ -34,7 +32,7 @@ export const loadUserFromToken = ({ token, shouldLoadToken }) => async (
 
   clearToken();
 
-  const res = await UsersService.loadUserFromToken(token);
+  const res = await UsersService.loadSignedInUser();
 
   if (res.success) {
     storeToken(res.token);
@@ -89,13 +87,13 @@ export const logOutUser = () => async (dispatch) => {
   });
 };
 
-export const fetchUsers = (token) => async (dispatch) => {
+export const fetchUsers = () => async (dispatch) => {
   dispatch({
     type: SET_USERS_LOADING_STATE,
     payload: true,
   });
 
-  const res = await UsersService.fetchUsers(token);
+  const res = await UsersService.fetchUsers();
 
   if (res.success) {
     dispatch({

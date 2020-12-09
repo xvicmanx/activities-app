@@ -15,27 +15,22 @@ describe('ActivitiesService', () => {
   describe('fetchActivities', () => {
     it('works as expected', async () => {
       const queryOptions = encode({ name: 'test' });
-      const result = await ActivitiesService.fetchActivities(
-        'test-token',
-        queryOptions
-      );
+      const result = await ActivitiesService.fetchActivities(queryOptions);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/activities/list?options=eyJuYW1lIjoidGVzdCJ9',
-        token: 'test-token',
       });
     });
 
     it('works as expected when options are not passed', async () => {
-      const result = await ActivitiesService.fetchActivities('test-token');
+      const result = await ActivitiesService.fetchActivities();
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/activities/list?options=',
-        token: 'test-token',
       });
     });
   });
@@ -43,10 +38,7 @@ describe('ActivitiesService', () => {
   describe('createActivity', () => {
     it('works as expected', async () => {
       const payload = { title: 'test' };
-      const result = await ActivitiesService.createActivity(
-        payload,
-        'test-token'
-      );
+      const result = await ActivitiesService.createActivity(payload);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
@@ -54,7 +46,6 @@ describe('ActivitiesService', () => {
         path: '/activities/create',
         method: 'POST',
         payload,
-        token: 'test-token',
       });
     });
   });
@@ -62,10 +53,7 @@ describe('ActivitiesService', () => {
   describe('updateActivity', () => {
     it('works as expected', async () => {
       const payload = { id: 1, title: 'test' };
-      const result = await ActivitiesService.updateActivity(
-        payload,
-        'test-token'
-      );
+      const result = await ActivitiesService.updateActivity(payload);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
@@ -73,21 +61,19 @@ describe('ActivitiesService', () => {
         path: '/activities/1/update',
         method: 'PUT',
         payload,
-        token: 'test-token',
       });
     });
   });
 
   describe('deleteActivity', () => {
     it('works as expected', async () => {
-      const result = await ActivitiesService.deleteActivity(1, 'test-token');
+      const result = await ActivitiesService.deleteActivity(1);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/activities/1/delete',
         method: 'DELETE',
-        token: 'test-token',
       });
     });
   });

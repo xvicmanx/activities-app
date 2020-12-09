@@ -11,12 +11,11 @@ import UsersDropdown from './UsersDropdown';
 
 jest.mock('../redux/UsersActions');
 
-import { fetchUsers, readToken } from '../redux/UsersActions';
+import { fetchUsers } from '../redux/UsersActions';
 
 const mockStore = configureMockStore();
 
 describe('UsersDropdown', () => {
-  const token = 'test-token';
   const users = [
     {
       id: 1,
@@ -29,7 +28,6 @@ describe('UsersDropdown', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear().mockImplementation(() => token);
     fetchUsers.mockClear().mockImplementation(() => ({
       type: 'SET_USERS',
       payload: users,
@@ -47,9 +45,7 @@ describe('UsersDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchUsers).toHaveBeenCalledTimes(1);
-    expect(fetchUsers).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').props()).toMatchSnapshot();
   });
 
@@ -64,9 +60,7 @@ describe('UsersDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchUsers).toHaveBeenCalledTimes(1);
-    expect(fetchUsers).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').props()).toMatchSnapshot();
   });
 
@@ -81,9 +75,7 @@ describe('UsersDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchUsers).toHaveBeenCalledTimes(1);
-    expect(fetchUsers).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').length).toBe(0);
     expect(result.find('LoadingIndicator').length).toBe(1);
   });

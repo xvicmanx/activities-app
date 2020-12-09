@@ -1,7 +1,8 @@
 // @flow
 
+import { readToken } from '../entities/users/redux/UsersActions';
+
 type Data = {
-  token?: string,
   path: string,
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE',
   payload?: Object,
@@ -15,7 +16,9 @@ const getHost = (): string => {
     : `http://localhost:${PORT || 4500}`;
 };
 
-const getHeaders = (token?: string): Object => {
+const getHeaders = (): Object => {
+  const token = readToken();
+
   let headers: Object = {
     'Content-Type': 'application/json',
   };
@@ -31,7 +34,7 @@ const requester = async (data: Data): Promise<Object> => {
   try {
     const response = await fetch(`${getHost()}${data.path}`, {
       method: data.method || 'GET',
-      headers: getHeaders(data.token),
+      headers: getHeaders(),
       body: JSON.stringify(data.payload),
     }).then((res) => res.json());
     return response;

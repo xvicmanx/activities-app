@@ -1,5 +1,9 @@
 import requester from './requester';
 
+jest.mock('../entities/users/redux/UsersActions');
+
+import { readToken } from '../entities/users/redux/UsersActions';
+
 global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({ success: true }),
@@ -13,6 +17,7 @@ describe('requester', () => {
 
   describe('Token provided', () => {
     it('works as expected', async () => {
+      readToken.mockClear().mockImplementation(() => 'test-token');
       const result = await requester({
         path: '/test-path',
         payload: { name: 'test' },
@@ -36,6 +41,7 @@ describe('requester', () => {
 
   describe('Token not provided', () => {
     it('works as expected', async () => {
+      readToken.mockClear().mockImplementation(() => null);
       const result = await requester({
         path: '/test-path',
         method: 'POST',
@@ -57,6 +63,7 @@ describe('requester', () => {
   });
 
   it('handles unexpected errors properly', async () => {
+    readToken.mockClear().mockImplementation(() => null);
     global.fetch = jest.fn(() => Promise.reject('Error'));
     const result = await requester({
       path: '/test-path',

@@ -1,18 +1,16 @@
 //@flow
 
+import { toast } from 'react-toastify';
+
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
-import { readToken } from '../../redux/UsersActions';
 import UsersService from '../../services/UsersService';
 
 const Controller = {
   fetchItems: async (
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
-    const response = await UsersService.fetchUsers(
-      readToken(),
-      encode(options)
-    );
+    const response = await UsersService.fetchUsers(encode(options));
     return {
       items: response.users,
       total: response.total,
@@ -20,7 +18,8 @@ const Controller = {
   },
   create: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.createUser(user, readToken());
+      const result = await UsersService.createUser(user);
+      toast.success('Usuario creado de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -31,7 +30,8 @@ const Controller = {
   },
   update: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.updateUser(user, readToken());
+      const result = await UsersService.updateUser(user);
+      toast.success('Usuario actualizado de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -42,7 +42,8 @@ const Controller = {
   },
   delete: async (user: Object): Promise<any> => {
     try {
-      const result = await UsersService.deleteUser(user.id, readToken());
+      const result = await UsersService.deleteUser(user.id);
+      toast.success('Usuario eliminado de manera exitosa!');
       return result;
     } catch (error) {
       return {

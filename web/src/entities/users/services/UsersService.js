@@ -9,35 +9,26 @@ const UsersService = {
       method: 'POST',
       payload: { email, password },
     }),
-  loadUserFromToken: (token: string): Promise<Object> =>
-    requester({
-      path: '/users/current',
-      token,
-    }),
-  fetchUsers: (token: string, queryOptions: string = ''): Promise<Object> =>
-    requester({
-      path: `/users/list?options=${queryOptions}`,
-      token,
-    }),
-  createUser: (payload: Object, token: string): Promise<Object> =>
+  loadSignedInUser: (): Promise<Object> =>
+    requester({ path: '/users/current' }),
+  fetchUsers: (queryOptions: string = ''): Promise<Object> =>
+    requester({ path: `/users/list?options=${queryOptions}` }),
+  createUser: (payload: Object): Promise<Object> =>
     requester({
       path: '/users/create',
       method: 'POST',
       payload,
-      token,
     }),
-  updateUser: (payload: Object, token: string): Promise<Object> =>
+  updateUser: (payload: Object): Promise<Object> =>
     requester({
       path: `/users/${payload.id}/update`,
       method: 'PUT',
       payload,
-      token,
     }),
-  deleteUser: (id: string | number, token: string): Promise<Object> =>
+  deleteUser: (id: string | number): Promise<Object> =>
     requester({
       path: `/users/${id}/delete`,
       method: 'DELETE',
-      token,
     }),
 };
 

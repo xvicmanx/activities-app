@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  loadUserFromToken,
+  loadSignedInUser,
   loginUser,
   logOutUser,
   fetchUsers,
@@ -31,7 +31,7 @@ describe('UsersActions', () => {
       .mockImplementation(() => Promise.resolve({ user, token, success: true }))
       .mockClear();
 
-    UsersService.loadUserFromToken
+    UsersService.loadSignedInUser
       .mockImplementation(() => Promise.resolve({ user, token, success: true }))
       .mockClear();
 
@@ -45,10 +45,9 @@ describe('UsersActions', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
 
-        await fetchUsers(token)(dispatch);
+        await fetchUsers()(dispatch);
 
         expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
-        expect(UsersService.fetchUsers).toHaveBeenCalledWith(token);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -76,10 +75,9 @@ describe('UsersActions', () => {
           Promise.resolve({ message: 'Error!', success: false })
         );
 
-        await fetchUsers(token)(dispatch);
+        await fetchUsers()(dispatch);
 
         expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
-        expect(UsersService.fetchUsers).toHaveBeenCalledWith(token);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -173,18 +171,16 @@ describe('UsersActions', () => {
     });
   });
 
-  describe('loadUserFromToken', () => {
+  describe('loadSignedInUser', () => {
     describe('When success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
 
-        await loadUserFromToken({
-          token,
-          shouldLoadToken: true,
+        await loadSignedInUser({
+          shouldLoad: true,
         })(dispatch);
 
-        expect(UsersService.loadUserFromToken).toHaveBeenCalledTimes(1);
-        expect(UsersService.loadUserFromToken).toHaveBeenCalledWith(token);
+        expect(UsersService.loadSignedInUser).toHaveBeenCalledTimes(1);
 
         expect(cookies.erase).toHaveBeenCalledTimes(1);
         expect(cookies.erase).toHaveBeenCalledWith('jwt');
@@ -217,17 +213,15 @@ describe('UsersActions', () => {
     describe('When not success', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
-        UsersService.loadUserFromToken.mockImplementation(() =>
+        UsersService.loadSignedInUser.mockImplementation(() =>
           Promise.resolve({ message: 'Error!', success: false })
         );
 
-        await loadUserFromToken({
-          token,
-          shouldLoadToken: true,
+        await loadSignedInUser({
+          shouldLoad: true,
         })(dispatch);
 
-        expect(UsersService.loadUserFromToken).toHaveBeenCalledTimes(1);
-        expect(UsersService.loadUserFromToken).toHaveBeenCalledWith(token);
+        expect(UsersService.loadSignedInUser).toHaveBeenCalledTimes(1);
 
         expect(cookies.set).toHaveBeenCalledTimes(0);
         expect(cookies.erase).toHaveBeenCalledTimes(1);
@@ -255,12 +249,11 @@ describe('UsersActions', () => {
     it('can be prevented from loading', async () => {
       const dispatch = jest.fn();
 
-      await loadUserFromToken({
-        token,
-        shouldLoadToken: false,
+      await loadSignedInUser({
+        shouldLoad: false,
       })(dispatch);
 
-      expect(UsersService.loadUserFromToken).toHaveBeenCalledTimes(0);
+      expect(UsersService.loadSignedInUser).toHaveBeenCalledTimes(0);
       expect(cookies.set).toHaveBeenCalledTimes(0);
       expect(cookies.erase).toHaveBeenCalledTimes(0);
       expect(dispatch).toHaveBeenCalledTimes(0);

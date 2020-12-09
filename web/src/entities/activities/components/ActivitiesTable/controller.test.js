@@ -2,10 +2,10 @@ import React from 'react';
 
 import Controller from './controller';
 
-jest.mock('../../../users/redux/UsersActions');
 jest.mock('../../services/ActivitiesService');
+jest.mock('react-toastify');
 
-import { readToken } from '../../../users/redux/UsersActions';
+import { toast } from 'react-toastify';
 import ActivitiesService from '../../services/ActivitiesService';
 
 describe('ActivitiesTable controller', () => {
@@ -23,8 +23,7 @@ describe('ActivitiesTable controller', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear();
-    readToken.mockImplementation(() => 'test-token');
+    toast.success.mockClear();
 
     ActivitiesService.fetchActivities.mockClear();
     ActivitiesService.fetchActivities.mockImplementation(() =>
@@ -63,7 +62,6 @@ describe('ActivitiesTable controller', () => {
       });
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledWith(
-        'test-token',
         'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
       );
     });
@@ -80,9 +78,11 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
+      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
+
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad creada de manera exitosa!'
       );
     });
 
@@ -99,10 +99,8 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -117,9 +115,10 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
+      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad actualizada de manera exitosa!'
       );
     });
 
@@ -136,10 +135,8 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -155,8 +152,11 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
-        activity.id,
-        'test-token'
+        activity.id
+      );
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad eliminada de manera exitosa!'
       );
     });
 
@@ -174,9 +174,9 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
-        activity.id,
-        'test-token'
+        activity.id
       );
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 });

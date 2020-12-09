@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityMembersTable renders properly 1`] = `
+Object {
+  "actionsLabel": "Actions",
+  "caption": "Miembros",
+  "children": Array [
+    <CRUDTable_Fields>
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={true}
+        label="Id"
+        name="id"
+        queryable={true}
+        sortable={false}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={true}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Miembro"
+        name="memberId"
+        queryable={true}
+        render={[Function]}
+        sortable={false}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={true}
+        hideInUpdateForm={false}
+        label="Nombre"
+        name="name"
+        placeholder="Nombre"
+        queryable={true}
+        sortable={false}
+        type="text"
+      />
+      <CRUDTable_Field
+        hideFromTable={false}
+        hideInCreateForm={false}
+        hideInUpdateForm={false}
+        label="Coordinador?"
+        name="coordinates"
+        queryable={true}
+        render={[Function]}
+        sortable={false}
+        tableValueResolver={[Function]}
+        type="text"
+      />
+    </CRUDTable_Fields>,
+    <CRUDTable_CreateForm
+      message="Agregar miembro"
+      onSubmit={[Function]}
+      submitText="Agregar"
+      title="Agregar miembro"
+      trigger="Agregar miembro"
+      validate={[Function]}
+    />,
+  ],
+  "items": Array [
+    Object {
+      "id": 1,
+      "name": "Test member 1",
+    },
+    Object {
+      "id": 2,
+      "name": "Test member 2",
+    },
+  ],
+  "onChange": [Function],
+  "showQueryBuilder": false,
+}
+`;

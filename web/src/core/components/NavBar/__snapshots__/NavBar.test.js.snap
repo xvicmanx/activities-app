@@ -11,6 +11,7 @@ exports[`NavBar renders properly 1`] = `
     <Image
       alt="menu"
       fallback="https://bulma.io/images/placeholders/480x480.png"
+      fullwidth={false}
       rounded={false}
       src="menu.svg"
     />

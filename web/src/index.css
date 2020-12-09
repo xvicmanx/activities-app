@@ -101,8 +101,8 @@ img {
   border-radius: 5px;
   z-index: 1001;
   position: relative;
-  margin: 3rem auto 0 auto;
-  top: 1rem;
+  margin: 2rem auto 0 auto;
+  top: 0rem;
   display: inline-block;
   min-width: 80%;
 }

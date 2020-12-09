@@ -15,6 +15,7 @@ exports[`HomePage renders properly 1`] = `
       alt="home"
       className="Title-Icon"
       fallback="https://bulma.io/images/placeholders/480x480.png"
+      fullwidth={false}
       rounded={false}
       src="front.svg"
     />

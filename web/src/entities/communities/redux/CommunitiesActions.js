@@ -10,13 +10,13 @@ import {
 
 import CommunitiesService from '../services/CommunitiesService';
 
-export const fetchCommunities = (token) => async (dispatch) => {
+export const fetchCommunities = () => async (dispatch) => {
   dispatch({
     type: SET_COMMUNITIES_LOADING_STATE,
     payload: true,
   });
 
-  const res = await CommunitiesService.fetchCommunities(token);
+  const res = await CommunitiesService.fetchCommunities();
 
   if (res.success) {
     dispatch({
@@ -36,13 +36,13 @@ export const fetchCommunities = (token) => async (dispatch) => {
   });
 };
 
-export const fetchCommunity = (token, id) => async (dispatch) => {
+export const fetchCommunity = (id) => async (dispatch) => {
   dispatch({
     type: SET_COMMUNITY_LOADING_STATE,
     payload: true,
   });
 
-  const res = await CommunitiesService.fetchCommunity(token, id);
+  const res = await CommunitiesService.fetchCommunity(id);
 
   if (res.success) {
     dispatch({
@@ -62,7 +62,7 @@ export const fetchCommunity = (token, id) => async (dispatch) => {
   });
 };
 
-export const addMember = (token, communityId, memberId, coordinates) => async (
+export const addMember = (communityId, memberId, coordinates) => async (
   dispatch
 ) => {
   dispatch({
@@ -71,7 +71,6 @@ export const addMember = (token, communityId, memberId, coordinates) => async (
   });
 
   const res = await CommunitiesService.addMember(
-    token,
     communityId,
     memberId,
     coordinates

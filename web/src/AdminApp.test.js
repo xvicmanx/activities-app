@@ -2,9 +2,9 @@ import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import AdminApp from './AdminApp';
 
-jest.mock('./useUserFromToken');
+jest.mock('./useSignedInUser');
 
-import useUserFromToken from './useUserFromToken';
+import useSignedInUser from './useSignedInUser';
 
 describe('AdminApp', () => {
   const props = { test: 'value' };
@@ -15,7 +15,7 @@ describe('AdminApp', () => {
   };
 
   it('renders properly when not logged in', () => {
-    useUserFromToken.mockImplementation(() => ({
+    useSignedInUser.mockImplementation(() => ({
       loading: false,
       user: null,
       token: null,
@@ -26,7 +26,7 @@ describe('AdminApp', () => {
   });
 
   it('renders properly when loading', () => {
-    useUserFromToken.mockImplementation(() => ({
+    useSignedInUser.mockImplementation(() => ({
       loading: true,
     }));
     const renderer = new ShallowRenderer();
@@ -35,7 +35,7 @@ describe('AdminApp', () => {
   });
 
   it('renders properly when logged in', () => {
-    useUserFromToken.mockImplementation(() => ({
+    useSignedInUser.mockImplementation(() => ({
       user,
     }));
     const renderer = new ShallowRenderer();

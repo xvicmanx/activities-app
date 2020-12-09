@@ -11,7 +11,6 @@ jest.mock('../services/CommunitiesService');
 import CommunitiesService from '../services/CommunitiesService';
 
 describe('CommunitiesActions', () => {
-  const token = 'test-token';
   const member = {
     id: 1,
     name: 'John',
@@ -42,10 +41,9 @@ describe('CommunitiesActions', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
 
-        await fetchCommunities(token)(dispatch);
+        await fetchCommunities()(dispatch);
 
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(token);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -73,13 +71,10 @@ describe('CommunitiesActions', () => {
           Promise.resolve({ message: 'Error!', success: false })
         );
 
-        await fetchCommunities(token)(dispatch);
+        await fetchCommunities()(dispatch);
 
         expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(token);
-
         expect(dispatch).toHaveBeenCalledTimes(3);
-
         expect(dispatch).toHaveBeenCalledWith({
           type: 'SET_COMMUNITIES_LOADING_STATE',
           payload: true,
@@ -103,11 +98,10 @@ describe('CommunitiesActions', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
 
-        await fetchCommunity(token, community.id)(dispatch);
+        await fetchCommunity(community.id)(dispatch);
 
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
-          token,
           community.id
         );
 
@@ -137,11 +131,10 @@ describe('CommunitiesActions', () => {
           Promise.resolve({ message: 'Error!', success: false })
         );
 
-        await fetchCommunity(token, community.id)(dispatch);
+        await fetchCommunity(community.id)(dispatch);
 
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
-          token,
           community.id
         );
 
@@ -170,11 +163,10 @@ describe('CommunitiesActions', () => {
       it('works as expected', async () => {
         const dispatch = jest.fn();
 
-        await addMember(token, community.id, member.id, true)(dispatch);
+        await addMember(community.id, member.id, true)(dispatch);
 
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.addMember).toHaveBeenCalledWith(
-          token,
           community.id,
           member.id,
           true
@@ -206,11 +198,10 @@ describe('CommunitiesActions', () => {
           Promise.resolve({ message: 'Error!', success: false })
         );
 
-        await addMember(token, community.id, member.id, true)(dispatch);
+        await addMember(community.id, member.id, true)(dispatch);
 
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
         expect(CommunitiesService.addMember).toHaveBeenCalledWith(
-          token,
           community.id,
           member.id,
           true
