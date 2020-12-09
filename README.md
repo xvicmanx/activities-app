@@ -1,6 +1,12 @@
 # Activities App
 An application for communities to create activities and get together.
-  
+
+[![GitHub license](https://img.shields.io/github/license/xvicmanx/activities-app.svg)](https://github.com/xvicmanx/activities-app/blob/master/LICENSE)
+
+[![GitHub contributors](https://img.shields.io/github/contributors/xvicmanx/activities-app.svg)](https://GitHub.com/xvicmanx/activities-app/graphs/contributors/)
+[![GitHub issues](https://img.shields.io/github/issues/xvicmanx/activities-app.svg)](https://GitHub.com/xvicmanx/activities-app/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/xvicmanx/activities-app.svg)](https://GitHub.com/xvicmanx/activities-app/pull/)
+
 ## API Status
 
 ![API Tests](https://github.com/xvicmanx/activities-app/workflows/API_Tests/badge.svg)
