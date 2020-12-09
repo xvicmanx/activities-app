@@ -1,4 +1,4 @@
-name: Tests
+name: Web_Tests
 
 on:
   push:
@@ -17,15 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: API tests
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd api && npm install
-    - run: cd api && npm run lint
-    - run: cd api && npm test
 
     - run: cd web && npm install
     - run: cd web && npm run lint
     - run: cd web && npm run types:check
     - run: cd web && npm test
+    - run: cd web && npm test:badges
