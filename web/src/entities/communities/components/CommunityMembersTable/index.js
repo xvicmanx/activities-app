@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import CRUDTable, { CreateForm, Fields, Field } from 'react-crud-table';
 
-import { readToken } from '../../../users/redux/UsersActions';
 import { addMember } from '../../redux/CommunitiesActions';
 import { CoordinatesSelectRenderer, MembersSelectRenderer } from './renderers';
 import { addMemberFormValidator } from './validators';
@@ -20,7 +20,6 @@ const CommunityMembersTable = ({
   members,
 }: Props): React$Element<any> => {
   const dispatch = useDispatch();
-  const token = readToken();
   return (
     <CRUDTable
       caption="Miembros"
@@ -61,11 +60,13 @@ const CommunityMembersTable = ({
         title="Agregar miembro"
         message="Agregar miembro"
         trigger="Agregar miembro"
-        onSubmit={(item) =>
-          dispatch(
-            addMember(token, communityId, item.memberId, item.coordinates)
-          )
-        }
+        onSubmit={(item) => {
+          toast.success('Miembro agregado de manera exitosa!');
+
+          return dispatch(
+            addMember(communityId, item.memberId, item.coordinates)
+          );
+        }}
         submitText="Agregar"
         validate={addMemberFormValidator(members)}
       />

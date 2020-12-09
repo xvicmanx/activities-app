@@ -11,7 +11,7 @@ import ActivitiesPage from './entities/activities/pages/ActivitiesPage';
 import CommunitiesPage from './entities/communities/pages/CommunitiesPage';
 import CommunityDetailsPage from './entities/communities/pages/CommunityDetailsPage';
 import UsersPage from './entities/users/pages/UsersPage';
-import useUserFromToken from './useUserFromToken';
+import useSignedInUser from './useSignedInUser';
 
 type Props = {};
 
@@ -39,7 +39,7 @@ const navigationLinks = [
 ];
 
 const AdminApp = (props: Props): React$Element<any> => {
-  const { user, loading, token } = useUserFromToken();
+  const { user, loading, token } = useSignedInUser();
 
   if (!user && !loading && !token) {
     return <Redirect to="/" />;

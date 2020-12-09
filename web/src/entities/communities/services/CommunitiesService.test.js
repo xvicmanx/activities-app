@@ -15,39 +15,33 @@ describe('CommunitiesService', () => {
   describe('fetchCommunities', () => {
     it('works as expected', async () => {
       const queryOptions = encode({ name: 'test' });
-      const result = await CommunitiesService.fetchCommunities(
-        'test-token',
-        queryOptions
-      );
+      const result = await CommunitiesService.fetchCommunities(queryOptions);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/communities/list?options=eyJuYW1lIjoidGVzdCJ9',
-        token: 'test-token',
       });
     });
 
     it('works as expected when options are not passed', async () => {
-      const result = await CommunitiesService.fetchCommunities('test-token');
+      const result = await CommunitiesService.fetchCommunities();
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/communities/list?options=',
-        token: 'test-token',
       });
     });
   });
 
   describe('fetchCommunity', () => {
     it('works as expected', async () => {
-      const result = await CommunitiesService.fetchCommunity('test-token', 1);
+      const result = await CommunitiesService.fetchCommunity(1);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/communities/find/1',
-        token: 'test-token',
       });
     });
   });
@@ -55,10 +49,7 @@ describe('CommunitiesService', () => {
   describe('createCommunity', () => {
     it('works as expected', async () => {
       const payload = { title: 'test' };
-      const result = await CommunitiesService.createCommunity(
-        payload,
-        'test-token'
-      );
+      const result = await CommunitiesService.createCommunity(payload);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
@@ -66,7 +57,6 @@ describe('CommunitiesService', () => {
         path: '/communities/create',
         method: 'POST',
         payload,
-        token: 'test-token',
       });
     });
   });
@@ -74,10 +64,7 @@ describe('CommunitiesService', () => {
   describe('updateCommunity', () => {
     it('works as expected', async () => {
       const payload = { id: 1, title: 'test' };
-      const result = await CommunitiesService.updateCommunity(
-        payload,
-        'test-token'
-      );
+      const result = await CommunitiesService.updateCommunity(payload);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
@@ -85,21 +72,19 @@ describe('CommunitiesService', () => {
         path: '/communities/1/update',
         method: 'PUT',
         payload,
-        token: 'test-token',
       });
     });
   });
 
   describe('deleteCommunity', () => {
     it('works as expected', async () => {
-      const result = await CommunitiesService.deleteCommunity(1, 'test-token');
+      const result = await CommunitiesService.deleteCommunity(1);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);
       expect(requester).toHaveBeenCalledWith({
         path: '/communities/1/delete',
         method: 'DELETE',
-        token: 'test-token',
       });
     });
   });
@@ -107,7 +92,6 @@ describe('CommunitiesService', () => {
   describe('addMember', () => {
     it('works as expected', async () => {
       const result = await CommunitiesService.addMember(
-        'test-token',
         1,
         2,
         true
@@ -118,7 +102,6 @@ describe('CommunitiesService', () => {
       expect(requester).toHaveBeenCalledWith({
         path: '/communities/1/add-member/2?coordinates=1',
         method: 'POST',
-        token: 'test-token',
       });
     });
   });

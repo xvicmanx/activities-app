@@ -2,11 +2,9 @@ import React from 'react';
 
 import Controller from './controller';
 
-jest.mock('../../redux/UsersActions');
 jest.mock('../../services/UsersService');
 
 import UsersService from '../../services/UsersService';
-import { readToken } from '../../redux/UsersActions';
 
 describe('UsersTable controller', () => {
   const users = [
@@ -23,9 +21,6 @@ describe('UsersTable controller', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear();
-    readToken.mockImplementation(() => 'test-token');
-
     UsersService.fetchUsers.mockClear();
     UsersService.fetchUsers.mockImplementation(() =>
       Promise.resolve({ users, total: users.length })
@@ -62,10 +57,8 @@ describe('UsersTable controller', () => {
         total: users.length,
       });
       expect(UsersService.fetchUsers).toHaveBeenCalledTimes(1);
-      expect(UsersService.fetchUsers).toHaveBeenCalledWith(
-        'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
-      );
+      expect(UsersService.fetchUsers)
+        .toHaveBeenCalledWith('eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=');
     });
   });
 
@@ -80,7 +73,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(UsersService.createUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.createUser).toHaveBeenCalledWith(user, 'test-token');
+      expect(UsersService.createUser).toHaveBeenCalledWith(user);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -96,7 +89,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.createUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.createUser).toHaveBeenCalledWith(user, 'test-token');
+      expect(UsersService.createUser).toHaveBeenCalledWith(user);
     });
   });
 
@@ -111,7 +104,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(UsersService.updateUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.updateUser).toHaveBeenCalledWith(user, 'test-token');
+      expect(UsersService.updateUser).toHaveBeenCalledWith(user);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -127,7 +120,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.updateUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.updateUser).toHaveBeenCalledWith(user, 'test-token');
+      expect(UsersService.updateUser).toHaveBeenCalledWith(user);
     });
   });
 
@@ -142,10 +135,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(UsersService.deleteUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.deleteUser).toHaveBeenCalledWith(
-        user.id,
-        'test-token'
-      );
+      expect(UsersService.deleteUser).toHaveBeenCalledWith(user.id);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -161,10 +151,7 @@ describe('UsersTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(UsersService.deleteUser).toHaveBeenCalledTimes(1);
-      expect(UsersService.deleteUser).toHaveBeenCalledWith(
-        user.id,
-        'test-token'
-      );
+      expect(UsersService.deleteUser).toHaveBeenCalledWith(user.id);
     });
   });
 });

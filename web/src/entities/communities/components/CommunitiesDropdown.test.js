@@ -7,10 +7,8 @@ import configureMockStore from 'redux-mock-store';
 
 import CommunitiesDropdown from './CommunitiesDropdown';
 
-jest.mock('../../users/redux/UsersActions');
 jest.mock('../redux/CommunitiesActions');
 
-import { readToken } from '../../users/redux/UsersActions';
 import { fetchCommunities } from '../redux/CommunitiesActions';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -18,7 +16,6 @@ Enzyme.configure({ adapter: new Adapter() });
 const mockStore = configureMockStore();
 
 describe('CommunitiesDropdown', () => {
-  const token = 'test-token';
   const communities = [
     {
       id: 1,
@@ -31,7 +28,6 @@ describe('CommunitiesDropdown', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear().mockImplementation(() => token);
     fetchCommunities.mockClear().mockImplementation(() => ({
       type: 'SET_COMMUNITIES',
       payload: communities,
@@ -49,9 +45,7 @@ describe('CommunitiesDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchCommunities).toHaveBeenCalledTimes(1);
-    expect(fetchCommunities).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').props()).toMatchSnapshot();
   });
 
@@ -66,9 +60,7 @@ describe('CommunitiesDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchCommunities).toHaveBeenCalledTimes(1);
-    expect(fetchCommunities).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').props()).toMatchSnapshot();
   });
 
@@ -83,9 +75,7 @@ describe('CommunitiesDropdown', () => {
       </Provider>
     );
 
-    expect(readToken).toHaveBeenCalledTimes(1);
     expect(fetchCommunities).toHaveBeenCalledTimes(1);
-    expect(fetchCommunities).toHaveBeenCalledWith(token);
     expect(result.find('DropDown').length).toBe(0);
     expect(result.find('LoadingIndicator').length).toBe(1);
   });

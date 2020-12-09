@@ -2,10 +2,8 @@ import React from 'react';
 
 import Controller from './controller';
 
-jest.mock('../../../users/redux/UsersActions');
 jest.mock('../../services/ActivitiesService');
 
-import { readToken } from '../../../users/redux/UsersActions';
 import ActivitiesService from '../../services/ActivitiesService';
 
 describe('ActivitiesTable controller', () => {
@@ -23,9 +21,6 @@ describe('ActivitiesTable controller', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear();
-    readToken.mockImplementation(() => 'test-token');
-
     ActivitiesService.fetchActivities.mockClear();
     ActivitiesService.fetchActivities.mockImplementation(() =>
       Promise.resolve({ activities, total: activities.length })
@@ -62,10 +57,8 @@ describe('ActivitiesTable controller', () => {
         total: activities.length,
       });
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.fetchActivities).toHaveBeenCalledWith(
-        'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
-      );
+      expect(ActivitiesService.fetchActivities)
+        .toHaveBeenCalledWith('eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=');
     });
   });
 
@@ -80,10 +73,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -99,10 +89,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
     });
   });
 
@@ -117,10 +104,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -136,10 +120,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(
-        activity,
-        'test-token'
-      );
+      expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
     });
   });
 
@@ -154,10 +135,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
-        activity.id,
-        'test-token'
-      );
+      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(activity.id);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -173,10 +151,7 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
-        activity.id,
-        'test-token'
-      );
+      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(activity.id);
     });
   });
 });

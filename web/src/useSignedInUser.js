@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   readToken,
-  loadUserFromToken,
+  loadSignedInUser,
 } from './entities/users/redux/UsersActions';
 
 type Result = {
@@ -14,21 +14,16 @@ type Result = {
   token?: string,
 };
 
-const useUserFromToken = (): Result => {
+const useSignedInUser = (): Result => {
   const { Users } = useSelector((state) => state);
   const dispatch = useDispatch();
   const token = readToken();
 
-  const shouldLoadToken = !Users.data && !Users.loading && token;
+  const shouldLoad = !Users.data && !Users.loading && token;
 
   useEffect(() => {
-    dispatch(
-      loadUserFromToken({
-        token,
-        shouldLoadToken,
-      })
-    );
-  }, [dispatch, token, shouldLoadToken]);
+    dispatch(loadSignedInUser({ shouldLoad }));
+  }, [dispatch, shouldLoad]);
 
   return {
     token,
@@ -37,4 +32,4 @@ const useUserFromToken = (): Result => {
   };
 };
 
-export default useUserFromToken;
+export default useSignedInUser;

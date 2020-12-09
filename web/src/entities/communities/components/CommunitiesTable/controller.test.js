@@ -2,10 +2,8 @@ import React from 'react';
 
 import Controller from './controller';
 
-jest.mock('../../../users/redux/UsersActions');
 jest.mock('../../services/CommunitiesService');
 
-import { readToken } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
 describe('CommunitiesTable controller', () => {
@@ -23,9 +21,6 @@ describe('CommunitiesTable controller', () => {
   ];
 
   beforeEach(() => {
-    readToken.mockClear();
-    readToken.mockImplementation(() => 'test-token');
-
     CommunitiesService.fetchCommunities.mockClear();
     CommunitiesService.fetchCommunities.mockImplementation(() =>
       Promise.resolve({ communities, total: communities.length })
@@ -62,10 +57,8 @@ describe('CommunitiesTable controller', () => {
         total: communities.length,
       });
       expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(
-        'test-token',
-        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
-      );
+      expect(CommunitiesService.fetchCommunities)
+        .toHaveBeenCalledWith('eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=');
     });
   });
 
@@ -80,10 +73,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
-        community,
-        'test-token'
-      );
+      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(community);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -99,10 +89,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
-        community,
-        'test-token'
-      );
+      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(community);
     });
   });
 
@@ -117,10 +104,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
-        community,
-        'test-token'
-      );
+      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(community);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -136,10 +120,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
-        community,
-        'test-token'
-      );
+      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(community);
     });
   });
 
@@ -154,10 +135,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
-        community.id,
-        'test-token'
-      );
+      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(community.id);
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -173,10 +151,7 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
-        community.id,
-        'test-token'
-      );
+      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(community.id);
     });
   });
 });

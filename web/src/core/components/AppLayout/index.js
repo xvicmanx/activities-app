@@ -4,6 +4,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ToastContainer } from 'react-toastify';
 
 import { logOutUser } from '../../../entities/users/redux/UsersActions';
 import { showMobileMenu } from '../../helpers';
@@ -60,6 +61,7 @@ const AppLayout = ({
           >
             <div className="Layout__Scroll-Content">{children}</div>
           </div>
+          <ToastContainer position="top-center" />
         </div>
       </div>
     </div>

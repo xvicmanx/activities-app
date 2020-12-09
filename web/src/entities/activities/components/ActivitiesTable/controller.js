@@ -1,6 +1,6 @@
 // @flow
 
-import { readToken } from '../../../users/redux/UsersActions';
+import { toast } from 'react-toastify';
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
 import ActivitiesService from '../../services/ActivitiesService';
@@ -9,10 +9,7 @@ const Controller = {
   fetchItems: async (
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
-    const response = await ActivitiesService.fetchActivities(
-      readToken(),
-      encode(options)
-    );
+    const response = await ActivitiesService.fetchActivities(encode(options));
     return {
       items: response.activities,
       total: response.total,
@@ -20,10 +17,8 @@ const Controller = {
   },
   create: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.createActivity(
-        activity,
-        readToken()
-      );
+      const result = await ActivitiesService.createActivity(activity);
+      toast.success('Actividad creada de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -34,10 +29,8 @@ const Controller = {
   },
   update: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.updateActivity(
-        activity,
-        readToken()
-      );
+      const result = await ActivitiesService.updateActivity(activity);
+      toast.success('Actividad actualizada de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -48,10 +41,8 @@ const Controller = {
   },
   delete: async (activity: Object): Promise<any> => {
     try {
-      const result = await ActivitiesService.deleteActivity(
-        activity.id,
-        readToken()
-      );
+      const result = await ActivitiesService.deleteActivity(activity.id);
+      toast.success('Actividad eliminada de manera exitosa!');
       return result;
     } catch (error) {
       return {

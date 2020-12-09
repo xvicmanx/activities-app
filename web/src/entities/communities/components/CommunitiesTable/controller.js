@@ -1,18 +1,15 @@
 // @flow
 
+import { toast } from 'react-toastify';
 import { encode } from '../../../../core/helpers';
 import type { Options } from '../../../../core/helpers';
-import { readToken } from '../../../users/redux/UsersActions';
 import CommunitiesService from '../../services/CommunitiesService';
 
 const Controller = {
   fetchItems: async (
     options: Options
   ): Promise<{ items: any, total: any, ... }> => {
-    const response = await CommunitiesService.fetchCommunities(
-      readToken(),
-      encode(options)
-    );
+    const response = await CommunitiesService.fetchCommunities(encode(options));
     return {
       items: response.communities,
       total: response.total,
@@ -20,10 +17,8 @@ const Controller = {
   },
   create: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.createCommunity(
-        community,
-        readToken()
-      );
+      const result = await CommunitiesService.createCommunity(community);
+      toast.success('Comunidad creada de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -34,10 +29,8 @@ const Controller = {
   },
   update: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.updateCommunity(
-        community,
-        readToken()
-      );
+      const result = await CommunitiesService.updateCommunity(community);
+      toast.success('Comunidad actualizada de manera exitosa!');
       return result;
     } catch (error) {
       return {
@@ -48,10 +41,8 @@ const Controller = {
   },
   delete: async (community: Object): Promise<any> => {
     try {
-      const result = await CommunitiesService.deleteCommunity(
-        community.id,
-        readToken()
-      );
+      const result = await CommunitiesService.deleteCommunity(community.id);
+      toast.success('Comunidad eliminada de manera exitosa!');
       return result;
     } catch (error) {
       return {
