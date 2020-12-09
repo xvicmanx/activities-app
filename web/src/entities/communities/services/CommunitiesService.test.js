@@ -91,11 +91,7 @@ describe('CommunitiesService', () => {
 
   describe('addMember', () => {
     it('works as expected', async () => {
-      const result = await CommunitiesService.addMember(
-        1,
-        2,
-        true
-      );
+      const result = await CommunitiesService.addMember(1, 2, true);
 
       expect(result).toEqual({ success: true });
       expect(requester).toHaveBeenCalledTimes(1);

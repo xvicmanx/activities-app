@@ -101,7 +101,9 @@ describe('CommunitiesActions', () => {
         await fetchCommunity(community.id)(dispatch);
 
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(community.id);
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
+          community.id
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -132,7 +134,9 @@ describe('CommunitiesActions', () => {
         await fetchCommunity(community.id)(dispatch);
 
         expect(CommunitiesService.fetchCommunity).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(community.id);
+        expect(CommunitiesService.fetchCommunity).toHaveBeenCalledWith(
+          community.id
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -162,7 +166,11 @@ describe('CommunitiesActions', () => {
         await addMember(community.id, member.id, true)(dispatch);
 
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.addMember).toHaveBeenCalledWith(community.id, member.id, true);
+        expect(CommunitiesService.addMember).toHaveBeenCalledWith(
+          community.id,
+          member.id,
+          true
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 
@@ -193,7 +201,11 @@ describe('CommunitiesActions', () => {
         await addMember(community.id, member.id, true)(dispatch);
 
         expect(CommunitiesService.addMember).toHaveBeenCalledTimes(1);
-        expect(CommunitiesService.addMember).toHaveBeenCalledWith(community.id, member.id, true);
+        expect(CommunitiesService.addMember).toHaveBeenCalledWith(
+          community.id,
+          member.id,
+          true
+        );
 
         expect(dispatch).toHaveBeenCalledTimes(3);
 

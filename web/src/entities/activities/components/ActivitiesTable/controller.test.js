@@ -3,7 +3,9 @@ import React from 'react';
 import Controller from './controller';
 
 jest.mock('../../services/ActivitiesService');
+jest.mock('react-toastify');
 
+import { toast } from 'react-toastify';
 import ActivitiesService from '../../services/ActivitiesService';
 
 describe('ActivitiesTable controller', () => {
@@ -21,6 +23,8 @@ describe('ActivitiesTable controller', () => {
   ];
 
   beforeEach(() => {
+    toast.success.mockClear();
+
     ActivitiesService.fetchActivities.mockClear();
     ActivitiesService.fetchActivities.mockImplementation(() =>
       Promise.resolve({ activities, total: activities.length })
@@ -57,8 +61,9 @@ describe('ActivitiesTable controller', () => {
         total: activities.length,
       });
       expect(ActivitiesService.fetchActivities).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.fetchActivities)
-        .toHaveBeenCalledWith('eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=');
+      expect(ActivitiesService.fetchActivities).toHaveBeenCalledWith(
+        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
+      );
     });
   });
 
@@ -74,6 +79,11 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
+
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad creada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -90,6 +100,7 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.createActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.createActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -105,6 +116,10 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad actualizada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -121,6 +136,7 @@ describe('ActivitiesTable controller', () => {
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.updateActivity).toHaveBeenCalledTimes(1);
       expect(ActivitiesService.updateActivity).toHaveBeenCalledWith(activity);
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -135,7 +151,13 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(activity.id);
+      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
+        activity.id
+      );
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Actividad eliminada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -151,7 +173,10 @@ describe('ActivitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(ActivitiesService.deleteActivity).toHaveBeenCalledTimes(1);
-      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(activity.id);
+      expect(ActivitiesService.deleteActivity).toHaveBeenCalledWith(
+        activity.id
+      );
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 });

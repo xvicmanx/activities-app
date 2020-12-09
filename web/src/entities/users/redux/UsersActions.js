@@ -20,9 +20,7 @@ export const clearToken = () => {
 
 export const readToken = () => cookies.get('jwt');
 
-export const loadSignedInUser = ({ shouldLoad }) => async (
-  dispatch
-) => {
+export const loadSignedInUser = ({ shouldLoad }) => async (dispatch) => {
   if (!shouldLoad) {
     return;
   }

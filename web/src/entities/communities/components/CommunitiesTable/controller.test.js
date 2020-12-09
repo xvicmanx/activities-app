@@ -2,8 +2,10 @@ import React from 'react';
 
 import Controller from './controller';
 
+jest.mock('react-toastify');
 jest.mock('../../services/CommunitiesService');
 
+import { toast } from 'react-toastify';
 import CommunitiesService from '../../services/CommunitiesService';
 
 describe('CommunitiesTable controller', () => {
@@ -21,6 +23,8 @@ describe('CommunitiesTable controller', () => {
   ];
 
   beforeEach(() => {
+    toast.success.mockClear();
+
     CommunitiesService.fetchCommunities.mockClear();
     CommunitiesService.fetchCommunities.mockImplementation(() =>
       Promise.resolve({ communities, total: communities.length })
@@ -57,8 +61,9 @@ describe('CommunitiesTable controller', () => {
         total: communities.length,
       });
       expect(CommunitiesService.fetchCommunities).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.fetchCommunities)
-        .toHaveBeenCalledWith('eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0=');
+      expect(CommunitiesService.fetchCommunities).toHaveBeenCalledWith(
+        'eyJhY3RpdmVQYWdlIjoxLCJpdGVtc1BlclBhZ2UiOjEwLCJxdWVyeVJ1bGVzIjpbXX0='
+      );
     });
   });
 
@@ -73,7 +78,14 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(community);
+      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
+        community
+      );
+
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Comunidad creada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -89,7 +101,10 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.createCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(community);
+      expect(CommunitiesService.createCommunity).toHaveBeenCalledWith(
+        community
+      );
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -104,7 +119,14 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(community);
+      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
+        community
+      );
+
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Comunidad actualizada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -120,7 +142,10 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.updateCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(community);
+      expect(CommunitiesService.updateCommunity).toHaveBeenCalledWith(
+        community
+      );
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -135,7 +160,14 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: true });
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(community.id);
+      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
+        community.id
+      );
+
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      expect(toast.success).toHaveBeenCalledWith(
+        'Comunidad eliminada de manera exitosa!'
+      );
     });
 
     it('handles as expected unexpected errors', async () => {
@@ -151,7 +183,10 @@ describe('CommunitiesTable controller', () => {
 
       expect(result).toEqual({ success: false, message: 'Unexpected error' });
       expect(CommunitiesService.deleteCommunity).toHaveBeenCalledTimes(1);
-      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(community.id);
+      expect(CommunitiesService.deleteCommunity).toHaveBeenCalledWith(
+        community.id
+      );
+      expect(toast.success).toHaveBeenCalledTimes(0);
     });
   });
 });
