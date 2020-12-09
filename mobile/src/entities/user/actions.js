@@ -4,6 +4,7 @@ import UserService from './user.service';
 import ERRORS from '../../constants/errors';
 
 export const onChange = createAction('user/onChange');
+export const setImageLoader = createAction('user/setImageLoader');
 
 export const logOut = createAsyncThunk('user/logOut', async () => {
   await AsyncStorage.removeItem('userToken');
@@ -13,9 +14,11 @@ export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, t
   const token = thunkAPI.getState().auth.currentUser.token;
   const res = await UserService.fetUserById(userId, token);
 
-  if (res.success) {
-    return res.user;
+  if (!res.success) {
+    throw new Error('fetch user by id fails');
   }
+
+  return res.user;
 });
 
 export const updatePassword = createAsyncThunk('user/update/password', async (arg, thunkAPI) => {
@@ -47,11 +50,11 @@ export const updatePassword = createAsyncThunk('user/update/password', async (ar
 
   const res = await UserService.updatePassword(payload, token);
 
-  if (res.success) {
-    return { error: false, text: 'La contraseña ha sido cambiada con éxito' };
-  } else {
+  if (!res.success) {
     return { error: true, text: 'No se pudo cambiar la contraseña' };
   }
+
+  return { error: false, text: 'La contraseña ha sido cambiada con éxito' };
 });
 
 export const updateDescription = createAsyncThunk(
@@ -71,7 +74,9 @@ export const updateImage = createAsyncThunk('user/update/image', async (imageDat
   const token = thunkAPI.getState().auth.currentUser.token;
   const res = await UserService.uploadImage(imageData, token);
 
-  if (res.success) {
-    return res.profileURL;
+  if (!res.success) {
+    throw new Error();
   }
+
+  return res.profileURL;
 });

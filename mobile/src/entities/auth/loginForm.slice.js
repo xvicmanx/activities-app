@@ -17,8 +17,8 @@ const loginFormSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(onChange, (state, { payload }) => {
-        const { name, value } = payload;
+      .addCase(onChange, (state, action) => {
+        const { name, value } = action.payload;
         state[name].value = value;
         state[name].error = null;
       })
@@ -29,19 +29,17 @@ const loginFormSlice = createSlice({
         state.isLoading = false;
         state.password.value = '';
       })
-      .addCase(checkUserInfo.rejected, (state, { payload }) => {
-        if (payload.email) {
-          state.email.value = payload.email;
-        }
-      })
-      .addCase(loginUser.rejected, (state, { payload }) => {
-        const { name, value, clean } = payload;
-
+      .addCase(loginUser.rejected, (state, action) => {
+        const { name, value, clean } = action.payload;
         state.isLoading = false;
         state[name].error = value;
-
         if (clean) {
           state.password.value = '';
+        }
+      })
+      .addCase(checkUserInfo.rejected, (state, action) => {
+        if (action.payload.email) {
+          state.email.value = action.payload.email;
         }
       });
   },

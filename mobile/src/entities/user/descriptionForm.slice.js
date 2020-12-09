@@ -8,8 +8,8 @@ const descriptionFormSlice = createSlice({
     modalVisibility: false,
   },
   reducers: {
-    setModalVisibility(state, { payload }) {
-      state.modalVisibility = payload;
+    setModalVisibility(state, action) {
+      state.modalVisibility = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -20,6 +20,9 @@ const descriptionFormSlice = createSlice({
       .addCase(updateDescription.fulfilled, (state) => {
         state.isLoading = false;
         state.modalVisibility = false;
+      })
+      .addCase(updateDescription.rejected, (state, action) => {
+        console.log('updateDescription.rejected', action);
       });
   },
 });

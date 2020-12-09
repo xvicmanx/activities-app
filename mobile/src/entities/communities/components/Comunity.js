@@ -11,7 +11,7 @@ const Comunity = ({ id }) => {
     navigate('CommunityScreen', { id: comunity.id, name: comunity.name });
   };
 
-  return <ListItem item={comunity} onPress={onPress} />;
+  return <ListItem community item={comunity} onPress={onPress} />;
 };
 
 export default Comunity;

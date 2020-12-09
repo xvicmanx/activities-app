@@ -6,6 +6,7 @@ import activities from './entities/activities/activities.slice';
 import participants from './entities/activities/participants.slice';
 import descriptionForm from './entities/user/descriptionForm.slice';
 import othersProfile from './entities/user/othersProfile.slice';
+import user from './entities/user/user.slice';
 import changePasswordForm from './entities/user/changePasswordForm.slice';
 import communities from './entities/communities/communities.slice';
 
@@ -19,6 +20,7 @@ const store = configureStore({
     descriptionForm: descriptionForm.reducer,
     changePasswordForm: changePasswordForm.reducer,
     communities: communities.reducer,
+    user: user.reducer,
   },
 });
 

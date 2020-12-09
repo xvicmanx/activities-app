@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import { API } from '@env';
 
 const requester = async ({ token, path, method, payload, image }) => {
@@ -24,12 +23,21 @@ const requester = async ({ token, path, method, payload, image }) => {
   }
 
   try {
-    const resData = await fetch(`${API}${path}`, requestOptions);
-    const res = await resData.json();
+    const response = await fetch(`${API}${path}`, requestOptions);
 
-    return res;
+    if (!response.ok) {
+      throw new Error(`response.ok = false (status: ${response.status})`);
+    }
+
+    const result = await response.json();
+
+    return result;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return {
+      success: false,
+      error,
+    };
   }
 };
 
@@ -39,7 +47,7 @@ const createFormData = (photo) => {
   data.append('file', {
     name: photo.fileName,
     type: photo.type,
-    uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+    uri: photo.uri,
   });
 
   return data;

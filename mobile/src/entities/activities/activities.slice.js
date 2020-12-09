@@ -12,33 +12,44 @@ const activitiesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(setLoaderActivity, (state, { payload }) => {
-        state.entities[payload].isLoading = true;
+      .addCase(setLoaderActivity, (state, action) => {
+        state.entities[action.payload].isLoading = true;
       })
-      .addCase(fetchActivities.fulfilled, (state, { payload }) => {
-        state.entities = payload.activities;
-        state.ids = payload.ids;
+      .addCase(fetchActivities.fulfilled, (state, action) => {
+        state.entities = action.payload.activities;
+        state.ids = action.payload.ids;
         state.isLoading = false;
       })
-      .addCase(joinActivity.fulfilled, (state, { payload }) => {
-        const { userWillAttend, willAttendCount } = payload;
-
-        state.entities[payload.id].userWillAttend = userWillAttend;
-        state.entities[payload.id].willAttendCount = willAttendCount;
-        state.entities[payload.id].isLoading = false;
+      .addCase(fetchActivities.rejected, (state) => {
+        state.isLoading = false;
       })
+      .addCase(joinActivity.fulfilled, (state, action) => {
+        const { userWillAttend, willAttendCount } = action.payload;
 
-      .addCase(unjoinActivity.fulfilled, (state, { payload }) => {
-        const { userWillAttend, willAttendCount } = payload;
+        state.entities[action.payload.id].userWillAttend = userWillAttend;
+        state.entities[action.payload.id].willAttendCount = willAttendCount;
+        state.entities[action.payload.id].isLoading = false;
+      })
+      .addCase(joinActivity.rejected, (state, action) => {
+        console.log('joinActivity.rejected', action);
+      })
+      .addCase(unjoinActivity.fulfilled, (state, action) => {
+        const { userWillAttend, willAttendCount } = action.payload;
 
-        state.entities[payload.id].userWillAttend = userWillAttend;
-        state.entities[payload.id].willAttendCount = willAttendCount;
-        state.entities[payload.id].isLoading = false;
+        state.entities[action.payload.id].userWillAttend = userWillAttend;
+        state.entities[action.payload.id].willAttendCount = willAttendCount;
+        state.entities[action.payload.id].isLoading = false;
+      })
+      .addCase(unjoinActivity.rejected, (state, action) => {
+        console.log('unjoinActivity.rejected', action);
       })
       .addCase(logOut.fulfilled, (state) => {
         state.isLoading = true;
         state.ids = [];
         state.entities = {};
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        console.log('logOut.rejected', action);
       });
   },
 });

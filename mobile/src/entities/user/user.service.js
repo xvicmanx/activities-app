@@ -26,12 +26,12 @@ const updateDescription = async (description, token) => {
   });
 };
 
-const uploadImage = async (data, token) => {
+const uploadImage = async (imageData, token) => {
   return await requester({
     path: `/users/update-profile-picture`,
     method: 'PUT',
     token,
-    payload: data,
+    payload: imageData,
     image: true,
   });
 };
