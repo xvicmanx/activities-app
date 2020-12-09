@@ -26,4 +26,4 @@ jobs:
     - run: cd web && npm run lint
     - run: cd web && npm run types:check
     - run: cd web && npm test
-    - run: cd web && npm test:badges
+    - run: cd web && npm run test:badges
