@@ -1,9 +1,21 @@
 # Activities App
 An application for communities to create activities and get together.
+  
+## API Status
 
-  ![API Tests](https://github.com/xvicmanx/activities-app/workflows/API_Tests/badge.svg)
+![API Tests](https://github.com/xvicmanx/activities-app/workflows/API_Tests/badge.svg)
+  
+## Web Status
 
-  ![Web Tests](https://github.com/xvicmanx/activities-app/workflows/Web_Tests/badge.svg)
+![Web Tests](https://github.com/xvicmanx/activities-app/workflows/Web_Tests/badge.svg)
+
+<br />
+
+![Branches Tests Coverage](web/badges/badge-branches.svg)
+![Functions Tests Coverage](web/badges/badge-functions.svg)
+![Lines Tests Coverage](web/badges/badge-lines.svg)
+![Statements Tests Coverage](web/badges/badge-statements.svg)
+
 
 ## Table of Contents
 
