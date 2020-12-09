@@ -1,4 +1,4 @@
-import { throwErrorWhenNotSuccess } from './helpers';
+import { showMobileMenu, throwErrorWhenNotSuccess } from './helpers';
 
 describe('helpers', () => {
   describe('throwErrorWhenNotSuccess', () => {
@@ -17,6 +17,23 @@ describe('helpers', () => {
       expect(throwErrorWhenNotSuccess(testFn)({ id: 1 })).rejects.toEqual(
         new Error('Error!')
       );
+    });
+  });
+
+  describe('showMobileMenu', () => {
+    const realLocation = window.location;
+
+    afterEach(() => {
+      window.location = realLocation;
+    });
+
+    it('works as expected', async () => {
+      expect(showMobileMenu()).toEqual(false);
+
+      delete window.location;
+      window.location = new URL('https://www.example.com/display-menu');
+
+      expect(showMobileMenu()).toEqual(true);
     });
   });
 });

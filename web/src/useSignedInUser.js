@@ -19,7 +19,7 @@ const useSignedInUser = (): Result => {
   const dispatch = useDispatch();
   const token = readToken();
 
-  const shouldLoad = !Users.data && !Users.loading && token;
+  const shouldLoad = !Users.data && !Users.loading && !!token;
 
   useEffect(() => {
     dispatch(loadSignedInUser({ shouldLoad }));

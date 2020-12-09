@@ -38,7 +38,7 @@ describe('DropDown', () => {
   });
 
   it('calls the onChange handler when dropdown value changes', () => {
-    const onChangeMock = jest.fn();
+    const onChangeMock = jest.fn((e) => e.persist());
     const event = {
       target: { name: 'test-drop', value: 2 },
     };
