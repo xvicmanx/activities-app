@@ -24,7 +24,7 @@ class CommunitiesService {
     };
   }
 
-  async findById(id: number): Promise<?Community> {
+  async findById(id: string): Promise<?Community> {
     const community = await Community.findOne({
       where: { id },
       include: this.include,
@@ -33,7 +33,7 @@ class CommunitiesService {
     return community;
   }
 
-  async getUserCommunities(userId: number): Promise<Array<Community>> {
+  async getUserCommunities(userId: string): Promise<Array<Community>> {
     const user = await User.findOne({
       where: { id: userId },
       include: [{
@@ -58,13 +58,13 @@ class CommunitiesService {
     return item.update(data);
   }
 
-  async deleteCommunity(id: number): Promise<Community> {
+  async deleteCommunity(id: string): Promise<Community> {
     const item = await Community.findByPk(id);
     await item.destroy(id);
     return item;
   }
 
-  async addMember(id: number, memberId: number, coordinates: boolean): Promise<?Object> {
+  async addMember(id: string, memberId: string, coordinates: boolean): Promise<?Object> {
     const item = await Community.findByPk(id);
     await item.addMember(memberId, { through: { coordinates } });
     const user = await User.findByPk(memberId);

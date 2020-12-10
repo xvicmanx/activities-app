@@ -250,7 +250,9 @@ img {
   font-size: 0.9rem;
 }
 
-.crud-table__row {}
+.crud-table__row {
+  background: #fff;
+}
 
 .crud-table__header-cell {
   cursor: pointer;

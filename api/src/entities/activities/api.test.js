@@ -102,10 +102,11 @@ describe('Activity API', () => {
 
     it('successfully returns the pending activities', async () => {
       const response = await getPendingActivities(user);
+      console.log(response.message);
       expect(response.success).to.be.equal(true);
       expect(response.message).to.be.equal(undefined);
       expect(response.activities.map(mapActivityItem))
-        .to.eql(activities.map(mapActivityItem)
+        .to.eql(activities.reverse().map(mapActivityItem)
           .map((x) => ({ ...x, userWillAttend: true, willAttendCount: 1 })));
     });
   });
@@ -154,10 +155,11 @@ describe('Activity API', () => {
 
     it('successfully returns the participants list', async () => {
       const response = await getActivityParticipantsList(activity.id, loggedInUser);
+      const comparer = (a, b) => a.id.localeCompare(b.id);
       expect(response.success).to.be.equal(true);
       expect(response.message).to.be.equal(undefined);
-      expect(response.participants.map(mapParticipantItem))
-        .to.eql(users.slice(0, 2).map(mapParticipantItem));
+      expect(response.participants.sort(comparer).map(mapParticipantItem))
+        .to.eql(users.slice(0, 2).sort(comparer).map(mapParticipantItem));
     });
   });
 

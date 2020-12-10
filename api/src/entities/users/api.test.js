@@ -110,7 +110,7 @@ describe('User API', () => {
     });
   });
 
-  describe('Find an user by id', () => {
+  describe('Finds a user by id', () => {
     const findById = async (id, logInUser) => {
       let headers = {};
 
@@ -121,16 +121,14 @@ describe('User API', () => {
       return requester.get(getUrl(`/users/find/${id}`), headers);
     };
 
-    let userId;
     let expectedUser;
 
     before(async () => {
-      userId = 2;
-      expectedUser = await User.findOne({ where: { id: userId } });
+      expectedUser = await User.findOne({ offset: 2 });
     });
 
     it('fails if the user is not logged in', async () => {
-      const response = await findById(userId);
+      const response = await findById(expectedUser.id);
       expect(response.success).to.be.equal(undefined);
       expect(response.user).to.be.equal(undefined);
       expect(response.message).to.be.equal('It is not authorized');
@@ -138,7 +136,7 @@ describe('User API', () => {
 
     it('returns item successfully if the user is logged in', async () => {
       const loggedInUser = await User.findOne();
-      const response = await findById(userId, loggedInUser);
+      const response = await findById(expectedUser.id, loggedInUser);
       expect(response.success).to.be.equal(true);
       expect(mapItem(response.user)).to.eql(mapItem(expectedUser));
     });

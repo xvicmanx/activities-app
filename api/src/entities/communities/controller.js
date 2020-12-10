@@ -59,7 +59,7 @@ class CommunitiesController extends Controller {
       return;
     }
 
-    const community = await this.service.findById(+params.id);
+    const community = await this.service.findById(params.id);
 
     if (!community) {
       response.status(404).json({
@@ -199,7 +199,7 @@ class CommunitiesController extends Controller {
     }
 
     response.json({
-      community: await this.service.deleteCommunity(+request.params.id),
+      community: await this.service.deleteCommunity(request.params.id),
       success: true,
     });
   });
@@ -227,14 +227,14 @@ class CommunitiesController extends Controller {
       return;
     }
 
-    const community = await this.service.findById(+request.params.id);
+    const community = await this.service.findById(request.params.id);
 
     if (!community) {
       this.invalidParamError(request, response, 'Invalid community id');
       return;
     }
 
-    if (community.members.map((u) => u.id).includes(+request.params.memberId)) {
+    if (community.members.map((u) => u.id).includes(request.params.memberId)) {
       response.status(400).json({
         message: 'The user already belongs to the community',
         success: false,
@@ -246,8 +246,8 @@ class CommunitiesController extends Controller {
 
     response.json({
       member: await this.service.addMember(
-        +request.params.id,
-        +request.params.memberId,
+        request.params.id,
+        request.params.memberId,
         !!(+query.coordinates),
       ),
       success: true,
