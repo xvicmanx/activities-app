@@ -6,6 +6,7 @@ critical.generate({
   src: 'index.html',
   target: 'index.html',
   inline: true,
+  minify: true,
   dimensions: [
     {
       height: 568,

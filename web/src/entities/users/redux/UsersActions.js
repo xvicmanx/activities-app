@@ -30,9 +30,9 @@ export const loadSignedInUser = ({ shouldLoad }) => async (dispatch) => {
     payload: true,
   });
 
-  clearToken();
-
   const res = await UsersService.loadSignedInUser();
+
+  clearToken();
 
   if (res.success) {
     storeToken(res.token);
