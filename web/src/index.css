@@ -377,6 +377,14 @@ img {
     margin-top: 1rem;
     border-radius: 3px;
     overflow: hidden;
+    box-shadow: none;
+    border: none;
+  }
+
+  .crud-table-query-builder {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0px 5px 10px 0 #c7c7c7;
   }
 
   .crud-table__row,
@@ -408,11 +416,16 @@ img {
   }
 
   .crud-table__row {
-    border-bottom: 3px solid #e6e6e6;
+    border: 1px solid #74787c26;
+    box-shadow: 2px 2px 5px 0 #c7c7c752;
   }
 
   .crud-table__row:not(:last-child) {
     margin-bottom: 2rem;
+  }
+
+  .crud-table__body {
+    background: #f9f9f9;
   }
 
   .crud-table__cell-label {
@@ -433,6 +446,7 @@ img {
     width: 3rem;
     padding: 0;
     font-size: 1.6rem;
+    min-width: 50px;
   }
 
   .crud-table-query-builder select,
