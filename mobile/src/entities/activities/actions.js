@@ -14,19 +14,23 @@ export const fetchActivities = createAsyncThunk(
     const token = thunkAPI.getState().auth.currentUser.token;
     const res = await ActivitiesService.getActivities(token);
 
-    if (res.success) {
-      const normalized = normalize(res.activities, [activityEntity]);
-      const { activities } = normalized.entities;
+    if (!res.success) {
+      throw new Error();
+    }
 
+    const normalized = normalize(res.activities, [activityEntity]);
+    const { activities } = normalized.entities;
+
+    if (activities) {
       Object.keys(activities).forEach((key) => {
         activities[key].isLoading = false;
       });
-
-      return {
-        ids: normalized.result,
-        activities,
-      };
     }
+
+    return {
+      ids: normalized.result,
+      activities,
+    };
   }
 );
 

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 import AuthService from './auth.service';
 import ERRORS from '../../constants/errors';
 import REG_EXP from '../../constants/regExp';
@@ -26,6 +27,8 @@ export const checkUserInfo = createAsyncThunk('auth/checkUserInfo', async (arg, 
     });
   }
 
+  await messaging().subscribeToTopic('newActivity');
+  
   return {
     exp: res.exp,
     token: res.token,
@@ -65,6 +68,8 @@ export const loginUser = createAsyncThunk('auth/login', async (arg, thunkAPI) =>
 
   await AsyncStorage.setItem('userToken', res.token);
   await AsyncStorage.setItem('userEmail', res.user.email);
+
+  await messaging().subscribeToTopic('newActivity');
 
   return {
     exp: res.exp,

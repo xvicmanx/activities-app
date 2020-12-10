@@ -6,6 +6,7 @@ const activitiesSlice = createSlice({
   name: 'activities',
   initialState: {
     isLoading: true,
+    refreshing: false,
     ids: [],
     entities: {},
   },
@@ -15,13 +16,19 @@ const activitiesSlice = createSlice({
       .addCase(setLoaderActivity, (state, action) => {
         state.entities[action.payload].isLoading = true;
       })
+      .addCase(fetchActivities.pending, (state, action) => {
+        state.refreshing = true;
+      })
       .addCase(fetchActivities.fulfilled, (state, action) => {
         state.entities = action.payload.activities;
         state.ids = action.payload.ids;
         state.isLoading = false;
+        state.refreshing = false;
       })
-      .addCase(fetchActivities.rejected, (state) => {
+      .addCase(fetchActivities.rejected, (state, action) => {
+        console.log('fetchActivities.rejected', action);
         state.isLoading = false;
+        state.refreshing = false;
       })
       .addCase(joinActivity.fulfilled, (state, action) => {
         const { userWillAttend, willAttendCount } = action.payload;

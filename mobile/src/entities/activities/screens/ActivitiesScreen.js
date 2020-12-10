@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import messaging from '@react-native-firebase/messaging';
 import NoActivity from '../components/NoActivity';
 import Activity from '../components/Activity';
 import Loader from '../../../common/components/Loader';
@@ -10,6 +11,23 @@ const ActivitiesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(({ activities }) => activities.isLoading);
   const list = useSelector(({ activities }) => activities.ids);
+  const refreshing = useSelector(({ activities }) => activities.refreshing);
+
+  useEffect(() => {
+    const onNotificationOpenedAppListener = messaging().onNotificationOpenedApp((data) => {
+      dispatch(fetchActivities());
+      navigation.navigate('ActivitiesScreen');
+    });
+
+    const onMessageListener = messaging().onMessage(() => {
+      dispatch(fetchActivities());
+    });
+
+    return () => {
+      onNotificationOpenedAppListener();
+      onMessageListener();
+    };
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: `Actividades (${list.length})` });
@@ -31,6 +49,10 @@ const ActivitiesScreen = ({ navigation }) => {
     return <View style={styles.ListFooterComponent} />;
   };
 
+  const onRefresh = () => {
+    dispatch(fetchActivities());
+  };
+
   return (
     <View style={styles.container}>
       {list.length === 0 ? (
@@ -41,6 +63,8 @@ const ActivitiesScreen = ({ navigation }) => {
           renderItem={renderItem}
           keyExtractor={(item) => String(item)}
           ListFooterComponent={renderFooter()}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
         />
       )}
     </View>

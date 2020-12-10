@@ -29,7 +29,9 @@ const Activity = ({ activityId }) => {
   };
 
   const seeWhoGoes = () => {
-    navigate('ParticipantsScreen', { activityId });
+    if (activity.willAttendCount !== 0) {
+      navigate('ParticipantsScreen', { activityId });
+    }
   };
 
   const button = activity.userWillAttend ? (
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 0,
     marginTop: 0,
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
   titleContainer: {
     flexDirection: 'row',
