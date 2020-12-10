@@ -67,6 +67,7 @@ npm run build
 - [react-redux](https://ghub.io/react-redux): Official React bindings for Redux
 - [react-router-dom](https://ghub.io/react-router-dom): DOM bindings for React Router
 - [react-scripts](https://ghub.io/react-scripts): Configuration and scripts for Create React App.
+- [react-snapshot](https://ghub.io/react-snapshot): A zero-configuration static pre-renderer for React apps. Starting by targeting Create React App (because it&#39;s great)
 - [react-toastify](https://ghub.io/react-toastify): React notification made easy
 - [redux](https://ghub.io/redux): Predictable state container for JavaScript apps
 - [redux-thunk](https://ghub.io/redux-thunk): Thunk middleware for Redux.
@@ -74,6 +75,7 @@ npm run build
 
 ## Dev Dependencies
 
+- [critical](https://ghub.io/critical): Extract &amp; Inline Critical-path CSS from HTML
 - [enzyme](https://ghub.io/enzyme): JavaScript Testing utilities for React
 - [enzyme-adapter-react-16](https://ghub.io/enzyme-adapter-react-16): JavaScript Testing utilities for React
 - [eslint-config-prettier](https://ghub.io/eslint-config-prettier): Turns off all rules that are unnecessary or might conflict with Prettier.

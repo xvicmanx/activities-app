@@ -1,11 +1,11 @@
-jest.mock('react-dom');
+jest.mock('react-snapshot');
 
-import ReactDOM from 'react-dom';
+import { render } from 'react-snapshot';
 
 import './index.js';
 
 describe('index', () => {
   it('renders the app', () => {
-    expect(ReactDOM.render).toHaveBeenCalledTimes(1);
+    expect(render).toHaveBeenCalledTimes(1);
   });
 });
