@@ -11,7 +11,7 @@ import type { ActivityAttributes } from './model';
 import Activity from './model';
 
 type ActivityListInfo = {
-  id: number,
+  id: string,
   title: string,
   description: string,
   date: Date,
@@ -20,7 +20,7 @@ type ActivityListInfo = {
 };
 
 type ActivityParticipant = {
-  id: number,
+  id: string,
   name: string,
   profileURL: string,
 };
@@ -33,7 +33,7 @@ type ActivitiesResult = {
 };
 
 class ActivitiesService {
-  async getPendingActivities(userId: number): Promise<Array<ActivityListInfo>> {
+  async getPendingActivities(userId: string): Promise<Array<ActivityListInfo>> {
     const user = await User.findOne({
       where: { id: userId },
       include: [{
@@ -51,7 +51,7 @@ class ActivitiesService {
       throwNotFoundError('User not found');
     }
 
-    return user.activities.map((activity) => ({
+    return user.activities.reverse().map((activity) => ({
       id: activity.id,
       title: activity.title,
       description: activity.description,
@@ -70,7 +70,7 @@ class ActivitiesService {
     };
   }
 
-  async getParticipantsList(activityId: number): Promise<Array<ActivityParticipant>> {
+  async getParticipantsList(activityId: string): Promise<Array<ActivityParticipant>> {
     const activity = await Activity.findOne({
       where: { id: activityId },
       include: this.include,
@@ -83,7 +83,7 @@ class ActivitiesService {
     return activity.participants.filter(willAttend);
   }
 
-  async joinActivity(activityId: number, userId: number): Promise<?ActivityListInfo> {
+  async joinActivity(activityId: string, userId: string): Promise<?ActivityListInfo> {
     return this.changeAttendingStatus(
       activityId,
       userId,
@@ -91,7 +91,7 @@ class ActivitiesService {
     );
   }
 
-  async unjoinActivity(activityId: number, userId: number): Promise<?ActivityListInfo> {
+  async unjoinActivity(activityId: string, userId: string): Promise<?ActivityListInfo> {
     return this.changeAttendingStatus(
       activityId,
       userId,
@@ -122,13 +122,13 @@ class ActivitiesService {
     return item.update(data);
   }
 
-  async deleteActivity(id: number): Promise<Activity> {
+  async deleteActivity(id: string): Promise<Activity> {
     const item = await Activity.findByPk(id);
     await item.destroy(id);
     return item;
   }
 
-  async changeAttendingStatus(activityId: number, userId: number, willAttendActivity: boolean): Promise<?ActivityListInfo> {
+  async changeAttendingStatus(activityId: string, userId: string, willAttendActivity: boolean): Promise<?ActivityListInfo> {
     const activity = await Activity.findOne({
       where: { id: activityId },
       include: this.include,

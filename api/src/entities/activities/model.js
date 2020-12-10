@@ -3,7 +3,7 @@
 import Sequelize from 'sequelize';
 
 export type ActivityAttributes = {
-  id?: number;
+  id?: string;
   title: string;
   description: string;
   date: Date;
@@ -14,6 +14,12 @@ class Activity extends Sequelize.Model<ActivityAttributes> {
   static setup(sequelize: Sequelize) {
     return super.init(
       {
+        id: {
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.UUIDV4,
+          allowNull: false,
+          primaryKey: true,
+        },
         title: { type: Sequelize.STRING, required: true },
         description: { type: Sequelize.STRING, required: true },
         date: { type: Sequelize.DATE, required: true },

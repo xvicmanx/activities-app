@@ -69,7 +69,7 @@ class ActivitiesController extends Controller {
     }
 
     response.json({
-      participants: await this.service.getParticipantsList(+params.id),
+      participants: await this.service.getParticipantsList(params.id),
       success: true,
     });
   });
@@ -90,7 +90,7 @@ class ActivitiesController extends Controller {
     }
 
     response.json({
-      activity: await this.service.joinActivity(+params.id, +loggedInUser.id),
+      activity: await this.service.joinActivity(params.id, loggedInUser.id),
       success: true,
     });
   });
@@ -111,7 +111,7 @@ class ActivitiesController extends Controller {
     }
 
     response.json({
-      activity: await this.service.unjoinActivity(+params.id, +loggedInUser.id),
+      activity: await this.service.unjoinActivity(params.id, loggedInUser.id),
       success: true,
     });
   });
@@ -239,7 +239,7 @@ class ActivitiesController extends Controller {
     }
 
     response.json({
-      activity: await this.service.deleteActivity(+request.params.id),
+      activity: await this.service.deleteActivity(request.params.id),
       success: true,
     });
   });

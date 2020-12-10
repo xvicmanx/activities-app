@@ -3,7 +3,8 @@
 import Sequelize from 'sequelize';
 
 export type UserAttributes = {
-  id?: number;
+  id?: string;
+  uuid?: string;
   name: string;
   email: string;
   admin: boolean;
@@ -16,6 +17,17 @@ class User extends Sequelize.Model<UserAttributes> {
   static setup(sequelize: Sequelize) {
     return super.init(
       {
+        id: {
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.UUIDV4,
+          allowNull: false,
+          primaryKey: true,
+        },
+        uuid: {
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.UUIDV4,
+          allowNull: false,
+        },
         name: { type: Sequelize.STRING, required: true },
         email: {
           type: Sequelize.STRING,

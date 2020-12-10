@@ -18,7 +18,7 @@ const getRoutes = () => {
 
   /**
    * @typedef Activity
-   * @property {integer} id
+   * @property {string} id
    * @property {string} title.required
    * @property {string} description
    * @property {string} date.required
@@ -28,7 +28,7 @@ const getRoutes = () => {
 
   /**
    * @typedef ActivityListInfo
-   * @property {integer} id
+   * @property {string} id
    * @property {string} title.required
    * @property {string} description
    * @property {string} date.required
@@ -38,7 +38,7 @@ const getRoutes = () => {
 
   /**
    * @typedef ActivityParticipant
-   * @property {integer} id
+   * @property {string} id
    * @property {string} name
    * @property {string} profileURL
    */
@@ -87,7 +87,7 @@ const getRoutes = () => {
 
   /**
    * @typedef UpdateActivityPayload
-   * @property {integer} id.required
+   * @property {string} id.required
    * @property {string} title.required
    * @property {string} description.required
    * @property {string} date.required

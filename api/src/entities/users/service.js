@@ -58,14 +58,14 @@ class UsersService {
     };
   }
 
-  async findById(id: number): Promise<?User> {
+  async findById(id: string): Promise<?User> {
     return User.findOne({
       where: { id },
       include: this.include,
     });
   }
 
-  async current(id: number): Promise<Object> {
+  async current(id: string): Promise<Object> {
     const user = await User.findOne({
       where: { id },
       include: this.include,
@@ -103,7 +103,7 @@ class UsersService {
   }
 
   async changePassword(
-    id: number,
+    id: string,
     previousPassword: string,
     newPassword: string,
   ): Promise<boolean> {
@@ -125,7 +125,7 @@ class UsersService {
     return true;
   }
 
-  async updateInformation(id: number, data: Object): Promise<boolean> {
+  async updateInformation(id: string, data: Object): Promise<boolean> {
     const user = await User.findOne({
       where: { id },
       include: this.include,
@@ -141,7 +141,7 @@ class UsersService {
     return true;
   }
 
-  async updateProfilePictureURL(id: number, profileURL: Object): Promise<boolean> {
+  async updateProfilePictureURL(id: string, profileURL: Object): Promise<boolean> {
     const user = await User.findOne({
       where: { id },
       include: this.include,
@@ -178,7 +178,7 @@ class UsersService {
     return item.update(data);
   }
 
-  async deleteUser(id: number): Promise<User> {
+  async deleteUser(id: string): Promise<User> {
     const item = await User.findByPk(id);
     await item.destroy(id);
     return item;

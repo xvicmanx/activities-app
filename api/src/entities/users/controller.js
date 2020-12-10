@@ -4,7 +4,6 @@ import type {
   $Request,
   $Response,
 } from 'express';
-import generateHash from 'random-hash';
 
 import Controller from '../../common/controller';
 import ImageUploader from '../../common/image-uploader';
@@ -53,7 +52,7 @@ class UsersController extends Controller {
       return;
     }
 
-    const user = await this.service.findById(+params.id);
+    const user = await this.service.findById(params.id);
 
     if (!user) {
       response.status(404).json({
@@ -191,14 +190,13 @@ class UsersController extends Controller {
       return;
     }
 
-    const hash = generateHash({ length: 16 });
     // $FlowFixMe
     const fileExt = request.file.originalname.split('.').pop();
 
     const profileURL = await ImageUploader.upload(
       // $FlowFixMe
       request.file.buffer,
-      `${loggedInUser.id}-${hash}.${fileExt}`,
+      `${loggedInUser.uuid}.${fileExt}`,
     );
 
     response.json({
@@ -322,7 +320,7 @@ class UsersController extends Controller {
     }
 
     response.json({
-      user: getSafeUser(await this.service.deleteUser(+request.params.id)),
+      user: getSafeUser(await this.service.deleteUser(request.params.id)),
       success: true,
     });
   });

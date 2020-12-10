@@ -19,7 +19,7 @@ const getRoutes = () => {
 
   /**
    * @typedef User
-   * @property {integer} id
+   * @property {string} id
    * @property {string} name.required
    * @property {string} profileURL
    * @property {string} description
@@ -97,7 +97,7 @@ const getRoutes = () => {
 
   /**
    * @typedef UpdateUserPayload
-   * @property {integer} id.required
+   * @property {string} id.required
    * @property {string} title.required
    * @property {string} description.required
    * @property {string} date.required
@@ -205,7 +205,7 @@ const getRoutes = () => {
   * Updates a user
   * @route POST /users/{id}/update
   * @group User - Operations about user
-  * @param {integer} id.path.required - the id of the user
+  * @param {string} id.path.required - the id of the user
   * @param {UpdateUserPayload.model} body.body.required - the update user payload
   * @param {string} authorization.header.required - authorization token header
   * @returns {UpdateUserResponse.model} 200 - update response
@@ -217,7 +217,7 @@ const getRoutes = () => {
   * Deletes a user
   * @route POST /users/{id}/delete
   * @group User - Operations about user
-  * @param {integer} id.path.required - the id of the user
+  * @param {string} id.path.required - the id of the user
   * @param {string} authorization.header.required - authorization token header
   * @returns {DeleteUserResponse.model} 200 - update response
   * @returns {Error}  default - Unexpected error

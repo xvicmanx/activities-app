@@ -18,7 +18,7 @@ const getRoutes = () => {
 
   /**
    * @typedef CommunityMember
-   * @property {integer} id
+   * @property {string} id
    * @property {string} name
    * @property {string} profileURL
    * @property {boolean} coordinates
@@ -26,7 +26,7 @@ const getRoutes = () => {
 
   /**
    * @typedef Community
-   * @property {integer} id
+   * @property {string} id
    * @property {string} name.required
    * @property {string} slogan
    * @property {CommunityMember[]} members
@@ -61,7 +61,7 @@ const getRoutes = () => {
 
   /**
    * @typedef UpdateCommunityPayload
-   * @property {integer} id.required
+   * @property {string} id.required
    * @property {string} title.required
    * @property {string} description.required
    * @property {string} date.required
@@ -131,7 +131,7 @@ const getRoutes = () => {
    * Updates an community
    * @route POST /communities/{id}/update
    * @group Community - Operations about community
-   * @param {integer} id.path.required - the id of the community
+   * @param {string} id.path.required - the id of the community
    * @param {UpdateCommunityPayload.model} body.body.required - the update community payload
    * @param {string} authorization.header.required - authorization token header
    * @returns {UpdateCommunityResponse.model} 200 - update response
@@ -143,7 +143,7 @@ const getRoutes = () => {
    * Deletes an community
    * @route POST /communities/{id}/delete
    * @group Community - Operations about community
-   * @param {integer} id.path.required - the id of the community
+   * @param {string} id.path.required - the id of the community
    * @param {string} authorization.header.required - authorization token header
    * @returns {DeleteCommunityResponse.model} 200 - update response
    * @returns {Error}  default - Unexpected error
@@ -154,7 +154,7 @@ const getRoutes = () => {
    * Adds a member to a communitiy
    * @route POST /communities/{id}/add-member/{memberId}
    * @group Community - Operations about community
-   * @param {integer} id.path.required - the id of the community
+   * @param {string} id.path.required - the id of the community
    * @param {integer} memberId.path.required - the id of the member
    * @param {string} authorization.header.required - authorization token header
    * @returns {AddMemberToCommunityResponse.model} 200 - update response

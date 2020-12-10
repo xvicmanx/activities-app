@@ -160,7 +160,6 @@ export const errorHandler = (fn: Function) => async (req: $Request, res: $Respon
     const result = await fn(req, res);
     return result;
   } catch (err) {
-    
     if (!isTest()) {
       log(err);
     }
