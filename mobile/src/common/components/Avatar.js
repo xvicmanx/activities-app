@@ -22,7 +22,7 @@ const Avatar = ({ size, uri, name, edit }) => {
   };
 
   const avatar =
-    uri === null ? (
+    uri === null || uri === 'http://lorempixel.com/640/480' ? (
       <Image
         onLoad={() => dispatch(setImageLoader(false))}
         source={defaultImage}

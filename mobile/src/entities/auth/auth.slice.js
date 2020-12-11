@@ -23,7 +23,7 @@ const authSlice = createSlice({
         state.network.message = '';
       })
       .addCase(checkUserInfo.rejected, (state, action) => {
-        if (action.payload.net) {
+        if (action?.payload?.net) {
           state.network.error = true;
           state.network.message = ERRORS.network;
         }

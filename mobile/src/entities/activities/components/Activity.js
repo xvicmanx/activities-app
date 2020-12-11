@@ -29,7 +29,9 @@ const Activity = ({ activityId }) => {
   };
 
   const seeWhoGoes = () => {
-    navigate('ParticipantsScreen', { activityId });
+    if (activity.willAttendCount !== 0) {
+      navigate('ParticipantsScreen', { activityId });
+    }
   };
 
   const button = activity.userWillAttend ? (
@@ -63,7 +65,13 @@ const Activity = ({ activityId }) => {
             <Text style={styles.dateText}>{date}</Text>
           </View>
         </View>
+      </View>
 
+      <Card.Divider />
+
+      <Text style={styles.descriptionContainer}>{activity.description}</Text>
+
+      <View style={styles.footer}>
         <TouchableNativeFeedback onPress={seeWhoGoes}>
           <View style={styles.whoGoesContainer}>
             <Text style={styles.whoGoesText}>Ver</Text>
@@ -71,13 +79,9 @@ const Activity = ({ activityId }) => {
             <Text style={styles.whoGoesCounter}>({activity.willAttendCount})</Text>
           </View>
         </TouchableNativeFeedback>
+
+        {button}
       </View>
-
-      <Card.Divider />
-
-      <Text style={styles.descriptionContainer}>{activity.description}</Text>
-
-      <View style={styles.footer}>{button}</View>
     </Card>
   );
 };
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 0,
     marginTop: 0,
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -109,8 +113,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     marginRight: 5,
-    color: '#43484d',
-    fontWeight: 'bold',
+    color: COLORS.text,
     fontSize: 11,
   },
   whoGoesContainer: {
@@ -133,7 +136,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
 });
 

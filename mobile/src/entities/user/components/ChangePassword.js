@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../../../common/components/Input';
-import Button from '../../../common/components/Button';
-import COLORS from '../../../constants/colors';
+import { Button, Input } from '../../../common/components';
+import { COLORS } from '../../../constants';
 import { onChange, updatePassword } from '../actions';
 
 const ChangePassword = () => {

@@ -38,7 +38,7 @@ const loginFormSlice = createSlice({
         }
       })
       .addCase(checkUserInfo.rejected, (state, action) => {
-        if (action.payload.email) {
+        if (action.payload?.email) {
           state.email.value = action.payload.email;
         }
       });

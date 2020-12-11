@@ -1,5 +1,6 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 import UserService from './user.service';
 import ERRORS from '../../constants/errors';
 
@@ -8,6 +9,7 @@ export const setImageLoader = createAction('user/setImageLoader');
 
 export const logOut = createAsyncThunk('user/logOut', async () => {
   await AsyncStorage.removeItem('userToken');
+  await messaging().unsubscribeFromTopic('newActivity');
 });
 
 export const fetUserById = createAsyncThunk('user/fetUserById', async (userId, thunkAPI) => {
