@@ -1,4 +1,4 @@
-import { API } from '@env';
+import { API_REST } from '@env';
 
 const requester = async ({ token, path, method, payload, image }) => {
   let headers = {};
@@ -23,7 +23,7 @@ const requester = async ({ token, path, method, payload, image }) => {
   }
 
   try {
-    const response = await fetch(`${API}${path}`, requestOptions);
+    const response = await fetch(`${API_REST}${path}`, requestOptions);
 
     if (!response.ok) {
       throw new Error(`response.ok = false (status: ${response.status})`);
