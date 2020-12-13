@@ -14,6 +14,7 @@ Object {
         name="id"
         queryable={true}
         sortable={false}
+        tableValueResolver={null}
         type="text"
       />
       <CRUDTable_Field
@@ -25,6 +26,7 @@ Object {
         queryable={true}
         render={[Function]}
         sortable={false}
+        tableValueResolver={null}
         type="text"
       />
       <CRUDTable_Field
@@ -36,6 +38,7 @@ Object {
         placeholder="Nombre"
         queryable={true}
         sortable={false}
+        tableValueResolver={null}
         type="text"
       />
       <CRUDTable_Field
@@ -60,6 +63,7 @@ Object {
       validate={[Function]}
     />,
   ],
+  "fetchItems": null,
   "items": Array [
     Object {
       "id": 1,
