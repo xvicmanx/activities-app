@@ -15,6 +15,7 @@ Object {
         queryable={true}
         readOnly={true}
         sortable={true}
+        tableValueResolver={null}
         type="text"
       />
       <CRUDTable_Field
@@ -38,6 +39,7 @@ Object {
         queryable={true}
         render={[Function]}
         sortable={true}
+        tableValueResolver={null}
         type="text"
       />
     </CRUDTable_Fields>,
@@ -71,6 +73,7 @@ Object {
       totalOfItems={2}
     />,
   ],
+  "fetchItems": null,
   "items": Array [
     Object {
       "id": 1,
@@ -101,6 +104,7 @@ Object {
         queryable={true}
         readOnly={true}
         sortable={true}
+        tableValueResolver={null}
         type="text"
       />
       <CRUDTable_Field
@@ -124,6 +128,7 @@ Object {
         queryable={true}
         render={[Function]}
         sortable={true}
+        tableValueResolver={null}
         type="text"
       />
     </CRUDTable_Fields>,
@@ -157,6 +162,7 @@ Object {
       totalOfItems={2}
     />,
   ],
+  "fetchItems": null,
   "items": Array [
     Object {
       "id": 1,
