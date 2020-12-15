@@ -250,6 +250,16 @@ img {
   font-size: 0.9rem;
 }
 
+.crud-table__select {
+  border-radius: 5px;
+  height: 30px;
+  border: 1px solid #ccc;
+  min-width: 150px;
+  margin-bottom: 1rem;
+  margin-top: .5rem;
+  padding-left: .6rem;
+}
+
 .crud-table__row {
   background: #fff;
 }
@@ -264,6 +274,10 @@ img {
 }
 
 .crud-table__header {}
+
+.crud-table__row--sorter {
+  display: none;
+}
 
 .crud-table__body {
   background-color: #fff;
@@ -289,8 +303,6 @@ img {
   text-align: center;
   font-weight: 600;
 }
-
-
 
 .crud-table-pagination {
   display: block;
@@ -403,9 +415,21 @@ img {
     border-bottom: 1px solid #e6e6e6;
   }
 
-  .crud-table__header,
-  .crud-table__header-cell {
+  .crud-table__row--fields {
     display: none;
+  }
+
+  .crud-table__row--sorter {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .crud-table__row--sorter .crud-table__select {
+    width: 100%;
+  }
+
+  .crud-table__row--sorter .crud-table__header-cell {
+    background-color: #fff;
   }
 
   .crud-table__cell {
